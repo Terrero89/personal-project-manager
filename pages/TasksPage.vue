@@ -1,0 +1,17 @@
+<template>
+<div>
+<h3>
+    FILTER SECTION WHERE WILL FILTER TASKS BY PROJECT TYPE
+</h3>
+<h3>
+    FILTER SECTION WHERE WILL FILTER TASKS BY AUTHOR
+</h3>
+
+<h3>
+    DISPLAY ALL TASKS
+</h3>
+
+</div>
+
+
+</template>

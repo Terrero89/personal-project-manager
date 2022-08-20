@@ -1,0 +1,4 @@
+<template>
+  <UINavbar />
+  <slot />
+</template>
