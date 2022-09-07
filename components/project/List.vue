@@ -1,28 +1,32 @@
 <script setup>
-import projects from "@/data.json";
 
-const dataList = [...projects];
+
+// const dataList = [...projects];
+import { useTest } from "@/store/test";
+
+const store = useTest();
+const route = useRoute(); //route object
+const { projectList } = store;
+
+
 </script>
 
 <template>
   <div class="projects">
     <div class="container wrapper">
       <div class="row">
-        <div class="col-lg-6 col-md-8">
+        <div class="col-lg-12">
           <ProjectListItem
-            v-for="project in dataList"
+            v-for="project in projectList"
             :key="project.id"
             :id="project.id"
             :project="project.projectName"
             :description="project.projectDescription"
-            :task-number="project.tasks.length"
             :status="project.isComplete"
-            :user="project.user"
           />
-       
         </div>
-
-        <div class="col-lg-6 col-md-4">
+      <div>action section here</div>
+        <!-- <div class="col-lg-12">
           <div class="actions-section">
             <h3>Actions Section</h3>
             <div class="actions">
@@ -34,7 +38,7 @@ const dataList = [...projects];
               <p>Date: 7/7/22</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -64,13 +68,14 @@ const dataList = [...projects];
 }
 
 .wrapper {
-  border: solid rgb(0, 81, 255) 1px;
+  border: solid rgb(220, 220, 220) 1px;
+  background-color: rgb(247, 247, 247);
   padding: 2rem;
   margin: 0 auto;
 }
 
 .actions {
-  border: solid red 1px;
+  border: solid rgb(179, 179, 179) 1px;
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;

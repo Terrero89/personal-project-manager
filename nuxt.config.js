@@ -1,7 +1,8 @@
 import { defineNuxtConfig } from "nuxt";
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  // modules: ['@pinia/nuxt'],
+ 
   meta: {
     link: [
       {
@@ -10,12 +11,13 @@ export default defineNuxtConfig({
       },
     ],
 
+    
+
     script: [
       {
         src: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
       },
     ],
   },
-
-
+  buildModules: ['@pinia/nuxt'],
 });

@@ -1,4 +1,12 @@
 <script setup>
+import { useTest } from "@/store/test";
+import { storeToRefs } from "pinia";
+const store = useTest();
+const route = useRoute(); //route object
+const param = ref(route.params.projectId);
+
+const { projectList } = storeToRefs(store);
+
 const props = defineProps([
   "id",
   "project",
@@ -11,10 +19,11 @@ const props = defineProps([
 const isComplete = ref(true);
 
 const currStatus = computed(() => {
-  if(props.status === "true")
-   {return 'btn-success'}
-   if(props.status == "false"){
-    return "btn-warning"}
+  if (props.status) {
+    return "btn-success";
+  } else {
+    return "btn-warning";
+  }
 });
 
 const detailsLink = computed(() => {
@@ -24,56 +33,22 @@ const detailsLink = computed(() => {
 
 <template>
   <div>
-
+    
     <div class="project-item">
-      <p>id: {{ props.id }}</p>
+     
       <h2>{{ props.project }}</h2>
-      <p>Description: {{ props.description }}</p>
-      <p>Tasks: {{ props.taskNumber }}</p>
 
       <div class="button-status">
-        <button
-          type="button"
-          class="btn"
-          :class="currStatus">
-          {{ props.status === "true" ? 'Complete' : 'In Progress' }}
-        </button>
-
         <nuxt-link :to="detailsLink"
-          ><button type="button" class="btn-sm btn btn-outline-primary mr">
+          ><button type="button" class="btn-md btn btn-outline-primary mr">
             Details
-          </button></nuxt-link
+          </button> </nuxt-link
         >
-
-        <div class="button-updates">
-          <button type="button" class="btn-sm btn btn-primary">Update</button>
-          <button type="button" class="btn-sm btn btn-danger">X</button>
-        </div>
       </div>
+      <div class="status" :class="currStatus"></div>
     </div>
-    <!-- <div class="project-item">
-      <p>id: 2</p>
-      <h2>Project: Python Game</h2>
-      <p>
-        Project description: Lorem ipsum dolor sit amet. Lorem, ipsum dolor sit
-        amet consectetur adipisicing.
-      </p>
-      <p>Tasks: 2</p>
 
-      <div class="button-status">
-        <button type="button" class="btn-sm btn btn-warning">
-          In Progress
-        </button>
-
-        <button type="button" class="btn-sm btn btn-outline-primary mr">
-          Details
-        </button>
-        <div class="button-updates">
-          <button type="button" class="btn-sm btn btn-primary">Update</button>
-          <button type="button" class="btn-sm btn btn-danger">X</button>
-        </div>
-      </div>
-    </div> -->
+    
   </div>
 </template>
 
@@ -86,10 +61,31 @@ const detailsLink = computed(() => {
   justify-content: center;
 }
 .project-item {
-  border: solid red 1px;
-  border-radius: 0.5rem;
+  position: relative;
+  border: solid rgb(218, 214, 214) 1px;
+  background-color: rgb(255, 255, 255); /*color for background item */
+  /* border-radius: 0.5rem; */
   padding: 1rem;
   margin: 0.5rem 0;
+  display: flex;
+  overflow: hidden;
+}
+
+.project-item h2{
+margin:0 2%
+}
+
+.status {
+  position: absolute;
+  /* bottom: 0; */
+  width: 1%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.project-item h2 {
+  margin-right: auto;
 }
 .button-status {
   display: flex;
@@ -107,14 +103,15 @@ const detailsLink = computed(() => {
 }
 
 .actions {
-  border: solid red 1px;
+  border: solid rgb(191, 191, 191) 1px;
+  
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
   margin: 0.5rem 0;
 }
 .actions-section {
-  border: solid rgb(0, 0, 0) 1px;
+  border: solid rgb(212, 212, 212) 1px;
 
   padding: 1rem;
 
