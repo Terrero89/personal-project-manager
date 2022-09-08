@@ -13,7 +13,11 @@ const { projectList } = store;
 
 <template>
   <div class="projects">
+  
     <div class="container wrapper">
+      <UITitle title="Projects"/>
+
+      <!-- search bar, filter by project type, etc.. goes here. -->
       <div class="row">
         <div class="col-lg-12">
           <ProjectListItem
@@ -68,9 +72,9 @@ const { projectList } = store;
 }
 
 .wrapper {
-  border: solid rgb(220, 220, 220) 1px;
-  background-color: rgb(247, 247, 247);
-  padding: 2rem;
+  /* border: solid rgb(220, 220, 220) 1px;
+  background-color: rgb(247, 247, 247); */
+  /* padding: 2rem; */
   margin: 0 auto;
 }
 

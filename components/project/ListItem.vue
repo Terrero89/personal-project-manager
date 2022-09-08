@@ -34,6 +34,10 @@ const detailsLink = computed(() => {
 <template>
   <div>
     
+
+
+
+
     <div class="project-item">
      
       <h2>{{ props.project }}</h2>

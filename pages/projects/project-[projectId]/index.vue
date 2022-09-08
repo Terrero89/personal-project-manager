@@ -4,26 +4,33 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
-const { taskList, projectList, findTaskById } = store;
-
-const updateLink = computed(() => {
-  //link to route to params/update to update project.
-  return `project-${param}/update`;
-});
-const f = store.findTaskById(); // mutated merged with
+const { tasks, projects} = storeToRefs(store);
+const {findTaskById, getProjectById, projectList, taskList } = store;
 
 
+//link to route to params/update to update project.
+const updateLink = computed(() =>  `project-${param}/update`);
+  
+ //link to route to params/update to update project.
+const tasksLink = computed(() =>  `project-${param}/tasks`);
 
+const comp = (id) => {
+  // id = param
+  return  projectList.filter((p) => p.id == param);
+};
+const man = comp(param)
+
+
+const comp2 = comp()
+//! finds parent for specfic task
 const findParent = taskList.filter((task) => task.parentId == param);
 </script>
 
 <template>
   <div class="project">
-    <!-- <h3>Project Details</h3> -->
-
     <div class="project-detail">
-      <div v-for="project in projectList" :key="project.id">
-        <div v-if="project.id == param">
+      <div v-for="project in man" :key="project.id">
+        <!-- <div v-if="project.id == param"> -->
           <h1 class="project-title">{{ project.projectName }}</h1>
           <h2 class="project-description">{{ project.projectDescription }}</h2>
           <h2 class="project-start">
@@ -43,16 +50,15 @@ const findParent = taskList.filter((task) => task.parentId == param);
             <h4>
               Tasks number: <span>{{ findParent.length }}</span>
             </h4>
-            <nuxt-link :to="`project-${param}/tasks`">See tasks</nuxt-link>
+            <nuxt-link :to="tasksLink">See tasks</nuxt-link>
           </div>
           <button type="button" class="btn btn-danger">Delete</button>
           <button type="button" class="btn btn-outline-primary">
             <nuxt-link :to="updateLink"> Update</nuxt-link>
           </button>
-         
+
           <p>array {{ findParent }}</p>
-          <p>array {{ f}}</p>
-         
+  
 
           <h2 class="project-user">
             user: <span>{{ project.user }}</span>
@@ -74,7 +80,7 @@ const findParent = taskList.filter((task) => task.parentId == param);
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
