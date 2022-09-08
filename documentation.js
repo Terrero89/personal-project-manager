@@ -10,3 +10,7 @@
 // --- created all task list page -> project/project-[]/tasks
 //todo: next--->>>>
 // --- style taskList page page, and set up specific detail page for tasks.
+//styling started on project detail page on project detail page
+// fixed filtering projects in loop fixed tasks
+
+//!09/08/2022 

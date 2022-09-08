@@ -4,95 +4,136 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
-const { tasks, projects} = storeToRefs(store);
-const {findTaskById, getProjectById, projectList, taskList } = store;
-
+const { tasks, projects } = storeToRefs(store);
+const { findTaskById, getProjectById, projectList, taskList } = store;
 
 //link to route to params/update to update project.
-const updateLink = computed(() =>  `project-${param}/update`);
-  
- //link to route to params/update to update project.
-const tasksLink = computed(() =>  `project-${param}/tasks`);
+const updateLink = computed(() => `project-${param}/update`);
+
+//link to route to params/update to update project.
+const tasksLink = computed(() => `project-${param}/tasks`);
 
 const comp = (id) => {
   // id = param
-  return  projectList.filter((p) => p.id == param);
+  return projectList.filter((p) => p.id == param);
 };
-const man = comp(param)
+const man = comp(param);
 
-
-const comp2 = comp()
+const comp2 = comp();
 //! finds parent for specfic task
 const findParent = taskList.filter((task) => task.parentId == param);
 </script>
 
 <template>
-  <div class="project">
-    <div class="project-detail">
+  <div class="project  table-responsive">
+    <table class="table">
+      <tr>
+        <th>Id</th>
+        <th>User</th>
+        <th>Project</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Age</th>
+        <th>Duration</th>
+        <th># of tasks</th>
+        <th>Status</th>
+        
+      </tr>
+
+      <tr v-for="project in man" :key="project.id">
+        <td>{{ project.id }}</td>
+        <td>{{ project.user }}</td>
+        <td>{{ project.projectName }}</td>
+        <td>{{ project.projectDescription }}</td>
+        <td>{{ project.startDate }}</td>
+        <td>{{ project.endDate }}</td>
+        <td>{{ project.projectAge }} days</td>
+        <td>{{ project.totalDuration }} hrs</td>
+        <td>{{findParent.length}}</td>
+        <td v-if="project.isComplete">Complete</td>
+        
+        <td v-if="!project.isComplete">In Progress</td>
+        <td > <nuxt-link :to="tasksLink">All Tasks</nuxt-link></td>
+      </tr>
+    </table>
+    <!-- <div class="project-detail">
       <div v-for="project in man" :key="project.id">
-        <!-- <div v-if="project.id == param"> -->
-          <h1 class="project-title">{{ project.projectName }}</h1>
-          <h2 class="project-description">{{ project.projectDescription }}</h2>
-          <h2 class="project-start">
-            <span>Start Date:</span> {{ project.startDate }}
-          </h2>
-          <h2 class="project-end">
-            <span>End Date:</span> {{ project.endDate }}
-          </h2>
-          <h2 class="project-age">
-            <span>Age:</span> {{ project.projectAge }} <span>days old</span>
-          </h2>
-          <h2 class="project-duration">
-            <span>Duration:</span> {{ project.totalDuration }} hours
-          </h2>
+        <h1 class="project-title">{{ project.projectName }}</h1>
+        <h2 class="project-description">{{ project.projectDescription }}</h2>
+        <h2 class="project-start">
+          <span>Start Date:</span> {{ project.startDate }}
+        </h2>
+        <h2 class="project-end">
+          <span>End Date:</span> {{ project.endDate }}
+        </h2>
+        <h2 class="project-age">
+          <span>Age:</span> {{ project.projectAge }} <span>days old</span>
+        </h2>
+        <h2 class="project-duration">
+          <span>Duration:</span> {{ project.totalDuration }} hours
+        </h2>
 
-          <div class="project-tasks">
-            <h4>
-              Tasks number: <span>{{ findParent.length }}</span>
-            </h4>
-            <nuxt-link :to="tasksLink">See tasks</nuxt-link>
-          </div>
-          <button type="button" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-outline-primary">
-            <nuxt-link :to="updateLink"> Update</nuxt-link>
-          </button>
+        <div class="project-tasks">
+          <h4>
+            Tasks number: <span>{{ findParent.length }}</span>
+          </h4>
+          <nuxt-link :to="tasksLink">See tasks</nuxt-link>
+        </div>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-outline-primary">
+          <nuxt-link :to="updateLink"> Update</nuxt-link>
+        </button>
 
-          <p>array {{ findParent }}</p>
-  
+        <p>array {{ findParent }}</p>
 
-          <h2 class="project-user">
-            user: <span>{{ project.user }}</span>
-          </h2>
+        <h2 class="project-user">
+          user: <span>{{ project.user }}</span>
+        </h2>
 
-          <div
-            class="project-status"
-            :class="{ success: project.isComplete }"
-            v-if="project.isComplete"
-          >
-            Complete
-          </div>
-          <div
-            class="project-status"
-            :class="{ progress: !project.isComplete }"
-            v-if="!project.isComplete"
-          >
-            In Progress
-          </div>
+        <div
+          class="project-status"
+          :class="{ success: project.isComplete }"
+          v-if="project.isComplete"
+        >
+          Complete
+        </div>
+        <div
+          class="project-status"
+          :class="{ progress: !project.isComplete }"
+          v-if="!project.isComplete"
+        >
+          In Progress
         </div>
       </div>
-    <!-- </div> -->
+    </div> -->
   </div>
 </template>
 
 <style scoped>
-.project {
-  display: flex;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  /* border: 1px solid #ddd; */
+}
 
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  font-size:1.2rem }
+
+.project {
+  /* overflow-x: hidden; */
+  display: flex;
+  background-color: white;
   margin: 5rem auto;
-  max-width: 800px;
+  max-width: 1400px;
   border: solid rgb(194, 194, 194) 1px;
   padding: 2rem;
-  border-radius: 10px;
+
+  /* border-radius: 10px; */
 }
 .progress {
   background-color: rgb(183, 219, 3);
