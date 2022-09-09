@@ -4,109 +4,77 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
-const { tasks, projects } = storeToRefs(store);
+const { tasks, projects, convertToObj } = storeToRefs(store);
 const { findTaskById, getProjectById, projectList, taskList } = store;
 
-//link to route to params/update to update project.
+//link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${param}/update`);
 
-//link to route to params/update to update project.
+//link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
 
-const comp = (id) => {
-  // id = param
-  return projectList.filter((p) => p.id == param);
-};
-const man = comp(param);
+//extracted getter projectList that receives argument
+//we will evaluate it if argument is equal to param
+//returned the array of the element equal to param
+const filterProjectById = (id) => projectList.filter((p) => p.id == param);
+//created a variable to be able to use the filteredProject
+//to be able to receive argument {param}
+//then used the variable with the id that match
+const filteredProject = filterProjectById(param);
 
-const comp2 = comp();
-//! finds parent for specfic task
+// extracts array Tasks from pinia to filter
+// the tasks that have a parentId that matches
+//project id.
 const findParent = taskList.filter((task) => task.parentId == param);
+
+const titles = ["user", "date", "description"];
 </script>
 
 <template>
-  <div class="project  table-responsive">
-    <table class="table">
-      <tr>
-        <th>Id</th>
-        <th>User</th>
-        <th>Project</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Age</th>
-        <th>Duration</th>
-        <th># of tasks</th>
-        <th>Status</th>
-        
-      </tr>
+  <div class="wrapper">
+    <div class="project table-responsive">
+      <UITitle title="Project Details" />
 
-      <tr v-for="project in man" :key="project.id">
-        <td>{{ project.id }}</td>
-        <td>{{ project.user }}</td>
-        <td>{{ project.projectName }}</td>
-        <td>{{ project.projectDescription }}</td>
-        <td>{{ project.startDate }}</td>
-        <td>{{ project.endDate }}</td>
-        <td>{{ project.projectAge }} days</td>
-        <td>{{ project.totalDuration }} hrs</td>
-        <td>{{findParent.length}}</td>
-        <td v-if="project.isComplete">Complete</td>
-        
-        <td v-if="!project.isComplete">In Progress</td>
-        <td > <nuxt-link :to="tasksLink">All Tasks</nuxt-link></td>
-      </tr>
-    </table>
-    <!-- <div class="project-detail">
-      <div v-for="project in man" :key="project.id">
-        <h1 class="project-title">{{ project.projectName }}</h1>
-        <h2 class="project-description">{{ project.projectDescription }}</h2>
-        <h2 class="project-start">
-          <span>Start Date:</span> {{ project.startDate }}
-        </h2>
-        <h2 class="project-end">
-          <span>End Date:</span> {{ project.endDate }}
-        </h2>
-        <h2 class="project-age">
-          <span>Age:</span> {{ project.projectAge }} <span>days old</span>
-        </h2>
-        <h2 class="project-duration">
-          <span>Duration:</span> {{ project.totalDuration }} hours
-        </h2>
+      <table class="table">
+        <tbody>
+          <tr class="table-header">
+            <th>Id</th>
+            <th>User</th>
+            <th>Project</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Age</th>
+            <th>Duration</th>
+            <th>tasks #</th>
+            <th>Status</th>
+            <th>Tasks</th>
+          </tr>
 
-        <div class="project-tasks">
-          <h4>
-            Tasks number: <span>{{ findParent.length }}</span>
-          </h4>
-          <nuxt-link :to="tasksLink">See tasks</nuxt-link>
-        </div>
-        <button type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-outline-primary">
-          <nuxt-link :to="updateLink"> Update</nuxt-link>
-        </button>
+          <tr
+            style="margin: auto 0"
+            class="table-content"
+            v-for="project in filteredProject"
+            :key="project.id"
+          >
+            <td>{{ project.id }}</td>
+            <td>{{ project.user }}</td>
+            <td>{{ project.projectName }}</td>
+            <td>{{ project.projectDescription }}</td>
+            <td>{{ project.startDate }}</td>
+            <td>{{ project.endDate }}</td>
+            <td>{{ project.projectAge }} days</td>
+            <td>{{ project.totalDuration }} hrs</td>
+            <td>{{ findParent.length }} Tasks</td>
+            <td v-if="project.isComplete">Complete</td>
+            <td v-if="!project.isComplete">In Progress</td>
+            <td><Nuxt-link :to="tasksLink">All Tasks</Nuxt-link></td>
+          </tr>
+        </tbody>
+      </table>
 
-        <p>array {{ findParent }}</p>
-
-        <h2 class="project-user">
-          user: <span>{{ project.user }}</span>
-        </h2>
-
-        <div
-          class="project-status"
-          :class="{ success: project.isComplete }"
-          v-if="project.isComplete"
-        >
-          Complete
-        </div>
-        <div
-          class="project-status"
-          :class="{ progress: !project.isComplete }"
-          v-if="!project.isComplete"
-        >
-          In Progress
-        </div>
-      </div>
-    </div> -->
+      <UITable :titles="titles" :content="projects" />
+    </div>
   </div>
 </template>
 
@@ -121,16 +89,42 @@ table {
 th,
 td {
   text-align: left;
-  padding: 8px;
-  font-size:1.2rem }
+  padding: 0.7rem 1rem;
+  font-size: 1.2rem;
+}
 
+.table-header {
+  padding: auto;
+  background-color: rgb(169, 188, 201);
+  border: solid rgb(159, 159, 159) 1px;
+}
+
+.table-header th {
+  font-size: 1.2rem;
+  border-right: solid rgb(159, 159, 159) 1px;
+}
+.table-content {
+  /* padding:2rem; */
+  /* background-color: rgb(74, 159, 149); */
+
+  color: rgb(84, 84, 84);
+  border: solid rgb(159, 159, 159) 0.5px;
+  text-align: center;
+}
+.table-content td {
+  /* padding:2rem; */
+  /* background-color: rgb(74, 159, 149); */
+  padding: 0 auto;
+  color: rgb(84, 84, 84);
+  border: solid rgb(159, 159, 159) 0.5px;
+}
 .project {
   /* overflow-x: hidden; */
-  display: flex;
-  background-color: white;
-  margin: 5rem auto;
-  max-width: 1400px;
-  border: solid rgb(194, 194, 194) 1px;
+  /* display: flex; */
+  /* background-color: white; */
+  margin: 0 auto;
+  max-width: 1500px;
+  /* border: solid rgb(194, 194, 194) 1px; */
   padding: 2rem;
 
   /* border-radius: 10px; */

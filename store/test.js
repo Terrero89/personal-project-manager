@@ -9,7 +9,8 @@ export const useTest = defineStore({
 
   state: () => ({
 
-
+    actions:[],
+    
     projects: [{
         id: 1,
         user: "Sergio",
@@ -49,22 +50,93 @@ export const useTest = defineStore({
     tasks: [{
         id: 1,
         parentId: 1,
-        taskName: "Nvbar fix"
+        taskName: "Navbar fix",
+        description: 'This task was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
       },
       {
         id: 2,
         parentId: 1,
-        taskName: "Testimonial Section"
+        taskName: "Testimonial Section",
+        description: 'The purpose of this task is...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
       },
       {
         id: 3,
         parentId: 2,
-        taskName: "About content"
+        taskName: "About content",
+        description: 'About content was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
       },
       {
         id: 4,
         parentId: 3,
-        taskName: "About content"
+        taskName: "Hero Section",
+        description: 'Hero Section was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
+      },
+
+      {
+        id: 5,
+        parentId: 2,
+        taskName: "Hero Section",
+        description: 'Hero Section was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
+      },
+      {
+        id: 6,
+        parentId: 3,
+        taskName: "Hero Section",
+        description: 'Hero Section was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
+      },
+
+      {
+        id: 7,
+        parentId: 3,
+        taskName: "Hero Section",
+        description: 'Hero Section was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
+      },
+
+      {
+        id: 8,
+        parentId: 1,
+        taskName: "Hero Section",
+        description: 'Hero Section was done to...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age:14,
+        duration: 4,
+        isComplete: true,
       },
     ],
 
@@ -84,7 +156,9 @@ export const useTest = defineStore({
 //todo:will find the project by id to be rende it in the details page
     getProjectById: (state) => {
       return (projectId) => state.projects.filter((project) => project.id === projectId)
-    }
+    },
+
+  
  
   },
   actions: {

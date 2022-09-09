@@ -16,6 +16,8 @@ const { projectList } = store;
   
     <div class="container wrapper">
       <UITitle title="Projects"/>
+   <div>   search bar</div>
+      latest actions - filterBy - sea - 
 
       <!-- search bar, filter by project type, etc.. goes here. -->
       <div class="row">
@@ -30,7 +32,7 @@ const { projectList } = store;
           />
         </div>
       <div>action section here</div>
-        <!-- <div class="col-lg-12">
+        <div class="col-lg-12">
           <div class="actions-section">
             <h3>Actions Section</h3>
             <div class="actions">
@@ -42,7 +44,7 @@ const { projectList } = store;
               <p>Date: 7/7/22</p>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

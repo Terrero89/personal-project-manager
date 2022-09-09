@@ -41,4 +41,7 @@
 .ml-auto {
   margin-left: auto;
 }
+nav {
+  height: 5rem
+}
 </style>
