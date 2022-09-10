@@ -153,7 +153,7 @@ export const useTest = defineStore({
       const parentId = (id) =>  state.projects.filter((project) => project.id === id ) //? find parent id by project id's
       return (taskId) => this.taskList.filter((task) => taskId === task.parentId) //? accepts arg and filter tasksList by project id === parentId.
     },
-//todo:will find the project by id to be rende it in the details page
+//todo:will find the project by id to be render it in the details page
     getProjectById: (state) => {
       return (projectId) => state.projects.filter((project) => project.id === projectId)
     },
