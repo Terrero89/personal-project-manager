@@ -13,7 +13,7 @@ export const useTest = defineStore({
     
     projects: [{
         id: 1,
-        user: "Sergio",
+        user: "Sergioxx",
         projectName: "Web Development",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
@@ -25,7 +25,7 @@ export const useTest = defineStore({
       {
         id: 2,
         user: "Sergioo",
-        projectName: "Python ",
+        projectName: "Python Authentication",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -72,7 +72,7 @@ export const useTest = defineStore({
       {
         id: 3,
         parentId: 2,
-        taskName: "About content",
+        taskName: "About contentt",
         description: 'About content was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -95,7 +95,7 @@ export const useTest = defineStore({
       {
         id: 5,
         parentId: 2,
-        taskName: "Hero Section",
+        taskName: "Bug fixing",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -106,7 +106,7 @@ export const useTest = defineStore({
       {
         id: 6,
         parentId: 3,
-        taskName: "Hero Section",
+        taskName: "Testimonials section",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -118,7 +118,7 @@ export const useTest = defineStore({
       {
         id: 7,
         parentId: 3,
-        taskName: "Hero Section",
+        taskName: "Search feature",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -146,22 +146,24 @@ export const useTest = defineStore({
 
     projectList: state => state.projects,
     taskList: state => state.tasks,
-
+    filterProjectById: state => (id) => state.projects.filter((p) => p.id),
     //todo: getter that will find list of tasks for specific project id
     findTaskById(state) {
       //project will find project by id
-      const parentId = (id) =>  state.projects.filter((project) => project.id === id ) //? find parent id by project id's
-      return (taskId) => this.taskList.filter((task) => taskId === task.parentId) //? accepts arg and filter tasksList by project id === parentId.
+      // const parentId = (id) =>  state.projects.filter((project) => project.id === id ) //? find parent id by project id's
+      return taskId => this.taskList.find((task) => taskId === task.parentId) //? accepts arg and filter tasksList by project id === parentId.
     },
-//todo:will find the project by id to be render it in the details page
-    getProjectById: (state) => {
-      return (projectId) => state.projects.filter((project) => project.id === projectId)
+//todo:will find the id of the projects and will
+//todo: return the tasks under parent id
+    tasksUnderProject: (state) => {
+      // const item = state.projects.filter((pro) => pro.id)
+      return id => state.tasks.filter((task) => task.parentId === id)
     },
 
   
  
   },
   actions: {
-
+ 
   }
 })

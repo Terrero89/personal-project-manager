@@ -1,22 +1,32 @@
 <script setup>
 import { useTest } from "@/store/test";
-
+import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-const param = route.params.projectId;
-const { taskList, projectList, getProjectById } = store;
+const {projects,tasks} = storeToRefs(store);
+const param = route.params.projectId; //param route for project
+const foundTasks = computed(()=> store.tasksUnderProject) ;//
+const intParam = parseInt(param)
 //to fix later
-const tasksOfParents = taskList.filter((task) => task.parentId == param);
-const getParent = projectList.filter((p) => p.id == param);
+// const tasksOfParents = taskList.filter((task) => task.parentId == param);
+const getParent = store.projects.filter((p) => p.id == param);
+
+
+
+ 
+
+//correct way to extract getter that receive arg
+// const d = getProjectById;
 </script>
 <template>
   <div class="tasks-wrapper">
-    <div class="task-list">
+    <div class="task-list table-responsive">
       <UITitle title="Tasks " />
       <div>add task feature</div>
       <div>search bar</div>
       <div>filtering</div>
       back to parent-
+      <!-- {{foundTasks(intParam)}}  -->
 
       <h3
         style="color: black; font-size: size 1.5rem"
@@ -39,21 +49,19 @@ const getParent = projectList.filter((p) => p.id == param);
         </thead>
 
         <tbody>
-          <tr class="breaker">
-            <td></td>
-          </tr>
           <tr
             class="table-content"
-            v-for="task in tasksOfParents"
+            v-for="task in foundTasks(intParam)"
             :key="task.id"
           >
+         
             <td>{{ task.id }}</td>
-
             <td>{{ task.taskName }}</td>
-
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
             <td>details</td>
+            <td>.</td>
+            <td>.</td>
           </tr>
         </tbody>
       </table>
@@ -78,36 +86,30 @@ table {
 
 th,
 td {
-  text-align: left;
-  padding: 0.7rem 1rem;
+  padding: 1.6rem 1rem;
   font-size: 1.2rem;
+}
+td {
+  padding: 2rem 1rem;
+  font-size: 1.3rem;
 }
 
 .table-header {
-  padding: auto;
-  background-color: rgb(169, 188, 201);
-  border: solid rgb(159, 159, 159) 1px;
+  border: solid rgb(187, 187, 187) 1px;
+  color: rgb(63, 63, 63);
+  text-transform: uppercase;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(100, 100, 255, 1) 0%,
+    rgba(42, 168, 194, 0.4) 0%
+  );
 }
 
-.table-header th {
-  font-size: 1.2rem;
-  border-right: solid rgb(159, 159, 159) 1px;
-}
 .table-content {
   color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
-  text-align: center;
-}
-.table-content td {
-  /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
-  padding: 0 auto;
-  color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
-}
-.table-content {
-  /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
+  padding: 2rem;
   background-color: white;
 }
 </style>

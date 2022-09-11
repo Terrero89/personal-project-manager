@@ -16,7 +16,7 @@ const props = defineProps([
   "status",
 ]);
 
-const isComplete = ref(true);
+
 
 const currStatus = computed(() => {
   if (props.status) {
