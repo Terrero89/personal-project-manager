@@ -30,6 +30,7 @@ const { projectList } = store;
             :description="project.projectDescription"
             :status="project.isComplete"
           />
+          
         </div>
       <div>action section here</div>
         <div class="col-lg-12">

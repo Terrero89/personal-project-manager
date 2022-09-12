@@ -1,12 +1,12 @@
 <script setup>
 import { useTest } from "@/store/test";
-import { storeToRefs } from "pinia";
+
 const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
 const intParam = parseInt(param);
-const { tasks, projects } = storeToRefs(store);
-const { projectList, taskList } = store;
+
+const { taskList } = store;
 
 //link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${param}/update`);
@@ -17,21 +17,12 @@ const tasksLink = computed(() => `project-${param}/tasks`);
 //extracted getter projectList that receives argument
 //we will evaluate it if argument is equal to param
 //returned the array of the element equal to param
-const projectsById = computed(() => store.filterProjectById); //
-
-// const filterProjectById = (id) => projectList.filter((p) => p.id == param);
-//created a variable to be able to use the filteredProject
-//to be able to receive argument {param}
-//then used the variable with the id that match
-// const filteredProject = filterProjectById(param);
-const foundProject = computed(() => store.filterProjectById); //
+const projectById = computed(() => store.tasksUnderProject); //
 
 // extracts array Tasks from pinia to filter
-// the tasks that have a parentId that matches
-//project id.
-const findParentChild = taskList.filter((task) => task.parentId == param);
+// the tasks that have a parentId that matches project id.
 
-const titles = ["user", "date", "description"];
+const findParentChild = taskList.filter((task) => task.parentId == param);
 </script>
 
 <template>
@@ -43,9 +34,7 @@ const titles = ["user", "date", "description"];
 
       back to project-
 
-      <h3 v-for="parent in foundProject(intParam)" :key="parent.id">
-       
-      </h3>
+      <h3 v-for="parent in projectById(intParam)" :key="parent.id"></h3>
       <table class="table">
         <thead>
           <tr class="table-header">
@@ -67,7 +56,7 @@ const titles = ["user", "date", "description"];
         <tbody>
           <tr
             class="table-content"
-            v-for="project in foundProject(intParam)"
+            v-for="project in projectById(intParam)"
             :key="project.id"
           >
             <td>{{ project.id }}</td>
@@ -95,12 +84,10 @@ const titles = ["user", "date", "description"];
 .project {
   margin: 0 auto;
   max-width: 1500px;
-
-  /* border-radius: 10px; */
 }
 table {
-  /* border-collapse: collapse;
-  border-spacing: 0; */
+  border-collapse: collapse;
+  border-spacing: 0;
   width: 100%;
 }
 

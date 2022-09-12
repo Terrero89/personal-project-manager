@@ -13,4 +13,6 @@
 //styling started on project detail page on project detail page
 // fixed filtering projects in loop fixed tasks
 
-//!09/08/2022 
+//!09/11/2022 
+//----check for bug when filtering foundTasks
+//---fix project[]/tasks/task[]

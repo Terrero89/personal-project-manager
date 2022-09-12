@@ -1,4 +1,3 @@
-//should sow all task for one project
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
@@ -8,30 +7,19 @@ const { projects, tasks } = storeToRefs(store);
 const param = route.params.projectId; //param route for project
 const foundTasks = computed(() => store.tasksUnderProject); //
 const intParam = parseInt(param);
-const taskParam = route.params.detail;
-
-// const tasksOfParents = taskList.filter((task) => task.parentId == param);
 const getParent = store.projects.filter((p) => p.id == param);
 const goBackButton = computed(() => `/projects/project-${param}`);
+const taskDetailLink = computed(
+  () => `/projects/project-${param}/tasks/task-${1}`
+);
+const detailsLink = computed(() => {
+  return `/projects/project-${param}/tasks/task-${props.id}`;
+});
+const props = defineProps(["id", "task", "status"]);
 </script>
 <template>
   <div class="tasks-wrapper">
     <div class="task-list table-responsive">
-      <table class="table"></table>
-      <UITitle title="Tasks " />
-      <div>add task feature</div>
-      <div>search bar</div>
-      <div>filtering</div>
-      <div>
-        <Nuxt-link :to="goBackButton">Back</Nuxt-link>
-      </div>
-      <!-- <h3
-        style="color: black; font-size: size 1.5rem"
-        v-for="parent in getParent"
-        :key="parent.id"
-      >
-        {{ parent.projectName }}
-      </h3> -->
       <table class="table">
         <thead>
           <tr class="table-header">
@@ -45,11 +33,11 @@ const goBackButton = computed(() => `/projects/project-${param}`);
         </thead>
 
         <tbody>
-          <tr v-for="task in foundTasks(intParam)" :key="task.id">
-            <td>{{ task.id }}</td>
-            <td>{{ task.taskName }}</td>
-            <td v-if="task.isComplete">Complete</td>
-            <td v-if="!task.isComplete">In Progress</td>
+          <tr>
+            <td>{{ props.id }}</td>
+            <td>{{ props.name }}</td>
+            <td v-if="task.status">Complete</td>
+            <td v-if="!task.status">In Progress</td>
             <td><Nuxt-link :to="taskDetailLink">Details </Nuxt-link></td>
             <td>.</td>
             <td>.</td>

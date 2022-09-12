@@ -9,8 +9,8 @@ export const useTest = defineStore({
 
   state: () => ({
 
-    actions:[],
-    
+    actions: [],
+
     projects: [{
         id: 1,
         user: "Sergioxx",
@@ -54,7 +54,7 @@ export const useTest = defineStore({
         description: 'This task was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -65,7 +65,7 @@ export const useTest = defineStore({
         description: 'The purpose of this task is...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -76,9 +76,9 @@ export const useTest = defineStore({
         description: 'About content was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
-        isComplete: true,
+        isComplete: false,
       },
       {
         id: 4,
@@ -87,7 +87,7 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -99,7 +99,7 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -110,7 +110,7 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -122,7 +122,7 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -134,9 +134,9 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
-        isComplete: true,
+        isComplete: false,
       },
     ],
 
@@ -146,24 +146,15 @@ export const useTest = defineStore({
 
     projectList: state => state.projects,
     taskList: state => state.tasks,
-    filterProjectById: state => (id) => state.projects.filter((p) => p.id),
+    filterItemById: (state)  => state.projects.filter((p) => p.id), //?filters all project id's
     //todo: getter that will find list of tasks for specific project id
-    findTaskById(state) {
-      //project will find project by id
-      // const parentId = (id) =>  state.projects.filter((project) => project.id === id ) //? find parent id by project id's
-      return taskId => this.taskList.find((task) => taskId === task.parentId) //? accepts arg and filter tasksList by project id === parentId.
-    },
-//todo:will find the id of the projects and will
-//todo: return the tasks under parent id
-    tasksUnderProject: (state) => {
-      // const item = state.projects.filter((pro) => pro.id)
-      return id => state.tasks.filter((task) => task.parentId === id)
-    },
 
-  
- 
+    //todo:will find the id of the projects and will
+    //todo: return the tasks under parent id
+    tasksUnderProject: (state) => (id) => state.tasks.ilter((task) => task.parentId === id)f
+
   },
   actions: {
- 
+
   }
 })
