@@ -3,12 +3,21 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
-const param = route.params.projectId;
+const param = parseInt(route.params.projectId);
+const param2 = parseInt(route.params.detail);
+
 const { taskList, projectList, getProjectById } = store;
 //to fix later
 const tasksOfParents = taskList.filter((task) => task.parentId == param);
 const getParent = projectList.filter((p) => p.id == param);
+const seeDetail = ((parameter)=> { return parameter})
+
+
+const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
 </script>
+
+
+
 <template>
   <div class="tasks-wrapper">
     <div class="task-list">
@@ -53,7 +62,7 @@ const getParent = projectList.filter((p) => p.id == param);
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
-            <td>details</td>
+            <td ><nuxt-link   :to="`/projects/project-${param}/tasks/task-${seeDetail(task.id)}`">DEtails</nuxt-link></td>
           </tr>
         </tbody>
       </table>

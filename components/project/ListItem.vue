@@ -16,15 +16,15 @@ const props = defineProps([
   "status",
 ]);
 
-const isComplete = ref(true);
 
-const currStatus = computed(() => {
-  if (props.status) {
-    return "btn-success";
-  } else {
-    return "btn-warning";
-  }
-});
+
+// const currStatus = computed(() => {
+//   if (props.status) {
+//     return "btn-success";
+//   } else {
+//     return "btn-warning";
+//   }
+// });
 
 const detailsLink = computed(() => {
   return `/projects/project-${props.id}`;

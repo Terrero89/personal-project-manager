@@ -13,4 +13,5 @@
 //styling started on project detail page on project detail page
 // fixed filtering projects in loop fixed tasks
 
-//!09/08/2022 
+//!09/14/2022
+//completed secuense until project/projects/project-{param}/tasks/task-{param}
