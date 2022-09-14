@@ -4,16 +4,15 @@ import { useTest } from "@/store/test";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-const param2 = parseInt(route.params.detail);
-
-const { taskList, projectList, getProjectById } = store;
-//to fix later
-const tasksOfParents = taskList.filter((task) => task.parentId == param);
-const getParent = projectList.filter((p) => p.id == param);
-const seeDetail = ((parameter)=> { return parameter})
 
 
-const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
+const { taskList, projectList } = store;
+const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
+const getParent = projectList.filter((p) => p.id == param); //needs fix
+const seeDetail = ((parameter)=> { return parameter}) //will make the id selectec the currect id to navigate
+
+
+// const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
 </script>
 
 
@@ -63,7 +62,9 @@ const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${se
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
             <td ><nuxt-link   :to="`/projects/project-${param}/tasks/task-${seeDetail(task.id)}`">DEtails</nuxt-link></td>
-          </tr>
+            <td >.</td>
+            <td >.</td>         
+            </tr>
         </tbody>
       </table>
     </div>

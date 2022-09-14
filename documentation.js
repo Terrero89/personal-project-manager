@@ -15,3 +15,7 @@
 
 //!09/14/2022
 //completed secuense until project/projects/project-{param}/tasks/task-{param}
+//Next: find total hours per project for the durations of all tasks within project
+//start building the forms with which i would add and remove tasks from
+//add the ADD, DELETE functionlity, UPDATE (later)---
+//start working on the dates, and age depending on specific id date range.

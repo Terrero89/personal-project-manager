@@ -85,6 +85,8 @@ const length = taskList.filter((task) => task.parentId == param);
             <td v-if="project.isComplete">Complete</td>
             <td v-if="!project.isComplete">In Progress</td>
             <td><Nuxt-link :to="tasksLink">All Tasks</Nuxt-link></td>
+            <td>.</td>
+            <td>.</td>
           </tr>
         </tbody>
       </table>
