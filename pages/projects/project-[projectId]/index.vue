@@ -4,30 +4,33 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
-const { tasks, projects, convertToObj } = storeToRefs(store);
-const { findTaskById, getProjectById, projectList, taskList } = store;
+const intParam = parseInt(param)
+
+const { taskList } = store;
 
 //link to route to {params}/update to update project.
-const updateLink = computed(() => `project-${param}/update`);
+const updateLink = computed(() => `project-${intParam}/update`);
 
 //link to route to {params}/tasks to update project.
-const tasksLink = computed(() => `project-${param}/tasks`);
+const tasksLink = computed(() => `project-${intParam}/tasks`);
 
 //extracted getter projectList that receives argument
 //we will evaluate it if argument is equal to param
 //returned the array of the element equal to param
-const filterProjectById = (id) => projectList.filter((p) => p.id == param);
+// const filterProjectById = (id) => projectList.filter((p) => p.id == param);
+const projectById = computed(()=> store.filterItemById)
+// const length = computed(()=> store.projectsLength)
 //created a variable to be able to use the filteredProject
 //to be able to receive argument {param}
 //then used the variable with the id that match
-const filteredProject = filterProjectById(param);
-
 // extracts array Tasks from pinia to filter
 // the tasks that have a parentId that matches
 //project id.
-const findParentChild = taskList.filter((task) => task.parentId == param);
+const parentChild = computed(()=> store.findParentChild)
+//check for the length of specific id 
+const length = taskList.filter((task) => task.parentId == param);
 
-const titles = ["user", "date", "description"];
+
 </script>
 
 <template>
@@ -39,7 +42,7 @@ const titles = ["user", "date", "description"];
 
       back to project-
 
-      <h3 v-for="parent in filteredProject" :key="parent.id">
+      <h3 v-for="parent in projectById(intParam)" :key="parent.id">
         {{ parent.projectName }}
       </h3>
       <table class="table">
@@ -68,7 +71,7 @@ const titles = ["user", "date", "description"];
           <tr
           
             class="table-content"
-            v-for="project in filteredProject"
+            v-for="project in projectById(intParam)"
             :key="project.id"
           >
             <td>{{ project.id }}</td>
@@ -78,7 +81,7 @@ const titles = ["user", "date", "description"];
             <td>{{ project.endDate }}</td>
             <td>{{ project.projectAge }} days</td>
             <td>{{ project.totalDuration }} hrs</td>
-            <td>{{ findParentChild.length }} Tasks</td>
+            <td>{{ length.length}} Tasks</td>
             <td v-if="project.isComplete">Complete</td>
             <td v-if="!project.isComplete">In Progress</td>
             <td><Nuxt-link :to="tasksLink">All Tasks</Nuxt-link></td>

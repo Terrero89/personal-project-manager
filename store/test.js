@@ -1,19 +1,16 @@
 // store/test.ts
 
-import {
-  defineStore
-} from 'pinia'
+import {defineStore} from 'pinia'
 
-export const useTest = defineStore({
-  id: 'test',
+export const useTest = defineStore({ id: 'test',
 
   state: () => ({
 
-    actions:[],
-    
+    actions: [],
+
     projects: [{
         id: 1,
-        user: "Sergio",
+        user: "Sergioxx",
         projectName: "Web Development",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
@@ -25,7 +22,7 @@ export const useTest = defineStore({
       {
         id: 2,
         user: "Sergioo",
-        projectName: "Python ",
+        projectName: "Python Authentication",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -54,7 +51,7 @@ export const useTest = defineStore({
         description: 'This task was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -65,20 +62,20 @@ export const useTest = defineStore({
         description: 'The purpose of this task is...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
       {
         id: 3,
         parentId: 2,
-        taskName: "About content",
+        taskName: "About contentt",
         description: 'About content was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
-        isComplete: true,
+        isComplete: false,
       },
       {
         id: 4,
@@ -87,7 +84,7 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -95,22 +92,22 @@ export const useTest = defineStore({
       {
         id: 5,
         parentId: 2,
-        taskName: "Hero Section",
+        taskName: "Bug fixing",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
       {
         id: 6,
         parentId: 3,
-        taskName: "Hero Section",
+        taskName: "Testimonials section",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -118,11 +115,11 @@ export const useTest = defineStore({
       {
         id: 7,
         parentId: 3,
-        taskName: "Hero Section",
+        taskName: "Search feature",
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -134,7 +131,29 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        age:14,
+        age: 14,
+        duration: 4,
+        isComplete: false,
+      },
+      {
+        id: 9,
+        parentId: 2,
+        taskName: "Footer Section",
+        description: 'Footer Section for website.',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 14,
+        duration: 4,
+        isComplete: true,
+      },
+      {
+        id: 10,
+        parentId: 2,
+        taskName: "Testimonial Section",
+        description: 'Testimonial Section for website.',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 14,
         duration: 4,
         isComplete: true,
       },
@@ -146,20 +165,9 @@ export const useTest = defineStore({
 
     projectList: state => state.projects,
     taskList: state => state.tasks,
-
-    //todo: getter that will find list of tasks for specific project id
-    findTaskById(state) {
-      //project will find project by id
-      const parentId = (id) =>  state.projects.filter((project) => project.id === id ) //? find parent id by project id's
-      return (taskId) => this.taskList.filter((task) => taskId === task.parentId) //? accepts arg and filter tasksList by project id === parentId.
-    },
-//todo:will find the project by id to be render it in the details page
-    getProjectById: (state) => {
-      return (projectId) => state.projects.filter((project) => project.id === projectId)
-    },
-
-  
- 
+    filterItemById: (state) => id => state.projects.filter((p) => p.id === id),
+    tasksUnderProject: (state) => (id) => state.tasks.filter((task) => task.parentId === id),
+    findParentChild: state => id => state.projects.filter(task => task.parentId === id)
   },
   actions: {
 
