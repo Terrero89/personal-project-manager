@@ -5,22 +5,20 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-
 const { taskList, projectList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
 const getParent = projectList.filter((p) => p.id == param); //needs fix
-const seeDetail = ((parameter)=> { return parameter}) //will make the id selectec the currect id to navigate
-
+const seeDetail = (parameter) => {
+  return parameter;
+}; //will make the id selectec the currect id to navigate
 
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
 </script>
 
-
-
 <template>
-  <div class="tasks-wrapper">
-    <div class="task-list">
-      <UITitle title="Tasks " />
+  <div class="tasks-wrapper table-responsive">
+    <div class="task-list ">
+      <UITitle title="Tasks" />
       <div>add task feature</div>
       <div>search bar</div>
       <div>filtering</div>
@@ -36,7 +34,7 @@ const seeDetail = ((parameter)=> { return parameter}) //will make the id selecte
       <table class="table">
         <thead>
           <tr class="table-header">
-            <th>Id#</th>
+            <th>Task Id#</th>
 
             <th>Task Name</th>
             <th>Status</th>
@@ -47,9 +45,6 @@ const seeDetail = ((parameter)=> { return parameter}) //will make the id selecte
         </thead>
 
         <tbody>
-          <tr class="breaker">
-            <td></td>
-          </tr>
           <tr
             class="table-content"
             v-for="task in tasksOfParents"
@@ -57,14 +52,21 @@ const seeDetail = ((parameter)=> { return parameter}) //will make the id selecte
           >
             <td>{{ task.id }}</td>
 
-            <td>{{ task.taskName }}</td>
+     <td>{{ task.taskName }}</td>
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
-            <td ><nuxt-link   :to="`/projects/project-${param}/tasks/task-${seeDetail(task.id)}`">DEtails</nuxt-link></td>
-            <td >.</td>
-            <td >.</td>         
-            </tr>
+            <td>
+              <nuxt-link
+                :to="`/projects/project-${param}/tasks/task-${seeDetail(
+                  task.id
+                )}`"
+                >Task Details</nuxt-link
+              >
+            </td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -89,23 +91,26 @@ table {
 th,
 td {
   text-align: left;
-  padding: 0.7rem 1rem;
-  font-size: 1.2rem;
+
+  /* font-size: 1.2rem;*/
+}
+
+td {
 }
 
 .table-header {
   padding: auto;
-  background-color: rgb(169, 188, 201);
-  border: solid rgb(159, 159, 159) 1px;
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(159, 159, 159) 1px; */
 }
 
 .table-header th {
   font-size: 1.2rem;
-  border-right: solid rgb(159, 159, 159) 1px;
+  border: solid rgb(169, 169, 169) 1px;
 }
 .table-content {
   color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
+  /* border: solid rgb(159, 159, 159) 0.5px; */
   text-align: center;
 }
 .table-content td {
@@ -113,11 +118,22 @@ td {
   /* background-color: rgb(74, 159, 149); */
   padding: 0 auto;
   color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
+  /* border: solid rgb(159, 159, 159) 0.5px; */
 }
 .table-content {
   /* padding:2rem; */
   /* background-color: rgb(74, 159, 149); */
   background-color: white;
+}
+.project {
+  /* overflow-x: hidden; */
+  /* display: flex; */
+  /* background-color: white; */
+  margin: 0 auto;
+  max-width: 1650px;
+  /* border: solid rgb(194, 194, 194) 1px; */
+  padding: 2rem;
+
+  /* border-radius: 10px; */
 }
 </style>

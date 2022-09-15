@@ -6,124 +6,101 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
-const { taskList, projectList } = store;
+const { tasks, projects } = store;
 
 // const taskDetail = taskList.filter((task) => task.parentId == param);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
-
-
 </script>
 
 <template>
   <div class="tasks-wrapper">
     <div class="task-list">
-      <UITitle title="details tasks " />
-      <div>add task feature</div>
-      <div>search bar</div>
-      <div>filtering</div>
-      back to parent-
-      <div>parentID: {{ route.params.projectId }}</div>
-      <div>Child id for details: {{ route.params.detail }}</div>
+      <UITitle title="Task Detail" />
+ 
 
-      <h3
-        style="color: black; font-size: size 1.5rem"
-        v-for="task in findTaskDetail(taskParam)"
-        :key="task.id"
+      <div
+        class="project-detail"
+        v-for="project in findTaskDetail(taskParam)"
+        :key="project.id"
       >
-        {{ task.taskName }}
-      </h3>
-      <table class="table">
-        <thead>
-          <tr class="table-header">
-            <th>Id#</th>
-            
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Task Age</th>
-            <th>Duration</th>
-            <th>Status</th>
-            <th>U</th>
-            <th>D</th>
-          </tr>
-        </thead>
+        <div class="container detail-container">
+          <UITitle title="Project Details" />
 
-        <tbody>
-          <tr class="breaker">
-            <td></td>
-          </tr>
-          <tr
-            class="table-content"
-            v-for="task in findTaskDetail(taskParam)"
-            :key="task.id"
-          >
-            <td>{{ task.id }}</td>
+          <div class="row">
+            <div class="header">
+              <h3
+                style="color: black; font-size: size 1.5rem"
+                v-for="task in findTaskDetail(taskParam)"
+                :key="task.id"
+              >
+                {{ task.taskName }}
+              </h3>
+            </div>
 
-              
-            <td>{{ task.description }}</td>
-            <td>{{ task.startDate }}</td>
-            <td>{{ task.endDate}}</td>
-            <td>{{ task.duration }} hours</td>
-            <td>{{ task.age }} days</td>
-            <td v-if="task.isComplete">Complete</td>
-            <td v-if="!task.isComplete">In Progress</td>
-            <td>.</td>
-            <td>.</td>
-            
-          </tr>
-        </tbody>
-      </table>
+            <div class="col">
+              <div class="detail">
+                <div class="content">
+                  <div class="item">Task ID</div>
+                  <p class="item-desc">{{ project.id }}</p>
+
+                  <div class="item">Parent Name</div>
+                  <p
+                    class="item-desc"
+                    v-for="parent in projects"
+                    :key="parent.id"
+                  >
+                    {{ parent.projectName }}
+                  </p>
+                 
+                  <div class="item">Description</div>
+                  <p class="item-desc">{{ project.description }}</p>
+                  <div class="item">Start Date</div>
+                  <p class="item-desc">{{ project.startDate }}</p>
+                  <div class="item">End Date</div>
+                  <p class="item-desc">{{ project.endDate }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="item">Task Duration</div>
+              <p class="item-desc">{{ project.duration }} hours</p>
+              <div class="item">Task Age</div>
+              <p class="item-desc">{{ project.age }} days</p>
+              <div class="item">Task Status</div>
+              <p v-if="project.isComplete">Complete</p>
+              <p v-if="!project.isComplete">In Progress</p>
+            </div>
+            <div class="header">
+              <button type="button" class="btn btn-danger mr-5">X</button>
+              <button type="button" class="btn btn-outline-primary">
+                Primary
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.breakers {
-  margin: 1rem 0;
+.col {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem 0;
 }
-.task-list {
-  max-width: 1500px;
-  margin: 0 auto;
+.header {
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(205, 205, 205) 1px ; */
+  padding: 0.5rem 0rem;
 }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  /* border: 1px solid #ddd; */
+.item-desc {
+  padding: 0 rem;
+  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
+  color: rgb(88, 88, 88);
+  width: 90%;
 }
-
-th,
-td {
-  text-align: left;
-  padding: 0.7rem 1rem;
-  font-size: 1.2rem;
+.item {
+  color: rgb(129, 129, 129);
 }
 
-.table-header {
-  padding: auto;
-  background-color: rgb(169, 188, 201);
-  border: solid rgb(159, 159, 159) 1px;
-}
-
-.table-header th {
-  font-size: 1.2rem;
-  border-right: solid rgb(159, 159, 159) 1px;
-}
-.table-content {
-  color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
-  text-align: center;
-}
-.table-content td {
-  /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
-  padding: 0 auto;
-  color: rgb(84, 84, 84);
-  border: solid rgb(159, 159, 159) 0.5px;
-}
-.table-content {
-  /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
-  background-color: white;
-}
 </style>

@@ -16,15 +16,13 @@ const props = defineProps([
   "status",
 ]);
 
-
-
-// const currStatus = computed(() => {
-//   if (props.status) {
-//     return "btn-success";
-//   } else {
-//     return "btn-warning";
-//   }
-// });
+const currStatus = computed(() => {
+  if (props.status) {
+    return "btn-success";
+  } else {
+    return "btn-warning";
+  }
+});
 
 const detailsLink = computed(() => {
   return `/projects/project-${props.id}`;
@@ -33,26 +31,18 @@ const detailsLink = computed(() => {
 
 <template>
   <div>
-    
-
-
-
-
     <div class="project-item">
-     
       <h2>{{ props.project }}</h2>
 
       <div class="button-status">
         <nuxt-link :to="detailsLink"
           ><button type="button" class="btn-md btn btn-outline-primary mr">
             Details
-          </button> </nuxt-link
-        >
+          </button>
+        </nuxt-link>
       </div>
       <div class="status" :class="currStatus"></div>
     </div>
-
-    
   </div>
 </template>
 
@@ -75,8 +65,8 @@ const detailsLink = computed(() => {
   overflow: hidden;
 }
 
-.project-item h2{
-margin:0 2%
+.project-item h2 {
+  margin: 0 2%;
 }
 
 .status {
@@ -108,7 +98,7 @@ margin:0 2%
 
 .actions {
   border: solid rgb(191, 191, 191) 1px;
-  
+
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
