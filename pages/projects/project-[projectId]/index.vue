@@ -18,6 +18,7 @@ const tasksLink = computed(() => `project-${intParam}/tasks`);
 //we will evaluate it if argument is equal to param
 //returned the array of the element equal to param
 <<<<<<< HEAD
+<<<<<<< HEAD
 const projectById = computed(() => store.tasksUnderProject); //
 
 // extracts array Tasks from pinia to filter
@@ -25,6 +26,8 @@ const projectById = computed(() => store.tasksUnderProject); //
 
 const findParentChild = taskList.filter((task) => task.parentId == param);
 =======
+=======
+>>>>>>> styling
 // const filterProjectById = (id) => projectList.filter((p) => p.id == param);
 const projectById = computed(() => store.filterItemById);
 // const length = computed(()=> store.projectsLength)
@@ -39,6 +42,9 @@ const parentChild = computed(() => store.findParentChild);
 const length = taskList.filter((task) => task.parentId == param);
 
 
+<<<<<<< HEAD
+>>>>>>> styling
+=======
 >>>>>>> styling
 </script>
 
@@ -52,6 +58,7 @@ const length = taskList.filter((task) => task.parentId == param);
       <div class="container detail-container">
         <UITitle title="Project Details" />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       <h3 v-for="parent in projectById(intParam)" :key="parent.id"></h3>
       <table class="table">
@@ -96,6 +103,8 @@ const length = taskList.filter((task) => task.parentId == param);
       </table>
       <div>actions for this project</div>
 =======
+=======
+>>>>>>> styling
         <div class="row">
           <div class="header">
             <h3 v-for="parent in projectById(intParam)" :key="parent.id">
@@ -155,6 +164,9 @@ const length = taskList.filter((task) => task.parentId == param);
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+>>>>>>> styling
+=======
 >>>>>>> styling
     </div>
     <div>actions for this project</div>
@@ -162,6 +174,7 @@ const length = taskList.filter((task) => task.parentId == param);
 </template>
 
 <style scoped>
+<<<<<<< HEAD
 <<<<<<< HEAD
 .project {
   margin: 0 auto;
@@ -202,6 +215,25 @@ td {
 
 .table-content {
   background-color: white;
+=======
+.col {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem 0;
+}
+.header {
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(205, 205, 205) 1px ; */
+  padding: 0.5rem 0rem;
+}
+.item-desc {
+  padding: 0 rem;
+  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
+  color: rgb(88, 88, 88);
+  width: 90%;
+}
+.item {
+  color: rgb(129, 129, 129);
+>>>>>>> styling
 =======
 .col {
   background-color: rgb(255, 255, 255);

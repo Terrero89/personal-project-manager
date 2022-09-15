@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 //should show all tasks details for specific task
 =======
+=======
+>>>>>>> styling
 <!-- details task page -->
 <script setup>
 import { useTest } from "@/store/test";
@@ -15,6 +18,9 @@ const { tasks, projects } = store;
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 </script>
 
+<<<<<<< HEAD
+>>>>>>> styling
+=======
 >>>>>>> styling
 <template>
   <div class="tasks-wrapper">
@@ -85,6 +91,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
       </div>
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <h2>parent project params-> {{ $route.params.projectId }}</h2>
     <TaskList />
   </div>
@@ -135,6 +142,31 @@ td {
   padding: 2rem;
   background-color: white;
 }
+=======
+  </div>
+</template>
+
+<style scoped>
+.col {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem 0;
+}
+.header {
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(205, 205, 205) 1px ; */
+  padding: 0.5rem 0rem;
+}
+.item-desc {
+  padding: 0 rem;
+  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
+  color: rgb(88, 88, 88);
+  width: 90%;
+}
+.item {
+  color: rgb(129, 129, 129);
+}
+
+>>>>>>> styling
 =======
   </div>
 </template>

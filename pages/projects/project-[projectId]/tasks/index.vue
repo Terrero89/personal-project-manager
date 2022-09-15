@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { projects, tasks } = storeToRefs(store);
 const param = route.params.projectId; //param route for project
 const foundTasks = computed(() => store.tasksUnderProject); //
@@ -15,6 +16,8 @@ const taskParam = route.params.detail;
 const getParent = store.projects.filter((p) => p.id == param);
 const goBackButton = computed(() => `/projects/project-${param}`);
 =======
+=======
+>>>>>>> styling
 const param = parseInt(route.params.projectId);
 
 const { taskList, projectList } = store;
@@ -25,6 +28,7 @@ const seeDetail = (parameter) => {
 }; //will make the id selectec the currect id to navigate
 
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
+<<<<<<< HEAD
 >>>>>>> styling
 </script>
 
@@ -35,6 +39,14 @@ const seeDetail = (parameter) => {
       <table class="table"></table>
       <UITitle title="Tasks " />
 =======
+  <div class="tasks-wrapper table-responsive">
+    <div class="task-list ">
+      <UITitle title="Tasks" />
+>>>>>>> styling
+=======
+</script>
+
+<template>
   <div class="tasks-wrapper table-responsive">
     <div class="task-list ">
       <UITitle title="Tasks" />
@@ -56,8 +68,11 @@ const seeDetail = (parameter) => {
         <thead>
           <tr class="table-header">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <th>Id#</th>
 =======
+=======
+>>>>>>> styling
             <th>Task Id#</th>
 
 >>>>>>> styling
@@ -71,6 +86,7 @@ const seeDetail = (parameter) => {
 
         <tbody>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <tr v-for="task in foundTasks(intParam)" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.taskName }}</td>
@@ -78,6 +94,8 @@ const seeDetail = (parameter) => {
             <td v-if="!task.isComplete">In Progress</td>
             <td><Nuxt-link :to="taskDetailLink">Details </Nuxt-link></td>
 =======
+=======
+>>>>>>> styling
           <tr
             class="table-content"
             v-for="task in tasksOfParents"
@@ -97,6 +115,9 @@ const seeDetail = (parameter) => {
                 >Task Details</nuxt-link
               >
             </td>
+<<<<<<< HEAD
+>>>>>>> styling
+=======
 >>>>>>> styling
             <td>.</td>
             <td>.</td>
@@ -123,20 +144,26 @@ table {
 th,
 td {
 <<<<<<< HEAD
+<<<<<<< HEAD
   padding: 1.6rem 1rem;
   font-size: 1.2rem;
 =======
+=======
+>>>>>>> styling
   text-align: left;
 
   /* font-size: 1.2rem;*/
 }
 
 td {
+<<<<<<< HEAD
 >>>>>>> styling
 }
 td {
   padding: 2rem 1rem;
   font-size: 1.3rem;
+=======
+>>>>>>> styling
 }
 
 .table-header {

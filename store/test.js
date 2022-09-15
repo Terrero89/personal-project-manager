@@ -12,6 +12,10 @@ export const useTest = defineStore({ id: 'test',
         id: 1,
         user: "Sergioxx",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        category: "Frontend Development",
+>>>>>>> styling
 =======
         category: "Frontend Development",
 >>>>>>> styling
@@ -27,6 +31,10 @@ export const useTest = defineStore({ id: 'test',
         id: 2,
         user: "Sergioo",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        category: "Backend Development",
+>>>>>>> styling
 =======
         category: "Backend Development",
 >>>>>>> styling
@@ -75,8 +83,13 @@ export const useTest = defineStore({ id: 'test',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
 <<<<<<< HEAD
+<<<<<<< HEAD
         age: 14,
         duration: 4,
+=======
+        age: 10,
+        duration: 15,
+>>>>>>> styling
 =======
         age: 10,
         duration: 15,
@@ -92,7 +105,11 @@ export const useTest = defineStore({ id: 'test',
         endDate: "07/15/2022",
         age: 14,
 <<<<<<< HEAD
+<<<<<<< HEAD
         duration: 4,
+=======
+        duration: 3,
+>>>>>>> styling
 =======
         duration: 3,
 >>>>>>> styling
@@ -107,7 +124,11 @@ export const useTest = defineStore({ id: 'test',
         endDate: "07/15/2022",
         age: 14,
 <<<<<<< HEAD
+<<<<<<< HEAD
         duration: 4,
+=======
+        duration: 1,
+>>>>>>> styling
 =======
         duration: 1,
 >>>>>>> styling
@@ -121,8 +142,13 @@ export const useTest = defineStore({ id: 'test',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
 <<<<<<< HEAD
+<<<<<<< HEAD
         age: 14,
         duration: 4,
+=======
+        age: 5,
+        duration: 7,
+>>>>>>> styling
 =======
         age: 5,
         duration: 7,
@@ -174,7 +200,10 @@ export const useTest = defineStore({ id: 'test',
         endDate: "07/15/2022",
         age: 14,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> styling
         duration: 4,
         isComplete: false,
       },
@@ -186,6 +215,8 @@ export const useTest = defineStore({ id: 'test',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
+<<<<<<< HEAD
+=======
         duration: 4,
         isComplete: true,
       },
@@ -199,9 +230,24 @@ export const useTest = defineStore({ id: 'test',
         age: 14,
 >>>>>>> styling
         duration: 4,
+        isComplete: true,
+      },
+      {
+<<<<<<< HEAD
+        id: 10,
+        parentId: 2,
+        taskName: "Testimonial Section",
+        description: 'Testimonial Section for website.',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 14,
+>>>>>>> styling
+        duration: 4,
         isComplete: false,
       },
       {
+=======
+>>>>>>> styling
         id: 11,
         parentId: 4,
         taskName: "Math Assignment",
@@ -232,6 +278,7 @@ export const useTest = defineStore({ id: 'test',
     projectList: state => state.projects,
     taskList: state => state.tasks,
 <<<<<<< HEAD
+<<<<<<< HEAD
     filterItemById: (state)  => state.projects.filter((p) => p.id), //?filters all project id's
     //todo: getter that will find list of tasks for specific project id
 
@@ -240,10 +287,15 @@ export const useTest = defineStore({ id: 'test',
     tasksUnderProject: (state) => (id) => state.tasks.ilter((task) => task.parentId === id)f
 
 =======
+=======
+>>>>>>> styling
     filterItemById: (state) => id => state.projects.filter((p) => p.id === id),
     tasksUnderProject: (state) => (id) => state.tasks.filter((task) => task.parentId === id),
     detailOfTask: (state) => (id) => state.tasks.filter((task) => task.id === id),
     findParentChild: state => id => state.projects.filter(task => task.parentId === id)
+<<<<<<< HEAD
+>>>>>>> styling
+=======
 >>>>>>> styling
   },
   actions: {
