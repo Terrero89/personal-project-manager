@@ -3,7 +3,7 @@ import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-const param = ref(route.params.projectId);
+const param = route.params.projectId;
 
 const { projectList } = storeToRefs(store);
 

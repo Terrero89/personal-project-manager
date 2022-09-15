@@ -1,11 +1,8 @@
 // store/test.ts
 
-import {
-  defineStore
-} from 'pinia'
+import {defineStore} from 'pinia'
 
-export const useTest = defineStore({
-  id: 'test',
+export const useTest = defineStore({ id: 'test',
 
   state: () => ({
 
@@ -14,6 +11,10 @@ export const useTest = defineStore({
     projects: [{
         id: 1,
         user: "Sergioxx",
+<<<<<<< HEAD
+=======
+        category: "Frontend Development",
+>>>>>>> styling
         projectName: "Web Development",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
@@ -25,6 +26,10 @@ export const useTest = defineStore({
       {
         id: 2,
         user: "Sergioo",
+<<<<<<< HEAD
+=======
+        category: "Backend Development",
+>>>>>>> styling
         projectName: "Python Authentication",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
@@ -36,6 +41,7 @@ export const useTest = defineStore({
       {
         id: 3,
         user: "Jackie",
+        category: "Backend Development",
         projectName: "Backend Project",
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
@@ -45,17 +51,36 @@ export const useTest = defineStore({
         isComplete: true,
       },
 
+      {
+        id: 4,
+        user: "Sergio",
+        category: "School Assignment",
+        projectName: "Rest Api Project",
+        projectDescription: "Homework about..",
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        projectAge: 1,
+        totalDuration: 3,
+        isComplete: true,
+      },
+
     ],
 
-    tasks: [{
+    tasks: [
+      {
         id: 1,
         parentId: 1,
         taskName: "Navbar fix",
         description: 'This task was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+<<<<<<< HEAD
         age: 14,
         duration: 4,
+=======
+        age: 10,
+        duration: 15,
+>>>>>>> styling
         isComplete: true,
       },
       {
@@ -66,7 +91,11 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
+<<<<<<< HEAD
         duration: 4,
+=======
+        duration: 3,
+>>>>>>> styling
         isComplete: true,
       },
       {
@@ -77,7 +106,11 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
+<<<<<<< HEAD
         duration: 4,
+=======
+        duration: 1,
+>>>>>>> styling
         isComplete: false,
       },
       {
@@ -87,8 +120,13 @@ export const useTest = defineStore({
         description: 'Hero Section was done to...',
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+<<<<<<< HEAD
         age: 14,
         duration: 4,
+=======
+        age: 5,
+        duration: 7,
+>>>>>>> styling
         isComplete: true,
       },
 
@@ -135,8 +173,55 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
+<<<<<<< HEAD
+=======
         duration: 4,
         isComplete: false,
+      },
+      {
+        id: 9,
+        parentId: 2,
+        taskName: "Footer Section",
+        description: 'Footer Section for website.',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 14,
+        duration: 4,
+        isComplete: true,
+      },
+      {
+        id: 10,
+        parentId: 2,
+        taskName: "Testimonial Section",
+        description: 'Testimonial Section for website.',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 14,
+>>>>>>> styling
+        duration: 4,
+        isComplete: false,
+      },
+      {
+        id: 11,
+        parentId: 4,
+        taskName: "Math Assignment",
+        description: 'MAth assignment...',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 1,
+        duration: 1,
+        isComplete: true,
+      },
+      {
+        id: 12,
+        parentId: 4,
+        taskName: "C Project",
+        description: 'C Project For school Assignment',
+        startDate: "07/01/2022",
+        endDate: "07/15/2022",
+        age: 1,
+        duration: 1,
+        isComplete: true,
       },
     ],
 
@@ -146,6 +231,7 @@ export const useTest = defineStore({
 
     projectList: state => state.projects,
     taskList: state => state.tasks,
+<<<<<<< HEAD
     filterItemById: (state)  => state.projects.filter((p) => p.id), //?filters all project id's
     //todo: getter that will find list of tasks for specific project id
 
@@ -153,6 +239,12 @@ export const useTest = defineStore({
     //todo: return the tasks under parent id
     tasksUnderProject: (state) => (id) => state.tasks.ilter((task) => task.parentId === id)f
 
+=======
+    filterItemById: (state) => id => state.projects.filter((p) => p.id === id),
+    tasksUnderProject: (state) => (id) => state.tasks.filter((task) => task.parentId === id),
+    detailOfTask: (state) => (id) => state.tasks.filter((task) => task.id === id),
+    findParentChild: state => id => state.projects.filter(task => task.parentId === id)
+>>>>>>> styling
   },
   actions: {
 
