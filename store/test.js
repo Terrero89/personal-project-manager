@@ -1,6 +1,8 @@
 // store/test.ts
 
-import { defineStore } from "pinia";
+import {
+  defineStore
+} from "pinia";
 
 export const useTest = defineStore({
   id: "test",
@@ -8,8 +10,7 @@ export const useTest = defineStore({
   state: () => ({
     actions: [],
 
-    projects: [
-      {
+    projects: [{
         id: 1,
         user: "Sergioxx",
         category: "Frontend Development",
@@ -60,8 +61,7 @@ export const useTest = defineStore({
       },
     ],
 
-    tasks: [
-      {
+    tasks: [{
         id: 1,
         parentId: 1,
         taskName: "Navbar fix",
@@ -202,32 +202,55 @@ export const useTest = defineStore({
   getters: {
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
-    filterItemById: (state) => (id) =>
-      state.projects.filter((p) => p.id === id),
-    tasksUnderProject: (state) => (id) =>
-      state.tasks.filter((task) => task.parentId === id),
-    detailOfTask: (state) => (id) =>
-      state.tasks.filter((task) => task.id === id),
-    findParentChild: (state) => (id) =>
-      state.projects.filter((task) => task.parentId === id),
+    filterItemById(state) {
+      const prj = state.projects.filter((p) => p.id)
+      return (id) => prj.filter(p => p.id === id)
+    },
+
+
+    // filterItemById: (state) => (id) =>
+    // state.projects.filter((p) => p.id === id),
+    tasksUnderProject(state) {
+      const task = state.tasks.filter(t => t.parentId)
+      return (id) => task.filter((task) => task.id === id)
+    },
+
+    // tasksUnderProject: (state) => (id) =>
+    // state.tasks.filter((task) => task.parentId === id),
+    detailOfTask(state) {
+      const item = state.tasks.filter((task) => task.id)
+      return (id) => item.filter(task => task.id === id)
+    },
+    // detailOfTask: (state) => (id) =>
+    // state.tasks.filter((task) => task.id === id),
+    findParentChild(state){
+      const parent = state.projects.filter((task) => task.parentId)
+      return (id) => parent.filter((task) => task.parentId === id)
+    },
+      // findParentChild: (state) => (id) =>
+      // state.projects.filter((task) => task.parentId === id),
     //?finding specific project tasks total hours
     totalTaskDuration: (state) => {
       //?find all tasks by ids
       const tasks = state.tasks.filter((p) => p.id);
-       //?Filter tasks parentID that are equal to parameter
-     //?calculates the total of the hours by id with reduce
+      //?Filter tasks parentID that are equal to parameter
+      //?calculates the total of the hours by id with reduce
       return (id) => tasks.filter((p) => p.parentId === id)
-          .reduce((accumulator, object) => {
-            return accumulator + object.duration;
-          }, 0);
+        .reduce((accumulator, object) => {
+          return accumulator + object.duration;
+        }, 0);
     },
   },
   actions: {
     addProject(item) {
-      this.projects.push({ ...item });
+      this.projects.push({
+        ...item
+      });
     },
     addTask(item) {
-      this.projects.push({ ...item });
+      this.projects.push({
+        ...item
+      });
     },
     deleteProject(itemID) {
       this.projects = this.projects.filter((object) => {
