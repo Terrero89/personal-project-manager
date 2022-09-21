@@ -17,7 +17,7 @@ const seeDetail = (parameter) => {
 
 <template>
   <div class="tasks-wrapper table-responsive">
-    <div class="task-list ">
+    <div class="task-list">
       <UITitle title="Tasks" />
       <div>add task feature</div>
       <div>search bar</div>
@@ -52,7 +52,7 @@ const seeDetail = (parameter) => {
           >
             <td>{{ task.id }}</td>
 
-     <td>{{ task.taskName }}</td>
+            <td>{{ task.taskName }}</td>
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>

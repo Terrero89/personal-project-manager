@@ -1,14 +1,15 @@
 // store/test.ts
 
-import {defineStore} from 'pinia'
+import { defineStore } from "pinia";
 
-export const useTest = defineStore({ id: 'test',
+export const useTest = defineStore({
+  id: "test",
 
   state: () => ({
-
     actions: [],
 
-    projects: [{
+    projects: [
+      {
         id: 1,
         user: "Sergioxx",
         category: "Frontend Development",
@@ -57,7 +58,6 @@ export const useTest = defineStore({ id: 'test',
         totalDuration: 3,
         isComplete: true,
       },
-
     ],
 
     tasks: [
@@ -65,29 +65,29 @@ export const useTest = defineStore({ id: 'test',
         id: 1,
         parentId: 1,
         taskName: "Navbar fix",
-        description: 'This task was done to...',
+        description: "This task was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 10,
-        duration: 15,
+        duration: 1,
         isComplete: true,
       },
       {
         id: 2,
         parentId: 1,
         taskName: "Testimonial Section",
-        description: 'The purpose of this task is...',
+        description: "The purpose of this task is...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 3,
+        duration: 1,
         isComplete: true,
       },
       {
         id: 3,
         parentId: 2,
         taskName: "About contentt",
-        description: 'About content was done to...',
+        description: "About content was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
@@ -98,11 +98,11 @@ export const useTest = defineStore({ id: 'test',
         id: 4,
         parentId: 3,
         taskName: "Hero Section",
-        description: 'Hero Section was done to...',
+        description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 5,
-        duration: 7,
+        duration: 1,
         isComplete: true,
       },
 
@@ -110,22 +110,22 @@ export const useTest = defineStore({ id: 'test',
         id: 5,
         parentId: 2,
         taskName: "Bug fixing",
-        description: 'Hero Section was done to...',
+        description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 1,
         isComplete: true,
       },
       {
         id: 6,
         parentId: 3,
         taskName: "Testimonials section",
-        description: 'Hero Section was done to...',
+        description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 1,
         isComplete: true,
       },
 
@@ -133,11 +133,11 @@ export const useTest = defineStore({ id: 'test',
         id: 7,
         parentId: 3,
         taskName: "Search feature",
-        description: 'Hero Section was done to...',
+        description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 1,
         isComplete: true,
       },
 
@@ -145,40 +145,40 @@ export const useTest = defineStore({ id: 'test',
         id: 8,
         parentId: 1,
         taskName: "Hero Section",
-        description: 'Hero Section was done to...',
+        description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 5,
         isComplete: false,
       },
       {
         id: 9,
         parentId: 2,
         taskName: "Footer Section",
-        description: 'Footer Section for website.',
+        description: "Footer Section for website.",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 1,
         isComplete: true,
       },
       {
         id: 10,
         parentId: 2,
         taskName: "Testimonial Section",
-        description: 'Testimonial Section for website.',
+        description: "Testimonial Section for website.",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 4,
+        duration: 1,
         isComplete: true,
       },
       {
         id: 11,
         parentId: 4,
         taskName: "Math Assignment",
-        description: 'MAth assignment...',
+        description: "MAth assignment...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 1,
@@ -189,7 +189,7 @@ export const useTest = defineStore({ id: 'test',
         id: 12,
         parentId: 4,
         taskName: "C Project",
-        description: 'C Project For school Assignment',
+        description: "C Project For school Assignment",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 1,
@@ -197,19 +197,48 @@ export const useTest = defineStore({ id: 'test',
         isComplete: true,
       },
     ],
-
   }),
 
   getters: {
-
-    projectList: state => state.projects,
-    taskList: state => state.tasks,
-    filterItemById: (state) => id => state.projects.filter((p) => p.id === id),
-    tasksUnderProject: (state) => (id) => state.tasks.filter((task) => task.parentId === id),
-    detailOfTask: (state) => (id) => state.tasks.filter((task) => task.id === id),
-    findParentChild: state => id => state.projects.filter(task => task.parentId === id)
+    projectList: (state) => state.projects,
+    taskList: (state) => state.tasks,
+    filterItemById: (state) => (id) =>
+      state.projects.filter((p) => p.id === id),
+    tasksUnderProject: (state) => (id) =>
+      state.tasks.filter((task) => task.parentId === id),
+    detailOfTask: (state) => (id) =>
+      state.tasks.filter((task) => task.id === id),
+    findParentChild: (state) => (id) =>
+      state.projects.filter((task) => task.parentId === id),
+    //?finding specific project tasks total hours
+    totalTaskDuration: (state) => {
+      //?find all tasks by ids
+      const tasks = state.tasks.filter((p) => p.id);
+       //?Filter tasks parentID that are equal to parameter
+     //?calculates the total of the hours by id with reduce
+      return (id) => tasks.filter((p) => p.parentId === id)
+          .reduce((accumulator, object) => {
+            return accumulator + object.duration;
+          }, 0);
+    },
   },
   actions: {
+    addProject(item) {
+      this.projects.push({ ...item });
+    },
+    addTask(item) {
+      this.projects.push({ ...item });
+    },
+    deleteProject(itemID) {
+      this.projects = this.projects.filter((object) => {
+        return object.id !== itemID;
+      });
+    },
 
-  }
-})
+    deleteProject(itemID) {
+      this.tasks = this.tasks.filter((object) => {
+        return object.id !== itemID;
+      });
+    },
+  },
+});

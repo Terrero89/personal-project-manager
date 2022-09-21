@@ -7,7 +7,7 @@ const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
 const { tasks, projects } = store;
-
+const projectParent= computed(() => store.filterItemById);
 // const taskDetail = taskList.filter((task) => task.parentId == param);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 </script>
@@ -15,7 +15,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
 <template>
   <div class="tasks-wrapper">
     <div class="task-list">
-      <UITitle title="Task Detail" />
+
  
 
       <div
@@ -24,7 +24,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
         :key="project.id"
       >
         <div class="container detail-container">
-          <UITitle title="Project Details" />
+          <UITitle title="Task Details" />
 
           <div class="row">
             <div class="header">
@@ -46,7 +46,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
                   <div class="item">Parent Name</div>
                   <p
                     class="item-desc"
-                    v-for="parent in projects"
+                    v-for="parent in projectParent(param)"
                     :key="parent.id"
                   >
                     {{ parent.projectName }}
@@ -73,7 +73,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
             <div class="header">
               <button type="button" class="btn btn-danger mr-5">X</button>
               <button type="button" class="btn btn-outline-primary">
-                Primary
+               Update
               </button>
             </div>
           </div>

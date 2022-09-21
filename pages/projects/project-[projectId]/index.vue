@@ -3,16 +3,16 @@ import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-const param = route.params.projectId;
-const intParam = parseInt(param);
+const param = parseInt(route.params.projectId);
+
 
 const { taskList } = store;
 
 //link to route to {params}/update to update project.
-const updateLink = computed(() => `project-${intParam}/update`);
+const updateLink = computed(() => `project-${param}/update`);
 
 //link to route to {params}/tasks to update project.
-const tasksLink = computed(() => `project-${intParam}/tasks`);
+const tasksLink = computed(() => `project-${param}/tasks`);
 
 //extracted getter projectList that receives argument
 //we will evaluate it if argument is equal to param
@@ -29,6 +29,8 @@ const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
 //check for the length of specific id
 const length = taskList.filter((task) => task.parentId == param);
+//? calculates total tasks duration for specific project.
+const totalDuration = computed(()=> store.totalTaskDuration)
 
 
 </script>
@@ -37,7 +39,7 @@ const length = taskList.filter((task) => task.parentId == param);
   <div>
     <div
       class="project-detail"
-      v-for="project in projectById(intParam)"
+      v-for="project in projectById(param)"
       :key="project.id"
     >
       <div class="container detail-container">
@@ -45,7 +47,7 @@ const length = taskList.filter((task) => task.parentId == param);
 
         <div class="row">
           <div class="header">
-            <h3 v-for="parent in projectById(intParam)" :key="parent.id">
+            <h3 v-for="parent in projectById(param)" :key="parent.id">
               {{ parent.projectName }}
             </h3>
           </div>
@@ -59,7 +61,7 @@ const length = taskList.filter((task) => task.parentId == param);
                 <div class="item">Parent Name</div>
                 <p
                   class="item-desc"
-                  v-for="parent in projectById(intParam)"
+                  v-for="parent in projectById(param)"
                   :key="parent.id"
                 >
                   {{ parent.projectName }}
@@ -78,6 +80,8 @@ const length = taskList.filter((task) => task.parentId == param);
           <div class="col">
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ project.totalDuration }} hours</p>
+            <div class="item">Project Duration</div>
+            <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>
             <p class="item-desc">{{ project.projectAge }} days</p>
             <div class="item">Project Status</div>

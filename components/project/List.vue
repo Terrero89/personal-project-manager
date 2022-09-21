@@ -12,7 +12,7 @@ const { projectList } = store;
     <div class="container wrapper">
       <UITitle title="Projects" />
       <div>search bar</div>
-      latest actions - filterBy - sea -
+      latest actions - filterBy - seach bar-
 
       <!-- search bar, filter by project type, etc.. goes here. -->
       <div class="row">
@@ -26,9 +26,10 @@ const { projectList } = store;
             :status="project.isComplete"
           />
         </div>
-
+        <div>paginations</div>
         <div class="col-lg-12">
           <ProjectActions />
+          <div>paginations</div>
         </div>
       </div>
     </div>
