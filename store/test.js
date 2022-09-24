@@ -8,7 +8,12 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    actions: [],
+    actions: [
+      {id: 1,parentId:1, name: "Deleted",category: "Delete"  },
+      {id: 2,parentId:2, name: "Added",category: "Add"  },
+      {id: 3,parentId:3, name: "Updated",category: "Update"  },
+      {id: 4,parentId:4, name: "Deleted",category: "Delete"  },
+    ],
 
     projects: [{
         id: 1,
@@ -258,7 +263,7 @@ export const useTest = defineStore({
       });
     },
 
-    deleteProject(itemID) {
+    deleteTask(itemID) {
       this.tasks = this.tasks.filter((object) => {
         return object.id !== itemID;
       });

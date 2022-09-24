@@ -4,20 +4,33 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
+const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
 const { tasks, projects } = store;
-const projectParent= computed(() => store.filterItemById);
+const projectParent = computed(() => store.filterItemById);
 // const taskDetail = taskList.filter((task) => task.parentId == param);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
+// const deleteTasks = (id)=>{
+//    store.deleteTask(id)
+//     replace.router("/");
+// }
+const redirect = ref(false)
+definePageMeta({
+    middleware: ['test'],
+  // or middleware: 'auth'
+})
+
+//function that deletes the item and return to projects page.
+function de(id) {
+  store.deleteTask(id);
+  return navigateTo('/projects')
+}
 </script>
 
 <template>
   <div class="tasks-wrapper">
     <div class="task-list">
-
- 
-
       <div
         class="project-detail"
         v-for="project in findTaskDetail(taskParam)"
@@ -51,7 +64,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
                   >
                     {{ parent.projectName }}
                   </p>
-                 
+
                   <div class="item">Description</div>
                   <p class="item-desc">{{ project.description }}</p>
                   <div class="item">Start Date</div>
@@ -71,9 +84,15 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
               <p v-if="!project.isComplete">In Progress</p>
             </div>
             <div class="header">
-              <button type="button" class="btn btn-danger mr-5">X</button>
+              <button
+                type="button"
+                @click="de(taskParam)"
+                class="btn btn-danger"
+              >
+                X
+              </button>
               <button type="button" class="btn btn-outline-primary">
-               Update
+                Update
               </button>
             </div>
           </div>
@@ -84,6 +103,9 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
 </template>
 
 <style scoped>
+.btn {
+  margin-right: 2rem;
+}
 .col {
   background-color: rgb(255, 255, 255);
   padding: 1rem 0;
@@ -102,5 +124,4 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
 .item {
   color: rgb(129, 129, 129);
 }
-
 </style>
