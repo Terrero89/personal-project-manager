@@ -162,7 +162,7 @@ export const useTest = defineStore({
         id: 9,
         parentId: 2,
         taskName: "Footer Section",
-        description: "Footer Section for website.",
+        description: "Footer Section for website..",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
