@@ -1,15 +1,19 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //should show all tasks details for specific task
 =======
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
 <!-- details task page -->
 <script setup>
 import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
+<<<<<<< HEAD
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
 const { tasks, projects } = store;
@@ -28,13 +32,53 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
       <UITitle title="Task Detail" />
  
 
+=======
+const router = useRouter(); //route object
+const param = parseInt(route.params.projectId);
+const taskParam = parseInt(route.params.detail);
+const { tasks, projects, history, taskList, findLength } = store;
+const projectParent = computed(() => store.filterItemById);
+const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
+
+//function that deletes the item and return to projects page.
+function deleteTask(id, parent) {
+
+  //received the id and parentId, and push it to actions state.
+  //action that push the action to actions state
+  store.deletedToActions(id, parent);
+  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+  if (store.findLength(param) < 1) {
+    return navigateTo(`/projects/project-${param}`);
+  } else {
+    //will push to history those that match
+    history.push(tasks.find((t) => t.id === id)); //needs to e fixed
+   
+   
+
+    //after action is pushed to actions, navigate to project's tasks page
+
+    return navigateTo(`/projects/project-${param}/tasks`);
+  }
+}
+</script>
+
+<template>
+  <div class="tasks-wrapper">
+    <div class="task-list">
+>>>>>>> delete-feature
       <div
         class="project-detail"
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
+<<<<<<< HEAD
         <div class="container detail-container">
           <UITitle title="Project Details" />
+=======
+      
+        <div class="container detail-container">
+          <UITitle title="Task Details" />
+>>>>>>> delete-feature
 
           <div class="row">
             <div class="header">
@@ -56,12 +100,20 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
                   <div class="item">Parent Name</div>
                   <p
                     class="item-desc"
+<<<<<<< HEAD
                     v-for="parent in projects"
+=======
+                    v-for="parent in projectParent(param)"
+>>>>>>> delete-feature
                     :key="parent.id"
                   >
                     {{ parent.projectName }}
                   </p>
+<<<<<<< HEAD
                  
+=======
+
+>>>>>>> delete-feature
                   <div class="item">Description</div>
                   <p class="item-desc">{{ project.description }}</p>
                   <div class="item">Start Date</div>
@@ -81,15 +133,28 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
               <p v-if="!project.isComplete">In Progress</p>
             </div>
             <div class="header">
+<<<<<<< HEAD
               <button type="button" class="btn btn-danger mr-5">X</button>
               <button type="button" class="btn btn-outline-primary">
                 Primary
+=======
+              <button
+                type="button"
+                @click="deleteTask(taskParam, project.parentId)"
+                class="btn btn-danger"
+              >
+                X
+              </button>
+              <button type="button" class="btn btn-outline-primary">
+                Update
+>>>>>>> delete-feature
               </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     <h2>parent project params-> {{ $route.params.projectId }}</h2>
@@ -147,6 +212,15 @@ td {
 </template>
 
 <style scoped>
+=======
+  </div>
+</template>
+
+<style scoped>
+.btn {
+  margin-right: 2rem;
+}
+>>>>>>> delete-feature
 .col {
   background-color: rgb(255, 255, 255);
   padding: 1rem 0;
@@ -165,6 +239,7 @@ td {
 .item {
   color: rgb(129, 129, 129);
 }
+<<<<<<< HEAD
 
 >>>>>>> styling
 =======
@@ -192,4 +267,6 @@ td {
 }
 
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
 </style>

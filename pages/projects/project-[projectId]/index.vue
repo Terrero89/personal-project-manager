@@ -3,10 +3,17 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
+<<<<<<< HEAD
 const param = route.params.projectId;
 const intParam = parseInt(param);
 
 const { taskList } = store;
+=======
+const param = parseInt(route.params.projectId);
+
+
+const { taskList,projects,history } = store;
+>>>>>>> delete-feature
 
 //link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${intParam}/update`);
@@ -19,6 +26,7 @@ const tasksLink = computed(() => `project-${intParam}/tasks`);
 //returned the array of the element equal to param
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const projectById = computed(() => store.tasksUnderProject); //
 
 // extracts array Tasks from pinia to filter
@@ -29,6 +37,9 @@ const findParentChild = taskList.filter((task) => task.parentId == param);
 =======
 >>>>>>> styling
 // const filterProjectById = (id) => projectList.filter((p) => p.id == param);
+=======
+//retirn array that contains parentsProjects
+>>>>>>> delete-feature
 const projectById = computed(() => store.filterItemById);
 // const length = computed(()=> store.projectsLength)
 //created a variable to be able to use the filteredProject
@@ -40,24 +51,48 @@ const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
 //check for the length of specific id
 const length = taskList.filter((task) => task.parentId == param);
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
 >>>>>>> styling
 =======
 >>>>>>> styling
+=======
+//? calculates total tasks duration for specific project.
+const totalDuration = computed(()=> store.totalTaskDuration)
+function deleteProject(id) {
+  store.deleteProject(id);
+
+  //received the id and parentId, and push it to actions state.
+  //action that push the action to actions state
+  store.projectDeletedToActions(id);
+  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+
+    //will push to history those that match
+    history.push(projects.find((t) => t.id === id)); //needs to e fixed
+    return navigateTo("/projects");
+  
+}
+
+>>>>>>> delete-feature
 </script>
 
 <template>
   <div>
     <div
       class="project-detail"
+<<<<<<< HEAD
       v-for="project in projectById(intParam)"
+=======
+      v-for="project in projectById(param)"
+>>>>>>> delete-feature
       :key="project.id"
     >
       <div class="container detail-container">
         <UITitle title="Project Details" />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       <h3 v-for="parent in projectById(intParam)" :key="parent.id"></h3>
@@ -108,6 +143,11 @@ const length = taskList.filter((task) => task.parentId == param);
         <div class="row">
           <div class="header">
             <h3 v-for="parent in projectById(intParam)" :key="parent.id">
+=======
+        <div class="row">
+          <div class="header">
+            <h3 v-for="parent in projectById(param)" :key="parent.id">
+>>>>>>> delete-feature
               {{ parent.projectName }}
             </h3>
           </div>
@@ -121,7 +161,11 @@ const length = taskList.filter((task) => task.parentId == param);
                 <div class="item">Parent Name</div>
                 <p
                   class="item-desc"
+<<<<<<< HEAD
                   v-for="parent in projectById(intParam)"
+=======
+                  v-for="parent in projectById(param)"
+>>>>>>> delete-feature
                   :key="parent.id"
                 >
                   {{ parent.projectName }}
@@ -140,6 +184,11 @@ const length = taskList.filter((task) => task.parentId == param);
           <div class="col">
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ project.totalDuration }} hours</p>
+<<<<<<< HEAD
+=======
+            <div class="item">Project Duration</div>
+            <p class="item-desc">{{ totalDuration(param) }} hours</p>
+>>>>>>> delete-feature
             <div class="item">Project Age</div>
             <p class="item-desc">{{ project.projectAge }} days</p>
             <div class="item">Project Status</div>
@@ -157,7 +206,11 @@ const length = taskList.filter((task) => task.parentId == param);
             </p>
           </div>
           <div class="header">
+<<<<<<< HEAD
             <button type="button" class="btn btn-danger mr-5">X</button>
+=======
+            <button @click="deleteProject(param)" type="button" class="btn btn-danger mr-5">X</button>
+>>>>>>> delete-feature
             <button type="button" class="btn btn-outline-primary">
               Primary
             </button>
@@ -165,15 +218,19 @@ const length = taskList.filter((task) => task.parentId == param);
         </div>
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> styling
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
     </div>
     <div>actions for this project</div>
   </div>
 </template>
 
 <style scoped>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 .project {
@@ -253,5 +310,24 @@ td {
 .item {
   color: rgb(129, 129, 129);
 >>>>>>> styling
+=======
+.col {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem 0;
+}
+.header {
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(205, 205, 205) 1px ; */
+  padding: 0.5rem 0rem;
+}
+.item-desc {
+  padding: 0 rem;
+  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
+  color: rgb(88, 88, 88);
+  width: 90%;
+}
+.item {
+  color: rgb(129, 129, 129);
+>>>>>>> delete-feature
 }
 </style>

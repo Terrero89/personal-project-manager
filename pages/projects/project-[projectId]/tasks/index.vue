@@ -6,6 +6,7 @@ const store = useTest();
 const route = useRoute(); //route object
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const { projects, tasks } = storeToRefs(store);
 const param = route.params.projectId; //param route for project
 const foundTasks = computed(() => store.tasksUnderProject); //
@@ -15,9 +16,7 @@ const taskParam = route.params.detail;
 // const tasksOfParents = taskList.filter((task) => task.parentId == param);
 const getParent = store.projects.filter((p) => p.id == param);
 const goBackButton = computed(() => `/projects/project-${param}`);
-=======
-=======
->>>>>>> styling
+
 const param = parseInt(route.params.projectId);
 
 const { taskList, projectList } = store;
@@ -28,6 +27,7 @@ const seeDetail = (parameter) => {
 }; //will make the id selectec the currect id to navigate
 
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
+<<<<<<< HEAD
 
 </script>
 
@@ -57,6 +57,20 @@ const seeDetail = (parameter) => {
         <Nuxt-link :to="goBackButton">Back</Nuxt-link>
       </div>
       <!-- <h3
+=======
+</script>
+
+<template>
+  <div class="tasks-wrapper table-responsive">
+    <div class="task-list">
+      <UITitle title="Tasks" />
+      <div>add task feature</div>
+      <div>search bar</div>
+      <div>filtering</div>
+      back to parent-
+      <nuxt-link to="/projects">projects</nuxt-link>
+      <h3
+>>>>>>> delete-feature
         style="color: black; font-size: size 1.5rem"
         v-for="parent in getParent"
         :key="parent.id"
@@ -68,10 +82,13 @@ const seeDetail = (parameter) => {
           <tr class="table-header">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <th>Id#</th>
 =======
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
             <th>Task Id#</th>
 
 >>>>>>> styling
@@ -86,6 +103,7 @@ const seeDetail = (parameter) => {
         <tbody>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <tr v-for="task in foundTasks(intParam)" :key="task.id">
             <td>{{ task.id }}</td>
             <td>{{ task.taskName }}</td>
@@ -95,6 +113,8 @@ const seeDetail = (parameter) => {
 =======
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
           <tr
             class="table-content"
             v-for="task in tasksOfParents"
@@ -115,9 +135,12 @@ const seeDetail = (parameter) => {
               >
             </td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> styling
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
             <td>.</td>
             <td>.</td>
           </tr>
@@ -144,17 +167,21 @@ th,
 td {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   padding: 1.6rem 1rem;
   font-size: 1.2rem;
 =======
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
   text-align: left;
 
   /* font-size: 1.2rem;*/
 }
 
 td {
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> styling
 }
@@ -163,6 +190,8 @@ td {
   font-size: 1.3rem;
 =======
 >>>>>>> styling
+=======
+>>>>>>> delete-feature
 }
 
 .table-header {

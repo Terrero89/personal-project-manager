@@ -5,6 +5,7 @@ import { useTest } from "@/store/test";
 const store = useTest();
 const route = useRoute(); //route object
 const { projectList } = store;
+<<<<<<< HEAD
 </script>
 
 <template>
@@ -31,6 +32,47 @@ const { projectList } = store;
 </template>
 
 <style scoped>
+=======
+
+</script>
+
+<template>
+  <div class="actions-section">
+    <h3 style="padding: 0 0.7rem">Actions Section</h3>
+    <div class="actions" v-for="action in store.actions" :key="action.id">
+      <p class="action-name"> {{action.type}} Id#{{ action.id }} {{ action.name }}</p>
+
+      <div class="actions-date">
+        <div v-if="action.category === 'Update'" class="color update"></div>
+        <div v-if="action.category === 'Delete'" class="color delete"></div>
+        <div v-if="action.category === 'Add'" class="color added"></div>
+        <div class="date">05/07/2022</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.color {
+  position: absolute;
+
+  width: 1%;
+  height: 100%;
+  left: 0;
+
+  bottom: 0;
+}
+.added {
+  background-color: rgb(0, 115, 255);
+}
+.delete {
+  background-color: red;
+}
+
+.update {
+  background-color: rgb(177, 134, 212);
+}
+>>>>>>> delete-feature
 .action-name {
   margin: auto 0;
   color: black;
@@ -38,6 +80,7 @@ const { projectList } = store;
   margin-right: auto;
 }
 .actions-date {
+<<<<<<< HEAD
   border-radius:3px;
   background-color:rgb(127, 176, 244) ;
   padding: 0.7rem;
@@ -47,6 +90,18 @@ const { projectList } = store;
 }
 
 .actions {
+=======
+  border-radius: 3px;
+  background-color: rgb(127, 176, 244);
+  padding: 0.7rem;
+}
+.actions-date .date {
+  color: white;
+}
+
+.actions {
+  position: relative;
+>>>>>>> delete-feature
   border: solid rgb(179, 179, 179) 1px;
 
   padding: 1rem;
