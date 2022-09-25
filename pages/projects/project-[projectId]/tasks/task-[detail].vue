@@ -13,7 +13,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
 
 //function that deletes the item and return to projects page.
 function deleteTask(id, parent) {
-
+store.deleteTask(id)
   //received the id and parentId, and push it to actions state.
   //action that push the action to actions state
   store.deletedToActions(id, parent);
