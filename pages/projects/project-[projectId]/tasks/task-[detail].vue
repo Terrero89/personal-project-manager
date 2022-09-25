@@ -128,6 +128,7 @@ store.deleteTask(id)
   width: 90%;
 }
 .item {
-  color: rgb(129, 129, 129);
+ 
+  
 }
 </style>
