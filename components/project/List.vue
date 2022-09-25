@@ -13,7 +13,7 @@ const { projectList,hasProjects} = store;
       <UITitle title="Projects" />
       <div>search bar</div>
       latest actions - filterBy - seach bar-
-
+      <nuxt-link to="/projects/addproject">Add Project</nuxt-link>
       <!-- search bar, filter by project type, etc.. goes here. -->
       <div class="row">
         <div class="col-lg-12">

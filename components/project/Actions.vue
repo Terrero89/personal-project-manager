@@ -6,31 +6,60 @@ const store = useTest();
 const route = useRoute(); //route object
 const { projectList, hasActions } = store;
 const toggleActions = ref(false);
-const toggle = ()=> toggleActions.value = !toggleActions.value;
+const toggle = () => (toggleActions.value = !toggleActions.value);
 </script>
 
 <template>
-  <div >
-    <div @click="toggle"> See action <i class="fa-sharp fa-solid fa-house"></i></div>
-    <div v-if="toggleActions">
-    <div class="actions-section">
-      <h3 style="padding: 0 0.7rem">Actions Section</h3>
-      <div class="actions" v-for="action in store.actions" :key="action.id">
-        <p class="action-name">
-          {{ action.type }} Id#{{ action.id }} {{ action.name }}
-        </p>
+  <div>
+    <a @click="toggle">
+      See action
+      <svg
+        v-if="!toggleActions"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-right-circle-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+        />
+      </svg>
 
-        <div class="actions-date">
-          <div v-if="action.category === 'Update'" class="color update"></div>
-          <div v-if="action.category === 'Delete'" class="color delete"></div>
-          <div v-if="action.category === 'Add'" class="color added"></div>
-          <div class="date">05/07/2022</div>
+      <svg
+        v-if="toggleActions"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-down-circle-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"
+        />
+      </svg>
+    </a>
+    <div v-if="toggleActions">
+      <div class="actions-section">
+        <h3 style="padding: 0 0.7rem">Actions Section</h3>
+        <div class="actions" v-for="action in store.actions" :key="action.id">
+          <p class="action-name">
+            {{ action.type }} Id#{{ action.id }} {{ action.name }}
+          </p>
+
+          <div class="actions-date">
+            <div v-if="action.category === 'Update'" class="color update"></div>
+            <div v-if="action.category === 'Delete'" class="color delete"></div>
+            <div v-if="action.category === 'Add'" class="color added"></div>
+            <div class="date">05/07/2022</div>
+          </div>
         </div>
+        <div v-if="!hasActions">No Actions available at this moment</div>
       </div>
-      <div v-if="!hasActions">No Actions available at this moment</div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped>

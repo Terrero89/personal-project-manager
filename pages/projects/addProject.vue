@@ -7,10 +7,12 @@
 
 
 <template>
-<form class="row g-3">
+<div>
   <div class="col-md-6">
  add project page
   </div>
-</form>
 
+  <ProjectForm/>
+
+</div>
 </template>

@@ -4,13 +4,9 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-
-
-const { taskList,projects,history } = store;
-
+const { taskList, projects, history } = store;
 //link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${param}/update`);
-
 //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
 
@@ -28,9 +24,9 @@ const projectById = computed(() => store.filterItemById);
 //project id.
 const parentChild = computed(() => store.findParentChild);
 //check for the length of specific id
-const length = store.findLength
+const length = store.hasTasks;
 //? calculates total tasks duration for specific project.
-const totalDuration = computed(()=> store.totalTaskDuration)
+const totalDuration = computed(() => store.totalTaskDuration);
 //function that executes the delete receiving one arg.
 function deleteProject(id) {
   store.deleteProject(id); //executes the delete project in pinia
@@ -41,9 +37,7 @@ function deleteProject(id) {
   //will push to history those that match
   history.push(projects.find((t) => t.id === id)); //needs to e fixed
   return navigateTo("/projects");
-  
 }
-
 </script>
 
 <template>
@@ -110,7 +104,13 @@ function deleteProject(id) {
             </p>
           </div>
           <div class="header">
-            <button @click="deleteProject(param)" type="button" class="btn btn-danger mr-5">X</button>
+            <button
+              @click="deleteProject(param)"
+              type="button"
+              class="btn btn-danger mr-5"
+            >
+              X
+            </button>
             <button type="button" class="btn btn-outline-primary">
               Primary
             </button>
