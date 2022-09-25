@@ -23,7 +23,7 @@ const seeDetail = (parameter) => {
       <div>search bar</div>
       <div>filtering</div>
       back to parent-
-
+      <nuxt-link to="/projects">projects</nuxt-link>
       <h3
         style="color: black; font-size: size 1.5rem"
         v-for="parent in getParent"

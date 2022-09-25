@@ -7,24 +7,29 @@ const route = useRoute(); //route object
 const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
-const { tasks, projects } = store;
+const { tasks, projects, history, taskList, findLength } = store;
 const projectParent = computed(() => store.filterItemById);
-// const taskDetail = taskList.filter((task) => task.parentId == param);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
-// const deleteTasks = (id)=>{
-//    store.deleteTask(id)
-//     replace.router("/");
-// }
-const redirect = ref(false)
-definePageMeta({
-    middleware: ['test'],
-  // or middleware: 'auth'
-})
 
 //function that deletes the item and return to projects page.
-function de(id) {
-  store.deleteTask(id);
-  return navigateTo('/projects')
+function deleteTask(id, parent) {
+
+  //received the id and parentId, and push it to actions state.
+  //action that push the action to actions state
+  store.deletedToActions(id, parent);
+  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+  if (store.findLength(param) < 1) {
+    return navigateTo(`/projects/project-${param}`);
+  } else {
+    //will push to history those that match
+    history.push(tasks.find((t) => t.id === id)); //needs to e fixed
+   
+   
+
+    //after action is pushed to actions, navigate to project's tasks page
+
+    return navigateTo(`/projects/project-${param}/tasks`);
+  }
 }
 </script>
 
@@ -36,6 +41,7 @@ function de(id) {
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
+      
         <div class="container detail-container">
           <UITitle title="Task Details" />
 
@@ -86,7 +92,7 @@ function de(id) {
             <div class="header">
               <button
                 type="button"
-                @click="de(taskParam)"
+                @click="deleteTask(taskParam, project.parentId)"
                 class="btn btn-danger"
               >
                 X

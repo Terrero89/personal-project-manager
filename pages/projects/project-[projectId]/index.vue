@@ -6,7 +6,7 @@ const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
 
-const { taskList } = store;
+const { taskList,projects,history } = store;
 
 //link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${param}/update`);
@@ -17,7 +17,7 @@ const tasksLink = computed(() => `project-${param}/tasks`);
 //extracted getter projectList that receives argument
 //we will evaluate it if argument is equal to param
 //returned the array of the element equal to param
-// const filterProjectById = (id) => projectList.filter((p) => p.id == param);
+//retirn array that contains parentsProjects
 const projectById = computed(() => store.filterItemById);
 // const length = computed(()=> store.projectsLength)
 //created a variable to be able to use the filteredProject
@@ -31,7 +31,19 @@ const parentChild = computed(() => store.findParentChild);
 const length = taskList.filter((task) => task.parentId == param);
 //? calculates total tasks duration for specific project.
 const totalDuration = computed(()=> store.totalTaskDuration)
+function deleteProject(id) {
+  store.deleteProject(id);
 
+  //received the id and parentId, and push it to actions state.
+  //action that push the action to actions state
+  store.projectDeletedToActions(id);
+  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+
+    //will push to history those that match
+    history.push(projects.find((t) => t.id === id)); //needs to e fixed
+    return navigateTo("/projects");
+  
+}
 
 </script>
 
@@ -99,7 +111,7 @@ const totalDuration = computed(()=> store.totalTaskDuration)
             </p>
           </div>
           <div class="header">
-            <button type="button" class="btn btn-danger mr-5">X</button>
+            <button @click="deleteProject(param)" type="button" class="btn btn-danger mr-5">X</button>
             <button type="button" class="btn btn-outline-primary">
               Primary
             </button>

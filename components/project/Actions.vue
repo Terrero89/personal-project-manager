@@ -12,7 +12,7 @@ const { projectList } = store;
   <div class="actions-section">
     <h3 style="padding: 0 0.7rem">Actions Section</h3>
     <div class="actions" v-for="action in store.actions" :key="action.id">
-      <p class="action-name">Project Id# {{ action.id }} {{ action.name }}</p>
+      <p class="action-name"> {{action.type}} Id#{{ action.id }} {{ action.name }}</p>
 
       <div class="actions-date">
         <div v-if="action.category === 'Update'" class="color update"></div>

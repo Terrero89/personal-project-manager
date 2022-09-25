@@ -8,11 +8,12 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
+    history: [],
     actions: [
-      {id: 1,parentId:1, name: "Deleted",category: "Delete"  },
-      {id: 2,parentId:2, name: "Added",category: "Add"  },
-      {id: 3,parentId:3, name: "Updated",category: "Update"  },
-      {id: 4,parentId:4, name: "Deleted",category: "Delete"  },
+      {id: 1,parentId:1, type: "Task", name: "Deleted",category: "Delete"  },
+      {id: 2,parentId:2, type: "Task", name: "Added",category: "Add"  },
+      {id: 3,parentId:3, type: "Task", name: "Updated",category: "Update"  },
+      {id: 4,parentId:4, type: "Project", name: "Deleted",category: "Delete"  },
     ],
 
     projects: [{
@@ -220,14 +221,21 @@ export const useTest = defineStore({
       return (id) => task.filter((task) => task.id === id)
     },
 
+
+
     // tasksUnderProject: (state) => (id) =>
     // state.tasks.filter((task) => task.parentId === id),
     detailOfTask(state) {
       const item = state.tasks.filter((task) => task.id)
       return (id) => item.filter(task => task.id === id)
     },
-    // detailOfTask: (state) => (id) =>
-    // state.tasks.filter((task) => task.id === id),
+  
+    //evaluates how many are in the array
+    findLength(state){
+     const tasks = state.tasks.filter(t => t.parentId  )
+    return (id) => tasks.filter(t => t.parentId === id).map(t => t.length ===0 ).length
+    },
+   
     findParentChild(state){
       const parent = state.projects.filter((task) => task.parentId)
       return (id) => parent.filter((task) => task.parentId === id)
@@ -241,8 +249,8 @@ export const useTest = defineStore({
       //?Filter tasks parentID that are equal to parameter
       //?calculates the total of the hours by id with reduce
       return (id) => tasks.filter((p) => p.parentId === id)
-        .reduce((accumulator, object) => {
-          return accumulator + object.duration;
+        .reduce((accumulator, item) => {
+          return accumulator + item.duration;
         }, 0);
     },
   },
@@ -268,5 +276,31 @@ export const useTest = defineStore({
         return object.id !== itemID;
       });
     },
+    deletedToActions(id,parent){
+      const action = {
+        type: "Task",
+        id: id,
+        parentId: parent,
+        name: "Deleted",
+        category: "Delete",
+      };
+      this.actions.push(action);
+    },
+
+    projectDeletedToActions(id,parent){
+      const action = {
+        type: "Project",
+        id: id,
+        name: "Deleted",
+        category: "Delete",
+      };
+      this.actions.push(action);
+    },
+    // addToHistory(id){
+    //   const added = this.tasks.find((t) => t.id === id)
+    //   this.history.push(added);
+   
+    // },
+ 
   },
 });
