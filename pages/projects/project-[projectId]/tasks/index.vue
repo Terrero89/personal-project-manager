@@ -28,8 +28,7 @@ const seeDetail = (parameter) => {
 }; //will make the id selectec the currect id to navigate
 
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
-<<<<<<< HEAD
->>>>>>> styling
+
 </script>
 
 <template>
