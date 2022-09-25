@@ -1,45 +1,23 @@
 <script setup>
 import { useTest } from "@/store/test";
-
+import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-<<<<<<< HEAD
-const param = route.params.projectId;
-const intParam = parseInt(param);
-
-const { taskList } = store;
-=======
 const param = parseInt(route.params.projectId);
 
 
 const { taskList,projects,history } = store;
->>>>>>> delete-feature
 
 //link to route to {params}/update to update project.
-const updateLink = computed(() => `project-${intParam}/update`);
+const updateLink = computed(() => `project-${param}/update`);
 
 //link to route to {params}/tasks to update project.
-const tasksLink = computed(() => `project-${intParam}/tasks`);
+const tasksLink = computed(() => `project-${param}/tasks`);
 
 //extracted getter projectList that receives argument
 //we will evaluate it if argument is equal to param
 //returned the array of the element equal to param
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-const projectById = computed(() => store.tasksUnderProject); //
-
-// extracts array Tasks from pinia to filter
-// the tasks that have a parentId that matches project id.
-
-const findParentChild = taskList.filter((task) => task.parentId == param);
-=======
-=======
->>>>>>> styling
-// const filterProjectById = (id) => projectList.filter((p) => p.id == param);
-=======
 //retirn array that contains parentsProjects
->>>>>>> delete-feature
 const projectById = computed(() => store.filterItemById);
 // const length = computed(()=> store.projectsLength)
 //created a variable to be able to use the filteredProject
@@ -51,14 +29,6 @@ const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
 //check for the length of specific id
 const length = taskList.filter((task) => task.parentId == param);
-<<<<<<< HEAD
-
-
-<<<<<<< HEAD
->>>>>>> styling
-=======
->>>>>>> styling
-=======
 //? calculates total tasks duration for specific project.
 const totalDuration = computed(()=> store.totalTaskDuration)
 function deleteProject(id) {
@@ -75,79 +45,21 @@ function deleteProject(id) {
   
 }
 
->>>>>>> delete-feature
 </script>
 
 <template>
   <div>
     <div
       class="project-detail"
-<<<<<<< HEAD
-      v-for="project in projectById(intParam)"
-=======
       v-for="project in projectById(param)"
->>>>>>> delete-feature
       :key="project.id"
     >
       <div class="container detail-container">
         <UITitle title="Project Details" />
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <h3 v-for="parent in projectById(intParam)" :key="parent.id"></h3>
-      <table class="table">
-        <thead>
-          <tr class="table-header">
-            <th>Id</th>
-            <th>User</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Age</th>
-            <th>Duration</th>
-            <th>tasks #</th>
-            <th>Status</th>
-            <th></th>
-            <th>U</th>
-            <th>D</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            class="table-content"
-            v-for="project in projectById(intParam)"
-            :key="project.id"
-          >
-            <td>{{ project.id }}</td>
-            <td>{{ project.user }}</td>
-            <td>{{ project.projectDescription }}</td>
-            <td>{{ project.startDate }}</td>
-            <td>{{ project.endDate }}</td>
-            <td>{{ project.projectAge }} days</td>
-            <td>{{ project.totalDuration }} hrs</td>
-            <td>{{ findParentChild.length }} Tasks</td>
-            <td v-if="project.isComplete">Complete</td>
-            <td v-if="!project.isComplete">In Progress</td>
-            <td><Nuxt-link :to="tasksLink">All Tasks</Nuxt-link></td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-        </tbody>
-      </table>
-      <div>actions for this project</div>
-=======
-=======
->>>>>>> styling
-        <div class="row">
-          <div class="header">
-            <h3 v-for="parent in projectById(intParam)" :key="parent.id">
-=======
         <div class="row">
           <div class="header">
             <h3 v-for="parent in projectById(param)" :key="parent.id">
->>>>>>> delete-feature
               {{ parent.projectName }}
             </h3>
           </div>
@@ -161,11 +73,7 @@ function deleteProject(id) {
                 <div class="item">Parent Name</div>
                 <p
                   class="item-desc"
-<<<<<<< HEAD
-                  v-for="parent in projectById(intParam)"
-=======
                   v-for="parent in projectById(param)"
->>>>>>> delete-feature
                   :key="parent.id"
                 >
                   {{ parent.projectName }}
@@ -184,11 +92,8 @@ function deleteProject(id) {
           <div class="col">
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ project.totalDuration }} hours</p>
-<<<<<<< HEAD
-=======
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
->>>>>>> delete-feature
             <div class="item">Project Age</div>
             <p class="item-desc">{{ project.projectAge }} days</p>
             <div class="item">Project Status</div>
@@ -206,73 +111,19 @@ function deleteProject(id) {
             </p>
           </div>
           <div class="header">
-<<<<<<< HEAD
-            <button type="button" class="btn btn-danger mr-5">X</button>
-=======
             <button @click="deleteProject(param)" type="button" class="btn btn-danger mr-5">X</button>
->>>>>>> delete-feature
             <button type="button" class="btn btn-outline-primary">
               Primary
             </button>
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> styling
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
     </div>
     <div>actions for this project</div>
   </div>
 </template>
 
 <style scoped>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-.project {
-  margin: 0 auto;
-  max-width: 1500px;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-}
-
-th,
-td {
-  padding: 1.6rem 1rem;
-  font-size: 1.2rem;
-}
-td {
-  padding: 2rem 1rem;
-  font-size: 1.3rem;
-}
-
-.table-header {
-  border: solid rgb(187, 187, 187) 1px;
-  color: rgb(63, 63, 63);
-  text-transform: uppercase;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(100, 100, 255, 1) 0%,
-    rgba(42, 168, 194, 0.4) 0%
-  );
-}
-
-.table-content {
-  color: rgb(84, 84, 84);
-}
-
-.table-content {
-  background-color: white;
-=======
 .col {
   background-color: rgb(255, 255, 255);
   padding: 1rem 0;
@@ -290,44 +141,5 @@ td {
 }
 .item {
   color: rgb(129, 129, 129);
->>>>>>> styling
-=======
-.col {
-  background-color: rgb(255, 255, 255);
-  padding: 1rem 0;
-}
-.header {
-  background-color: rgb(227, 239, 253);
-  /* border: solid rgb(205, 205, 205) 1px ; */
-  padding: 0.5rem 0rem;
-}
-.item-desc {
-  padding: 0 rem;
-  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
-  color: rgb(88, 88, 88);
-  width: 90%;
-}
-.item {
-  color: rgb(129, 129, 129);
->>>>>>> styling
-=======
-.col {
-  background-color: rgb(255, 255, 255);
-  padding: 1rem 0;
-}
-.header {
-  background-color: rgb(227, 239, 253);
-  /* border: solid rgb(205, 205, 205) 1px ; */
-  padding: 0.5rem 0rem;
-}
-.item-desc {
-  padding: 0 rem;
-  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
-  color: rgb(88, 88, 88);
-  width: 90%;
-}
-.item {
-  color: rgb(129, 129, 129);
->>>>>>> delete-feature
 }
 </style>

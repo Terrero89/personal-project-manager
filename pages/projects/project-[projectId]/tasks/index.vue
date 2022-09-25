@@ -1,22 +1,8 @@
-//should sow all task for one project
 <script setup>
 import { useTest } from "@/store/test";
-import { storeToRefs } from "pinia";
+
 const store = useTest();
 const route = useRoute(); //route object
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-const { projects, tasks } = storeToRefs(store);
-const param = route.params.projectId; //param route for project
-const foundTasks = computed(() => store.tasksUnderProject); //
-const intParam = parseInt(param);
-const taskParam = route.params.detail;
-
-// const tasksOfParents = taskList.filter((task) => task.parentId == param);
-const getParent = store.projects.filter((p) => p.id == param);
-const goBackButton = computed(() => `/projects/project-${param}`);
-
 const param = parseInt(route.params.projectId);
 
 const { taskList, projectList } = store;
@@ -27,37 +13,6 @@ const seeDetail = (parameter) => {
 }; //will make the id selectec the currect id to navigate
 
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
-<<<<<<< HEAD
-
-</script>
-
-<template>
-<<<<<<< HEAD
-  <div class="tasks-wrapper">
-    <div class="task-list table-responsive">
-      <table class="table"></table>
-      <UITitle title="Tasks " />
-=======
-  <div class="tasks-wrapper table-responsive">
-    <div class="task-list ">
-      <UITitle title="Tasks" />
->>>>>>> styling
-=======
-</script>
-
-<template>
-  <div class="tasks-wrapper table-responsive">
-    <div class="task-list ">
-      <UITitle title="Tasks" />
->>>>>>> styling
-      <div>add task feature</div>
-      <div>search bar</div>
-      <div>filtering</div>
-      <div>
-        <Nuxt-link :to="goBackButton">Back</Nuxt-link>
-      </div>
-      <!-- <h3
-=======
 </script>
 
 <template>
@@ -70,28 +25,17 @@ const seeDetail = (parameter) => {
       back to parent-
       <nuxt-link to="/projects">projects</nuxt-link>
       <h3
->>>>>>> delete-feature
         style="color: black; font-size: size 1.5rem"
         v-for="parent in getParent"
         :key="parent.id"
       >
         {{ parent.projectName }}
-      </h3> -->
+      </h3>
       <table class="table">
         <thead>
           <tr class="table-header">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <th>Id#</th>
-=======
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
             <th>Task Id#</th>
 
->>>>>>> styling
             <th>Task Name</th>
             <th>Status</th>
             <th></th>
@@ -101,20 +45,6 @@ const seeDetail = (parameter) => {
         </thead>
 
         <tbody>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <tr v-for="task in foundTasks(intParam)" :key="task.id">
-            <td>{{ task.id }}</td>
-            <td>{{ task.taskName }}</td>
-            <td v-if="task.isComplete">Complete</td>
-            <td v-if="!task.isComplete">In Progress</td>
-            <td><Nuxt-link :to="taskDetailLink">Details </Nuxt-link></td>
-=======
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
           <tr
             class="table-content"
             v-for="task in tasksOfParents"
@@ -122,7 +52,7 @@ const seeDetail = (parameter) => {
           >
             <td>{{ task.id }}</td>
 
-     <td>{{ task.taskName }}</td>
+            <td>{{ task.taskName }}</td>
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
@@ -134,13 +64,6 @@ const seeDetail = (parameter) => {
                 >Task Details</nuxt-link
               >
             </td>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> styling
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
             <td>.</td>
             <td>.</td>
           </tr>
@@ -151,6 +74,9 @@ const seeDetail = (parameter) => {
 </template>
 
 <style scoped>
+.breakers {
+  margin: 1rem 0;
+}
 .task-list {
   max-width: 1500px;
   margin: 0 auto;
@@ -159,59 +85,20 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-
   /* border: 1px solid #ddd; */
 }
 
 th,
 td {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  padding: 1.6rem 1rem;
-  font-size: 1.2rem;
-=======
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
   text-align: left;
 
   /* font-size: 1.2rem;*/
 }
 
 td {
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> styling
-}
-td {
-  padding: 2rem 1rem;
-  font-size: 1.3rem;
-=======
->>>>>>> styling
-=======
->>>>>>> delete-feature
 }
 
 .table-header {
-<<<<<<< HEAD
-  border: solid rgb(187, 187, 187) 1px;
-  color: rgb(63, 63, 63);
-  text-transform: uppercase;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(100, 100, 255, 1) 0%,
-    rgba(42, 168, 194, 0.4) 0%
-  );
-}
-
-.table-content {
-  color: rgb(84, 84, 84);
-  padding: 2rem;
-=======
   padding: auto;
   background-color: rgb(227, 239, 253);
   /* border: solid rgb(159, 159, 159) 1px; */
@@ -236,7 +123,6 @@ td {
 .table-content {
   /* padding:2rem; */
   /* background-color: rgb(74, 159, 149); */
->>>>>>> styling
   background-color: white;
 }
 .project {

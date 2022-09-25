@@ -5,34 +5,6 @@ import { useTest } from "@/store/test";
 const store = useTest();
 const route = useRoute(); //route object
 const { projectList } = store;
-<<<<<<< HEAD
-</script>
-
-<template>
-  
-    <div class="actions-section">
-      <h3 style="padding: 0 0.7rem ">Actions Section</h3>
-      <div class="actions">
-        <p class="action-name">project [name] added</p>
-        <div class="actions-date">
-          <div class="date">05/07/2022</div>
-        </div>
-      </div>
-      <div class="actions">
-        <p class="action-name">task [name] added</p>
-        <div class="actions-date">
-          <div class="date">05/07/2022</div>
-          
-        </div>
-      </div>
-    
-      
-    </div>
-
-</template>
-
-<style scoped>
-=======
 
 </script>
 
@@ -72,7 +44,6 @@ const { projectList } = store;
 .update {
   background-color: rgb(177, 134, 212);
 }
->>>>>>> delete-feature
 .action-name {
   margin: auto 0;
   color: black;
@@ -80,17 +51,6 @@ const { projectList } = store;
   margin-right: auto;
 }
 .actions-date {
-<<<<<<< HEAD
-  border-radius:3px;
-  background-color:rgb(127, 176, 244) ;
-  padding: 0.7rem;
-}
-.actions-date .date {
- color:white
-}
-
-.actions {
-=======
   border-radius: 3px;
   background-color: rgb(127, 176, 244);
   padding: 0.7rem;
@@ -101,7 +61,6 @@ const { projectList } = store;
 
 .actions {
   position: relative;
->>>>>>> delete-feature
   border: solid rgb(179, 179, 179) 1px;
 
   padding: 1rem;

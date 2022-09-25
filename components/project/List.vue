@@ -12,11 +12,7 @@ const { projectList } = store;
     <div class="container wrapper">
       <UITitle title="Projects" />
       <div>search bar</div>
-<<<<<<< HEAD
-      latest actions - filterBy - sea -
-=======
       latest actions - filterBy - seach bar-
->>>>>>> delete-feature
 
       <!-- search bar, filter by project type, etc.. goes here. -->
       <div class="row">
@@ -29,18 +25,11 @@ const { projectList } = store;
             :description="project.projectDescription"
             :status="project.isComplete"
           />
-          
         </div>
-<<<<<<< HEAD
-
-        <div class="col-lg-12">
-          <ProjectActions />
-=======
         <div>paginations</div>
         <div class="col-lg-12">
           <ProjectActions />
           <div>paginations</div>
->>>>>>> delete-feature
         </div>
       </div>
     </div>
