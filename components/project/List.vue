@@ -4,7 +4,7 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
-const { projectList } = store;
+const { projectList,hasProjects} = store;
 </script>
 
 <template>
@@ -26,6 +26,8 @@ const { projectList } = store;
             :status="project.isComplete"
           />
         </div>
+        <div v-if="(!hasProjects) ">No Projects available at this moment</div>
+ 
         <div>paginations</div>
         <div class="col-lg-12">
           <ProjectActions />

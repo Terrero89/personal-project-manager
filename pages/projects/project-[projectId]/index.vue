@@ -28,20 +28,19 @@ const projectById = computed(() => store.filterItemById);
 //project id.
 const parentChild = computed(() => store.findParentChild);
 //check for the length of specific id
-const length = taskList.filter((task) => task.parentId == param);
+const length = store.findLength
 //? calculates total tasks duration for specific project.
 const totalDuration = computed(()=> store.totalTaskDuration)
+//function that executes the delete receiving one arg.
 function deleteProject(id) {
-  store.deleteProject(id);
-
+  store.deleteProject(id); //executes the delete project in pinia
   //received the id and parentId, and push it to actions state.
   //action that push the action to actions state
   store.projectDeletedToActions(id);
   //will redirect to tasks, or projects tasks depending on tasks length of the tasks
-
-    //will push to history those that match
-    history.push(projects.find((t) => t.id === id)); //needs to e fixed
-    return navigateTo("/projects");
+  //will push to history those that match
+  history.push(projects.find((t) => t.id === id)); //needs to e fixed
+  return navigateTo("/projects");
   
 }
 
@@ -100,7 +99,7 @@ function deleteProject(id) {
             <p v-if="project.isComplete">Complete</p>
             <p v-if="!project.isComplete">In Progress</p>
             <div class="item">Tasks Number</div>
-            <p>{{ length.length }} Tasks</p>
+            <p>{{ length(param) }} Tasks</p>
             <div class="item">See All Tasks</div>
             <p class="item-desc">
               <Nuxt-link :to="tasksLink">Tasks</Nuxt-link>

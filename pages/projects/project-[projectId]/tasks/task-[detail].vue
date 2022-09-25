@@ -10,15 +10,17 @@ const taskParam = parseInt(route.params.detail);
 const { tasks, projects, history, taskList, findLength } = store;
 const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
-
+const length = store.hasTasks
 //function that deletes the item and return to projects page.
 function deleteTask(id, parent) {
-store.deleteTask(id)
+store.deleteTask(id) //executes the delete action in pinia
   //received the id and parentId, and push it to actions state.
   //action that push the action to actions state
   store.deletedToActions(id, parent);
   //will redirect to tasks, or projects tasks depending on tasks length of the tasks
-  if (store.findLength(param) < 1) {
+ 
+  if ((length(param)-1) < 1) {
+
     return navigateTo(`/projects/project-${param}`);
   } else {
     //will push to history those that match
@@ -44,7 +46,7 @@ store.deleteTask(id)
       
         <div class="container detail-container">
           <UITitle title="Task Details" />
-
+          
           <div class="row">
             <div class="header">
               <h3

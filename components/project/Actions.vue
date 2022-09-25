@@ -4,24 +4,33 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
-const { projectList } = store;
-
+const { projectList, hasActions } = store;
+const toggleActions = ref(false);
+const toggle = ()=> toggleActions.value = !toggleActions.value;
 </script>
 
 <template>
-  <div class="actions-section">
-    <h3 style="padding: 0 0.7rem">Actions Section</h3>
-    <div class="actions" v-for="action in store.actions" :key="action.id">
-      <p class="action-name"> {{action.type}} Id#{{ action.id }} {{ action.name }}</p>
+  <div >
+    <div @click="toggle"> See action <i class="fa-sharp fa-solid fa-house"></i></div>
+    <div v-if="toggleActions">
+    <div class="actions-section">
+      <h3 style="padding: 0 0.7rem">Actions Section</h3>
+      <div class="actions" v-for="action in store.actions" :key="action.id">
+        <p class="action-name">
+          {{ action.type }} Id#{{ action.id }} {{ action.name }}
+        </p>
 
-      <div class="actions-date">
-        <div v-if="action.category === 'Update'" class="color update"></div>
-        <div v-if="action.category === 'Delete'" class="color delete"></div>
-        <div v-if="action.category === 'Add'" class="color added"></div>
-        <div class="date">05/07/2022</div>
+        <div class="actions-date">
+          <div v-if="action.category === 'Update'" class="color update"></div>
+          <div v-if="action.category === 'Delete'" class="color delete"></div>
+          <div v-if="action.category === 'Add'" class="color added"></div>
+          <div class="date">05/07/2022</div>
+        </div>
       </div>
+      <div v-if="!hasActions">No Actions available at this moment</div>
     </div>
   </div>
+</div>
 </template>
 
 <style scoped>

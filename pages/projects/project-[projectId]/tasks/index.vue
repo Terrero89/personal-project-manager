@@ -12,6 +12,7 @@ const seeDetail = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate
 
+const length = store.hasTasks;
 // const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
 </script>
 
@@ -24,6 +25,7 @@ const seeDetail = (parameter) => {
       <div>filtering</div>
       back to parent-
       <nuxt-link to="/projects">projects</nuxt-link>
+
       <h3
         style="color: black; font-size: size 1.5rem"
         v-for="parent in getParent"
@@ -39,8 +41,6 @@ const seeDetail = (parameter) => {
             <th>Task Name</th>
             <th>Status</th>
             <th></th>
-            <th>U</th>
-            <th>D</th>
           </tr>
         </thead>
 
@@ -64,11 +64,10 @@ const seeDetail = (parameter) => {
                 >Task Details</nuxt-link
               >
             </td>
-            <td>.</td>
-            <td>.</td>
           </tr>
         </tbody>
       </table>
+      <div v-if="(length(param)) < 1">No tasks available at this moment</div>
     </div>
   </div>
 </template>

@@ -208,11 +208,17 @@ export const useTest = defineStore({
   getters: {
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
+    hasProjects:(state)=> state.projects.length > 0, 
+    hasTasks:(state)=> state.projects.length > 0, 
+    hasActions:(state)=> state.actions.length > 0, 
     filterItemById(state) {
       const prj = state.projects.filter((p) => p.id)
       return (id) => prj.filter(p => p.id === id)
     },
-
+    hasTasks(state){
+      const tasks = state.tasks.filter(t => t.parentId  )
+     return (id) => tasks.filter(t => t.parentId === id).map(t => t.length  ).length
+     },
 
     // filterItemById: (state) => (id) =>
     // state.projects.filter((p) => p.id === id),
@@ -230,11 +236,7 @@ export const useTest = defineStore({
       return (id) => item.filter(task => task.id === id)
     },
   
-    //evaluates how many are in the array
-    findLength(state){
-     const tasks = state.tasks.filter(t => t.parentId  )
-    return (id) => tasks.filter(t => t.parentId === id).map(t => t.length ===0 ).length
-    },
+   
    
     findParentChild(state){
       const parent = state.projects.filter((task) => task.parentId)
