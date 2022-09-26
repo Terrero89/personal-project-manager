@@ -18,7 +18,7 @@ export const useTest = defineStore({
 
     projects: [{
         id: 1,
-        user: "Sergioxx",
+        user: "Sergio",
         category: "Frontend Development",
         projectName: "Web Development",
         projectDescription: "Web application that will....",
@@ -303,6 +303,13 @@ export const useTest = defineStore({
     //   this.history.push(added);
    
     // },
+
+    addProject(item){
+      this.projects.push(item)
+
+    },
+
+
  
   },
 });
