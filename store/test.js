@@ -8,6 +8,8 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
+    taskId:null,
+    projectId:5,
     history: [],
     actions: [
       {id: 1,parentId:1, type: "Task", name: "Deleted",category: "Delete"  },
@@ -257,14 +259,24 @@ export const useTest = defineStore({
     },
   },
   actions: {
-    addProject(item) {
-      this.projects.push({
-        ...item
-      });
+    addProject(data) {
+      // const projectData =
+      //   {
+          
+      //     user: data.user ,
+      //     category: data.category,
+      //     start:data.startDate,
+      //     end: data.endDate,
+      //     age: data.age,
+      //     totalDuration: data.totalDuration,
+      //     projectDesc: data.projectDescription,
+      //     isComplete:data.isComplete
+      //   };
+        this.projects.push({...data, id:this.projectId++})
+  
     },
     addTask(item) {
-      this.projects.push({
-        ...item
+      this.projects.push({...item, id:this.taskId++  
       });
     },
     deleteProject(itemID) {
@@ -289,12 +301,22 @@ export const useTest = defineStore({
       this.actions.push(action);
     },
 
-    projectDeletedToActions(id,parent){
+    projectDeletedToActions(id){
       const action = {
         type: "Project",
         id: id,
         name: "Deleted",
         category: "Delete",
+      };
+      this.actions.push(action);
+    },
+
+    projectAddedToActions(id){
+      const action = {
+        type: "Project",
+        id: id,
+        name: "Added",
+        category: "Added",
       };
       this.actions.push(action);
     },

@@ -1,7 +1,9 @@
 <script setup>
 import { useTest } from "@/store/test";
+import { storeToRefs } from 'pinia'
 const store = useTest();
-const { projects,addProject } = store;
+const { projects,addProject,history, projectAddedToActions} = store;
+const {projectId} = storeToRefs(store)
 
 
 const user = ref("");
@@ -15,8 +17,9 @@ const description = ref("");
 const status = ref(false);
 
 const submitForm = () => {
+ 
   const data = {
-    id: 5,
+    id:null,
     user: user.value,
     category: category.value,
     projectName: name.value,
@@ -27,11 +30,17 @@ const submitForm = () => {
     projectDescription: description.value,
     isComplete: status.value,
   };
-
-// addProject(data)
-  projects.push(data );
+projectId.value++ //state of projectId
+addProject(data)
+  // projects.push(data);
   navigateTo('/projects')
   console.log(data);
+  //add actions event to actions table
+  projectAddedToActions(id)
+  //add history event to history
+  history.push(data,projectId.value);
+
+  //check history push
 };
 </script>
 
