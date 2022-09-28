@@ -8,8 +8,10 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    taskId:null,
+    taskId:1,//number will be zero once i start adding to firebase
     projectId:5,
+    actionsId: 1,
+    historyId:1,
     history: [],
     actions: [
       {id: 1,parentId:1, type: "Task", name: "Deleted",category: "Delete"  },
@@ -259,41 +261,63 @@ export const useTest = defineStore({
     },
   },
   actions: {
+    //dont touch
     addProject(data) {
-      // const projectData =
-      //   {
-          
-      //     user: data.user ,
-      //     category: data.category,
-      //     start:data.startDate,
-      //     end: data.endDate,
-      //     age: data.age,
-      //     totalDuration: data.totalDuration,
-      //     projectDesc: data.projectDescription,
-      //     isComplete:data.isComplete
-      //   };
         this.projects.push({...data, id:this.projectId++})
-  
+        
     },
     addTask(item) {
       this.projects.push({...item, id:this.taskId++  
       });
     },
+  
     deleteProject(itemID) {
       this.projects = this.projects.filter((object) => {
         return object.id !== itemID;
       });
     },
-
     deleteTask(itemID) {
       this.tasks = this.tasks.filter((object) => {
         return object.id !== itemID;
       });
     },
+    addHistory(data){
+      this.history.push({...data, parentId:this.projectId, id: this.historyId++})
+    },
+    deletedHistory(data,id){
+      this.history.push({...data,parentId:id, id: this.historyId++})
+    },
+  //compl in projects
+  
+  projectAddedToActions(id){
+    const action = {
+      id: this.actionsId++,
+      parentId: id,
+      type: "Project",
+      name: "Added",
+      category: "Added",
+    };
+    this.actions.push(action);
+  },
+
+  projectDeletedToActions(id){
+    const action = {
+      id: this.actionsId++,
+      parentId: id,
+      type: "Project",
+      
+      name: "Deleted",
+      category: "Delete",
+    };
+    this.actions.push(action);
+  },
+
+  
     deletedToActions(id,parent){
       const action = {
+        id: this.actionsId++,
+        parentId: this.projectId,
         type: "Task",
-        id: id,
         parentId: parent,
         name: "Deleted",
         category: "Delete",
@@ -301,25 +325,7 @@ export const useTest = defineStore({
       this.actions.push(action);
     },
 
-    projectDeletedToActions(id){
-      const action = {
-        type: "Project",
-        id: id,
-        name: "Deleted",
-        category: "Delete",
-      };
-      this.actions.push(action);
-    },
 
-    projectAddedToActions(id){
-      const action = {
-        type: "Project",
-        id: id,
-        name: "Added",
-        category: "Added",
-      };
-      this.actions.push(action);
-    },
     // addToHistory(id){
     //   const added = this.tasks.find((t) => t.id === id)
     //   this.history.push(added);

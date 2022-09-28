@@ -1,43 +1,27 @@
 <script setup>
 import { useTest } from "@/store/test";
-
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-const { taskList, projects, history } = store;
+const { taskList, projects, history, deletedHistory,deleteProject,projectDeletedToActions} = store;
+
 //link to route to {params}/update to update project.
 const updateLink = computed(() => `project-${param}/update`);
 //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
-
-//extracted getter projectList that receives argument
-//we will evaluate it if argument is equal to param
-//returned the array of the element equal to param
-//retirn array that contains parentsProjects
 const projectById = computed(() => store.filterItemById);
-// const length = computed(()=> store.projectsLength)
-//created a variable to be able to use the filteredProject
-//to be able to receive argument {param}
-//then used the variable with the id that match
-// extracts array Tasks from pinia to filter
-// the tasks that have a parentId that matches
-//project id.
 const parentChild = computed(() => store.findParentChild);
-//check for the length of specific id
-const length = store.hasTasks;
-//? calculates total tasks duration for specific project.
-const totalDuration = computed(() => store.totalTaskDuration);
-//function that executes the delete receiving one arg.
-function deleteProject(id) {
-  store.deleteProject(id); //executes the delete project in pinia
-  //received the id and parentId, and push it to actions state.
-  //action that push the action to actions state
-  store.projectDeletedToActions(id);
-  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
-  //will push to history those that match
-  history.push(projects.find((t) => t.id === id)); //needs to e fixed
-  return navigateTo("/projects");
+const length = store.hasTasks; //check for the length of specific id
+const totalDuration = computed(() => store.totalTaskDuration); //? calculates total tasks duration for specific project.
+//function that executes the deleted arg.
+function removeProject(id) {
+  const foundProjectId = projects.find((t) => t.id === id);
+  deleteProject(id); //executes the delete project in pinia
+  projectDeletedToActions(id); //action that push the action to actions state
+  deletedHistory(foundProjectId,id); //action that stores deleted items
+  return navigateTo("/projects"); //after, go to projects
 }
+//findout about how to implement the delete feature on history
 </script>
 
 <template>
@@ -105,7 +89,7 @@ function deleteProject(id) {
           </div>
           <div class="header">
             <button
-              @click="deleteProject(param)"
+              @click="removeProject(param)"
               type="button"
               class="btn btn-danger mr-5"
             >
