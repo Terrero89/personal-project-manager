@@ -4,17 +4,28 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
-const { projectList,hasProjects} = store;
+const { projectList, hasProjects } = store;
 </script>
 
 <template>
   <div class="projects">
     <div class="container wrapper">
       <UITitle title="Projects" />
-      <div>search bar</div>
-      latest actions - filterBy - seach bar-
-      <nuxt-link to="/projects/addproject">Add Project</nuxt-link>
-      <!-- search bar, filter by project type, etc.. goes here. -->
+
+      <div class="row mb-3">
+      
+        <div class="col d-flex justify-content-end">
+          <nuxt-link type="button" to="/projects/addproject">
+            <button class="btn btn-md btn-primary py-2 px-3">
+          
+              Add Project
+            </button></nuxt-link
+          >
+        </div>
+      </div>
+
+      <SearchBar />
+
       <div class="row">
         <div class="col-lg-12">
           <ProjectListItem
@@ -26,8 +37,8 @@ const { projectList,hasProjects} = store;
             :status="project.isComplete"
           />
         </div>
-        <div v-if="(!hasProjects) ">No Projects available at this moment</div>
- 
+        <div v-if="!hasProjects">No Projects available at this moment</div>
+
         <div>paginations</div>
         <div class="col-lg-12">
           <ProjectActions />
@@ -39,12 +50,16 @@ const { projectList,hasProjects} = store;
 </template>
 
 <style scoped>
+.add-button {
+  margin: 0 auto;
+}
 .mr {
   margin-left: auto;
 }
 .projects {
   display: flex;
   justify-content: center;
+
 }
 .project-item {
   border: solid red 1px;

@@ -3,25 +3,31 @@ import { useTest } from "@/store/test";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-const { taskList, projects, history, deletedHistory,deleteProject,projectDeletedToActions} = store;
+const {
+  taskList,
+  projects,
+  history,
+  deletedHistory,
+  deleteProject,
+  projectDeletedToActions,
+} = store;
 
-//link to route to {params}/update to update project.
-const updateLink = computed(() => `project-${param}/update`);
-//link to route to {params}/tasks to update project.
+const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
+
 const tasksLink = computed(() => `project-${param}/tasks`);
 const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
 const length = store.hasTasks; //check for the length of specific id
 const totalDuration = computed(() => store.totalTaskDuration); //? calculates total tasks duration for specific project.
-//function that executes the deleted arg.
-function removeProject(id) {
+
+function removeProject(id) { //function that executes the deleted arg.
   const foundProjectId = projects.find((t) => t.id === id);
   deleteProject(id); //executes the delete project in pinia
   projectDeletedToActions(id); //action that push the action to actions state
-  deletedHistory(foundProjectId,id); //action that stores deleted items
+  deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
-//findout about how to implement the delete feature on history
+
 </script>
 
 <template>
@@ -67,8 +73,7 @@ function removeProject(id) {
             </div>
           </div>
           <div class="col">
-            <div class="item">Project Duration</div>
-            <p class="item-desc">{{ project.totalDuration }} hours</p>
+           
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>

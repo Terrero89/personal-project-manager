@@ -31,7 +31,7 @@ const submitForm = () => {
     isComplete: status.value,
   };
 
-
+projectId.value++ //will be removed once i set firebase
 addProject(projectData) //add project to pinia
 addHistory(projectData) //add history to pinia
 projectAddedToActions(projectId.value) //add project to actions
