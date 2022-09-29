@@ -1,8 +1,33 @@
+<script setup>
+import { useTest } from "@/store/test";
+import { storeToRefs } from "pinia";
+const emit = defineEmits(['search'])
+
+const store = useTest();
+const route = useRoute(); //route object
+const { hasProjects, searchItem } = store;
+const { projects } = storeToRefs(store);
+
+const searchInput = ref("");
+
+const searchedProjects = computed(() => {
+  return store.projects.filter((p) => {
+    return (
+      p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
+      
+    );
+   
+  });
+  emit('search')
+});
+</script>
+
 <template>
+  <!-- search bar starts here -->
   <div>
     <div class="mb-3">
       <div class="row">
-        <div class="col-lg-8 col-md-6 col-sm-6 col-6 my-2">
+        <div class="col-lg-8 col-md-6 col-sm-6 col-7 my-2">
           <div class="input-group">
             <span class="input-group-text" id="basic-addon1">
               <svg
@@ -20,9 +45,10 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Project Name"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              placeholder="Search by.."
+              v-model="searchInput"
+              @input="$emit('search', $event.target.value)"
+              
             />
           </div>
         </div>

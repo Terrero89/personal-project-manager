@@ -210,6 +210,8 @@ export const useTest = defineStore({
   }),
 
   getters: {
+
+    searchItem:(state) => (item) => state.projects.filter(p => {return p.projectName.toLowerCase().includes(item)}),
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
     hasProjects:(state)=> state.projects.length > 0, 

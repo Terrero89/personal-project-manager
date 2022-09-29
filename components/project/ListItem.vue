@@ -58,7 +58,6 @@ const detailsLink = computed(() => {
   position: relative;
   border: solid rgb(218, 214, 214) 1px;
   background-color: rgb(255, 255, 255); /*color for background item */
-  /* border-radius: 0.5rem; */
   padding: 1rem;
   margin: 0.5rem 0;
   display: flex;
