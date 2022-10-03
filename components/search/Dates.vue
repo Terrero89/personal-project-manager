@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-4 col-md-6 col-sm-6 col-5 my-2">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-4 ">
     <div class="input-group">
       <span class="input-group-text" id="basic-addon1"
         ><svg

@@ -1,7 +1,7 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-const emit = defineEmits(['search'])
+const emit = defineEmits(["customChange"]);
 
 const store = useTest();
 const route = useRoute(); //route object
@@ -14,12 +14,11 @@ const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
-      
     );
-   
   });
-  emit('search')
 });
+
+const searchBar = (event) => emit("customChange", searchedProjects);
 </script>
 
 <template>
@@ -42,17 +41,18 @@ const searchedProjects = computed(() => {
                   d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
                 /></svg
             ></span>
+
             <input
               type="text"
               class="form-control"
               placeholder="Search by.."
               v-model="searchInput"
-              @input="$emit('search', $event.target.value)"
-              
+              @input="searchBar"
             />
           </div>
         </div>
         <SearchDates />
+        
       </div>
     </div>
   </div>
