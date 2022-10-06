@@ -24,17 +24,17 @@ const searchBar = (event) => emit("customChange", searchedProjects);
 <template>
   <!-- search bar starts here -->
   <div>
-    <div class="mb-3">
+    <div class="mb-3 ">
       <div class="row">
-        <div class="col-lg-8 col-md-6 col-sm-6 col-7 my-2">
-          <div class="input-group">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-8 my-2   ">
+          <div class="input-group ">
             <span class="input-group-text" id="basic-addon1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-search"
+                class="bi bi-search "
                 viewBox="0 0 16 16"
               >
                 <path

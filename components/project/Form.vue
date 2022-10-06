@@ -51,7 +51,8 @@ console.log(projectData);
   <div class="form-wrapper">
     {{ age }}
     <form class="row g-3" @submit.prevent="submitForm">
-      <UITitle title="Add Project" />
+      
+      <p>Add Project</p>
       <div class="input-group mb-3">
         <select
           class="form-select"

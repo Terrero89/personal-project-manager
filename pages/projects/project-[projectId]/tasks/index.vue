@@ -11,15 +11,14 @@ const getParent = projectList.filter((p) => p.id == param); //needs fix
 const seeDetail = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate
-
 const length = store.hasTasks;
-// const taskDetailLink = computed(()=> `/projects/project-${param}/tasks/task-${seeDetail}`)
+
 </script>
 
 <template>
   <div class="tasks-wrapper table-responsive">
     <div class="task-list">
-      <UITitle title="Tasks" />
+      <UITitle title="Tasks" class="border-bottom" />
       <div>add task feature</div>
       <div>search bar</div>
       <div>filtering</div>
@@ -33,13 +32,14 @@ const length = store.hasTasks;
       >
         {{ parent.projectName }}
       </h3>
-      <table class="table">
+    
+      <table class="table ">
         <thead>
           <tr class="table-header">
-            <th>Task Id#</th>
+            <th>ID</th>
 
-            <th>Task Name</th>
-            <th>Status</th>
+            <th>TASK NAME</th>
+            <th>STATUS</th>
             <th></th>
           </tr>
         </thead>
@@ -52,7 +52,12 @@ const length = store.hasTasks;
           >
             <td>{{ task.id }}</td>
 
-            <td>{{ task.taskName }}</td>
+            <td>
+            
+              {{task.taskName}}
+              
+            </td>
+         
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
@@ -61,7 +66,7 @@ const length = store.hasTasks;
                 :to="`/projects/project-${param}/tasks/task-${seeDetail(
                   task.id
                 )}`"
-                >Task Details</nuxt-link
+                >Details</nuxt-link
               >
             </td>
           </tr>
@@ -73,14 +78,14 @@ const length = store.hasTasks;
 </template>
 
 <style scoped>
-.breakers {
-  margin: 1rem 0;
-}
+
 .task-list {
   max-width: 1500px;
   margin: 0 auto;
 }
 table {
+  
+
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -98,41 +103,41 @@ td {
 }
 
 .table-header {
-  padding: auto;
   background-color: rgb(227, 239, 253);
   /* border: solid rgb(159, 159, 159) 1px; */
 }
 
 .table-header th {
-  font-size: 1.2rem;
-  border: solid rgb(169, 169, 169) 1px;
+  font-size: 0.8rem;
+  border: none;
+  padding: 0.8rem 1rem;
+  /* border: solid rgb(169, 169, 169) 1px; */
 }
 .table-content {
+  
   color: rgb(84, 84, 84);
   /* border: solid rgb(159, 159, 159) 0.5px; */
   text-align: center;
 }
 .table-content td {
+
+  font-size: 0.8rem;
   /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
-  padding: 0 auto;
+
+  padding: 1rem 1rem  ;
+
   color: rgb(84, 84, 84);
-  /* border: solid rgb(159, 159, 159) 0.5px; */
+
 }
 .table-content {
-  /* padding:2rem; */
-  /* background-color: rgb(74, 159, 149); */
   background-color: white;
 }
 .project {
-  /* overflow-x: hidden; */
-  /* display: flex; */
-  /* background-color: white; */
   margin: 0 auto;
   max-width: 1650px;
-  /* border: solid rgb(194, 194, 194) 1px; */
+
   padding: 2rem;
 
-  /* border-radius: 10px; */
+
 }
 </style>

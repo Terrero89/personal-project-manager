@@ -14,10 +14,7 @@ const length = store.hasTasks
 //function that deletes the item and return to projects page.
 function deleteTask(id, parent) {
 store.deleteTask(id) //executes the delete action in pinia
-  //received the id and parentId, and push it to actions state.
-  //action that push the action to actions state
-  store.deletedToActions(id, parent);
-  //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks depending on tasks length of the tasks
  
   if ((length(param)-1) < 1) {
 
@@ -45,7 +42,7 @@ store.deleteTask(id) //executes the delete action in pinia
       >
       
         <div class="container detail-container">
-          <UITitle title="Task Details" />
+          <UITitle title="Task Details" class="border-bottom"/>
           
           <div class="row">
             <div class="header">

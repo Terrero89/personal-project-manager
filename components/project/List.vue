@@ -5,10 +5,11 @@ const emit = defineEmits(["search"]);
 const currPage = ref(1);
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem } = store;
+const { hasProjects, searchItem, actions} = store;
 const { projects } = storeToRefs(store);
 
 const searchInput = ref("");
+
 
 const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
@@ -23,21 +24,18 @@ const searchedProjects = computed(() => {
 
 <template>
   <div class="projects">
-    <UITitle title="Projects" class="container" />
+  
+    <UITitle title="Projects" class="container border-bottom" />
     <!-- Filter selections soon to be in component -->
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col">All Projects</div>
-        <div class="col">Active Projects</div>
-        <div class="col">In Progress</div>
-      </div>
-    </div>
+    <ProjectCategories />
+    <!-- filter selection for projects ends -->
     <UICard>
       <!-- search bar starts here should be emitted from component-->
       <div>
         <div class="">
           <div class="row">
-            <div class="col-lg-6 col-md-4 col-sm-5 col-4">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-7">
+              <!-- search button here, emit event soon to be set up -->
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <svg
@@ -63,10 +61,14 @@ const searchedProjects = computed(() => {
             </div>
 
             <!--  -->
-            <SearchDates />
-            <div class="col-lg-2 col-md-4 col-sm-2 col-2">
-              <nuxt-link type="button" to="/projects/addproject">
-                <button class="btn btn-sm btn-primary py-2 px-4">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-5">
+              <nuxt-link
+                type="button"
+                class="d-flex justify-content-end mx-3"
+                to="/projects/addproject"
+              >
+                <button class="btn btn-md btn-primary">
                   + Project
                 </button></nuxt-link
               >
@@ -75,33 +77,39 @@ const searchedProjects = computed(() => {
         </div>
       </div>
     </UICard>
-
     <UICard>
-      <div class="page-top">
-        <div class="row mb-3">
-          <div class="col d-flex justify-content-end"></div>
+      <!-- search bar starts here should be emitted from component-->
+      <div class="container">
+        <div class="page-top">
+          <div class="row mb-3">
+            <div class="col d-flex justify-content-end"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <ProjectListItem
-            v-for="project in searchedProjects"
-            :key="project.id"
-            :id="project.id"
-            :project="project.projectName"
-            :description="project.projectDescription"
-            :status="project.isComplete"
-          />
+        <div class="row">
+          <div class="col-lg-12">
+            <ProjectListItem
+              v-for="project in searchedProjects"
+              :key="project.id"
+              :id="project.id"
+              :project="project.projectName"
+              :category="project.category"
+              :description="project.projectDescription"
+              :status="project.isComplete"
+              :arr="categories"
+            />
+          </div>
+          <div v-if="!hasProjects">No Projects available at this moment</div>
         </div>
-        <div v-if="!hasProjects">No Projects available at this moment</div>
-
-        <!-- <div class="col-lg-12 "> 
-          <ProjectActions />
-          <div>paginations</div>
-        </div> -->
       </div>
     </UICard>
+    <UICard>
+    <ProjectActions  v-for="action in actions" :key="action.id"
+    :id="action.id"
+    :type="action.type" 
+    :name="action.name"
+    :category="action.category"/>
+  </UICard>
   </div>
 </template>
 

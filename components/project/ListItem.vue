@@ -11,9 +11,11 @@ const props = defineProps([
   "id",
   "project",
   "user",
+  "category",
   "description",
   "taskNumber",
   "status",
+  "arr",
 ]);
 
 const currStatus = computed(() => {
@@ -32,82 +34,68 @@ const detailsLink = computed(() => {
 <template>
   <div>
     <div class="project-item">
-      <h2>{{ props.project }}</h2>
-
-      <div class="button-status">
-        <nuxt-link :to="detailsLink"
+      <div class="item">
+        <div class="status" :class="currStatus"></div>
+        <div class="project">
+          <h5>{{ props.project }}</h5>
+          <span>{{ props.category }}</span>
+        </div>
+        <nuxt-link class="my-auto mr" :to="detailsLink"
           ><button type="button" class="btn-md btn btn-outline-primary mr">
             Details
           </button>
         </nuxt-link>
       </div>
-      <div class="status" :class="currStatus"></div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.project {
+  /* border: solid red 1px; */
+  margin: 0 0.5rem;
+}
 .mr {
   margin-left: auto;
 }
-.projects {
-  display: flex;
-  justify-content: center;
-}
-.project-item {
-  position: relative;
-  border: solid rgb(218, 214, 214) 1px;
-  background-color: rgb(255, 255, 255); /*color for background item */
+.item {
+  border-bottom: solid rgb(218, 214, 214) 1px;
+  background-color: rgb(255, 255, 255);
   padding: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0rem;
   display: flex;
-  overflow: hidden;
 }
 
-.project-item h2 {
+.project-item h5 {
   margin: 0 2%;
+}
+.project-item span {
+  color: gray;
+  /* border:solid blue */
 }
 
 .status {
-  position: absolute;
-  /* bottom: 0; */
-  width: 1%;
-  height: 100%;
-  left: 0;
-  top: 0;
+  margin: auto 0;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+  border-radius: 50% 50%;
 }
 
-.project-item h2 {
+.project-item h5 {
   margin-right: auto;
-}
-.button-status {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .button-status .button {
-  margin-right: 0.4rem;
+  margin-top: 5rem;
+  /* display:flex;
+  flex-direction: column;
+  justify-content: center; */
 }
 
 .wrapper {
   border: solid rgb(0, 81, 255) 1px;
   padding: 2rem;
   margin: 0 auto;
-}
-
-.actions {
-  border: solid rgb(191, 191, 191) 1px;
-
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
-  margin: 0.5rem 0;
-}
-.actions-section {
-  border: solid rgb(212, 212, 212) 1px;
-
-  padding: 1rem;
-
-  margin: 0.5rem 0;
 }
 </style>
