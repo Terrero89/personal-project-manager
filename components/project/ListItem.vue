@@ -37,8 +37,8 @@ const detailsLink = computed(() => {
       <div class="item">
         <div class="status" :class="currStatus"></div>
         <div class="project">
-          <h5>{{ props.project }}</h5>
-          <span>{{ props.category }}</span>
+          <h1>{{ props.project }}</h1>
+          <h2>{{ props.category }}</h2>
         </div>
         <nuxt-link class="my-auto mr" :to="detailsLink"
           ><button type="button" class="btn-md btn btn-outline-primary mr">
@@ -66,11 +66,15 @@ const detailsLink = computed(() => {
   display: flex;
 }
 
-.project-item h5 {
+.project-item h1 {
   margin: 0 2%;
+  font-size: 1rem
 }
-.project-item span {
+.project-item h2 {
   color: gray;
+  font-size: 1rem;
+  margin:0.2rem 0
+
   /* border:solid blue */
 }
 
