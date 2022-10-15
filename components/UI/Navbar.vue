@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 ">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Project Manager</a>
       <button
@@ -14,7 +14,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ml-auto mb-2 mr mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/projects"
               >Projects</a
@@ -35,3 +35,9 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+.mr{
+  margin-left:auto;
+}
+</style>

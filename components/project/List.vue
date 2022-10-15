@@ -30,7 +30,7 @@ const searchedProjects = computed(() => {
     <UICard>
       <!-- search bar starts here should be emitted from component-->
       <div>
-        <div class="">
+        <div >
           <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-7">
               <!-- search button here, emit event soon to be set up -->
@@ -77,7 +77,7 @@ const searchedProjects = computed(() => {
       </div>
     </UICard>
     <UICard>
-      <ActionsDisplay v-for="action in actions" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
+      <ActionsProjects v-for="action in actions" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
         :category="action.category" />
     </UICard>
   </div>

@@ -26,7 +26,7 @@ const searchBar = (event) => emit("customChange", searchedProjects);
   <div>
     <div class="mb-3 ">
       <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-8 my-2   ">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-12   ">
           <div class="input-group ">
             <span class="input-group-text" id="basic-addon1">
               <svg
@@ -51,7 +51,7 @@ const searchBar = (event) => emit("customChange", searchedProjects);
             />
           </div>
         </div>
-        <SearchDates />
+        
         
       </div>
     </div>
