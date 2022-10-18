@@ -1,23 +1,28 @@
 <script setup>
 import { useTest } from "@/store/test";
+import { storeToRefs } from "pinia";
+
 const store = useTest();
 const route = useRoute(); //route object
+const { pactions } = storeToRefs(store);
 const param = parseInt(route.params.projectId);
-const {
-  taskList,
-  projects,
-  history,
-  deletedHistory,
-  deleteProject,
-  projectDeletedToActions,
-} = store;
+
+const { findActionsByProject } = store;
 </script>
 
 <template>
   <div>
     <ProjectDetails :id="param" />
-
-    <div>actions for this project</div>
+    <UICard>
+      <h3>Actions</h3>
+      <ActionsItems
+        v-for="action in findActionsByProject(param)" :key="action.id"
+        :id="action.id"
+        :type="action.type"
+        :name="action.name"
+        :category="action.category"
+      />
+    </UICard>
   </div>
 </template>
 

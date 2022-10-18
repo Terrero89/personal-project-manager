@@ -5,6 +5,7 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
+
 const { taskList, projectList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
 const getParent = projectList.filter((p) => p.id == param); //needs fix
@@ -23,6 +24,7 @@ const length = store.hasTasks;
       <div>search bar</div>
       <div>filtering</div>
       back to parent-
+      
       <nuxt-link to="/projects">projects</nuxt-link>
 
       <h3
@@ -74,6 +76,8 @@ const length = store.hasTasks;
       </table>
       <div v-if="(length(param)) < 1">No tasks available at this moment</div>
     </div>
+   
+    
   </div>
 </template>
 

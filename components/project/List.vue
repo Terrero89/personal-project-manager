@@ -77,7 +77,7 @@ const searchedProjects = computed(() => {
       </div>
     </UICard>
     <UICard>
-      <ActionsProjects v-for="action in actions" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
+      <ActionsItems v-for="action in actions" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
         :category="action.category" />
     </UICard>
   </div>

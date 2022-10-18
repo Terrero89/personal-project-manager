@@ -68,12 +68,12 @@ const detailsLink = computed(() => {
 
 .project-item h1 {
   margin: 0 2%;
-  font-size: 1rem
+  font-size: 1rem;
 }
 .project-item h2 {
   color: gray;
   font-size: 1rem;
-  margin:0.2rem 0
+  margin: 0.2rem 0;
 
   /* border:solid blue */
 }

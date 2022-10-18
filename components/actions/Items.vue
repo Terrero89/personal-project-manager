@@ -21,9 +21,10 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
             <div v-if="props.category === 'Delete'" class="color delete"></div>
             <div v-if="props.category === 'Add'" class="color added"></div>
             <div class="action-name">
-              {{ props.type }} Id#{{ props.id }}
+              <h5>{{ props.type }} Id[{{ props.id }}]</h5>
+              
               <div class="action-category">
-                {{ props.name }}
+               <h4>{{ props.name }}</h4> 
               </div>
             </div>
 
@@ -46,6 +47,7 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
   margin-right: 0rem;
   border-radius: 50% 50%;
 }
+
 .color {
   margin: auto 0;
   width: 1rem;
@@ -53,9 +55,11 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
   margin-right: 1.5rem;
   border-radius: 50% 50%;
 }
+
 .added {
   background-color: rgb(0, 115, 255);
 }
+
 .delete {
   background-color: red;
 }
@@ -63,19 +67,23 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
 .update {
   background-color: rgb(177, 134, 212);
 }
+
 .action-name {
   margin: auto 0;
   color: black;
   font-size: 1.2rem;
   margin-right: auto;
 }
+
 .actions-date .date {
   border-radius: 3px;
-  background-color: rgb(127, 176, 244);
+  border:solid rgb(127, 176, 244) 1px;
+  /* background-color: rgb(127, 176, 244); */
   padding: 0.7rem;
 }
+
 .actions-date .date {
-  color: white;
+  color:  rgb(63, 132, 222);
 }
 
 .actions {
@@ -87,7 +95,19 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
   margin: 0.5rem 0.5rem;
   background-color: white;
 }
+
 .actions-section {
   margin: 0.5rem 0;
+}
+
+.actions h5 {
+
+  font-size: 1rem;
+}
+.actions h4 {
+  color: gray;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  /* border:solid blue */
 }
 </style>

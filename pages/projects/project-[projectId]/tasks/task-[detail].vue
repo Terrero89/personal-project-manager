@@ -7,7 +7,8 @@ const route = useRoute(); //route object
 const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
-const { tasks, projects, history, taskList, findLength } = store;
+const { tasks, projects, history, taskList, findLength, findActionsByTask} = store;
+
 const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 const length = store.hasTasks
@@ -102,6 +103,11 @@ store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks d
             </div>
           </div>
         </div>
+        <UICard>
+      <!-- {{findActionsByTask(param)}} -->
+      <ActionsItems v-for="action in findActionsByTask(taskParam)" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
+        :category="action.category"/>
+    </UICard>
       </div>
     </div>
   </div>

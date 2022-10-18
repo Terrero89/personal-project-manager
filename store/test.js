@@ -18,9 +18,13 @@ export const useTest = defineStore({
       {id: 2,parentId:2, type: "Task", name: "Added",category: "Add"  },
       {id: 3,parentId:3, type: "Task", name: "Updated",category: "Update"  },
       {id: 4,parentId:4, type: "Project", name: "Deleted",category: "Delete"  },
+      {id: 5,parentId:4, type: "Task", name: "Added",category: "Add"  },
+      {id: 6,parentId:3, type: "Task", name: "Added",category: "Add"  },
+      {id: 7,parentId:2, type: "Task", name: "Updated",category: "Update"  },
+      {id: 8,parentId:1, type: "Project", name: "Added",category: "Add"  },
     ],
 
-    projects: [{
+    projects: [{ actionsId: 1,
         id: 1,
         user: "Sergio",
         category: "Frontend Development",
@@ -47,6 +51,7 @@ export const useTest = defineStore({
       {
         id: 3,
         user: "Jackie",
+        category: "Backend Development",
         category: "Backend Development",
         projectName: "Backend Project",
         projectDescription: "Web application that will....",
@@ -261,9 +266,35 @@ export const useTest = defineStore({
           return accumulator + item.duration;
         }, 0);
     },
-  },
+
+
+        //find specific actions by specific Projects or tasks
+        //will wind specific action for parent ID
+        findActionsByProject(state){
+          const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
+         
+          return (id)=> action.filter(t => t.parentId === id)
+        
+      },
+
+
+        //find specific actions by specific Projects or tasks
+        //will wind specific action for parent ID
+      //   findActionsByTask(state){
+      //     const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
+         
+      //     return (id)=> action.filter(t => t.parentId === id)
+        
+      // },
+
+          findActionsByTask(state){
+          const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
+          return (id)=> action.filter(t => t.id  === id)
+        
+      },
+  },  
   actions: {
-    //dont touch
+    
     addProject(data) {
         this.projects.push({...data, id:this.projectId++})
         
@@ -289,7 +320,9 @@ export const useTest = defineStore({
     deletedHistory(data,id){
       this.history.push({...data,parentId:id, id: this.historyId++})
     },
-  //compl in projects
+
+
+  //completed in projects
   
   projectAddedToActions(id){
     const action = {
@@ -334,12 +367,6 @@ export const useTest = defineStore({
    
     // },
 
-    addProject(item){
-      this.projects.push(item)
 
-    },
-
-
- 
   },
 });

@@ -31,7 +31,7 @@ const submitForm = () => {
     isComplete: status.value,
   };
 
-projectId.value++ //will be removed once i set firebase
+ //will be removed once i set firebase
 addProject(projectData) //add project to pinia
 addHistory(projectData) //add history to pinia
 projectAddedToActions(projectId.value) //add project to actions
@@ -88,7 +88,7 @@ console.log(projectData);
           <option value="React Js">React Js</option>
         </select>
       </div>
-<UIDates/>
+
       <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
