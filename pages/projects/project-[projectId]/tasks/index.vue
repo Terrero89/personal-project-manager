@@ -5,7 +5,6 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-
 const { taskList, projectList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
 const getParent = projectList.filter((p) => p.id == param); //needs fix
@@ -13,7 +12,6 @@ const seeDetail = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate
 const length = store.hasTasks;
-
 </script>
 
 <template>
@@ -24,7 +22,7 @@ const length = store.hasTasks;
       <div>search bar</div>
       <div>filtering</div>
       back to parent-
-      
+
       <nuxt-link to="/projects">projects</nuxt-link>
 
       <h3
@@ -34,8 +32,8 @@ const length = store.hasTasks;
       >
         {{ parent.projectName }}
       </h3>
-    
-      <table class="table ">
+
+      <table class="table">
         <thead>
           <tr class="table-header">
             <th>ID</th>
@@ -55,11 +53,8 @@ const length = store.hasTasks;
             <td>{{ task.id }}</td>
 
             <td>
-            
-              {{task.taskName}}
-              
+              {{ task.taskName }}
             </td>
-         
 
             <td v-if="task.isComplete">Complete</td>
             <td v-if="!task.isComplete">In Progress</td>
@@ -74,22 +69,17 @@ const length = store.hasTasks;
           </tr>
         </tbody>
       </table>
-      <div v-if="(length(param)) < 1">No tasks available at this moment</div>
+      <div v-if="length(param) < 1">No tasks available at this moment</div>
     </div>
-   
-    
   </div>
 </template>
 
 <style scoped>
-
 .task-list {
   max-width: 1500px;
   margin: 0 auto;
 }
 table {
-  
-
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -118,20 +108,17 @@ td {
   /* border: solid rgb(169, 169, 169) 1px; */
 }
 .table-content {
-  
   color: rgb(84, 84, 84);
   /* border: solid rgb(159, 159, 159) 0.5px; */
   text-align: center;
 }
 .table-content td {
-
   font-size: 0.8rem;
   /* padding:2rem; */
 
-  padding: 1rem 1rem  ;
+  padding: 1rem 1rem;
 
   color: rgb(84, 84, 84);
-
 }
 .table-content {
   background-color: white;
@@ -141,7 +128,5 @@ td {
   max-width: 1650px;
 
   padding: 2rem;
-
-
 }
 </style>

@@ -297,10 +297,10 @@ export const useTest = defineStore({
     
     addProject(data) {
         this.projects.push({...data, id:this.projectId++})
-        
+ 
     },
     addTask(item) {
-      this.projects.push({...item, id:this.taskId++  
+      this.tasks.push({...item, id:this.taskId++  
       });
     },
   
@@ -340,7 +340,6 @@ export const useTest = defineStore({
       id: this.actionsId++,
       parentId: id,
       type: "Project",
-      
       name: "Deleted",
       category: "Delete",
     };
@@ -361,11 +360,7 @@ export const useTest = defineStore({
     },
 
 
-    // addToHistory(id){
-    //   const added = this.tasks.find((t) => t.id === id)
-    //   this.history.push(added);
-   
-    // },
+
 
 
   },

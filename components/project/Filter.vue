@@ -1,7 +1,8 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-const props = defineProps(['search', 'input'])
+const emit = defineEmits(["search"]);
+// const props = defineProps(["value"]);
 
 const store = useTest();
 const route = useRoute(); //route object
@@ -10,13 +11,15 @@ const { projects } = storeToRefs(store);
 
 const searchInput = ref("");
 
-const searchedProjects = computed(() => {
-  return store.props.search.filter((p) => {
-    return (
-      p.projectName.toLowerCase().indexOf(props.input.toLowerCase()) != -1
-    );
-  });
-});
+// const searchedProjects = computed(() => {
+//   return store.projects.filter((p) => {
+//     return (
+
+//       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
+//     );
+//   });
+// });
+
 
 
 </script>
@@ -27,7 +30,6 @@ const searchedProjects = computed(() => {
     <div>
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8 col-7">
-          <!-- search button here, emit event soon to be set up -->
           <div class="input-group">
             <span class="input-group-text" id="basic-addon1">
               <svg
@@ -46,14 +48,16 @@ const searchedProjects = computed(() => {
             <input
               type="text"
               class="form-control"
-              :value="value"
-              @input="$emit('input', )"
-             ref="filter"
+              placeholder="Search by.."
+              v-model="searchInput"
+              @change="trigger"
+            
             />
+            {{searchInput}}
+        
           </div>
+          
         </div>
-
-        <!--  -->
 
         <div class="col-lg-4 col-md-4 col-sm-4 col-5">
           <nuxt-link
@@ -62,7 +66,11 @@ const searchedProjects = computed(() => {
             to="/projects/addproject"
           >
             <button class="btn btn-md btn-primary">+ Project</button>
+          
+        
+          
           </nuxt-link>
+          <button @click="$emit('search')" class="btn btn-md btn-primary">T555555</button>
         </div>
       </div>
     </div>

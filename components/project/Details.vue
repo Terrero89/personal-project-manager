@@ -13,10 +13,11 @@ const {
   projectDeletedToActions,
 } = store;
 
-const props = defineProps(['id'])
+const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
+const addTaskLink = computed(() => `project-${param}/addTask`);
 const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
 const length = store.hasTasks; //check for the length of specific id
@@ -42,11 +43,22 @@ function removeItem(id) {
     >
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
-
+        <UICard>
+          <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+              <Nuxt-link :to="addTaskLink"> <button type="submit" class="btn  btn-primary ">Add Task</button>
+           </Nuxt-link>
+            </div>
+           
+          </div>
+        </UICard>
         <div class="row bg-light">
           <div class="header">
             <h3>
               {{ project.projectName }}
+           
             </h3>
           </div>
           <div class="col">
@@ -75,6 +87,7 @@ function removeItem(id) {
               </div>
             </div>
           </div>
+          
           <div class="col">
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
@@ -140,7 +153,6 @@ function removeItem(id) {
 </template>
 
 <style scoped>
-
 .header {
   background-color: rgb(227, 239, 253);
   /* border: solid rgb(205, 205, 205) 1px ; */

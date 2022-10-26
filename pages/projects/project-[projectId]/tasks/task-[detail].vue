@@ -7,27 +7,22 @@ const route = useRoute(); //route object
 const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
-const { tasks, projects, history, taskList, findLength, findActionsByTask} = store;
+const { tasks, projects, history, taskList, findLength, findActionsByTask } =
+  store;
 
 const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
-const length = store.hasTasks
+const length = store.hasTasks;
 //function that deletes the item and return to projects page.
 function deleteTask(id, parent) {
-store.deleteTask(id) //executes the delete action in pinia
-store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks depending on tasks length of the tasks
- 
-  if ((length(param)-1) < 1) {
-
+  store.deleteTask(id); //executes the delete action in pinia
+  store.deletedToActions(id, parent); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+  if (length(param) - 1 < 1) {
     return navigateTo(`/projects/project-${param}`);
   } else {
     //will push to history those that match
     history.push(tasks.find((t) => t.id === id)); //needs to e fixed
-   
-   
-
     //after action is pushed to actions, navigate to project's tasks page
-
     return navigateTo(`/projects/project-${param}/tasks`);
   }
 }
@@ -41,10 +36,9 @@ store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks d
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
-      
         <div class="container detail-container">
-          <UITitle title="Task Details" class="border-bottom"/>
-          
+          <UITitle title="Task Details" class="border-bottom" />
+         
           <div class="row">
             <div class="header">
               <h3
@@ -104,10 +98,16 @@ store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks d
           </div>
         </div>
         <UICard>
-      <!-- {{findActionsByTask(param)}} -->
-      <ActionsItems v-for="action in findActionsByTask(taskParam)" :key="action.id" :id="action.id" :type="action.type" :name="action.name"
-        :category="action.category"/>
-    </UICard>
+          <!-- {{findActionsByTask(param)}} -->
+          <ActionsItems
+            v-for="action in findActionsByTask(taskParam)"
+            :key="action.id"
+            :id="action.id"
+            :type="action.type"
+            :name="action.name"
+            :category="action.category"
+          />
+        </UICard>
       </div>
     </div>
   </div>
@@ -133,7 +133,5 @@ store.deletedToActions(id, parent);//will redirect to tasks, or projects tasks d
   width: 90%;
 }
 .item {
- 
-  
 }
 </style>
