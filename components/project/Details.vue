@@ -20,6 +20,7 @@ const tasksLink = computed(() => `project-${param}/tasks`);
 const addTaskLink = computed(() => `project-${param}/addTask`);
 const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
+
 const length = store.hasTasks; //check for the length of specific id
 const totalDuration = computed(() => store.totalTaskDuration); //? calculates total tasks duration for specific project.
 
@@ -48,17 +49,16 @@ function removeItem(id) {
             <div class="col"></div>
             <div class="col"></div>
             <div class="col">
-              <Nuxt-link :to="addTaskLink"> <button type="submit" class="btn  btn-primary ">Add Task</button>
-           </Nuxt-link>
+              <Nuxt-link :to="addTaskLink">
+                <button type="submit" class="btn btn-primary">Add Task</button>
+              </Nuxt-link>
             </div>
-           
           </div>
         </UICard>
         <div class="row bg-light">
           <div class="header">
             <h3>
               {{ project.projectName }}
-           
             </h3>
           </div>
           <div class="col">
@@ -87,7 +87,7 @@ function removeItem(id) {
               </div>
             </div>
           </div>
-          
+
           <div class="col">
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
@@ -125,7 +125,8 @@ function removeItem(id) {
                   />
                 </svg>
               </button>
-              <button type="button" class="btn btn-outline-primary">
+              <Nuxt-Link :to="updateLink" >
+                <button type="button" class="btn btn-outline-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -142,6 +143,8 @@ function removeItem(id) {
                   />
                 </svg>
               </button>
+              </Nuxt-Link>
+         
             </div>
           </div>
         </div>

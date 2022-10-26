@@ -1,24 +1,19 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-const props = defineProps(['search', 'input'])
-
+const props = defineProps([ "modelValue"]);
+const emit = defineEmits(['update:modelValue']);
 const store = useTest();
-const route = useRoute(); //route object
-const { hasProjects, searchItem } = store;
 const { projects } = storeToRefs(store);
 
-const searchInput = ref("");
 
-const searchedProjects = computed(() => {
-  return store.props.search.filter((p) => {
-    return (
-      p.projectName.toLowerCase().indexOf(props.input.toLowerCase()) != -1
-    );
-  });
-});
-
-
+// const searchedProjects = computed(() => {
+//   return store.projects.filter((p) => {
+//     return (
+//       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
+//     );
+//   });
+// });
 </script>
 
 <template>
@@ -46,9 +41,9 @@ const searchedProjects = computed(() => {
             <input
               type="text"
               class="form-control"
-              :value="value"
-              @input="$emit('input', )"
-             ref="filter"
+              placeholder="Search by.."
+              :value="modelValue"
+              @input="$emit('update:modelValue', $event.target.value)"
             />
           </div>
         </div>

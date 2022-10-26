@@ -1,30 +1,36 @@
 // store/test.ts
 
-import {
-  defineStore
-} from "pinia";
+import { defineStore } from "pinia";
 
 export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    taskId:1,//number will be zero once i start adding to firebase
-    projectId:5,
+    taskId: 1, //number will be zero once i start adding to firebase
+    projectId: 5,
     actionsId: 1,
-    historyId:1,
+    historyId: 1,
     history: [],
     actions: [
-      {id: 1,parentId:1, type: "Task", name: "Deleted",category: "Delete"  },
-      {id: 2,parentId:2, type: "Task", name: "Added",category: "Add"  },
-      {id: 3,parentId:3, type: "Task", name: "Updated",category: "Update"  },
-      {id: 4,parentId:4, type: "Project", name: "Deleted",category: "Delete"  },
-      {id: 5,parentId:4, type: "Task", name: "Added",category: "Add"  },
-      {id: 6,parentId:3, type: "Task", name: "Added",category: "Add"  },
-      {id: 7,parentId:2, type: "Task", name: "Updated",category: "Update"  },
-      {id: 8,parentId:1, type: "Project", name: "Added",category: "Add"  },
+      { id: 1, parentId: 1, type: "Task", name: "Deleted", category: "Delete" },
+      { id: 2, parentId: 2, type: "Task", name: "Added", category: "Add" },
+      { id: 3, parentId: 3, type: "Task", name: "Updated", category: "Update" },
+      {
+        id: 4,
+        parentId: 4,
+        type: "Project",
+        name: "Deleted",
+        category: "Delete",
+      },
+      { id: 5, parentId: 4, type: "Task", name: "Added", category: "Add" },
+      { id: 6, parentId: 3, type: "Task", name: "Added", category: "Add" },
+      { id: 7, parentId: 2, type: "Task", name: "Updated", category: "Update" },
+      { id: 8, parentId: 1, type: "Project", name: "Added", category: "Add" },
     ],
 
-    projects: [{ actionsId: 1,
+    projects: [
+      {
+        actionsId: 1,
         id: 1,
         user: "Sergio",
         category: "Frontend Development",
@@ -76,7 +82,8 @@ export const useTest = defineStore({
       },
     ],
 
-    tasks: [{
+    tasks: [
+      {
         id: 1,
         parentId: 1,
         taskName: "Navbar fix",
@@ -215,95 +222,89 @@ export const useTest = defineStore({
   }),
 
   getters: {
-
-    searchItem:(state) => (item) => state.projects.filter(p => {return p.projectName.toLowerCase().includes(item)}),
+    searchItem: (state) => (item) =>
+      state.projects.filter((p) => {
+        return p.projectName.toLowerCase().includes(item);
+      }),
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
-    hasProjects:(state)=> state.projects.length > 0, 
-    hasTasks:(state)=> state.projects.length > 0, 
-    hasActions:(state)=> state.actions.length > 0, 
+    hasProjects: (state) => state.projects.length > 0,
+    hasTasks: (state) => state.projects.length > 0,
+    hasActions: (state) => state.actions.length > 0,
     filterItemById(state) {
-      const prj = state.projects.filter((p) => p.id)
-      return (id) => prj.filter(p => p.id === id)
+      const prj = state.projects.filter((p) => p.id);
+      return (id) => prj.filter((p) => p.id === id);
     },
-    hasTasks(state){
-      const tasks = state.tasks.filter(t => t.parentId  )
-     return (id) => tasks.filter(t => t.parentId === id).map(t => t.length  ).length
-     },
+    hasTasks(state) {
+      const tasks = state.tasks.filter((t) => t.parentId);
+      return (id) =>
+        tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
+    },
 
     // filterItemById: (state) => (id) =>
     // state.projects.filter((p) => p.id === id),
     tasksUnderProject(state) {
-      const task = state.tasks.filter(t => t.parentId)
-      return (id) => task.filter((task) => task.id === id)
+      const task = state.tasks.filter((t) => t.parentId);
+      return (id) => task.filter((task) => task.id === id);
     },
-
-
 
     // tasksUnderProject: (state) => (id) =>
     // state.tasks.filter((task) => task.parentId === id),
     detailOfTask(state) {
-      const item = state.tasks.filter((task) => task.id)
-      return (id) => item.filter(task => task.id === id)
+      const item = state.tasks.filter((task) => task.id);
+      return (id) => item.filter((task) => task.id === id);
     },
-  
-   
-   
-    findParentChild(state){
-      const parent = state.projects.filter((task) => task.parentId)
-      return (id) => parent.filter((task) => task.parentId === id)
+
+    findParentChild(state) {
+      const parent = state.projects.filter((task) => task.parentId);
+      return (id) => parent.filter((task) => task.parentId === id);
     },
-      // findParentChild: (state) => (id) =>
-      // state.projects.filter((task) => task.parentId === id),
+    // findParentChild: (state) => (id) =>
+    // state.projects.filter((task) => task.parentId === id),
     //?finding specific project tasks total hours
     totalTaskDuration: (state) => {
       //?find all tasks by ids
       const tasks = state.tasks.filter((p) => p.id);
       //?Filter tasks parentID that are equal to parameter
       //?calculates the total of the hours by id with reduce
-      return (id) => tasks.filter((p) => p.parentId === id)
-        .reduce((accumulator, item) => {
-          return accumulator + item.duration;
-        }, 0);
+      return (id) =>
+        tasks
+          .filter((p) => p.parentId === id)
+          .reduce((accumulator, item) => {
+            return accumulator + item.duration;
+          }, 0);
     },
 
+    //find specific actions by specific Projects or tasks
+    //will wind specific action for parent ID
+    findActionsByProject(state) {
+      const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
 
-        //find specific actions by specific Projects or tasks
-        //will wind specific action for parent ID
-        findActionsByProject(state){
-          const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
-         
-          return (id)=> action.filter(t => t.parentId === id)
-        
-      },
+      return (id) => action.filter((t) => t.parentId === id);
+    },
 
+    //find specific actions by specific Projects or tasks
+    //will wind specific action for parent ID
+    //   findActionsByTask(state){
+    //     const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
 
-        //find specific actions by specific Projects or tasks
-        //will wind specific action for parent ID
-      //   findActionsByTask(state){
-      //     const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
-         
-      //     return (id)=> action.filter(t => t.parentId === id)
-        
-      // },
+    //     return (id)=> action.filter(t => t.parentId === id)
 
-          findActionsByTask(state){
-          const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
-          return (id)=> action.filter(t => t.id  === id)
-        
-      },
-  },  
+    // },
+
+    findActionsByTask(state) {
+      const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
+      return (id) => action.filter((t) => t.id === id);
+    },
+  },
   actions: {
-    
     addProject(data) {
-        this.projects.push({...data, id:this.projectId++})
- 
+      this.projects.push({ ...data, id: this.projectId++ });
     },
     addTask(item) {
-      this.tasks.push({...item, id:this.taskId++  
-      });
+      this.tasks.push({ ...item, id: this.taskId++ });
     },
-  
+
     deleteProject(itemID) {
       this.projects = this.projects.filter((object) => {
         return object.id !== itemID;
@@ -314,40 +315,59 @@ export const useTest = defineStore({
         return object.id !== itemID;
       });
     },
-    addHistory(data){
-      this.history.push({...data, parentId:this.projectId, id: this.historyId++})
+    addHistory(data) {
+      this.history.push({
+        ...data,
+        parentId: this.projectId,
+        id: this.historyId++,
+      });
     },
-    deletedHistory(data,id){
-      this.history.push({...data,parentId:id, id: this.historyId++})
+    deletedHistory(data, id) {
+      this.history.push({ ...data, parentId: id, id: this.historyId++ });
     },
 
+    // editProject( editedProject) {
+    //   let findProject = this.projects.find(project => project.id === editedProject.id)
+    
+    //   findProject = editedProject;
 
-  //completed in projects
-  
-  projectAddedToActions(id){
-    const action = {
-      id: this.actionsId++,
-      parentId: id,
-      type: "Project",
-      name: "Added",
-      category: "Added",
-    };
-    this.actions.push(action);
-  },
+    // },
+    editProject(editedPost) {
+//trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
+      const foundProject = this.projects.find(project => project.id === editedPost)
+      console.log(foundProject)
+     
+    // let postIndex = this.projects.findIndex(proj => proj.id === editedPost.id
+    //   );
+    //   this.projects[postIndex] = editedPost;
+      // console.log(postIndex )
+    },
 
-  projectDeletedToActions(id){
-    const action = {
-      id: this.actionsId++,
-      parentId: id,
-      type: "Project",
-      name: "Deleted",
-      category: "Delete",
-    };
-    this.actions.push(action);
-  },
+    //completed in projects
 
-  
-    deletedToActions(id,parent){
+    projectAddedToActions(id) {
+      const action = {
+        id: this.actionsId++,
+        parentId: id,
+        type: "Project",
+        name: "Added",
+        category: "Added",
+      };
+      this.actions.push(action);
+    },
+
+    projectDeletedToActions(id) {
+      const action = {
+        id: this.actionsId++,
+        parentId: id,
+        type: "Project",
+        name: "Deleted",
+        category: "Delete",
+      };
+      this.actions.push(action);
+    },
+
+    deletedToActions(id, parent) {
       const action = {
         id: this.actionsId++,
         parentId: this.projectId,
@@ -358,10 +378,5 @@ export const useTest = defineStore({
       };
       this.actions.push(action);
     },
-
-
-
-
-
   },
 });
