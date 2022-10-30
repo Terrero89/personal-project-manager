@@ -15,7 +15,7 @@ const searchedProjects = computed(() => {
     );
   });
 });
-console.log(searchInput)
+
 //SEARCH WORKING, APPLY EMIT EVENT TO DO IT V-MODEL WAY
 </script>
 
@@ -26,10 +26,7 @@ console.log(searchInput)
     <ProjectCategories />
     <!-- filter selection for projects ends -->
     <UICard>
-
-
-     <SearchBar v-model="searchInput"/>
-  
+      <SearchFilter v-model="searchInput" />
     </UICard>
     <UICard>
       <!-- search bar starts here should be emitted from component-->

@@ -33,6 +33,11 @@ function removeItem(id) {
   deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
+
+// function updateItem(id){
+//   //function that executes the updated arg.
+
+// }
 </script>
 
 <template>
@@ -126,7 +131,7 @@ function removeItem(id) {
                 </svg>
               </button>
               <Nuxt-Link :to="updateLink" >
-                <button type="button" class="btn btn-outline-primary">
+                <button  type="button" class="btn btn-outline-primary">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

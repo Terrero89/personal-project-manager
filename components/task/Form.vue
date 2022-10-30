@@ -2,9 +2,10 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
-const { addHistory, addProject, history, projectAddedToActions,addTask } = store;
-const { tasks, taskId, historyId} = storeToRefs(store);
-const props = defineProps(['paramId'])
+const { addHistory, addProject, history, projectAddedToActions, addTask } =
+  store;
+const { tasks, taskId, historyId } = storeToRefs(store);
+const props = defineProps(["paramId"]);
 
 const category = ref("");
 const name = ref("");
@@ -15,18 +16,16 @@ const time = ref(null);
 const description = ref("");
 const status = ref(null);
 
-
-
 const submitForm = () => {
   const taskData = {
     id: taskId.value,
     parentId: props.paramId,
     category: category.value,
     projectName: name.value,
-    startDate: start.value,
+    startDate: new Date().toString(),
     endDate: end.value,
     age: age.value,
-    totalDuration: time.value,
+    duration: time.value,
     projectDescription: description.value,
     isComplete: status.value,
   };
@@ -41,7 +40,7 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div class="form-wrapper my-5">
+  <div class="form-wrapper">
     {{ age }}
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Task</p>
@@ -115,10 +114,8 @@ const submitForm = () => {
           v-model="status"
           aria-label="Default select example"
         >
-       
-
-          <option :value='true'>Complete</option>
-          <option :value='false'>In Progress</option>
+          <option :value="true">Complete</option>
+          <option :value="false">In Progress</option>
         </select>
       </div>
       <div class="input-group">

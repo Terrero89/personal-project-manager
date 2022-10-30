@@ -1,70 +1,83 @@
 <script setup>
 import { useTest } from "@/store/test";
-import { storeToRefs } from 'pinia'
+import { count } from "console";
+import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const {addHistory, projectAddedToActions, editProject} = store;
-const {projects, projectId,historyId,history} = storeToRefs(store)
-const props= defineProps(['project' ])
+const { addHistory, projectAddedToActions, editProject, editMethod } = store;
+const { projects, projectId, historyId, history } = storeToRefs(store);
+
+/// i need to create an object that can be compared to the current project that will be edited
+
+const project = store.editProject(param); //initialize project object from pinia project
+
+let oldProject ={
+  id: param,
+  user: project.user,
+  category: project.category,
+  name: project.projectName,
+  //  start: project.startDate,
+  //  end: project.endDate,
+  age: project.projectAge,
+  time: project.totalDuration,
+  description: project.projectDescription,
+  status: true,
+};
+
+let edited = {
+  id: param,
+  user: oldProject.user,
+  category: oldProject.category,
+  name: oldProject.name,
+  // start: project.startDate,
+  // end: project.endDate,
+  age: oldProject.age,
+  time: oldProject.time,
+  description: oldProject.description,
+  status: oldProject.status,
+};
 
 
-const edit= ref({param})
-// const regularProject = ref({...proj})
+const obj = {...edited} = {...oldProject} 
 
-// const projectEdited = (()=> {
-//     return {...regularProject} ? {...regularProject} : {...edit}
+// console.log({ ...edited } == { ...edited });
 
-// console.log(editProject(param))
+const compare = oldProject === oldProject 
 
 
-const user = ref("");
-const category = ref("");
-const name = ref("");
-const start = ref(null);
-const end = ref(null);
-const age = ref(null);
-const time = ref(null);
-const description = ref("");
-const status = ref(null);
 
 
-// const submitForm = () => {
 
-//   const projectData = {
-//     id:projectId.value,
-//     user: user.value,
-//     category: category.value,
-//     projectName: name.value,
-//     startDate: start.value,
-//     endDate: end.value,
-//     age: age.value,
-//     totalDuration: time.value,
-//     projectDescription: description.value,
-//     isComplete: status.value,
-//   };
 
-//  //will be removed once i set firebase
-// addProject(projectData) //add project to pinia
-// addHistory(projectData) //add history to pinia
-// projectAddedToActions(projectId.value) //add project to actions
-// navigateTo('/projects') //after, go to projects
-// console.log(projectData);
 
-// };
+
+
+const updateProject = () => {
+
+  if(edited === oldProject){
+    return edited
+  }else{
+    return oldProject
+  }
+};
 </script>
 
 <template>
   <div class="form-wrapper">
-    {{ age }}
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
+     <p>{{obj}}</p> 
+     <p> {{compare}}</p>
+     <p>{{updateProject()}}</p>
+     <p>{{editProject(1)}}</p>
+    >
       <div class="input-group mb-3">
         <select
           class="form-select"
-          v-model="user"
+          v-model="oldProject.user"
           aria-label="Default select example"
         >
           <option disabled value="">Select User</option>
@@ -79,11 +92,9 @@ const status = ref(null);
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
-          v-model="category"
+          v-model="oldProject.category"
           aria-label="Default select example"
         >
-
-        
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
           <option value="Frontend Development">Frontend Development</option>
@@ -98,20 +109,18 @@ const status = ref(null);
           <option value="React Js">React Js</option>
         </select>
       </div>
-      <div >
-
-        </div>
+      <div></div>
       <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
           type="input"
-          v-model.trim="name"
+          v-model.trim="oldProject.name"
           class="form-control"
           id="inputPassword4"
         />
       </div>
 
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Start Date</label>
         <input
           type="date"
@@ -129,7 +138,7 @@ const status = ref(null);
           class="form-control"
           id="inputPassword4"
         />
-      </div>
+      </div> -->
 
       <div class="col-12">
         <label for="inputAddress2" class="form-label">Duration</label>
@@ -138,19 +147,21 @@ const status = ref(null);
           class="form-control"
           id="inputAddress2"
           placeholder="Enter Time"
-          v-model.trim="time"
+          v-model.trim="oldProject.time"
         />
       </div>
       <div class="input-group">
         <textarea
           class="form-control"
-          v-model="description"
+          v-model="oldProject.description"
           aria-label="With textarea"
         />
       </div>
 
       <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button @click="updateProject" type="submit" class="btn btn-primary">
+          Submit
+        </button>
       </div>
     </form>
   </div>
