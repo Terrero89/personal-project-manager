@@ -1,67 +1,80 @@
 <script setup>
 import { useTest } from "@/store/test";
-import { count } from "console";
 import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const { addHistory, projectAddedToActions, editProject, editMethod } = store;
-const { projects, projectId, historyId, history } = storeToRefs(store);
+const { addHistory, projectAddedToActions, editProject } = store;
+const { projects, history } = storeToRefs(store);
 
 /// i need to create an object that can be compared to the current project that will be edited
 
-const project = store.editProject(param); //initialize project object from pinia project
-
-let oldProject ={
-  id: param,
-  user: project.user,
-  category: project.category,
-  name: project.projectName,
-  //  start: project.startDate,
-  //  end: project.endDate,
-  age: project.projectAge,
-  time: project.totalDuration,
-  description: project.projectDescription,
-  status: true,
-};
-
-let edited = {
-  id: param,
-  user: oldProject.user,
-  category: oldProject.category,
-  name: oldProject.name,
+// const editedProject =
+ //initialize project object from pinia project
+ const project = store.editProject(param) //find the specific project to be in the v-model
+const editedProject =  store.projects ? store.projects :{
+   id: '',
+  user: '',
+  category: "",
+  projectName: "",
   // start: project.startDate,
   // end: project.endDate,
-  age: oldProject.age,
-  time: oldProject.time,
-  description: oldProject.description,
-  status: oldProject.status,
-};
+  projectAge: "",
+  totalDuration:"",
+  projectName: "",
+  isComplete: ""
+  
+}
+// let oldProject ={
+//   id: param,
+//   user: project.user,
+//   category: project.category,
+//   name: project.projectName,
+//   //  start: project.startDate,
+//   //  end: project.endDate,
+//   age: project.projectAge,
+//   time: project.totalDuration,
+//   description: project.projectDescription,
+//   status: true,
+// };
 
-
-const obj = {...edited} = {...oldProject} 
-
-// console.log({ ...edited } == { ...edited });
-
-const compare = oldProject === oldProject 
-
-
-
-
-
-
-
-
+// let edited = reactive({
+//   id: param,
+//   user: oldProject.user,
+//   category: oldProject.category,
+//   projectName: oldProject.name,
+//   // start: project.startDate,
+//   // end: project.endDate,
+//   projectAge: oldProject.age,
+//   totalDuration: oldProject.time,
+//   projectName: oldProject.description,
+//   isComplete: oldProject.status,
+// });
 
 const updateProject = () => {
+  let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
+const newProject = {
+  id: '',
+  user: '',
+  category: "",
+  projectName: "",
+  // start: project.startDate,
+  // end: project.endDate,
+  projectAge: "",
+  totalDuration:"",
+  projectName: "",
+  isComplete: ""
+}
+  // console.log({...projects})
+  console.log(store.projects[index]);
 
-  if(edited === oldProject){
-    return edited
-  }else{
-    return oldProject
-  }
+  // let compare = store.projects.find(p => p.id === param)
+
+  // console.log(store.projects.find(p => p.id === param))
+  // console.log(compare === store.editProject(1))
+  // console.log(store.editProject(param))
 };
 </script>
 
@@ -69,17 +82,14 @@ const updateProject = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
-     <p>{{obj}}</p> 
-     <p> {{compare}}</p>
-     <p>{{updateProject()}}</p>
-     <p>{{editProject(1)}}</p>
-    >
+
       <div class="input-group mb-3">
         <select
           class="form-select"
-          v-model="oldProject.user"
+          v-model="project.user"
           aria-label="Default select example"
         >
+        
           <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
           <option>Jackie Terrero</option>
@@ -92,7 +102,7 @@ const updateProject = () => {
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
-          v-model="oldProject.category"
+          v-model="project.category"
           aria-label="Default select example"
         >
           <label for="inputEmail4" class="form-label">Select User</label>
@@ -114,7 +124,7 @@ const updateProject = () => {
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
           type="input"
-          v-model.trim="oldProject.name"
+          v-model.trim="project.projectName"
           class="form-control"
           id="inputPassword4"
         />
@@ -147,13 +157,13 @@ const updateProject = () => {
           class="form-control"
           id="inputAddress2"
           placeholder="Enter Time"
-          v-model.trim="oldProject.time"
+          v-model.trim="project.totalDuration"
         />
       </div>
       <div class="input-group">
         <textarea
           class="form-control"
-          v-model="oldProject.description"
+          v-model="project.projectDescription"
           aria-label="With textarea"
         />
       </div>

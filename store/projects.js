@@ -331,14 +331,15 @@ export const useTest = defineStore({
     },
 
  
-    editProject(param) {
+    editProject(param,editedProject) {
       //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
-      const foundProject = this.projects.find(project => project.id === param) //finds the project from the
-
-      return foundProject
+      const index = this.projects.findIndex(project => project.id === param) //finds the project from the
+      // if(index !== -1){
+      //   this.projects[index] = editedProject
+      // } 
+    
      
-  editedPost;
-      // console.log(postIndex )
+        return index
     },
 
     //completed in projects
