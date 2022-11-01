@@ -29,7 +29,7 @@ const updateProject = () => {
         <select
           class="form-select"
           v-model="project.user"
-          aria-label="Default select example"
+          aria-label="select user"
         >
           <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
