@@ -315,7 +315,7 @@ export const useTest = defineStore({
     editProject(param) {
       //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
       let foundProject = this.projects.find((project) => project.id === param); //finds the project from the
-
+    
       return foundProject;
     },
 
