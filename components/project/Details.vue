@@ -1,18 +1,12 @@
 <script setup>
 import { useTest } from "@/store/test";
-
+import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-const {
-  taskList,
-  projects,
-  history,
-  deletedHistory,
-  deleteProject,
-  projectDeletedToActions,
-} = store;
-
+const { taskList, deletedHistory, deleteProject, projectDeletedToActions } =
+  store;
+const { projects, history } = storeToRefs(store);
 const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
@@ -27,7 +21,7 @@ const totalDuration = computed(() => store.totalTaskDuration); //? calculates to
 //FIX THE REMOVE FUNCTION THAT IS NOT DELETING BECAUSE THE PARAM ID IS NOT WORKING
 function removeItem(id) {
   //function that executes the deleted arg.
-  const foundProjectId = projects.find((t) => t.id === id);
+  let foundProjectId = store.projects.find((t) => t.id === id);
   deleteProject(id); //executes the delete project in pinia
   projectDeletedToActions(id); //action that push the action to actions state
   deletedHistory(foundProjectId, id); //action that stores deleted items
@@ -130,26 +124,25 @@ function removeItem(id) {
                   />
                 </svg>
               </button>
-              <Nuxt-Link :to="updateLink" >
-                <button  type="button" class="btn btn-outline-primary">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-file-earmark-code"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"
-                  />
-                  <path
-                    d="M8.646 6.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 9 8.646 7.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 9l1.647-1.646a.5.5 0 0 0 0-.708z"
-                  />
-                </svg>
-              </button>
+              <Nuxt-Link :to="updateLink">
+                <button type="button" class="btn btn-outline-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-file-earmark-code"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"
+                    />
+                    <path
+                      d="M8.646 6.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 9 8.646 7.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 9l1.647-1.646a.5.5 0 0 0 0-.708z"
+                    />
+                  </svg>
+                </button>
               </Nuxt-Link>
-         
             </div>
           </div>
         </div>

@@ -2,8 +2,8 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from 'pinia'
 const store = useTest();
-const {addHistory,addProject,history, projectAddedToActions} = store;
-const {projects, projectId,historyId} = storeToRefs(store)
+const {addHistory,addProject, projectAddedToActions} = store;
+const {projects, projectId,history, historyId} = storeToRefs(store)
 
 
 const user = ref("");
@@ -12,12 +12,12 @@ const name = ref("");
 const start = ref(null);
 const end = ref(null);
 const age = ref(start);
-const time = ref(null);
+
 const description = ref("");
 const status = ref(false);
 
 const submitForm = () => {
- 
+
   const projectData = {
     id:projectId.value,
     user: user.value,
@@ -26,7 +26,7 @@ const submitForm = () => {
     startDate: start.value,
     endDate: end.value,
     age: age.value,
-    totalDuration: time.value,
+   
     projectDescription: description.value,
     isComplete: status.value,
   };
@@ -37,11 +37,11 @@ addHistory(projectData) //add history to pinia
 projectAddedToActions(projectId.value) //add project to actions
 navigateTo('/projects') //after, go to projects
 console.log(projectData);
-  
 
 
 
- 
+
+
 
 
 };
@@ -51,7 +51,6 @@ console.log(projectData);
   <div class="form-wrapper">
     {{ age }}
     <form class="row g-3" @submit.prevent="submitForm">
-      
       <p>Add Project</p>
       <div class="input-group mb-3">
         <select
@@ -119,16 +118,7 @@ console.log(projectData);
         />
       </div>
 
-      <div class="col-12">
-        <label for="inputAddress2" class="form-label">Duration</label>
-        <input
-          type="number"
-          class="form-control"
-          id="inputAddress2"
-          placeholder="Enter Time"
-          v-model.trim="time"
-        />
-      </div>
+    
       <div class="input-group">
         <textarea
           class="form-control"
@@ -138,7 +128,7 @@ console.log(projectData);
       </div>
 
       <div class="col-12">
-        <button type="submit" class="btn  btn-primary ">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
   </div>
@@ -146,10 +136,10 @@ console.log(projectData);
 
 <style scoped>
 .form-wrapper {
-  background-color:white;
+  background-color: white;
   max-width: 32rem;
   border-radius: 7px;
-  border: solid rgb(143, 143, 143,0.2) 1px;
+  border: solid rgb(143, 143, 143, 0.2) 1px;
   margin: 1rem auto;
   padding: 2.7rem 1.5rem;
 }

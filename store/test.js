@@ -6,6 +6,7 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
+    editPro: {},
     taskId: 1, //number will be zero once i start adding to firebase
     projectId: 5,
     actionsId: 1,
@@ -30,7 +31,6 @@ export const useTest = defineStore({
 
     projects: [
       {
-       
         id: 1,
         user: "Sergio Terrero",
         category: "Frontend Development",
@@ -39,7 +39,7 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         projectAge: 14,
-        totalDuration: 15,
+
         isComplete: true,
       },
       {
@@ -51,7 +51,7 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         projectAge: 12,
-        totalDuration: 15,
+
         isComplete: false,
       },
       {
@@ -64,7 +64,7 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         projectAge: 12,
-        totalDuration: 15,
+
         isComplete: true,
       },
 
@@ -77,7 +77,7 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         projectAge: 1,
-        totalDuration: 3,
+
         isComplete: true,
       },
     ],
@@ -241,15 +241,11 @@ export const useTest = defineStore({
         tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
     },
 
-    // filterItemById: (state) => (id) =>
-    // state.projects.filter((p) => p.id === id),
     tasksUnderProject(state) {
       const task = state.tasks.filter((t) => t.parentId);
       return (id) => task.filter((task) => task.id === id);
     },
 
-    // tasksUnderProject: (state) => (id) =>
-    // state.tasks.filter((task) => task.parentId === id),
     detailOfTask(state) {
       const item = state.tasks.filter((task) => task.id);
       return (id) => item.filter((task) => task.id === id);
@@ -259,8 +255,7 @@ export const useTest = defineStore({
       const parent = state.projects.filter((task) => task.parentId);
       return (id) => parent.filter((task) => task.parentId === id);
     },
-    // findParentChild: (state) => (id) =>
-    // state.projects.filter((task) => task.parentId === id),
+
     //?finding specific project tasks total hours
     totalTaskDuration: (state) => {
       //?find all tasks by ids
@@ -275,31 +270,16 @@ export const useTest = defineStore({
           }, 0);
     },
 
-    //find specific actions by specific Projects or tasks
-    //will wind specific action for parent ID
     findActionsByProject(state) {
       const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
 
       return (id) => action.filter((t) => t.parentId === id);
     },
 
-    //find specific actions by specific Projects or tasks
-    //will wind specific action for parent ID
-    //   findActionsByTask(state){
-    //     const action = state.actions.filter(a => a.id) // will find all ids, of the actions.
-
-    //     return (id)=> action.filter(t => t.parentId === id)
-
-    // },
-
     findActionsByTask(state) {
       const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
       return (id) => action.filter((t) => t.id === id);
     },
-
-     
-
-
   },
   actions: {
     addProject(data) {
@@ -319,6 +299,7 @@ export const useTest = defineStore({
         return object.id !== itemID;
       });
     },
+
     addHistory(data) {
       this.history.push({
         ...data,
@@ -330,15 +311,11 @@ export const useTest = defineStore({
       this.history.push({ ...data, parentId: id, id: this.historyId++ });
     },
 
- 
     editProject(param) {
       //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
-      const foundProject = this.projects.find(project => project.id === param) //finds the project from the
+      let foundProject = this.projects.find((project) => project.id === param); //finds the project from the
 
-      return foundProject
-     
-  editedPost;
-      // console.log(postIndex )
+      return foundProject;
     },
 
     //completed in projects
@@ -350,6 +327,7 @@ export const useTest = defineStore({
         type: "Project",
         name: "Added",
         category: "Added",
+        date: new Date()
       };
       this.actions.push(action);
     },
@@ -361,11 +339,12 @@ export const useTest = defineStore({
         type: "Project",
         name: "Deleted",
         category: "Delete",
+        date: new Date()
       };
       this.actions.push(action);
     },
 
-    deletedToActions(id, parent) {
+    deletedToActions(parent) {
       const action = {
         id: this.actionsId++,
         parentId: this.projectId,
@@ -373,8 +352,30 @@ export const useTest = defineStore({
         parentId: parent,
         name: "Deleted",
         category: "Delete",
+        date: new Date()
       };
       this.actions.push(action);
+    },
+    projectUpdatedToActions(parent) {
+      const action = {
+        id: this.actionsId++,
+        parentId: this.projectId,
+        type: "Project",
+        parentId: parent.id,
+        name: "Updated",
+        category: "Update",
+        date: new Date()
+      };
+      this.actions.push(action);
+    },
+
+    pushUpdatedProjectToHistory(item) {
+      this.history.push({
+        ...item,
+        parentId: item.id,
+        id: this.historyId++,
+        date: new Date()
+      });
     },
   },
 });

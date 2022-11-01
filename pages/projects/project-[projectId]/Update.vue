@@ -6,75 +6,30 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const { addHistory, projectAddedToActions, editProject } = store;
-const { projects, history } = storeToRefs(store);
+const { addHistory, projectAddedToActions, editProject, pushUpdatedProjectToHistory, projectUpdatedToActions } = store;
+const { projects, history, editPro } = storeToRefs(store);
+const project = store.editProject(param); //will update via v-model the project reactively in component and pinia will
 
-/// i need to create an object that can be compared to the current project that will be edited
-
-// const editedProject =
- //initialize project object from pinia project
- const project = store.editProject(param) //find the specific project to be in the v-model
-const editedProject =  store.projects ? store.projects :{
-   id: '',
-  user: '',
-  category: "",
-  projectName: "",
-  // start: project.startDate,
-  // end: project.endDate,
-  projectAge: "",
-  totalDuration:"",
-  projectName: "",
-  isComplete: ""
-  
-}
-// let oldProject ={
-//   id: param,
-//   user: project.user,
-//   category: project.category,
-//   name: project.projectName,
-//   //  start: project.startDate,
-//   //  end: project.endDate,
-//   age: project.projectAge,
-//   time: project.totalDuration,
-//   description: project.projectDescription,
-//   status: true,
-// };
-
-// let edited = reactive({
-//   id: param,
-//   user: oldProject.user,
-//   category: oldProject.category,
-//   projectName: oldProject.name,
-//   // start: project.startDate,
-//   // end: project.endDate,
-//   projectAge: oldProject.age,
-//   totalDuration: oldProject.time,
-//   projectName: oldProject.description,
-//   isComplete: oldProject.status,
-// });
-
+//?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
-const newProject = {
-  id: '',
-  user: '',
-  category: "",
-  projectName: "",
-  // start: project.startDate,
-  // end: project.endDate,
-  projectAge: "",
-  totalDuration:"",
-  projectName: "",
-  isComplete: ""
-}
-  // console.log({...projects})
-  console.log(store.projects[index]);
 
-  // let compare = store.projects.find(p => p.id === param)
+  
+  if (index !== -1) {
+    store.editPro = store.projects[index];
+  } else {
+    navigateTo("/");
+  }
 
-  // console.log(store.projects.find(p => p.id === param))
-  // console.log(compare === store.editProject(1))
-  // console.log(store.editProject(param))
+ 
+  console.log(store.editPro)
+
+projectUpdatedToActions(store.editPro)
+pushUpdatedProjectToHistory(store.editPro); 
+  // console.log({ ...editProject(param) });
+  // console.log({ ...store.editPro });
+
+  navigateTo("/projects");
 };
 </script>
 
@@ -89,7 +44,6 @@ const newProject = {
           v-model="project.user"
           aria-label="Default select example"
         >
-        
           <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
           <option>Jackie Terrero</option>
@@ -119,7 +73,7 @@ const newProject = {
           <option value="React Js">React Js</option>
         </select>
       </div>
-      <div></div>
+
       <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
@@ -129,7 +83,17 @@ const newProject = {
           id="inputPassword4"
         />
       </div>
-
+      <div class="col-md-12">
+        <label for="inputEmail4" class="form-label">Status</label>
+        <select
+          class="form-select"
+          v-model="project.isComplete"
+          aria-label="Default select example"
+        >
+          <option :value="true">Complete</option>
+          <option :value="false">In Progress</option>
+        </select>
+      </div>
       <!-- <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Start Date</label>
         <input
@@ -150,16 +114,6 @@ const newProject = {
         />
       </div> -->
 
-      <div class="col-12">
-        <label for="inputAddress2" class="form-label">Duration</label>
-        <input
-          type="number"
-          class="form-control"
-          id="inputAddress2"
-          placeholder="Enter Time"
-          v-model.trim="project.totalDuration"
-        />
-      </div>
       <div class="input-group">
         <textarea
           class="form-control"
