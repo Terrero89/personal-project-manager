@@ -370,5 +370,6 @@ export const useTest = defineStore({
       this.actions.push(action);
     },
 
-
+ 
+  },
 });
