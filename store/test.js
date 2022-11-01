@@ -303,8 +303,9 @@ export const useTest = defineStore({
     addHistory(data) {
       this.history.push({
         ...data,
-        parentId: this.projectId,
+        parentId: data.id,
         id: this.historyId++,
+        date: new Date()
       });
     },
     deletedHistory(data, id) {

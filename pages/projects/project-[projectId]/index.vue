@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
-const { pactions } = storeToRefs(store);
+const { actions } = storeToRefs(store);
 const param = parseInt(route.params.projectId);
 
 const { findActionsByProject } = store;

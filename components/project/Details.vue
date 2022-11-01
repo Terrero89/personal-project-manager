@@ -28,10 +28,7 @@ function removeItem(id) {
   return navigateTo("/projects"); //after, go to projects
 }
 
-// function updateItem(id){
-//   //function that executes the updated arg.
 
-// }
 </script>
 
 <template>

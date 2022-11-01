@@ -6,7 +6,13 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const { addHistory, projectAddedToActions, editProject, pushUpdatedProjectToHistory, projectUpdatedToActions } = store;
+const {
+  addHistory,
+  projectAddedToActions,
+  editProject,
+  pushUpdatedProjectToHistory,
+  projectUpdatedToActions,
+} = store;
 const { projects, history, editPro } = storeToRefs(store);
 const project = store.editProject(param); //will update via v-model the project reactively in component and pinia will
 
@@ -14,18 +20,16 @@ const project = store.editProject(param); //will update via v-model the project 
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
 
-  
   if (index !== -1) {
     store.editPro = store.projects[index];
   } else {
     navigateTo("/");
   }
 
- 
-  console.log(store.editPro)
-
-projectUpdatedToActions(store.editPro)
-pushUpdatedProjectToHistory(store.editPro); 
+  // console.log(store.editPro);
+  projectUpdatedToActions(store.editPro);
+  // pushUpdatedProjectToHistory(store.editPro);
+  addHistory(store.editPro)
   // console.log({ ...editProject(param) });
   // console.log({ ...store.editPro });
 
@@ -124,7 +128,7 @@ pushUpdatedProjectToHistory(store.editPro);
 
       <div class="col-12">
         <button @click="updateProject" type="submit" class="btn btn-primary">
-          Submit
+          Update
         </button>
       </div>
     </form>
