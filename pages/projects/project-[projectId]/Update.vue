@@ -6,34 +6,17 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const {
-  addHistory,
-  projectAddedToActions,
-  editProject,
-  pushUpdatedProjectToHistory,
-  projectUpdatedToActions,
-} = store;
+const { addHistory, editProject, projectUpdatedToActions } = store;
 const { projects, history, editPro } = storeToRefs(store);
-const project = store.editProject(param); //will update via v-model the project reactively in component and pinia will
+const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
-
-  if (index !== -1) {
-    store.editPro = store.projects[index];
-  } else {
-    navigateTo("/");
-  }
-
-  // console.log(store.editPro);
-  projectUpdatedToActions(store.editPro);
-  // pushUpdatedProjectToHistory(store.editPro);
-  addHistory(store.editPro)
-  // console.log({ ...editProject(param) });
-  // console.log({ ...store.editPro });
-
-  navigateTo("/projects");
+  store.editPro = store.projects[index];
+  projectUpdatedToActions(store.editPro); //add to action once updated
+  addHistory(store.editPro); // addded to history one updated
+  navigateTo("/projects");  //redirect to projects page
 };
 </script>
 

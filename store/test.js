@@ -305,7 +305,7 @@ export const useTest = defineStore({
         ...data,
         parentId: data.id,
         id: this.historyId++,
-        date: new Date()
+        date: new Date(),
       });
     },
     deletedHistory(data, id) {
@@ -328,7 +328,7 @@ export const useTest = defineStore({
         type: "Project",
         name: "Added",
         category: "Added",
-        date: new Date()
+        date: new Date(),
       };
       this.actions.push(action);
     },
@@ -340,7 +340,7 @@ export const useTest = defineStore({
         type: "Project",
         name: "Deleted",
         category: "Delete",
-        date: new Date()
+        date: new Date(),
       };
       this.actions.push(action);
     },
@@ -353,7 +353,7 @@ export const useTest = defineStore({
         parentId: parent,
         name: "Deleted",
         category: "Delete",
-        date: new Date()
+        date: new Date(),
       };
       this.actions.push(action);
     },
@@ -365,18 +365,10 @@ export const useTest = defineStore({
         parentId: parent.id,
         name: "Updated",
         category: "Update",
-        date: new Date()
+        date: new Date(),
       };
       this.actions.push(action);
     },
 
-    pushUpdatedProjectToHistory(item) {
-      this.history.push({
-        ...item,
-        parentId: item.id,
-        id: this.historyId++,
-        date: new Date()
-      });
-    },
-  },
+
 });
