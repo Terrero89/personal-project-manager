@@ -222,6 +222,7 @@ export const useTest = defineStore({
   }),
 
   getters: {
+ 
     searchItem: (state) => (item) =>
       state.projects.filter((p) => {
         return p.projectName.toLowerCase().includes(item);
@@ -237,8 +238,7 @@ export const useTest = defineStore({
     },
     hasTasks(state) {
       const tasks = state.tasks.filter((t) => t.parentId);
-      return (id) =>
-        tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
+      return (id) => tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
     },
 
     tasksUnderProject(state) {
@@ -305,7 +305,7 @@ export const useTest = defineStore({
         ...data,
         parentId: data.id,
         id: this.historyId++,
-        date: new Date(),
+        dateModified: new Date(),
       });
     },
     deletedHistory(data, id) {
