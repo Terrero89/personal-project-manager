@@ -5,8 +5,8 @@ const emit = defineEmits(["search"]);
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem, actions } = store;
-const { projects } = storeToRefs(store);
+const { hasProjects, searchItem } = store;
+const { projects,actions } = storeToRefs(store);
 const searchInput = ref("");
 const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
@@ -63,6 +63,8 @@ const searchedProjects = computed(() => {
         :category="action.category"
       />
     </UICard>
+
+   
   </div>
 </template>
 

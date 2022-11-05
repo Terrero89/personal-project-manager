@@ -7,7 +7,7 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const { addHistory, editProject, projectUpdatedToActions, projectDate } = store;
+const { addHistory, editProject, projectUpdatedToActions, projectDate, historyByProject } = store;
 const { projects, history, editPro } = storeToRefs(store);
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 const { startDate, endDate } = project; //to convert dates into correct format
@@ -22,15 +22,16 @@ const updateProject = () => {
   store.editPro = { ...store.projects[index] }; //will catch the old entire project information before updated, including the dates
   projectUpdatedToActions(store.editPro); //add to actions once updated
   addHistory(store.editPro); // added to history once updated
-  if(project.isComplete){
-    project.endDate = new Date()
-  }else{
+  if (project.isComplete) {
+    project.endDate = new Date();
+    project.startDate = firstDate.value
+  } else {
     project.endDate = secondDate.value; //project.startDate will change to the value entered on firstDate in pinia
   }
   project.startDate = firstDate.value; //project.startDate will change to the value entered on firstDate in pinia
- 
- project.projectAge = useDateAge(firstDate.value,new Date())
-  // navigateTo("/projects"); //redirect to projects page
+
+  project.projectAge = useDateAge(firstDate.value, new Date());
+  navigateTo("/projects"); //redirect to projects page
 };
 </script>
 
@@ -38,13 +39,14 @@ const updateProject = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
-
+      {{store.historyByProject(param)}}
       <div class="input-group mb-3">
         <select
           class="form-select"
           v-model="project.user"
           aria-label="select user"
         >
+        
           <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
           <option>Jackie Terrero</option>
@@ -60,7 +62,6 @@ const updateProject = () => {
           v-model="project.category"
           aria-label="Default select example"
         >
-   
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
           <option value="Frontend Development">Frontend Development</option>

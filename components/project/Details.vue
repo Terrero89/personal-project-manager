@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-const { taskList, deletedHistory, deleteProject, projectDeletedToActions } =
+const { taskList, deletedHistory, deleteProject, projectDeletedToActions , lastHistoryDates} =
   store;
 const { projects, history } = storeToRefs(store);
 const props = defineProps(["id"]);
@@ -17,7 +17,7 @@ const parentChild = computed(() => store.findParentChild);
 
 const length = store.hasTasks; //check for the length of specific id
 const totalDuration = computed(() => store.totalTaskDuration); //? calculates total tasks duration for specific project.
-
+const random = store.lastHistoryDates(param)
 //FIX THE REMOVE FUNCTION THAT IS NOT DELETING BECAUSE THE PARAM ID IS NOT WORKING
 function removeItem(id) {
   //function that executes the deleted arg.
@@ -38,6 +38,8 @@ function removeItem(id) {
       v-for="project in projectById(param)"
       :key="project.id"
     >
+    {{lastHistoryDates(param)}}
+   
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
         <UICard>

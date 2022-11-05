@@ -222,7 +222,15 @@ export const useTest = defineStore({
   }),
 
   getters: {
- 
+
+   historyByProject:(state)=> (id) => state.history.filter(item => item.parentId === id ),
+    
+  //capture the last history by specific project  
+ lastHistoryDates:(state)=> (id) => {
+ const index = state.history.filter(item => item.parentId === id )
+ return state.history[index.length-1]
+  },
+
     searchItem: (state) => (item) =>
       state.projects.filter((p) => {
         return p.projectName.toLowerCase().includes(item);
@@ -318,6 +326,7 @@ export const useTest = defineStore({
     
       return foundProject;
     },
+
 
     //completed in projects
 
