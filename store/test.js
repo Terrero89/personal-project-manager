@@ -291,7 +291,7 @@ export const useTest = defineStore({
   },
   actions: {
     addProject(data) {
-      this.projects.push({ ...data, id: this.projectId++ });
+      this.projects.push({ ...data, id: this.projectId++, startDate: new Date() });
     },
     addTask(item) {
       this.tasks.push({ ...item, id: this.taskId++ });
@@ -337,7 +337,7 @@ export const useTest = defineStore({
         type: "Project",
         name: "Added",
         category: "Added",
-        date: new Date(),
+        dateModified: new Date(),
       };
       this.actions.push(action);
     },
@@ -349,7 +349,7 @@ export const useTest = defineStore({
         type: "Project",
         name: "Deleted",
         category: "Delete",
-        date: new Date(),
+        dateModified: new Date(),
       };
       this.actions.push(action);
     },
@@ -362,7 +362,7 @@ export const useTest = defineStore({
         parentId: parent,
         name: "Deleted",
         category: "Delete",
-        date: new Date(),
+        dateModified: new Date(),
       };
       this.actions.push(action);
     },
@@ -374,7 +374,7 @@ export const useTest = defineStore({
         parentId: parent.id,
         name: "Updated",
         category: "Update",
-        date: new Date(),
+        dateModified: new Date(),
       };
       this.actions.push(action);
     },

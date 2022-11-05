@@ -7,7 +7,8 @@ const route = useRoute(); //route object
 const { projectList, hasActions } = store;
 const toggleActions = ref(false);
 const toggle = () => (toggleActions.value = !toggleActions.value);
-const props = defineProps(["id", "type", "name", "date", "category"]);
+const props = defineProps(["id", "type", "name", "date", "category", "dateModified"]);
+
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const props = defineProps(["id", "type", "name", "date", "category"]);
             </div>
 
             <div class="actions-date">
-              <div class="date">05/07/2022</div>
+              <div class="date">{{props.dateModified}}</div>
             </div>
           </div>
           <div v-if="!hasActions">No Actions available at this moment</div>

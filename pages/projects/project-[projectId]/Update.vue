@@ -24,13 +24,13 @@ const updateProject = () => {
   addHistory(store.editPro); // added to history once updated
   if (project.isComplete) {
     project.endDate = new Date();
-    project.startDate = firstDate.value
+   
   } else {
     project.endDate = secondDate.value; //project.startDate will change to the value entered on firstDate in pinia
   }
   project.startDate = firstDate.value; //project.startDate will change to the value entered on firstDate in pinia
 
-  project.projectAge = useDateAge(firstDate.value, new Date());
+  project.projectAge = useDateAge(firstDate.value, new Date()); //composable
   navigateTo("/projects"); //redirect to projects page
 };
 </script>
@@ -39,7 +39,7 @@ const updateProject = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
-      {{store.historyByProject(param)}}
+{{store.historyByProject(param)}}
       <div class="input-group mb-3">
         <select
           class="form-select"
