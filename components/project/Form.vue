@@ -1,14 +1,15 @@
 <script setup>
 import { useTest } from "@/store/test";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from "pinia";
 const store = useTest();
-const {addHistory,addProject, projectAddedToActions} = store;
-const {projectId} = storeToRefs(store)
+const { addHistory, addProject, projectAddedToActions } = store;
+const { projectId } = storeToRefs(store);
 const props = defineProps(["param"]);
 
 const user = ref("");
 const category = ref("");
 const name = ref("");
+const technologies = ref([]);
 // const start = ref(null);
 // const end = ref(null);
 const age = ref(1);
@@ -16,9 +17,8 @@ const description = ref("");
 const status = ref(false);
 
 const submitForm = () => {
-
   const projectData = {
-    id:projectId.value,
+    id: projectId.value,
     user: user.value,
     category: category.value,
     projectName: name.value,
@@ -29,19 +29,17 @@ const submitForm = () => {
     isComplete: status.value,
   };
 
- //will be removed once i set firebase
-addProject(projectData) //add project to pinia
-addHistory(projectData) //add history to pinia
-projectAddedToActions(projectId.value) //add project to actions
-navigateTo('/projects') //after, go to projects
-console.log(projectData);
-
+  //will be removed once i set firebase
+  addProject(projectData); //add project to pinia
+  addHistory(projectData); //add history to pinia
+  projectAddedToActions(projectId.value); //add project to actions
+  navigateTo("/projects"); //after, go to projects
+  console.log(projectData);
 };
 </script>
 
 <template>
   <div class="form-wrapper">
-  
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
       <div class="input-group mb-3">
@@ -58,37 +56,61 @@ console.log(projectData);
         </select>
       </div>
 
-     
-        <label for="inputEmail4" class="form-label">Category</label>
-        <select
-          class="form-select"
-          v-model="category"
-          aria-label="Default select example"
-        >
-          <label for="inputEmail4" class="form-label">Select User</label>
-          <option disabled value="">Project Category</option>
-          <option value="Frontend Development">Frontend Development</option>
-          <option value="Backend Development">Backend Development</option>
-          <option value="Python Project">Python Project</option>
-          <option value="C Language">C Project</option>
-          <option value="Data Structures and Algorithms">
-            Data Structures and Algorithms
-          </option>
-          <option value="MongoDB">MongoDB</option>
-          <option value="Node/Express Js">Node/Express Js</option>
-          <option value="React Js">React Js</option>
-        </select>
-    
+      <label for="inputEmail4" class="form-label">Category</label>
 
-      
-        <label for="inputPassword4" class="form-label">Project Name</label>
-        <input
-          type="input"
-          v-model.trim="name"
-          class="form-control"
-          id="inputPassword4"
-        />
-    
+      <div class="row">
+        <div class="col">
+          <select
+            class="form-select"
+            v-model="technologies"
+            aria-label="Default select example"
+          >
+          
+            <label for="inputEmail4" class="form-label">Select User</label>
+            <option disabled value="">Project Category</option>
+            <option value="Frontend Development">Frontend Development</option>
+            <option value="Backend Development">Backend Development</option>
+            <option value="Backend Development">Full Stack</option>
+            <option value="Backend Development">School Assignments</option>
+            
+          
+          </select>
+        </div>
+
+        <div class="col">
+          <select
+            class="form-select"
+            v-model="category"
+            aria-label="Default select example"
+            multiple
+          >
+            <label for="inputEmail4" class="form-label">Select User</label>
+            <option value="">Technologies</option>
+            <option value="ReactJs">React Js</option>
+            <option value="VueJs">Vue Js</option>
+            <option value="NuxtJs">Nuxt Js</option>
+            <option value="Next Js">Next Js</option>
+            <option value="Python">Python</option>
+            <option value="DSA">Data Structures and Algorithms</option>
+            <option value="sql">Mysql</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="Node/ExpressJs">Node/Express Js</option>
+            <option value="Flask">Flask</option>
+            <option value="Django">Django</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="inputPassword4" class="form-label">Project Name</label>
+      <input
+        type="input"
+        v-model.trim="name"
+        class="form-control"
+        id="inputPassword4"
+      />
 
       <!-- <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Start Date</label>
@@ -110,7 +132,6 @@ console.log(projectData);
         />
       </div> -->
 
-    
       <div class="input-group">
         <textarea
           class="form-control"
