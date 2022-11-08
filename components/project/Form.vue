@@ -3,16 +3,15 @@ import { useTest } from "@/store/test";
 import { storeToRefs } from 'pinia'
 const store = useTest();
 const {addHistory,addProject, projectAddedToActions} = store;
-const {projects, projectId,history, historyId} = storeToRefs(store)
-
+const {projectId} = storeToRefs(store)
+const props = defineProps(["param"]);
 
 const user = ref("");
 const category = ref("");
 const name = ref("");
-const start = ref(null);
-const end = ref(null);
-const age = ref(start);
-
+// const start = ref(null);
+// const end = ref(null);
+const age = ref(1);
 const description = ref("");
 const status = ref(false);
 
@@ -23,10 +22,9 @@ const submitForm = () => {
     user: user.value,
     category: category.value,
     projectName: name.value,
-    startDate: start.value,
-    endDate: end.value,
+    // startDate: new Date(),
+    // endDate: end.value,
     age: age.value,
-   
     projectDescription: description.value,
     isComplete: status.value,
   };
@@ -38,18 +36,12 @@ projectAddedToActions(projectId.value) //add project to actions
 navigateTo('/projects') //after, go to projects
 console.log(projectData);
 
-
-
-
-
-
-
 };
 </script>
 
 <template>
   <div class="form-wrapper">
-    {{ age }}
+  
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
       <div class="input-group mb-3">
@@ -66,7 +58,7 @@ console.log(projectData);
         </select>
       </div>
 
-      <div class="col-md-6">
+     
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
@@ -86,9 +78,9 @@ console.log(projectData);
           <option value="Node/Express Js">Node/Express Js</option>
           <option value="React Js">React Js</option>
         </select>
-      </div>
+    
 
-      <div class="col-md-6">
+      
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
           type="input"
@@ -96,9 +88,9 @@ console.log(projectData);
           class="form-control"
           id="inputPassword4"
         />
-      </div>
+    
 
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Start Date</label>
         <input
           type="date"
@@ -116,7 +108,7 @@ console.log(projectData);
           class="form-control"
           id="inputPassword4"
         />
-      </div>
+      </div> -->
 
     
       <div class="input-group">

@@ -7,7 +7,7 @@ export const useTest = defineStore({
 
   state: () => ({
     editPro: {},
-    taskId: 1, //number will be zero once i start adding to firebase
+    taskId: 12, //number will be zero once i start adding to firebase
     projectId: 5,
     actionsId: 1,
     historyId: 1,
@@ -39,7 +39,6 @@ export const useTest = defineStore({
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         projectAge: 14,
-
         isComplete: true,
       },
       {
@@ -222,14 +221,14 @@ export const useTest = defineStore({
   }),
 
   getters: {
+    historyByProject: (state) => (id) =>
+      state.history.filter((item) => item.parentId === id),
 
-   historyByProject:(state)=> (id) => state.history.filter(item => item.parentId === id ),
-    
-  //capture the last history by specific project  
- lastHistoryDates:(state)=> (id) => {
- const index = state.history.filter(item => item.parentId === id )
- return state.history[index.length-1]
-  },
+    //capture the last history by specific project
+    lastHistoryDates: (state) => (id) => {
+      const index = state.history.filter((item) => item.parentId === id);
+      return state.history[index.length - 1];
+    },
 
     searchItem: (state) => (item) =>
       state.projects.filter((p) => {
@@ -246,7 +245,8 @@ export const useTest = defineStore({
     },
     hasTasks(state) {
       const tasks = state.tasks.filter((t) => t.parentId);
-      return (id) => tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
+      return (id) =>
+        tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
     },
 
     tasksUnderProject(state) {
@@ -289,12 +289,41 @@ export const useTest = defineStore({
       return (id) => action.filter((t) => t.id === id);
     },
   },
+
+  // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
-    addProject(data) {
-      this.projects.push({ ...data, id: this.projectId++, startDate: new Date() });
+    async addProject(data) {
+      this.projects.push({
+        ...data,
+        startDate: new Date(),
+        projectAge: 1,
+        id: this.projectId++,
+        startDate: new Date(),
+      });
+
+      const projectUrl = {
+        ...data,
+        startDate: new Date(),
+        projectAge: 1,
+        id: this.projectId,
+        startDate: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(projectUrl),
+        }
+      );
     },
     addTask(item) {
-      this.tasks.push({ ...item, id: this.taskId++ });
+      this.tasks.push({
+        ...item,
+        id: this.taskId++,
+        startDate: new Date(),
+        age: 1,
+        startDate: new Date(),
+      });
     },
 
     deleteProject(itemID) {
@@ -317,16 +346,19 @@ export const useTest = defineStore({
       });
     },
     deletedHistory(data, id) {
-      this.history.push({ ...data, parentId: id, id: this.historyId++ });
+      this.history.push({
+        ...data,
+        parentId: id,
+        id: this.historyId++,
+        dateModified: new Date(),
+      });
     },
 
     editProject(param) {
       //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
       let foundProject = this.projects.find((project) => project.id === param); //finds the project from the
-    
       return foundProject;
     },
-
 
     //completed in projects
 
@@ -336,7 +368,7 @@ export const useTest = defineStore({
         parentId: id,
         type: "Project",
         name: "Added",
-        category: "Added",
+        category: "Add",
         dateModified: new Date(),
       };
       this.actions.push(action);
@@ -378,7 +410,5 @@ export const useTest = defineStore({
       };
       this.actions.push(action);
     },
-
- 
   },
 });

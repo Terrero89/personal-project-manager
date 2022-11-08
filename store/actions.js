@@ -2,8 +2,8 @@
 
 import { defineStore } from "pinia";
 
-export const useTest = defineStore({
-  id: "test",
+export const useActionsStore = defineStore({
+  id: "Actions",
 
   state: () => ({
     taskId: 1, //number will be zero once i start adding to firebase

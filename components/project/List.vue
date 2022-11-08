@@ -61,7 +61,7 @@ const searchedProjects = computed(() => {
         :type="action.type"
         :name="action.name"
         :category="action.category"
-        :date-modified="useFormatted(new Date(action.dateModified))"
+        :date-modified="useFormatted(action.dateModified)"
       />
     </UICard>
 

@@ -2,9 +2,8 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
-const { addHistory, addProject, history, projectAddedToActions, addTask } =
-  store;
-const { tasks, taskId, historyId } = storeToRefs(store);
+const { addHistory, projectAddedToActions, addTask } = store;
+const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
 
 const category = ref("");

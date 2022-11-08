@@ -5,7 +5,7 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
 
-const { projectList } = storeToRefs(store);
+const {projects } = storeToRefs(store);
 
 const props = defineProps([
   "id",

@@ -1,13 +1,13 @@
 <script setup>
 import { useTest } from "@/store/test";
-
+import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
-
-const { taskList, projectList } = store;
+const { projects } = storeToRefs(store);
+const { taskList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
-const getParent = projectList.filter((p) => p.id == param); //needs fix
+const getParent = projects.value.filter((p) => p.id == param); //needs fix
 const seeDetail = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate

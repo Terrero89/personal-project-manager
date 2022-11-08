@@ -38,7 +38,7 @@ function deleteTask(id, parent) {
       >
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
-         
+
           <div class="row">
             <div class="header">
               <h3
@@ -82,19 +82,20 @@ function deleteTask(id, parent) {
               <div class="item">Task Status</div>
               <p v-if="project.isComplete">Complete</p>
               <p v-if="!project.isComplete">In Progress</p>
-            </div>
-            <div class="header">
+              <div class="">
               <button
                 type="button"
                 @click="deleteTask(taskParam, project.parentId)"
                 class="btn btn-danger"
               >
-                X
+               Delete
               </button>
               <button type="button" class="btn btn-outline-primary">
                 Update
               </button>
             </div>
+            </div>
+         
           </div>
         </div>
         <UICard>
@@ -115,7 +116,7 @@ function deleteTask(id, parent) {
 
 <style scoped>
 .btn {
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 .col {
   background-color: rgb(255, 255, 255);
@@ -132,6 +133,5 @@ function deleteTask(id, parent) {
   color: rgb(88, 88, 88);
   width: 90%;
 }
-.item {
-}
+
 </style>

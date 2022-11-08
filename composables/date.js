@@ -13,7 +13,7 @@ export function useDate(date) {
 
   export function useFormatted(date) {
     let formatDate = new Date(date);
-    let day = formatDate.getDate()+1
+    let day = formatDate.getDate()
     let month = formatDate.getMonth()+1
     let year = formatDate.getFullYear()
     return month + "/" + day + "/" + year
