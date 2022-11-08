@@ -29,5 +29,5 @@ function deleteTask(id, parent) {
 }
 </script>
 <template>
-    <div>mamisssss update ---- {{taskParam}}</div>
+    <div>mamisssss update --{{taskParam}}</div>
 </template>
