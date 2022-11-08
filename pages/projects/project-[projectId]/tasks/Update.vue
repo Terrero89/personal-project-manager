@@ -27,8 +27,7 @@ function deleteTask(id, parent) {
 }
 </script>
 <template>
-<div>
-    Hello world 2 -{{taskParam}}
-</div>
-
+    <div>
+        UPDATE TASKS {{taskParam}}
+    </div>
 </template>

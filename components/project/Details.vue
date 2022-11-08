@@ -15,7 +15,7 @@ const { projects, history } = storeToRefs(store);
 const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
-const tasksLink = computed(() => `project-${param}/tasks/index`);
+const tasksLink = computed(() => `project-${param}/tasks/details`);
 const addTaskLink = computed(() => `project-${param}/addTask`);
 const projectById = computed(() => store.filterItemById);
 const parentChild = computed(() => store.findParentChild);
