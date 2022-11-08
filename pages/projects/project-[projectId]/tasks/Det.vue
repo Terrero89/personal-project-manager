@@ -4,6 +4,7 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
+const paramDe = parseInt(route.params.detail);
 const { projects } = storeToRefs(store);
 const { taskList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
@@ -21,7 +22,8 @@ const length = store.hasTasks;
       <div>add task feature</div>
       <div>search bar</div>
       <div>filtering</div>
-      back to parent-
+      back to parent- IDIDIDIDID
+      {{param}} {{paramDe}}
 
       <nuxt-link to="/projects">projects</nuxt-link>
 
