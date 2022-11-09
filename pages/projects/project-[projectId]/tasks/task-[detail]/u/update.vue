@@ -87,24 +87,25 @@ const updateTask = () => {
       </div>
 
       <div class="wrap row">
-        <label for="inputEmail4" class="form-label mt-2">Status</label>
+        <label for="inputEmail4" class="form-label mt-2">Duration</label>
 
-        <div class="col-8 col-lg-8 col-md-6 col-sm-8">
-          <!-- <label for="duration" class="form-label">Duration</label> -->
-          <input
-            type="number"
-            class="form-control"
-            id="duration"
-            placeholder="Enter Time"
-            v-model.trim="task.duration"
-          />
-        </div>
-        <div class="d-flex counter col-4 col-lg-4 col-md-4 col-sm-4">
-          <button type="button" class="btn btn-primary mx-2" @click="addTime">
-            +
-          </button>
-          <button type="button" class="btn btn-danger" @click="subsTime">
+        <div class="d-flex  justify-content-center counter col-6 col-lg-11 col-md-4 col-sm-4 my-0 mx-auto">
+            <button type="button" class="btn btn-danger" @click="subsTime">
             -
+          </button>
+          <div class="col-12 col-lg-8 col-md-6 col-sm-8 mx-5">
+            <!-- <label for="duration" class="form-label">Duration</label> -->
+            <input
+              type="input"
+              class="form-control"
+              id="duration"
+              placeholder="Enter Time"
+              v-model.trim="task.duration"
+            />
+          </div>
+
+          <button type="button" class="btn btn-primary" @click="addTime">
+            +
           </button>
         </div>
       </div>
