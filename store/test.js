@@ -7,6 +7,7 @@ export const useTest = defineStore({
 
   state: () => ({
     editPro: {},
+    editedTask: {},
     taskId: 12, //number will be zero once i start adding to firebase
     projectId: 5,
     actionsId: 1,
@@ -38,6 +39,7 @@ export const useTest = defineStore({
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+        technologies: ["React Js", "Next Js", "Firebase", "Bootstrap"],
         projectAge: 14,
         isComplete: true,
       },
@@ -49,6 +51,7 @@ export const useTest = defineStore({
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+        technologies: ["Vue Js", "Nuxt Js", "Firebase", "Tailwind"],
         projectAge: 12,
 
         isComplete: false,
@@ -62,6 +65,15 @@ export const useTest = defineStore({
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+        technologies: [
+          "Vue Js",
+          "Nuxt Js",
+          "Firebase",
+          "Tailwind",
+          "HTML",
+          "CSS",
+          "Pinia",
+        ],
         projectAge: 12,
 
         isComplete: true,
@@ -75,8 +87,8 @@ export const useTest = defineStore({
         projectDescription: "Homework about..",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
+        technologies: ["Vue Js", "Tailwind", "HTML", "CSS", "Axios"],
         projectAge: 1,
-
         isComplete: true,
       },
     ],
@@ -87,10 +99,10 @@ export const useTest = defineStore({
         parentId: 1,
         taskName: "Navbar fix",
         description: "This task was done to...",
-        startDate: "07/01/2022",
+        startDate: "11/01/2022",
         endDate: "07/15/2022",
         age: 10,
-        duration: 1,
+        duration: 3,
         isComplete: true,
       },
       {
@@ -360,6 +372,12 @@ export const useTest = defineStore({
       return foundProject;
     },
 
+    editTask(param) {
+      //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
+      let foundTask = this.tasks.find((task) => task.id === param); //finds the project from the
+      return foundTask;
+    },
+
     //completed in projects
 
     projectAddedToActions(id) {
@@ -403,6 +421,19 @@ export const useTest = defineStore({
         id: this.actionsId++,
         parentId: this.projectId,
         type: "Project",
+        parentId: parent.id,
+        name: "Updated",
+        category: "Update",
+        dateModified: new Date(),
+      };
+      this.actions.push(action);
+    },
+
+    TaskUpdatedToActions(parent) {
+      const action = {
+        id: this.actionsId++,
+        parentId: this.taskId,
+        type: "Task",
         parentId: parent.id,
         name: "Updated",
         category: "Update",

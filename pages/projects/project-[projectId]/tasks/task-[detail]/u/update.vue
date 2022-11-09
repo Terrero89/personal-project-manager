@@ -1,124 +1,119 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
+
 const store = useTest();
-const { addHistory, projectAddedToActions, addTask } = store;
-const { tasks, taskId, history } = storeToRefs(store);
+const route = useRoute(); //route object
+
+const taskParam = parseInt(route.params.detail);
+const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask } =
+  store;
+const { tasks, taskId, history, editedTask } = storeToRefs(store);
 const props = defineProps(["paramId"]);
+const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
 
-const category = ref("");
-const name = ref("");
-const start = ref(null);
-const end = ref(null);
-const age = ref(start);
-const time = ref(null);
-const tech = ref([]);
-const description = ref("");
-const status = ref(null);
+const addTime = () => {
+  task.duration++;
+};
 
-const submitForm = () => {
-  const taskData = {
-    id: taskId.value,
-    parentId: props.paramId,
-    category: category.value,
-    projectName: name.value,
-    startDate: new Date().toString(),
-    endDate: end.value,
-    age: age.value,
-    duration: time.value,
-    projectDescription: description.value,
-    isComplete: status.value,
-  };
+const subsTime = () => {
+  task.duration--;
+};
 
-  //will be removed once i set firebase
-  addTask(taskData); //add project to pinia
-  addHistory(taskData); //add history to pinia
-  projectAddedToActions(taskId.value); //add project to actions
-  navigateTo(`/projects/project-${props.paramId}`); //after, go to projects
-  console.log(taskData);
+//converts to formatted dates, will convert the dates to a readable format.
+
+//?function that will replace editable object in pinia reactively
+
+console.log();
+if (task.isComplete) {
+  task.endDate = new Date();
+  task.age = useDateAge(task.startDate, new Date());
+  console.log("calculated start date with current date");
+} else {
+  task.endDate = task.startDate;
+  task.age = useDateAge(task.startDate, task.endDate);
+  console.log("start date will be end date");
+}
+
+const updateTask = () => {
+  let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
+
+  store.editedTask = { ...store.tasks[index] }; //will catch the old entire project information before updated, including the dates
+  //    taskUpdatedToActions(store.editedTask); //add to actions once updated
+  addHistory(store.editedTask); // added to history once updated
+
+  //   console.log("AT THE BEGGINING + " + task.startDate, task.endDate);
+  console.log({ ...store.tasks[index] });
+  console.log({ ...store.editedTask });
+  if (task.isComplete) {
+    task.endDate = new Date();
+    task.age = useDateAge(task.startDate, new Date());
+    console.log("calculated start date with current date");
+  } else {
+    task.endDate = task.startDate;
+    task.age = useDateAge(task.startDate, task.startDate);
+    console.log("start date will be end date");
+    task.endDate = task.startDate;
+  }
+
+  //composable
+  //   if (task.isComplete) {
+  //     task.endDate = task.startDate;
+  //   } else {
+
+  //   }
+  console.log(task.isComplete);
+  console.log((task.age = useDateAge(task.startDate, task.endDate)));
+  console.log((task.age = useDateAge(task.startDate, new Date())));
+  task.age = useDateAge(task.startDate, task.endDate);
+
+  //   navigateTo("/projects"); //redirect to projects page
 };
 </script>
 
 <template>
   <div class="form-wrapper">
-    {{ age }}
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Add Task</p>
+      <p>Update Task</p>
 
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Category</label>
-        <select
-          class="form-select"
-          v-model="category"
-          aria-label="Default select example"
-          multiple
-        >
-          <label for="inputEmail4" class="form-label">Select User</label>
-          <option disabled  value="">Project Category</option>
-          <option value="Frontend Development">Frontend Development</option>
-          <option value="Backend Development">Backend Development</option>
-          <option value="React Js">React Js</option>
-          <option value="React Js">Vue Js</option>
-          <option value="Python Project">Python Project</option>
-          <option value="C">C</option>
-          <option value="C++">C++</option>
-          <option value="Java">Java</option>
-          <option value="Data Structures and Algorithms">
-            Data Structures and Algorithms
-          </option>
-          <option value="Mysql">Mysql</option>
-          <option value="Go">Go</option>
-          
-         
-
-        </select>
-      </div>
-
-      <div class="col-md-6">
+      <div class="col-12">
         <label for="inputPassword4" class="form-label">Task Name</label>
         <input
           type="input"
-          v-model.trim="name"
+          v-model.trim="task.taskName"
           class="form-control"
           id="inputPassword4"
         />
       </div>
 
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Start Date</label>
-        <input
-          type="date"
-          v-model="start"
-          class="form-control"
-          id="inputEmail4"
-        />
+      <div class="wrap row">
+        <label for="inputEmail4" class="form-label mt-2">Status</label>
+
+        <div class="col-8 col-lg-8 col-md-6 col-sm-8">
+          <!-- <label for="duration" class="form-label">Duration</label> -->
+          <input
+            type="number"
+            class="form-control"
+            id="duration"
+            placeholder="Enter Time"
+            v-model.trim="task.duration"
+          />
+        </div>
+        <div class="d-flex counter col-4 col-lg-4 col-md-4 col-sm-4">
+          <button type="button" class="btn btn-primary mx-2" @click="addTime">
+            +
+          </button>
+          <button type="button" class="btn btn-danger" @click="subsTime">
+            -
+          </button>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">End Date</label>
-        <input
-          type="date"
-          v-model="end"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div>
-
-      <div class="col-12">
-        <label for="duration" class="form-label">Duration</label>
-        <input
-          type="number"
-          class="form-control"
-          id="duration"
-          placeholder="Enter Time"
-          v-model.trim="time"
-        />
-      </div>
       <div class="col-md-12">
         <label for="inputEmail4" class="form-label">Status</label>
         <select
           class="form-select"
-          v-model="status"
+          v-model="task.isComplete"
           aria-label="Default select example"
         >
           <option :value="true">Complete</option>
@@ -128,19 +123,28 @@ const submitForm = () => {
       <div class="input-group">
         <textarea
           class="form-control"
-          v-model="description"
+          v-model="task.description"
           aria-label="With textarea"
         />
       </div>
 
       <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button @click="updateTask" type="submit" class="btn btn-primary">
+          Update
+        </button>
       </div>
     </form>
   </div>
 </template>
 
 <style scoped>
+/* .counter{
+     border: solid red 1px;
+    display: flex;
+    margin: auto 0;
+    justify-content: center;
+    border: solid red 1px;
+} */
 .form-wrapper {
   background-color: white;
   max-width: 32rem;

@@ -7,12 +7,18 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const { addHistory, editProject, projectUpdatedToActions, projectDate, historyByProject } = store;
+const {
+  addHistory,
+  editProject,
+  projectUpdatedToActions,
+  historyByProject,
+} = store;
 const { projects, history, editPro } = storeToRefs(store);
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 const { startDate, endDate } = project; //to convert dates into correct format
 const firstDate = ref("");
 const secondDate = ref("");
+
 
 //converts to formatted dates, will convert the dates to a readable format.
 
@@ -24,13 +30,12 @@ const updateProject = () => {
   addHistory(store.editPro); // added to history once updated
   if (project.isComplete) {
     project.endDate = new Date();
-   
   } else {
     project.endDate = secondDate.value; //project.startDate will change to the value entered on firstDate in pinia
   }
   project.startDate = firstDate.value; //project.startDate will change to the value entered on firstDate in pinia
 
-  project.projectAge = useDateAge(firstDate.value, new Date()); //composable
+  project.projectAge = useDateAge(firstDate.value, new Date()); //composable that return the age of the project
   navigateTo("/projects"); //redirect to projects page
 };
 </script>
@@ -39,14 +44,14 @@ const updateProject = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
-{{store.historyByProject(param)}}
+      {{ store.historyByProject(param) }}
+      {{ project.technologies }}
       <div class="input-group mb-3">
         <select
           class="form-select"
           v-model="project.user"
           aria-label="select user"
         >
-        
           <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
           <option>Jackie Terrero</option>
@@ -55,6 +60,17 @@ const updateProject = () => {
         </select>
       </div>
 
+  
+
+      <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Project Name</label>
+        <input
+          type="input"
+          v-model.trim="project.projectName"
+          class="form-control"
+          id="inputPassword4"
+        />
+      </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Category</label>
         <select
@@ -76,15 +92,88 @@ const updateProject = () => {
           <option value="React Js">React Js</option>
         </select>
       </div>
+      <div class="col">
+        <label for="inputEmail4" class="form-label">Technologies</label>
+        <select
+          class="form-select"
+          v-model="project.technologies"
+          aria-label="Default select example"
+          multiple
+        >
+          <label for="inputEmail4" class="form-label">Select User</label>
 
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Project Name</label>
-        <input
-          type="input"
-          v-model.trim="project.projectName"
-          class="form-control"
-          id="inputPassword4"
-        />
+          <option value="React js">React Js</option>
+          <option value="Nextjs">Next Js</option>
+          <option value="Vue js">Vue Js</option>
+          <option value="Nuxtjs">Nuxt Js</option>
+          <option value="Python">Python</option>
+          <option value="Data Structures and Algorithms">
+            Data Structures and Algorithms
+          </option>
+          <option value="Mysql">Mysql</option>
+          <option value="MongoDB">MongoDB</option>
+          <option value="Node/ExpressJs">Node/Express Js</option>
+          <option value="Flask">Flask</option>
+          <option value="Django">Django</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
+          <option value="Go">Go</option>
+          <option value="Firebase">Firebase</option>
+          <option value="Bootstrap">Boostrap</option>
+          <option value="Tailwind">Tailwind</option>
+          <option value="Sass">Saas</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="inputEmail4" class="form-label">Start Date</label>
+          <input
+            type="date"
+            v-model="firstDate"
+            class="form-control"
+            id="inputEmail4"
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="inputPassword4" class="form-label">End Date</label>
+          <input
+            type="date"
+            v-model="secondDate"
+            class="form-control"
+            id="inputPassword4"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="inputEmail4" class="form-label"
+            >Previous start Date</label
+          >
+          <input
+            type="input"
+            v-model="project.startDate"
+            class="form-control"
+            id="inputEmail4"
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="inputPassword4" class="form-label"
+            >Previous End Date</label
+          >
+          <input
+            type="input"
+            v-model="project.endDate"
+            class="form-control"
+            id="inputPassword4"
+          />
+        </div>
+
+        <!-- will be equal to the the project.end and start date formatted -->
       </div>
       <div class="col-md-12">
         <label for="inputEmail4" class="form-label">Status</label>
@@ -96,44 +185,6 @@ const updateProject = () => {
           <option :value="true">Complete</option>
           <option :value="false">In Progress</option>
         </select>
-      </div>
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Start Date</label>
-        <input
-          type="date"
-          v-model="firstDate"
-          class="form-control"
-          id="inputEmail4"
-        />
-      </div>
-
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">End Date</label>
-        <input
-          type="date"
-          v-model="secondDate"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Previous start Date</label>
-        <input
-          type="input"
-          v-model="project.startDate"
-          class="form-control"
-          id="inputEmail4"
-        />
-      </div>
-      <!-- will be equal to the the project.end and start date formatted -->
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Previous End Date</label>
-        <input
-          type="input"
-          v-model="project.endDate"
-          class="form-control"
-          id="inputPassword4"
-        />
       </div>
 
       <div class="input-group">
