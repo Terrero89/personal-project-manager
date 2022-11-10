@@ -82,9 +82,9 @@ function removeItem(id) {
                 <div class="item">Description</div>
                 <p class="item-desc">{{ project.projectDescription }}</p>
                 <div class="item">Start Date</div>
-                <p class="item-desc">{{ project.startDate }}</p>
+                <p class="item-desc">{{ useFormatted(project.startDate)}}</p>
                 <div class="item">End Date</div>
-                <p class="item-desc">{{ project.endDate }}</p>
+                <p class="item-desc">{{ useFormatted(project.endDate) }}</p>
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@ function removeItem(id) {
       </div>
     </div>
 
-    <div>actions for this project</div>
+  
   </div>
 </template>
 

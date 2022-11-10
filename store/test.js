@@ -6,12 +6,13 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    editPro: {},
-    editedTask: {},
-    taskId: 12, //number will be zero once i start adding to firebase
     projectId: 5,
+    taskId: 1, //number will be zero once i start adding to firebase
     actionsId: 1,
     historyId: 1,
+    editPro: {},
+    editedTask: {},
+    
     history: [],
     actions: [
       { id: 1, parentId: 1, type: "Task", name: "Deleted", category: "Delete" },
@@ -310,7 +311,6 @@ export const useTest = defineStore({
         startDate: new Date(),
         projectAge: 1,
         id: this.projectId++,
-        startDate: new Date(),
       });
 
       const projectUrl = {
@@ -318,7 +318,6 @@ export const useTest = defineStore({
         startDate: new Date(),
         projectAge: 1,
         id: this.projectId,
-        startDate: new Date(),
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json`,
@@ -327,15 +326,33 @@ export const useTest = defineStore({
           body: JSON.stringify(projectUrl),
         }
       );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
-    addTask(item) {
+    async addTask(item) {
       this.tasks.push({
         ...item,
         id: this.taskId++,
         startDate: new Date(),
-        age: 1,
-        startDate: new Date(),
+        age: 0,
       });
+
+      const taskUrl = {
+        ...item,
+        startDate: new Date(),
+        age: 0,
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(taskUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
 
     deleteProject(itemID) {
@@ -349,13 +366,29 @@ export const useTest = defineStore({
       });
     },
 
-    addHistory(data) {
+    async addHistory(data) {
       this.history.push({
         ...data,
         parentId: data.id,
         id: this.historyId++,
         dateModified: new Date(),
       });
+
+      const historyUrl = {
+        ...data,
+        startDate: new Date(),
+        age: 0,
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(historyUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
     deletedHistory(data, id) {
       this.history.push({
@@ -380,7 +413,7 @@ export const useTest = defineStore({
 
     //completed in projects
 
-    projectAddedToActions(id) {
+    async projectAddedToActions(id) {
       const action = {
         id: this.actionsId++,
         parentId: id,
@@ -390,9 +423,28 @@ export const useTest = defineStore({
         dateModified: new Date(),
       };
       this.actions.push(action);
+
+      const actionUrl = {
+       
+        parentId: id,
+        type: "Project",
+        name: "Added",
+        category: "Add",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
 
-    projectDeletedToActions(id) {
+    async projectDeletedToActions(id) {
       const action = {
         id: this.actionsId++,
         parentId: id,
@@ -402,6 +454,25 @@ export const useTest = defineStore({
         dateModified: new Date(),
       };
       this.actions.push(action);
+
+      const actionUrl = {
+       
+        parentId: id,
+        type: "Project",
+        name: "Deleted",
+        category: "Delete",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
 
     deletedToActions(parent) {
@@ -416,7 +487,7 @@ export const useTest = defineStore({
       };
       this.actions.push(action);
     },
-    projectUpdatedToActions(parent) {
+    async projectUpdatedToActions(parent) {
       const action = {
         id: this.actionsId++,
         parentId: this.projectId,
@@ -427,9 +498,28 @@ export const useTest = defineStore({
         dateModified: new Date(),
       };
       this.actions.push(action);
+
+      const actionUrl = {
+        parentId: this.projectId,
+        type: "Project",
+        parentId: parent.id,
+        name: "Updated",
+        category: "Update",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
     },
 
-    TaskUpdatedToActions(parent) {
+    async TaskUpdatedToActions(parent) {
       const action = {
         id: this.actionsId++,
         parentId: this.taskId,
@@ -440,6 +530,28 @@ export const useTest = defineStore({
         dateModified: new Date(),
       };
       this.actions.push(action);
+
+      const actionUrl = {
+        parentId: this.projectId,
+        type: "Project",
+        parentId: parent.id,
+        name: "Updated",
+        category: "Update",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
+  
     },
-  },
+  
+  
+  }
 });

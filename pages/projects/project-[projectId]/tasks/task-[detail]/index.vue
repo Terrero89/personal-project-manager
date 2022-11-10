@@ -7,6 +7,7 @@ const route = useRoute(); //route object
 const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
+const props = defineProps(["id"]);
 const { tasks, projects, history, taskList, findLength, findActionsByTask } =
   store;
 const updateLink = computed(
@@ -38,7 +39,7 @@ function deleteTask(id, parent) {
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
-        {{ taskParam }}
+       
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
 
@@ -87,7 +88,7 @@ function deleteTask(id, parent) {
               <p v-if="!project.isComplete">In Progress</p>
               <div class="">
                 <button
-                  @click="removeItem(props.id)"
+                  @click="deleteTask(taskParam)"
                   type="button"
                   class="btn btn-danger mr-5"
                 >
@@ -136,6 +137,7 @@ function deleteTask(id, parent) {
             :type="action.type"
             :name="action.name"
             :category="action.category"
+            :date-modified="useFormatted(action.dateModified)"
           />
         </UICard>
       </div>

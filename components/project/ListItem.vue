@@ -46,6 +46,7 @@ const detailsLink = computed(() => {
           </button>
         </nuxt-link>
       </div>
+      
     </div>
   </div>
 </template>

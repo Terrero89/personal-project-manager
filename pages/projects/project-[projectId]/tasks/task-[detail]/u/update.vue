@@ -24,7 +24,7 @@ const subsTime = () => {
 
 //?function that will replace editable object in pinia reactively
 
-console.log();
+
 if (task.isComplete) {
   task.endDate = new Date();
   task.age = useDateAge(task.startDate, new Date());
@@ -43,8 +43,8 @@ const updateTask = () => {
   addHistory(store.editedTask); // added to history once updated
 
   //   console.log("AT THE BEGGINING + " + task.startDate, task.endDate);
-  console.log({ ...store.tasks[index] });
-  console.log({ ...store.editedTask });
+  // console.log({ ...store.tasks[index] });
+  // console.log({ ...store.editedTask });
   if (task.isComplete) {
     task.endDate = new Date();
     task.age = useDateAge(task.startDate, new Date());
@@ -56,18 +56,10 @@ const updateTask = () => {
     task.endDate = task.startDate;
   }
 
-  //composable
-  //   if (task.isComplete) {
-  //     task.endDate = task.startDate;
-  //   } else {
 
-  //   }
-  console.log(task.isComplete);
-  console.log((task.age = useDateAge(task.startDate, task.endDate)));
-  console.log((task.age = useDateAge(task.startDate, new Date())));
   task.age = useDateAge(task.startDate, task.endDate);
 
-  //   navigateTo("/projects"); //redirect to projects page
+    navigateTo("/projects"); //redirect to projects page
 };
 </script>
 
@@ -87,7 +79,7 @@ const updateTask = () => {
       </div>
 
       <div class="wrap row">
-        <label for="inputEmail4" class="form-label mt-2">Duration</label>
+        <label for="inputEmail4" class="form-label mt-2">Time</label>
 
         <div class="d-flex  justify-content-center counter col-6 col-lg-11 col-md-4 col-sm-4 my-0 mx-auto">
             <button type="button" class="btn btn-danger" @click="subsTime">

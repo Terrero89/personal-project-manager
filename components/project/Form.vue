@@ -10,9 +10,9 @@ const user = ref("");
 const category = ref("");
 const name = ref("");
 const technologies = ref([]);
-// const start = ref(null);
-// const end = ref(null);
-const age = ref(1);
+
+const age = ref(0);
+
 const description = ref("");
 const status = ref(false);
 
@@ -22,11 +22,10 @@ const submitForm = () => {
     user: user.value,
     category: category.value,
     projectName: name.value,
-    // startDate: new Date(),
-    // endDate: end.value,
     age: age.value,
     projectDescription: description.value,
     isComplete: status.value,
+    technologies: technologies.value
   };
 
   //will be removed once i set firebase
@@ -56,13 +55,13 @@ const submitForm = () => {
         </select>
       </div>
 
-      <label for="inputEmail4" class="form-label">Category</label>
+      <label for="categories" class="form-label">Category</label>
 
       <div class="row">
         <div class="col">
           <select
             class="form-select"
-            v-model="technologies"
+            v-model="category"
             aria-label="Default select example"
           >
           
@@ -79,10 +78,11 @@ const submitForm = () => {
 
         <div class="col">
           <select
+          multiple
             class="form-select"
-            v-model="category"
+            v-model="technologies"
             aria-label="Default select example"
-            multiple
+            
           >
             <label for="inputEmail4" class="form-label">Select User</label>
             <option value="">Technologies</option>
@@ -112,25 +112,7 @@ const submitForm = () => {
         id="inputPassword4"
       />
 
-      <!-- <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Start Date</label>
-        <input
-          type="date"
-          v-model="start"
-          class="form-control"
-          id="inputEmail4"
-        />
-      </div>
 
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">End Date</label>
-        <input
-          type="date"
-          v-model="end"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div> -->
 
       <div class="input-group">
         <textarea

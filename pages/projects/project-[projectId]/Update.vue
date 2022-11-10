@@ -45,7 +45,7 @@ const updateProject = () => {
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
       {{ store.historyByProject(param) }}
-      {{ project.technologies }}
+    
       <div class="input-group mb-3">
         <select
           class="form-select"
@@ -80,16 +80,20 @@ const updateProject = () => {
         >
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
-          <option value="Frontend Development">Frontend Development</option>
-          <option value="Backend Development">Backend Development</option>
-          <option value="Python Project">Python Project</option>
-          <option value="C Language">C Project</option>
-          <option value="Data Structures and Algorithms">
-            Data Structures and Algorithms
-          </option>
-          <option value="MongoDB">MongoDB</option>
-          <option value="Node/Express Js">Node/Express Js</option>
-          <option value="React Js">React Js</option>
+          <option value="ReactJs">React Js</option>
+            <option value="VueJs">Vue Js</option>
+            <option value="NuxtJs">Nuxt Js</option>
+            <option value="Next Js">Next Js</option>
+            <option value="Python">Python</option>
+            <option value="DSA">Data Structures and Algorithms</option>
+            <option value="sql">Mysql</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="Node/ExpressJs">Node/Express Js</option>
+            <option value="Flask">Flask</option>
+            <option value="Django">Django</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
         </select>
       </div>
       <div class="col">

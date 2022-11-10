@@ -21,6 +21,7 @@ const { findActionsByProject } = store;
         :type="action.type"
         :name="action.name"
         :category="action.category"
+        :date-modified="useFormatted(action.dateModified)"
       />
     </UICard>
   </div>
