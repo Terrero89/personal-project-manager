@@ -71,8 +71,7 @@ export const useTest = defineStore({
           "Nuxt Js",
           "Firebase",
           "Tailwind",
-          "HTML",
-          "CSS",
+        
           "Pinia",
         ],
         projectAge: 12,

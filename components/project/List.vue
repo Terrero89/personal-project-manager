@@ -6,7 +6,7 @@ const emit = defineEmits(["search"]);
 const store = useTest();
 const route = useRoute(); //route object
 const { hasProjects, searchItem } = store;
-const { projects,actions } = storeToRefs(store);
+const { projects, actions } = storeToRefs(store);
 const searchInput = ref("");
 const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
@@ -53,6 +53,19 @@ const searchedProjects = computed(() => {
         </div>
       </div>
     </UICard>
+    <UICard> 
+
+<ProjectHistory  v-for="project in searchedProjects"
+              :key="project.id"
+              :id="project.id"
+              :project="project.projectName"
+              :category="project.category"
+              :description="project.projectDescription"
+              :status="project.isComplete"
+              :technologies="project.technologies"
+              />
+
+    </UICard>
     <UICard>
       <ActionsItems
         v-for="action in actions"
@@ -64,8 +77,6 @@ const searchedProjects = computed(() => {
         :date-modified="useFormatted(action.dateModified)"
       />
     </UICard>
-
-   
   </div>
 </template>
 
