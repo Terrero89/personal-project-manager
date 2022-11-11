@@ -7,18 +7,13 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = parseInt(route.params.projectId);
 
-const {
-  addHistory,
-  editProject,
-  projectUpdatedToActions,
-  historyByProject,
-} = store;
+const { addHistory, editProject, projectUpdatedToActions, historyByProject } =
+  store;
 const { projects, history, editPro } = storeToRefs(store);
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 const { startDate, endDate } = project; //to convert dates into correct format
 const firstDate = ref("");
 const secondDate = ref("");
-
 
 //converts to formatted dates, will convert the dates to a readable format.
 
@@ -45,7 +40,7 @@ const updateProject = () => {
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
       {{ store.historyByProject(param) }}
-    
+
       <div class="input-group mb-3">
         <select
           class="form-select"
@@ -59,8 +54,6 @@ const updateProject = () => {
           <option>Camila Terrero</option>
         </select>
       </div>
-
-  
 
       <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Project Name</label>
@@ -80,20 +73,25 @@ const updateProject = () => {
         >
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
+          <option value="">Technologies</option>
           <option value="ReactJs">React Js</option>
-            <option value="VueJs">Vue Js</option>
-            <option value="NuxtJs">Nuxt Js</option>
-            <option value="Next Js">Next Js</option>
-            <option value="Python">Python</option>
-            <option value="DSA">Data Structures and Algorithms</option>
-            <option value="sql">Mysql</option>
-            <option value="MongoDB">MongoDB</option>
-            <option value="Node/ExpressJs">Node/Express Js</option>
-            <option value="Flask">Flask</option>
-            <option value="Django">Django</option>
-            <option value="Java">Java</option>
-            <option value="C">C</option>
-            <option value="C++">C++</option>
+          <option value="VueJs">Vue Js</option>
+          <option value="Html">Html</option>
+          <option value="Css">Css</option>
+          <option value="Tailwind">Tailwind</option>
+          <option value="bulma">Bulma</option>
+          <option value="Nuxt Js">Nuxt Js</option>
+          <option value="Next Js">Next Js</option>
+          <option value="Python">Python</option>
+          <option value="DSA">Data Structures and Algorithms</option>
+          <option value="sql">Mysql</option>
+          <option value="MongoDB">MongoDB</option>
+          <option value="Node/ExpressJs">Node/Express Js</option>
+          <option value="Flask">Flask</option>
+          <option value="Django">Django</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
         </select>
       </div>
       <div class="col">

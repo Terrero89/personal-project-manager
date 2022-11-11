@@ -88,7 +88,11 @@ const submitForm = () => {
             <option value="">Technologies</option>
             <option value="ReactJs">React Js</option>
             <option value="VueJs">Vue Js</option>
-            <option value="NuxtJs">Nuxt Js</option>
+            <option value="Html">Html</option>
+            <option value="Css">Css</option>
+            <option value="Tailwind">Tailwind</option>
+            <option value="bulma">Bulma</option>
+            <option value="Nuxt Js">Nuxt Js</option>
             <option value="Next Js">Next Js</option>
             <option value="Python">Python</option>
             <option value="DSA">Data Structures and Algorithms</option>

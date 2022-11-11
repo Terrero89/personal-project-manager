@@ -40,7 +40,7 @@ export const useTest = defineStore({
         projectDescription: "Web application that will....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        technologies: ["React Js", "Next Js", "Firebase", "Bootstrap"],
+        technologies: ["React Js", "Next Js", "Firebase", "Bootstrap", "C"],
         projectAge: 14,
         isComplete: true,
       },

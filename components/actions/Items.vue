@@ -41,8 +41,7 @@ const action = computed(() => {
             <div v-if="props.type !== 'Task'" class="action-name">
               <!-- <h5> -->
               <h5>
-                Project 
-                <span class="mx-1 text-primary"> {{ props.parentId }}</span> has
+                Project <span class="mx-1 text-primary">{{ props.parentId }}</span> has
                 been
                 <span class="fw-bold" :class="action"> {{ props.name }}</span>
               </h5>
@@ -54,8 +53,7 @@ const action = computed(() => {
             <div v-if="props.type === 'Task'" class="action-name">
               <!-- <h5> -->
               <h5>
-                Project ID:
-                <span class="mx-1 text-primary"> {{ props.parentId }}</span> has
+                Project <span class="mx-1 text-primary">{{ props.parentId }}</span> has
                 <span  :class="action"> {{ props.name }}</span> Task 
                 <span class="mx-1 text-primary"> {{ props.id }}</span>
               </h5>
@@ -77,33 +75,8 @@ const action = computed(() => {
 </template>
 
 <style scoped>
-.status {
-  margin: auto 0;
-  width: 1rem;
-  height: 1rem;
-  margin-right: 0rem;
-  border-radius: 50% 50%;
-}
 
-.color {
-  margin: auto 0;
-  width: 1rem;
-  height: 1rem;
-  margin-right: 1.5rem;
-  border-radius: 50% 50%;
-}
 
-.added {
-  background-color: rgb(0, 115, 255);
-}
-
-.delete {
-  background-color: red;
-}
-
-.update {
-  background-color: rgb(177, 134, 212);
-}
 
 .action-name {
   margin: auto 0;

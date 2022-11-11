@@ -32,6 +32,9 @@ function removeItem(id) {
   deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
+// const action = computed(() => {
+// project.isComplete ? "text-primary" : "text-warning";
+// });
 </script>
 
 <template>
@@ -41,7 +44,7 @@ function removeItem(id) {
       v-for="project in projectById(param)"
       :key="project.id"
     >
-      {{ lastHistoryDates(param) }}
+      <!-- {{ lastHistoryDates(param) }} -->
 
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
@@ -82,7 +85,7 @@ function removeItem(id) {
                 <div class="item">Description</div>
                 <p class="item-desc">{{ project.projectDescription }}</p>
                 <div class="item">Start Date</div>
-                <p class="item-desc">{{ useFormatted(project.startDate)}}</p>
+                <p class="item-desc">{{ useFormatted(project.startDate) }}</p>
                 <div class="item">End Date</div>
                 <p class="item-desc">{{ useFormatted(project.endDate) }}</p>
               </div>
@@ -95,23 +98,35 @@ function removeItem(id) {
             <div class="item">Project Age</div>
             <p class="item-desc">{{ project.projectAge }} days</p>
             <div class="item">Project Status</div>
-            <p v-if="project.isComplete">Complete</p>
-            <p v-if="!project.isComplete">In Progress</p>
-            <div class="item">Tasks Number</div>
-            <p>{{ length(param) }} Tasks</p>
+            <p
+              :class="project.isComplete ? 'text-primary' : 'text-danger '"
+              class="item-desc"
+            >
+              {{ project.isComplete ? "Complete" : "In Progress" }}
+            </p>
+            <div class="item">Number of Tasks</div>
+            <p class="item-desc text-start">{{ length(param) }} Tasks</p>
             <div class="item">See All Tasks</div>
             <p class="item-desc">
-              <Nuxt-link :to="tasksLink">Tasks</Nuxt-link>
+              <Nuxt-link style="text-decoration: none" :to="tasksLink"
+                >Tasks</Nuxt-link
+              >
             </p>
-            <div class="item">Actions</div>
-            <p class="item-desc">
-              <Nuxt-link :to="tasksLink">Actions</Nuxt-link>
-            </p>
-            <div class="">
+            <div class="item">Technologies</div>
+
+            <ProjectTechnologies
+           
+              v-for="tech in project.technologies"
+              :key="tech"
+              :technologies="tech"
+              
+            />
+
+            <div class="my-3">
               <button
                 @click="removeItem(props.id)"
                 type="button"
-                class="btn btn-danger mr-5"
+                class="btn btn-danger mar"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -150,12 +165,13 @@ function removeItem(id) {
         </div>
       </div>
     </div>
-
-  
   </div>
 </template>
 
 <style scoped>
+.remover {
+  list-style: none;
+}
 .header {
   background-color: rgb(227, 239, 253);
   /* border: solid rgb(205, 205, 205) 1px ; */
