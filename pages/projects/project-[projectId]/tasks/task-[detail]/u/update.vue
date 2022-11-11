@@ -4,11 +4,11 @@ import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
-
 const taskParam = parseInt(route.params.detail);
+const param = parseInt(route.params.projectId);
 const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask } =
   store;
-const { tasks, taskId, history, editedTask } = storeToRefs(store);
+const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
 const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
 
@@ -24,7 +24,6 @@ const subsTime = () => {
 
 //?function that will replace editable object in pinia reactively
 
-
 if (task.isComplete) {
   task.endDate = new Date();
   task.age = useDateAge(task.startDate, new Date());
@@ -39,12 +38,10 @@ const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
   store.editedTask = { ...store.tasks[index] }; //will catch the old entire project information before updated, including the dates
-  //    taskUpdatedToActions(store.editedTask); //add to actions once updated
+  taskUpdatedToActions(store.editedTask,taskParam,param);
   addHistory(store.editedTask); // added to history once updated
 
-  //   console.log("AT THE BEGGINING + " + task.startDate, task.endDate);
-  // console.log({ ...store.tasks[index] });
-  // console.log({ ...store.editedTask });
+
   if (task.isComplete) {
     task.endDate = new Date();
     task.age = useDateAge(task.startDate, new Date());
@@ -56,10 +53,9 @@ const updateTask = () => {
     task.endDate = task.startDate;
   }
 
-
   task.age = useDateAge(task.startDate, task.endDate);
 
-    navigateTo("/projects"); //redirect to projects page
+  navigateTo("/projects"); //redirect to projects page
 };
 </script>
 
@@ -81,8 +77,10 @@ const updateTask = () => {
       <div class="wrap row">
         <label for="inputEmail4" class="form-label mt-2">Time</label>
 
-        <div class="d-flex  justify-content-center counter col-6 col-lg-11 col-md-4 col-sm-4 my-0 mx-auto">
-            <button type="button" class="btn btn-danger" @click="subsTime">
+        <div
+          class="d-flex justify-content-center counter col-6 col-lg-11 col-md-4 col-sm-4 my-0 mx-auto"
+        >
+          <button type="button" class="btn btn-danger" @click="subsTime">
             -
           </button>
           <div class="col-12 col-lg-8 col-md-6 col-sm-8 mx-5">

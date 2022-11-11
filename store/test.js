@@ -63,7 +63,7 @@ export const useTest = defineStore({
         category: "Backend Development",
         category: "Backend Development",
         projectName: "Backend Project",
-        projectDescription: "Web application that will....",
+        projectDescription: "Web application that will...Web application that will.Web application that will...Web application that will. Web application that will....Web application that will...Web application that will....Web application that will.....",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         technologies: [
@@ -87,7 +87,7 @@ export const useTest = defineStore({
         projectDescription: "Homework about..",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
-        technologies: ["Vue Js", "Tailwind", "HTML", "CSS", "Axios"],
+        technologies: ["Vue Js","Tailwind", "HTML", "CSS", "Axios", "Tailwind", "HTML", "CSS", "Axios"],
         projectAge: 1,
         isComplete: true,
       },
@@ -518,16 +518,16 @@ export const useTest = defineStore({
       }
     },
 
-    async TaskUpdatedToActions(parent) {
+    async taskUpdatedToActions(parent,childId,parentId) {
       const action = {
-        id: this.actionsId++,
-        parentId: this.taskId,
+        id: childId,
         type: "Task",
-        parentId: parent.id,
+        parentId: parentId,
         name: "Updated",
         category: "Update",
         dateModified: new Date(),
       };
+      this.actionsId++,
       this.actions.push(action);
 
       const actionUrl = {

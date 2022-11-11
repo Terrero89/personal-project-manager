@@ -26,6 +26,12 @@
             >
           </li>
           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/history"
+              >History</a
+            >
+          </li>
+
+          <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/dashboard"
               >Dashboard</a
             >

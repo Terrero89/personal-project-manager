@@ -3,7 +3,6 @@ import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-
 const props = defineProps([
   "id",
   "project",
@@ -17,9 +16,9 @@ const props = defineProps([
 
 const currStatus = computed(() => {
   if (props.status) {
-    return "btn-success";
+    return "border border-primary";
   } else {
-    return "btn-warning";
+    return "border border-warning";
   }
 });
 
@@ -31,29 +30,36 @@ const detailsLink = computed(() => {
 <template>
   <div>
     <div class="project-item ">
-      <div class="item row">
-        <div class="project">
-          <div class="row align-items-center">
-            <!-- <div class="col">
-              <h1>{{ props.id }}</h1>
-            </div> -->
-            <div class="col">
+      <div class="item row mx-2">
+        <div class="project px-0">
+          <div class="row">
+            <div class="col-2-sm">
+              <h1 class="">{{ props.id }}</h1>
               <h1>{{ props.project }}</h1>
               <h2>{{ props.category }}</h2>
-              <div class="col d-flex flexbox ">
-              <div class="my-1 flexi" v-for="tech in props.technologies" :key="tech">
-                <h2 class="">{{ tech }}</h2>
+
+              <div class="col-lg-3 d-flex flex-wrap my-2">
+                <div class="mar" v-for="tech in props.technologies" :key="tech">
+                  <h2 class="">{{ tech }}</h2>
+                </div>
               </div>
             </div>
+
+            <div class="col-sm-3">
+              {{ props.description }}
             </div>
 
-          
-            <div class="col d-flex align-items-center">
-              <h2 class="border py-2 px-2  ">{{ props.status }}</h2>
+            <div class="col-auto d-flex align-items-center">
+              <h2
+                class="border border-1 rounded py-2 px-2 "
+                :class="currStatus"
+              >
+                {{ props.status ? "Complete" : "In progress" }}
+              </h2>
             </div>
-            <div class="col  my-auto mr">
-              <div class="date border py-2 px-2 my-auto mr">
-                <h2 class="align-items-end">Date modified</h2>
+            <div class="col-auto my-auto mr">
+              <div class="date border border-1 rounded py-2 px-2 my-auto mr">
+                <h2 class="align-items-end">05/10/2022</h2>
               </div>
             </div>
           </div>
@@ -67,10 +73,8 @@ const detailsLink = computed(() => {
 .date {
 }
 
-.flexi {
-
-  margin-right: .3rem;
-  /* border: solid 1px rgb(0, 47, 255); */
+.mar {
+  margin-right: 0.3rem;
 }
 .project {
   /* border: solid red 1px; */

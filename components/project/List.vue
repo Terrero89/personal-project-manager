@@ -1,11 +1,10 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-const emit = defineEmits(["search"]);
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem } = store;
+const { hasProjects, searchItem, history } = store;
 const { projects, actions } = storeToRefs(store);
 const searchInput = ref("");
 const searchedProjects = computed(() => {
@@ -53,24 +52,13 @@ const searchedProjects = computed(() => {
         </div>
       </div>
     </UICard>
-    <UICard> 
-
-<ProjectHistory  v-for="project in searchedProjects"
-              :key="project.id"
-              :id="project.id"
-              :project="project.projectName"
-              :category="project.category"
-              :description="project.projectDescription"
-              :status="project.isComplete"
-              :technologies="project.technologies"
-              />
-
-    </UICard>
+    <UICard> history </UICard>
     <UICard>
       <ActionsItems
         v-for="action in actions"
         :key="action.id"
         :id="action.id"
+        :parent-id="action.parentId"
         :type="action.type"
         :name="action.name"
         :category="action.category"
