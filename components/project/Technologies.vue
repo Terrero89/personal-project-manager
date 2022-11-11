@@ -3,9 +3,9 @@ const props = defineProps(["technologies", "type"]);
 const techTypes = computed(() => {
   if (
     props.technologies === "React Js" ||
-    props.technologies === "Vue js" ||
+    props.technologies === "Vue Js" ||
     props.technologies === "javascript" ||
-    props.technologies === "Html" ||
+    props.technologies === "HTML" ||
     props.technologies === "CSS" ||
     props.technologies === "Tailwind" ||
     props.technologies === "Bootstrap" ||
@@ -23,7 +23,8 @@ const techTypes = computed(() => {
     props.technologies === "Flask" ||
     props.technologies === "Django" ||
     props.technologies === "Java" ||
-    props.technologies === "Firebase"
+    props.technologies === "Firebase"||
+    props.technologies === "Axios"
   ) {
     return "backend";
   }
@@ -35,18 +36,24 @@ const techTypes = computed(() => {
 
 <template>
   
-    <span class="mar " :class="techTypes" >
+    <span class="d-inline-flex mar" :class="techTypes" >
       {{technologies}}
-    </span>
+ 
+
+
+  </span>
+   
 
 </template>
 <style scoped>
 
 .test{
     display: flex;
+   
 }
 .mar {
   margin-right: 0.6rem;
+
 }
 .fullStack {
   color: rgb(7, 121, 3);

@@ -20,9 +20,9 @@ const props = defineProps([
 
 const currStatus = computed(() => {
   if (props.status) {
-    return "btn-success";
+    return "text-success py-1 px-1 border border-success rounded ";
   } else {
-    return "btn-warning";
+    return "progress py-1 px-1 border border-warning rounded";
   }
 });
 
@@ -35,10 +35,11 @@ const detailsLink = computed(() => {
   <div>
     <div class="project-item">
       <div class="item">
-        <div class="status" :class="currStatus"></div>
+        <!-- <div class="status" :class="currStatus"></div> -->
         <div class="project">
           <h1>{{ props.project }}</h1>
           <h2>{{ props.category }}</h2>
+          <span :class="currStatus">{{props.status ? "Complete" : "In Progress"}}</span>
         </div>
         <nuxt-link class="my-auto mr" :to="detailsLink"
           ><button type="button" class="btn-md btn btn-outline-primary mr">
@@ -52,6 +53,12 @@ const detailsLink = computed(() => {
 </template>
 
 <style scoped>
+.complete{
+  color: rgb(7, 56, 7);
+}
+.progress{
+  color: rgb(95, 109, 19);
+}
 .project {
   /* border: solid red 1px; */
   margin: 0 0.5rem;
@@ -79,13 +86,6 @@ const detailsLink = computed(() => {
   /* border:solid blue */
 }
 
-.status {
-  margin: auto 0;
-  width: 1rem;
-  height: 1rem;
-  margin-right: 1rem;
-  border-radius: 50% 50%;
-}
 
 .project-item h5 {
   margin-right: auto;
