@@ -64,8 +64,7 @@ const submitForm = () => {
             v-model="category"
             aria-label="Default select example"
           >
-          
-            <label for="inputEmail4" class="form-label">Select User</label>
+        
             <option disabled value="">Project Category</option>
             <option value="Frontend Development">Frontend Development</option>
             <option value="Backend Development">Backend Development</option>

@@ -5,7 +5,7 @@ const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
 
-const {projects } = storeToRefs(store);
+const { projects } = storeToRefs(store);
 
 const props = defineProps([
   "id",
@@ -20,9 +20,9 @@ const props = defineProps([
 
 const currStatus = computed(() => {
   if (props.status) {
-    return "text-success py-1 px-1 border border-success rounded ";
+    return "text-success py-2 px-1 border border-success rounded ";
   } else {
-    return "progress py-1 px-1 border border-warning rounded";
+    return "text-muted py-2 px-2  border border-warning rounded";
   }
 });
 
@@ -38,27 +38,26 @@ const detailsLink = computed(() => {
         <!-- <div class="status" :class="currStatus"></div> -->
         <div class="project">
           <h1>{{ props.project }}</h1>
-          <h2>{{ props.category }}</h2>
-          <span :class="currStatus">{{props.status ? "Complete" : "In Progress"}}</span>
+          <h2 class="pb-2">{{ props.category }}</h2>
+          <span  :class="currStatus">{{
+            props.status ? "Complete" : "In Progress"
+          }}</span>
         </div>
         <nuxt-link class="my-auto mr" :to="detailsLink"
-          ><button type="button" class="btn-md btn btn-outline-primary mr">
+          ><button type="button" class="btn-md px-3 btn btn-outline-primary mr">
             Details
           </button>
         </nuxt-link>
       </div>
-      
     </div>
   </div>
 </template>
 
 <style scoped>
-.complete{
+.complete {
   color: rgb(7, 56, 7);
 }
-.progress{
-  color: rgb(95, 109, 19);
-}
+
 .project {
   /* border: solid red 1px; */
   margin: 0 0.5rem;
@@ -85,7 +84,6 @@ const detailsLink = computed(() => {
 
   /* border:solid blue */
 }
-
 
 .project-item h5 {
   margin-right: auto;

@@ -32,12 +32,12 @@ const searchedProjects = computed(() => {
       <div class="container">
         <div class="page-top">
           <div class="row mb-3">
-            <div class="col d-flex justify-content-end"></div>
+            <div class="col "></div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-lg-12">
+          <div class="">
             <ProjectListItem
               v-for="project in searchedProjects"
               :key="project.id"
@@ -54,7 +54,9 @@ const searchedProjects = computed(() => {
     </UICard>
     <UICard> history </UICard>
     <UICard>
-      <ActionsItems
+      <div class="row">
+        <div class=" mx-auto">
+          <ActionsItems
         v-for="action in actions"
         :key="action.id"
         :id="action.id"
@@ -64,6 +66,9 @@ const searchedProjects = computed(() => {
         :category="action.category"
         :date-modified="useFormatted(action.dateModified)"
       />
+        </div>
+      </div>
+   
     </UICard>
   </div>
 </template>

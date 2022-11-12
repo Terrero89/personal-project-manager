@@ -38,8 +38,8 @@ const updateProject = () => {
 <template>
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Add Project</p>
-      {{ store.historyByProject(param) }}
+      <p>Update Project</p>
+      <!-- {{ store.historyByProject(param) }} -->
 
       <div class="input-group mb-3">
         <select
@@ -71,27 +71,12 @@ const updateProject = () => {
           v-model="project.category"
           aria-label="Default select example"
         >
-          <label for="inputEmail4" class="form-label">Select User</label>
-          <option disabled value="">Project Category</option>
-          <option value="">Technologies</option>
-          <option value="ReactJs">React Js</option>
-          <option value="VueJs">Vue Js</option>
-          <option value="Html">Html</option>
-          <option value="Css">Css</option>
-          <option value="Tailwind">Tailwind</option>
-          <option value="bulma">Bulma</option>
-          <option value="Nuxt Js">Nuxt Js</option>
-          <option value="Next Js">Next Js</option>
-          <option value="Python">Python</option>
-          <option value="DSA">Data Structures and Algorithms</option>
-          <option value="sql">Mysql</option>
-          <option value="MongoDB">MongoDB</option>
-          <option value="Node/ExpressJs">Node/Express Js</option>
-          <option value="Flask">Flask</option>
-          <option value="Django">Django</option>
-          <option value="Java">Java</option>
-          <option value="C">C</option>
-          <option value="C++">C++</option>
+       
+     
+            <option value="Frontend Development">Frontend Development</option>
+            <option value="Backend Development">Backend Development</option>
+            <option value="Backend Development">Full Stack</option>
+            <option value="Backend Development">School Assignments</option>
         </select>
       </div>
       <div class="col">
@@ -128,7 +113,7 @@ const updateProject = () => {
         </select>
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-6">
           <label for="inputEmail4" class="form-label">Start Date</label>
           <input
@@ -148,12 +133,12 @@ const updateProject = () => {
             id="inputPassword4"
           />
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
         <div class="col-6">
           <label for="inputEmail4" class="form-label"
-            >Previous start Date</label
+            >Start Date</label
           >
           <input
             type="input"
@@ -165,7 +150,7 @@ const updateProject = () => {
 
         <div class="col-6">
           <label for="inputPassword4" class="form-label"
-            >Previous End Date</label
+            > End Date</label
           >
           <input
             type="input"

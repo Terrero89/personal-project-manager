@@ -8,8 +8,15 @@ const router = useRouter(); //route object
 const param = parseInt(route.params.projectId);
 const taskParam = parseInt(route.params.detail);
 const props = defineProps(["id"]);
-const { tasks, projects, history, taskList, findLength, findActionsByTask } =
-  store;
+const {
+  tasks,
+  projects,
+  deletedToActions,
+  history,
+  taskList,
+  findLength,
+  findActionsByTask,
+} = store;
 const updateLink = computed(
   () => `/projects/project-${param}/tasks/task-${taskParam}/u/update`
 );
@@ -17,9 +24,9 @@ const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 const length = store.hasTasks;
 //function that deletes the item and return to projects page.
-function deleteTask(id, parent) {
+function removeTask(id) {
+  store.deletedToActions(param, taskParam); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
   store.deleteTask(id); //executes the delete action in pinia
-  store.deletedToActions(id, parent); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
   if (length(param) - 1 < 1) {
     return navigateTo(`/projects/project-${param}`);
   } else {
@@ -39,7 +46,6 @@ function deleteTask(id, parent) {
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
-       
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
 
@@ -88,7 +94,7 @@ function deleteTask(id, parent) {
               <p v-if="!project.isComplete">In Progress</p>
               <div class="">
                 <button
-                  @click="deleteTask(taskParam)"
+                  @click="removeTask(taskParam)"
                   type="button"
                   class="btn btn-danger mr-5"
                 >

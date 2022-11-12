@@ -184,6 +184,6 @@ function removeItem(id) {
   width: 90%;
 }
 .item {
-  color: rgb(129, 129, 129);
+  color: rgb(10, 10, 10);
 }
 </style>

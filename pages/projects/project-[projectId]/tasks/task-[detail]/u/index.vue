@@ -36,6 +36,7 @@ function deleteTask(id, parent) {
         v-for="project in findTaskDetail(taskParam)"
         :key="project.id"
       >
+     
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
 
@@ -117,9 +118,21 @@ function deleteTask(id, parent) {
 .btn {
   margin-right: 1rem;
 }
-.col {
-  background-color: rgb(255, 255, 255);
-  padding: 1rem 0;
+
+.header {
+  background-color: rgb(227, 239, 253);
+  /* border: solid rgb(205, 205, 205) 1px ; */
+  padding: 0.5rem 0rem;
+}
+.item-desc {
+  padding: 0 rem;
+  border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
+  color: rgb(88, 88, 88);
+  width: 90%;
+}
+
+.remover {
+  list-style: none;
 }
 .header {
   background-color: rgb(227, 239, 253);
@@ -131,5 +144,8 @@ function deleteTask(id, parent) {
   border-bottom: solid rgb(155, 155, 155, 0.3) 1px;
   color: rgb(88, 88, 88);
   width: 90%;
+}
+.item {
+  color: rgb(10, 10, 10);
 }
 </style>

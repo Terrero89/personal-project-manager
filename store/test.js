@@ -61,7 +61,7 @@ export const useTest = defineStore({
         id: 3,
         user: "Jackie Terrrero",
         category: "Backend Development",
-        category: "Backend Development",
+        
         projectName: "Backend Project",
         projectDescription: "Web application that will...Web application that will.Web application that will...Web application that will. Web application that will....Web application that will...Web application that will....Web application that will.....",
         startDate: "07/01/2022",
@@ -108,7 +108,7 @@ export const useTest = defineStore({
       {
         id: 2,
         parentId: 1,
-        taskName: "Testimonial Section",
+        taskName: "Testi Section",
         description: "The purpose of this task is...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -153,7 +153,7 @@ export const useTest = defineStore({
       {
         id: 6,
         parentId: 3,
-        taskName: "Testimonials section",
+        taskName: "Testi section",
         description: "Hero Section was done to...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
@@ -474,16 +474,17 @@ export const useTest = defineStore({
       }
     },
 
-    deletedToActions(parent) {
+    deletedToActions(parent,child) {
       const action = {
-        id: this.actionsId++,
-        parentId: this.projectId,
+        id: child,
+        parentId: parent,
         type: "Task",
         parentId: parent,
         name: "Deleted",
         category: "Delete",
         dateModified: new Date(),
       };
+      this.actionsId++
       this.actions.push(action);
     },
     async projectUpdatedToActions(parent) {

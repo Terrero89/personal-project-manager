@@ -35,13 +35,14 @@ const action = computed(() => {
       <a> </a>
       <div>
         <div class="actions-section">
-          <div class="actions">
+          <div class="actions border-bottom">
             <!-- <div :class="action"></div> -->
 
             <div v-if="props.type !== 'Task'" class="action-name">
               <!-- <h5> -->
               <h5>
-                Project <span class="mx-1 text-primary">{{ props.parentId }}</span> has
+                Project
+                <span class="mx-1 text-primary">{{ props.parentId }}</span> has
                 been
                 <span class="fw-bold" :class="action"> {{ props.name }}</span>
               </h5>
@@ -53,8 +54,9 @@ const action = computed(() => {
             <div v-if="props.type === 'Task'" class="action-name">
               <!-- <h5> -->
               <h5>
-                Project <span class="mx-1 text-primary">{{ props.parentId }}</span> has
-                <span  :class="action"> {{ props.name }}</span> Task 
+                Project
+                <span class="mx-1 text-primary">{{ props.parentId }}</span> has
+                <span :class="action"> {{ props.name }}</span> Task
                 <span class="mx-1 text-primary"> {{ props.id }}</span>
               </h5>
 
@@ -75,9 +77,6 @@ const action = computed(() => {
 </template>
 
 <style scoped>
-
-
-
 .action-name {
   margin: auto 0;
   color: black;

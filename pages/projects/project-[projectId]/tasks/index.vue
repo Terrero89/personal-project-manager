@@ -18,63 +18,93 @@ const length = store.hasTasks;
   <div class="tasks-wrapper table-responsive">
     <div class="task-list">
       <UITitle title="Tasks" class="border-bottom" />
-      <div>add task feature</div>
-      <div>search bar</div>
-      <div>filtering</div>
-      back to parent-
 
-      <nuxt-link to="/projects">projects</nuxt-link>
+      <UICard>
+        <SearchFilter />
+      </UICard>
 
-      <h3
-        style="color: black; font-size: size 1.5rem"
-        v-for="parent in getParent"
-        :key="parent.id"
-      >
-        {{ parent.projectName }}
-      </h3>
+      <UICard>
+        <h3
+          style="color: black; font-size: size 1.5rem"
+          v-for="parent in getParent"
+          :key="parent.id"
+        >
+          {{ parent.projectName }}
+        </h3>
+        <nuxt-link to="/projects">projects</nuxt-link>
+        <div class="row mx-lg-5 mx-sx-2 border-1">
+          <div class="row fw-bold header border d-inline-flex">
+            <div class="col">ID</div>
+            <div class="col">Task Name</div>
+            <div class="col">Status</div>
+            <div class="col">Details</div>
+          </div>
 
-      <table class="table">
-        <thead>
-          <tr class="table-header">
-            <th>ID</th>
-
-            <th>TASK NAME</th>
-            <th>STATUS</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
-            class="table-content"
+          <div
+            class="row mx-sx-2 task"
             v-for="task in tasksOfParents"
-            :key="task.id"
+            :key="task"
           >
-            <td>{{ task.id }}</td>
-
-            <td>
-              {{ task.taskName }}
-            </td>
-
-            <td v-if="task.isComplete">Complete</td>
-            <td v-if="!task.isComplete">In Progress</td>
-            <td>
-              <nuxt-link
+            <div class="col fw-bold">{{ task.id }}</div>
+            <div class="col">{{ task.taskName }}</div>
+            <div class="col">
+              {{ task.isComplete ? "Complete" : "In Progress" }}
+            </div>
+            <div class="col">
+              <Nuxt-Link
+                class=""
                 :to="`/projects/project-${param}/tasks/task-${seeDetail(
                   task.id
                 )}`"
-                >Details</nuxt-link
               >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <button
+                  type="button"
+                  class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
+                >
+                  Details
+                </button>
+              </Nuxt-Link>
+            </div>
+          </div>
+        </div>
+      </UICard>
+
+      <div class="row"></div>
+
       <div v-if="length(param) < 1">No tasks available at this moment</div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.link {
+  background-color: rgb(66, 178, 252);
+}
+
+.link:hover {
+  background-color: rgb(122, 196, 245);
+}
+.header {
+  border-bottom: solid rgb(218, 214, 214) 1px;
+  background-color: rgba(104, 134, 255, 0.5);
+  padding: 1rem;
+  margin: 0.5rem 0rem;
+  display: flex;
+  min-height: 4rem;
+  align-items: center;
+  border-radius: 10px;
+}
+.task {
+  border-bottom: solid rgb(218, 214, 214) 1px;
+  background-color: rgb(255, 255, 255);
+  padding: 1rem;
+  margin: 0.2rem 0rem;
+  display: flex;
+  min-height: 5rem;
+  align-items: center;
+  border-radius: 10px;
+}
+
 .task-list {
   max-width: 1500px;
   margin: 0 auto;
