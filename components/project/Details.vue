@@ -1,17 +1,21 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
+
+import {onMounted} from "vue"
 const store = useTest();
 const route = useRoute(); //route object
-const param = parseInt(route.params.projectId);
+// const param = parseInt(route.params.projectId);
+const param = route.params.projectId;
 const {
   taskList,
+  fetchProjects,
   deletedHistory,
   deleteProject,
   projectDeletedToActions,
   lastHistoryDates,
 } = store;
-const { projects, history } = storeToRefs(store);
+const { projects, history,tasks } = storeToRefs(store);
 const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
@@ -32,19 +36,26 @@ function removeItem(id) {
   deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
-// const action = computed(() => {
-// project.isComplete ? "text-primary" : "text-warning";
-// });
+
+
+
+onMounted(()=> {
+  store.fetchProjects()
+})
+
 </script>
 
 <template>
   <div>
+    
+
+   
     <div
-      class="project-detail"
-      v-for="project in projectById(param)"
+      class="project-detail "
+      v-for="project in store.filterItemById(param)"
       :key="project.id"
     >
-      <!-- {{ lastHistoryDates(param) }} -->
+   
 
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
@@ -61,7 +72,7 @@ function removeItem(id) {
         </UICard>
         <div class="row bg-light">
           <div class="header">
-            <h3>
+            <h3 class="mx-2">
               {{ project.projectName }}
             </h3>
           </div>
@@ -96,7 +107,8 @@ function removeItem(id) {
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>
-            <p class="item-desc">{{ project.projectAge }} days</p>
+            <p class="item-desc" v-if="project.projectAge === 1">{{project.projectAge}}  Day old</p>
+            <p class="item-desc" v-if="project.projectAge > 1">{{project.projectAge}}  Days old</p>
             <div class="item">Project Status</div>
             <p
               :class="project.isComplete ? 'text-primary' : 'text-danger '"

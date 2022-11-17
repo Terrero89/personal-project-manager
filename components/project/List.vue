@@ -1,12 +1,16 @@
 <script setup>
+import { watchEffect, onMounted} from "vue";
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
+import consolaGlobalInstance from "consola";
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem, history } = store;
-const { projects, actions } = storeToRefs(store);
+const { hasProjects, searchItem, history,projectList,projectCon } = store;
+let { projects, actions, fetchProjects } = storeToRefs(store);
 const searchInput = ref("");
+
+
 const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
     return (
@@ -15,7 +19,11 @@ const searchedProjects = computed(() => {
   });
 });
 
-//SEARCH WORKING, APPLY EMIT EVENT TO DO IT V-MODEL WAY
+onMounted(() => {
+ store.fetchProjects()
+});
+
+
 </script>
 
 <template>
@@ -32,14 +40,14 @@ const searchedProjects = computed(() => {
       <div class="container">
         <div class="page-top">
           <div class="row mb-3">
-            <div class="col "></div>
+            <div class="col"></div>
           </div>
         </div>
 
         <div class="row">
           <div class="">
             <ProjectListItem
-              v-for="project in searchedProjects"
+              v-for="project in store.projects"
               :key="project.id"
               :id="project.id"
               :project="project.projectName"
@@ -48,27 +56,30 @@ const searchedProjects = computed(() => {
               :status="project.isComplete"
             />
           </div>
-          <div v-if="!hasProjects">No Projects available at this moment</div>
+
+          <div v-if="store.fetchProjects().length> 0">No Projects available at this moment</div>
         </div>
       </div>
     </UICard>
-    <UICard> history </UICard>
+    <UICard> 
+
+  </UICard>
+
     <UICard>
       <div class="row">
-        <div class=" mx-auto">
+        <div class="mx-auto">
           <ActionsItems
-        v-for="action in actions"
-        :key="action.id"
-        :id="action.id"
-        :parent-id="action.parentId"
-        :type="action.type"
-        :name="action.name"
-        :category="action.category"
-        :date-modified="useFormatted(action.dateModified)"
-      />
+            v-for="action in actions"
+            :key="action.id"
+            :id="action.id"
+            :parent-id="action.parentId"
+            :type="action.type"
+            :name="action.name"
+            :category="action.category"
+            :date-modified="useFormatted(action.dateModified)"
+          />
         </div>
       </div>
-   
     </UICard>
   </div>
 </template>

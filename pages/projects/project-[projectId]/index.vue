@@ -13,6 +13,7 @@ const { findActionsByProject } = store;
 <template>
   <div>
     <ProjectDetails :id="param" />
+    {{param}}
     <UICard>
       <h3>Actions</h3>
       <ActionsItems

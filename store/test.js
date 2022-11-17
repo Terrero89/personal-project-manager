@@ -12,11 +12,17 @@ export const useTest = defineStore({
     historyId: 1,
     editPro: {},
     editedTask: {},
-    
+
     history: [],
     actions: [
       { id: 1, parentId: 1, type: "Task", name: "Deleted", category: "Delete" },
-      { id: 2, parentId: 2, type: "Task", name: "Added", category: "Add" },
+      {
+        id: 2,
+        parentId: "-NH6ff6CgQVtZbOhDHlk",
+        type: "Task",
+        name: "Added",
+        category: "Add",
+      },
       { id: 3, parentId: 3, type: "Task", name: "Updated", category: "Update" },
       {
         id: 4,
@@ -27,70 +33,71 @@ export const useTest = defineStore({
       },
       { id: 5, parentId: 4, type: "Task", name: "Added", category: "Add" },
       { id: 6, parentId: 3, type: "Task", name: "Added", category: "Add" },
-      { id: 7, parentId: 2, type: "Task", name: "Updated", category: "Update" },
+      {
+        id: 7,
+        parentId: "-NH6ff6CgQVtZbOhDHlk",
+        type: "Task",
+        name: "Updated",
+        category: "Update",
+      },
       { id: 8, parentId: 1, type: "Project", name: "Added", category: "Add" },
     ],
 
     projects: [
-      {
-        id: 1,
-        user: "Sergio Terrero",
-        category: "Frontend Development",
-        projectName: "Web Development",
-        projectDescription: "Web application that will....",
-        startDate: "07/01/2022",
-        endDate: "07/15/2022",
-        technologies: ["React Js", "Next Js", "Firebase", "Bootstrap", "C"],
-        projectAge: 14,
-        isComplete: true,
-      },
-      {
-        id: 2,
-        user: "Sergio Terrero",
-        category: "Backend Development",
-        projectName: "Python Authentication",
-        projectDescription: "Web application that will....",
-        startDate: "07/01/2022",
-        endDate: "07/15/2022",
-        technologies: ["Vue Js", "Nuxt Js", "Firebase", "Tailwind"],
-        projectAge: 12,
-
-        isComplete: false,
-      },
-      {
-        id: 3,
-        user: "Jackie Terrrero",
-        category: "Backend Development",
-        
-        projectName: "Backend Project",
-        projectDescription: "Web application that will...Web application that will.Web application that will...Web application that will. Web application that will....Web application that will...Web application that will....Web application that will.....",
-        startDate: "07/01/2022",
-        endDate: "07/15/2022",
-        technologies: [
-          "Vue Js",
-          "Nuxt Js",
-          "Firebase",
-          "Tailwind",
-        
-          "Pinia",
-        ],
-        projectAge: 12,
-
-        isComplete: true,
-      },
-
-      {
-        id: 4,
-        user: "Sergio Terrero",
-        category: "School Assignment",
-        projectName: "Rest Api Project",
-        projectDescription: "Homework about..",
-        startDate: "07/01/2022",
-        endDate: "07/15/2022",
-        technologies: ["Vue Js","Tailwind", "HTML", "CSS", "Axios", "Tailwind", "HTML", "CSS", "Axios"],
-        projectAge: 1,
-        isComplete: true,
-      },
+      // {
+      //   id: 1,
+      //   user: "Sergio Terrero",
+      //   category: "Frontend Development",
+      //   projectName: "Web Development",
+      //   projectDescription: "Web application that will....",
+      //   startDate: "07/01/2022",
+      //   endDate: "07/15/2022",
+      //   technologies: ["React Js", "Next Js", "Firebase", "Bootstrap", "C"],
+      //   projectAge: 14,
+      //   isComplete: true,
+      // },
+      // {
+      //   id: 2,
+      //   user: "Sergio Terrero",
+      //   category: "Backend Development",
+      //   projectName: "Python Authentication",
+      //   projectDescription: "Web application that will....",
+      //   startDate: "07/01/2022",
+      //   endDate: "07/15/2022",
+      //   technologies: ["Vue Js", "Nuxt Js", "Firebase", "Tailwind"],
+      //   projectAge: 12,
+      //   isComplete: false,
+      // },
+      // {
+      //   id: 3,
+      //   user: "Jackie Terrrero",
+      //   category: "Backend Development",
+      //   projectName: "Backend Project",
+      //   projectDescription: "Web application that will...Web application that will.Web application that will...Web application that will. Web application that will....Web application that will...Web application that will....Web application that will.....",
+      //   startDate: "07/01/2022",
+      //   endDate: "07/15/2022",
+      //   technologies: [
+      //     "Vue Js",
+      //     "Nuxt Js",
+      //     "Firebase",
+      //     "Tailwind",
+      //     "Pinia",
+      //   ],
+      //   projectAge: 12,
+      //   isComplete: true,
+      // },
+      // {
+      //   id: 4,
+      //   user: "Sergio Terrero",
+      //   category: "School Assignment",
+      //   projectName: "Rest Api Project",
+      //   projectDescription: "Homework about..",
+      //   startDate: "07/01/2022",
+      //   endDate: "07/15/2022",
+      //   technologies: ["Vue Js","Tailwind", "HTML", "CSS", "Axios", "Tailwind", "HTML", "CSS", "Axios"],
+      //   projectAge: 1,
+      //   isComplete: true,
+      // },
     ],
 
     tasks: [
@@ -107,18 +114,18 @@ export const useTest = defineStore({
       },
       {
         id: 2,
-        parentId: 1,
+        parentId: "-NH6ff6CgQVtZbOhDHlk",
         taskName: "Testi Section",
         description: "The purpose of this task is...",
         startDate: "07/01/2022",
         endDate: "07/15/2022",
         age: 14,
-        duration: 1,
+        duration: 4,
         isComplete: true,
       },
       {
         id: 3,
-        parentId: 2,
+        parentId: "-NH6ff6CgQVtZbOhDHlk",
         taskName: "About contentt",
         description: "About content was done to...",
         startDate: "07/01/2022",
@@ -304,19 +311,82 @@ export const useTest = defineStore({
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
+    // async fetchProjects() {
+    //   const response = await fetch(
+    //     'https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json'
+    //   );
+    //   const responseData = await response.json();
+
+    //   if (!response.ok) {
+    //     const error = new Error(responseData.message || "Failed to fetch!");
+    //     throw error;
+    //   }
+
+    //   for (const key in responseData) {
+    //     const project = {
+    //       id: key,
+    //       user: responseData[key].user,
+    //       category: responseData[key].category,
+    //       projectName: responseData[key].projectName,
+    //       projectDescription: responseData[key].projectDescription,
+    //       startDate: responseData[key].startDate,
+    //       endDate: responseData[key].endDate,
+    //       technologies: responseData[key].technologies,
+    //       projectAge: responseData[key].projectAge,
+    //       isComplete: responseData[key].isComplete,
+    //     };
+    //     this.projects.push(project);
+    //   }
+    // },
+
+    async fetchProjects() {
+      const response = await fetch(
+        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"
+      );
+      const responseData = await response.json();
+      this.projects = responseData;
+      console.log(this.projects);
+
+        if (!response.ok) {
+          const error = new Error(responseData.message || "Failed to fetch!");
+          throw error;
+        }
+
+      const projects = [];
+
+      for (const key in this.projects) {
+        const project = {
+          id: key,
+          user: responseData[key].user,
+          category: responseData[key].category,
+          projectName: responseData[key].projectName,
+          projectDescription: responseData[key].projectDescription,
+          startDate: responseData[key].startDate,
+          endDate: responseData[key].endDate,
+          technologies: responseData[key].technologies,
+          projectAge: responseData[key].projectAge,
+          isComplete: responseData[key].isComplete,
+        };
+        projects.push(project);
+        console.log(project);
+      }
+      this.projects = projects;
+      return projects;
+    },
+
     async addProject(data) {
-      this.projects.push({
-        ...data,
-        startDate: new Date(),
-        projectAge: 1,
-        id: this.projectId++,
-      });
+      // this.projects.push({
+      //   ...data,
+      //   startDate: new Date(),
+      //   projectAge: 1,
+      //   id: this.projectId++,
+      // });
 
       const projectUrl = {
         ...data,
         startDate: new Date(),
         projectAge: 1,
-        id: this.projectId,
+        projectId: this.projectId,
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json`,
@@ -325,10 +395,13 @@ export const useTest = defineStore({
           body: JSON.stringify(projectUrl),
         }
       );
+      this.projectId++;
+
       if (!response.ok) {
         console.log("ERROR");
       }
     },
+
     async addTask(item) {
       this.tasks.push({
         ...item,
@@ -411,6 +484,11 @@ export const useTest = defineStore({
     },
 
     //completed in projects
+    // equalizer(data) {
+    // this.projects.push(data)
+    // this.projects = data
+
+    // },
 
     async projectAddedToActions(id) {
       const action = {
@@ -424,7 +502,6 @@ export const useTest = defineStore({
       this.actions.push(action);
 
       const actionUrl = {
-       
         parentId: id,
         type: "Project",
         name: "Added",
@@ -455,7 +532,6 @@ export const useTest = defineStore({
       this.actions.push(action);
 
       const actionUrl = {
-       
         parentId: id,
         type: "Project",
         name: "Deleted",
@@ -474,7 +550,7 @@ export const useTest = defineStore({
       }
     },
 
-    deletedToActions(parent,child) {
+    deletedToActions(parent, child) {
       const action = {
         id: child,
         parentId: parent,
@@ -484,7 +560,7 @@ export const useTest = defineStore({
         category: "Delete",
         dateModified: new Date(),
       };
-      this.actionsId++
+      this.actionsId++;
       this.actions.push(action);
     },
     async projectUpdatedToActions(parent) {
@@ -519,7 +595,7 @@ export const useTest = defineStore({
       }
     },
 
-    async taskUpdatedToActions(parent,childId,parentId) {
+    async taskUpdatedToActions(parent, childId, parentId) {
       const action = {
         id: childId,
         type: "Task",
@@ -528,8 +604,7 @@ export const useTest = defineStore({
         category: "Update",
         dateModified: new Date(),
       };
-      this.actionsId++,
-      this.actions.push(action);
+      this.actionsId++, this.actions.push(action);
 
       const actionUrl = {
         parentId: this.projectId,
@@ -549,9 +624,6 @@ export const useTest = defineStore({
       if (!response.ok) {
         console.log("ERROR");
       }
-  
     },
-  
-  
-  }
+  },
 });

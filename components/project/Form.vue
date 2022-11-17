@@ -5,7 +5,6 @@ const store = useTest();
 const { addHistory, addProject, projectAddedToActions } = store;
 const { projectId } = storeToRefs(store);
 const props = defineProps(["param"]);
-
 const user = ref("");
 const category = ref("");
 const name = ref("");
@@ -25,7 +24,7 @@ const submitForm = () => {
     age: age.value,
     projectDescription: description.value,
     isComplete: status.value,
-    technologies: technologies.value
+    technologies: technologies.value,
   };
 
   //will be removed once i set firebase
@@ -64,24 +63,20 @@ const submitForm = () => {
             v-model="category"
             aria-label="Default select example"
           >
-        
             <option disabled value="">Project Category</option>
             <option value="Frontend Development">Frontend Development</option>
             <option value="Backend Development">Backend Development</option>
             <option value="Backend Development">Full Stack</option>
             <option value="Backend Development">School Assignments</option>
-            
-          
           </select>
         </div>
 
         <div class="col">
           <select
-          multiple
+            multiple
             class="form-select"
             v-model="technologies"
             aria-label="Default select example"
-            
           >
             <label for="inputEmail4" class="form-label">Select User</label>
             <option value="">Technologies</option>
@@ -114,8 +109,6 @@ const submitForm = () => {
         class="form-control"
         id="inputPassword4"
       />
-
-
 
       <div class="input-group">
         <textarea

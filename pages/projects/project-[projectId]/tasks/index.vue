@@ -3,7 +3,8 @@ import { useTest } from "@/store/test";
 
 const store = useTest();
 const route = useRoute(); //route object
-const param = parseInt(route.params.projectId);
+// const param = parseInt(route.params.projectId);
+const param = route.params.projectId;
 
 const { taskList, projectList } = store;
 const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
@@ -92,7 +93,7 @@ const length = store.hasTasks;
   display: flex;
   min-height: 4rem;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 .task {
   border-bottom: solid rgb(218, 214, 214) 1px;
@@ -102,7 +103,7 @@ const length = store.hasTasks;
   display: flex;
   min-height: 5rem;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 .task-list {
