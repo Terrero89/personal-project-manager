@@ -40,7 +40,17 @@ const submitForm = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
+     
+     
+      <label for="inputPassword4" class="form-label">Project Name</label>
+      <input
+        type="input"
+        v-model.trim="name"
+        class="form-control"
+        id="inputPassword4"
+      />
       <div class="input-group mb-3">
+        
         <select
           class="form-select"
           v-model="user"
@@ -102,13 +112,7 @@ const submitForm = () => {
         </div>
       </div>
 
-      <label for="inputPassword4" class="form-label">Project Name</label>
-      <input
-        type="input"
-        v-model.trim="name"
-        class="form-control"
-        id="inputPassword4"
-      />
+  
 
       <div class="input-group">
         <textarea

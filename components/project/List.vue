@@ -1,13 +1,13 @@
 <script setup>
-import { watchEffect, onMounted} from "vue";
+import { onMounted,onBeforeMount} from "vue";
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-import consolaGlobalInstance from "consola";
+
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem, history,projectList,projectCon } = store;
-let { projects, actions, fetchProjects } = storeToRefs(store);
+const { hasProjects, searchItem, history,projectList,fetchProjects,fetchTasks } = store;
+let { projects, actions,  } = storeToRefs(store);
 const searchInput = ref("");
 
 
@@ -20,9 +20,12 @@ const searchedProjects = computed(() => {
 });
 
 onMounted(() => {
- store.fetchProjects()
-});
+  fetchProjects()
+  console.log("Fetching projects  and tasks in project/details")
+ fetchTasks()
 
+
+});
 
 </script>
 
@@ -56,14 +59,12 @@ onMounted(() => {
               :status="project.isComplete"
             />
           </div>
-
+      
           <div v-if="store.fetchProjects().length> 0">No Projects available at this moment</div>
         </div>
       </div>
     </UICard>
-    <UICard> 
 
-  </UICard>
 
     <UICard>
       <div class="row">

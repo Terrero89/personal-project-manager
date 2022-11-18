@@ -2,7 +2,7 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 
-import {onMounted} from "vue"
+import { onMounted, onBeforeMount } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
 // const param = parseInt(route.params.projectId);
@@ -10,12 +10,13 @@ const param = route.params.projectId;
 const {
   taskList,
   fetchProjects,
+  fetchTasks,
   deletedHistory,
   deleteProject,
   projectDeletedToActions,
   lastHistoryDates,
 } = store;
-const { projects, history,tasks } = storeToRefs(store);
+const { projects, history, tasks } = storeToRefs(store);
 const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
@@ -37,26 +38,20 @@ function removeItem(id) {
   return navigateTo("/projects"); //after, go to projects
 }
 
-
-
-onMounted(()=> {
-  store.fetchProjects()
-})
-
+onBeforeMount(() => {
+  fetchProjects();
+  console.log("Fetching projects  and tasks in project/details");
+  fetchTasks();
+});
 </script>
 
 <template>
   <div>
-    
-
-   
     <div
-      class="project-detail "
+      class="project-detail"
       v-for="project in store.filterItemById(param)"
       :key="project.id"
     >
-   
-
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
         <UICard>
@@ -80,7 +75,7 @@ onMounted(()=> {
             <div class="detail">
               <div class="content">
                 <div class="item">Project Id</div>
-                <p class="item-desc">{{ project.id }}</p>
+                <p class="item-desc">{{ useFormatId(project.id, 1, 20) }}</p>
                 <div class="item">User</div>
                 <p class="item-desc">{{ project.user }}</p>
                 <div class="item">Parent Name</div>
@@ -98,7 +93,7 @@ onMounted(()=> {
                 <div class="item">Start Date</div>
                 <p class="item-desc">{{ useFormatted(project.startDate) }}</p>
                 <div class="item">End Date</div>
-                <p class="item-desc">{{ useFormatted(project.endDate) }}</p>
+                <p class="item-desc">{{ project.endDate }}</p>
               </div>
             </div>
           </div>
@@ -107,8 +102,12 @@ onMounted(()=> {
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>
-            <p class="item-desc" v-if="project.projectAge === 1">{{project.projectAge}}  Day old</p>
-            <p class="item-desc" v-if="project.projectAge > 1">{{project.projectAge}}  Days old</p>
+            <p class="item-desc" v-if="project.projectAge === 1">
+              {{ project.projectAge }} Day old
+            </p>
+            <p class="item-desc" v-if="project.projectAge > 1">
+              {{ project.projectAge }} Days old
+            </p>
             <div class="item">Project Status</div>
             <p
               :class="project.isComplete ? 'text-primary' : 'text-danger '"
@@ -127,11 +126,9 @@ onMounted(()=> {
             <div class="item">Technologies</div>
 
             <ProjectTechnologies
-           
               v-for="tech in project.technologies"
               :key="tech"
               :technologies="tech"
-              
             />
 
             <div class="my-3">

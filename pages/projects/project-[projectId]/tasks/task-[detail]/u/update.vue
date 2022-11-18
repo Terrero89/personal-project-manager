@@ -4,8 +4,8 @@ import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
-const taskParam = parseInt(route.params.detail);
-const param = parseInt(route.params.projectId);
+const taskParam = route.params.detail;
+const param = route.params.projectId;
 const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask } =
   store;
 const { tasks, taskId, history } = storeToRefs(store);
@@ -38,9 +38,8 @@ const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
   store.editedTask = { ...store.tasks[index] }; //will catch the old entire project information before updated, including the dates
-  taskUpdatedToActions(store.editedTask,taskParam,param);
+  taskUpdatedToActions(store.editedTask, taskParam, param);
   addHistory(store.editedTask); // added to history once updated
-
 
   if (task.isComplete) {
     task.endDate = new Date();

@@ -1,22 +1,29 @@
 <script setup>
 import { useTest } from "@/store/test";
-
+import { onMounted } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
 // const param = parseInt(route.params.projectId);
 const param = route.params.projectId;
 
-const { taskList, projectList } = store;
-const tasksOfParents = taskList.filter((task) => task.parentId == param); //needs fix
+const { taskList, projectList, fetchTasks, fetchProjects } = store;
+const tasksOfParents = taskList.filter((task) => task.parentId === param); //needs fix
 const getParent = projectList.filter((p) => p.id == param); //needs fix
 const seeDetail = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate
 const length = store.hasTasks;
+const firstFiveIdChar = (char) => char.substring(1, 5);
+
+onMounted(() => {
+  fetchProjects();
+  console.log("Fetching projects  and tasks in tasks");
+  fetchTasks();
+});
 </script>
 
 <template>
-  <div class="tasks-wrapper table-responsive">
+  <div class="tasks-wrapper d-flex">
     <div class="task-list">
       <UITitle title="Tasks" class="border-bottom" />
 
@@ -46,10 +53,10 @@ const length = store.hasTasks;
             v-for="task in tasksOfParents"
             :key="task"
           >
-            <div class="col fw-bold">{{ task.id }}</div>
-            <div class="col">{{ task.taskName }}</div>
+            <div class="col fw-bold">{{ firstFiveIdChar(task.id) }}</div>
+            <div class="col flex-wrap">{{ task.taskName }}</div>
             <div class="col">
-              {{ task.isComplete ? "Complete" : "In Progress" }}
+              {{ task.isComplete ? "Complete" : "Progress" }}
             </div>
             <div class="col">
               <Nuxt-Link

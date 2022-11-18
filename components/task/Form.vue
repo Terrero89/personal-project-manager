@@ -8,9 +8,8 @@ const props = defineProps(["paramId"]);
 
 const category = ref("");
 const name = ref("");
-const start = ref(null);
-const end = ref(null);
-const age = ref(start);
+
+const age = ref(0);
 const time = ref(null);
 const description = ref("");
 const status = ref(null);
@@ -20,12 +19,11 @@ const submitForm = () => {
     id: taskId.value,
     parentId: props.paramId,
     category: category.value,
-    projectName: name.value,
-    startDate: new Date().toString(),
-    endDate: end.value,
+    taskName: name.value,
+  
     age: age.value,
     duration: time.value,
-    projectDescription: description.value,
+    taskDescription: description.value,
     isComplete: status.value,
   };
 
@@ -40,10 +38,18 @@ const submitForm = () => {
 
 <template>
   <div class="form-wrapper">
-    {{ age }}
+    
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Task</p>
-
+      <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Task Name</label>
+        <input
+          type="input"
+          v-model.trim="name"
+          class="form-control"
+          id="inputPassword4"
+        />
+      </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Category</label>
         <select
@@ -66,17 +72,9 @@ const submitForm = () => {
         </select>
       </div>
 
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Task Name</label>
-        <input
-          type="input"
-          v-model.trim="name"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div>
+    
 
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Start Date</label>
         <input
           type="date"
@@ -94,7 +92,7 @@ const submitForm = () => {
           class="form-control"
           id="inputPassword4"
         />
-      </div>
+      </div> -->
 
       <div class="col-12">
         <label for="duration" class="form-label">Duration</label>

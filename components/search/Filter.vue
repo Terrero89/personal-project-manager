@@ -1,11 +1,12 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-const props = defineProps([ "modelValue"]);
-const emit = defineEmits(['update:modelValue']);
+import { onMounted, onBeforeMount } from "vue";
+const props = defineProps(["modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 const store = useTest();
 const { projects } = storeToRefs(store);
-
+const { fetchProjects, fetchTasks } = store;
 
 // const searchedProjects = computed(() => {
 //   return store.projects.filter((p) => {
@@ -14,6 +15,12 @@ const { projects } = storeToRefs(store);
 //     );
 //   });
 // });
+
+onMounted(() => {
+  fetchProjects();
+  console.log("Fetching projects  and tasks in project/details");
+  fetchTasks();
+});
 </script>
 
 <template>

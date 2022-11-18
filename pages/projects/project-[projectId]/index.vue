@@ -5,7 +5,7 @@ import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
 const { actions } = storeToRefs(store);
-const param = parseInt(route.params.projectId);
+const param = route.params.projectId;
 const { findActionsByProject } = store;
 
 </script>
@@ -13,7 +13,7 @@ const { findActionsByProject } = store;
 <template>
   <div>
     <ProjectDetails :id="param" />
-    {{param}}
+   
     <UICard>
       <h3>Actions</h3>
       <ActionsItems

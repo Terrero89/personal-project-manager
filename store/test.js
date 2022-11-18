@@ -18,7 +18,7 @@ export const useTest = defineStore({
       { id: 1, parentId: 1, type: "Task", name: "Deleted", category: "Delete" },
       {
         id: 2,
-        parentId: "-NH6ff6CgQVtZbOhDHlk",
+        parentId: "-NH1TSCSbK2zxej1uARU",
         type: "Task",
         name: "Added",
         category: "Add",
@@ -345,12 +345,11 @@ export const useTest = defineStore({
       );
       const responseData = await response.json();
       this.projects = responseData;
-      console.log(this.projects);
 
-        if (!response.ok) {
-          const error = new Error(responseData.message || "Failed to fetch!");
-          throw error;
-        }
+      if (!response.ok) {
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
+      }
 
       const projects = [];
 
@@ -368,10 +367,70 @@ export const useTest = defineStore({
           isComplete: responseData[key].isComplete,
         };
         projects.push(project);
-        console.log(project);
       }
       this.projects = projects;
       return projects;
+    },
+
+    async fetchTasks() {
+      const response = await fetch(
+        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json"
+      );
+      const responseData = await response.json();
+      this.tasks = responseData;
+
+      if (!response.ok) {
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
+      }
+
+      const tasks = [];
+
+      for (const key in this.tasks) {
+        const task = {
+          id: key,
+          parentId: responseData[key].parentId,
+          taskName: responseData[key].taskName,
+          description: responseData[key].taskDescription,
+          startDate: responseData[key].startDate,
+          endDate: responseData[key].endDate,
+          age: responseData[key].age,
+          duration: responseData[key].duration,
+          isComplete: responseData[key].isComplete,
+        };
+        tasks.push(task);
+      }
+      this.tasks = tasks;
+      return tasks;
+    },
+
+    async fetchActions() {
+      const response = await fetch(
+        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json"
+      );
+      const responseData = await response.json();
+      this.actions = responseData;
+
+      if (!response.ok) {
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
+      }
+
+      const actions = [];
+
+      for (const key in this.actions) {
+        const action = {
+          id: key,
+          parentId: responseData[key].parentId,
+          type: responseData[key].type,
+          name: responseData[key].name,
+          category: responseData[key].category,
+          dateModified: responseData[key].dateModified,
+        };
+        actions.push(action);
+      }
+      this.actions = actions;
+      return actions;
     },
 
     async addProject(data) {
@@ -398,7 +457,7 @@ export const useTest = defineStore({
       this.projectId++;
 
       if (!response.ok) {
-        console.log("ERROR");
+        console.log("ERROR PROJECTS");
       }
     },
 
@@ -423,7 +482,7 @@ export const useTest = defineStore({
         }
       );
       if (!response.ok) {
-        console.log("ERROR");
+        console.log("ERROR TASKS");
       }
     },
 
@@ -439,12 +498,12 @@ export const useTest = defineStore({
     },
 
     async addHistory(data) {
-      this.history.push({
-        ...data,
-        parentId: data.id,
-        id: this.historyId++,
-        dateModified: new Date(),
-      });
+      // this.history.push({
+      //   ...data,
+      //   parentId: data.id,
+      //   id: this.historyId++,
+      //   dateModified: new Date(),
+      // });
 
       const historyUrl = {
         ...data,
@@ -459,7 +518,7 @@ export const useTest = defineStore({
         }
       );
       if (!response.ok) {
-        console.log("ERROR");
+        console.log("ERROR HISTORY");
       }
     },
     deletedHistory(data, id) {
@@ -491,15 +550,15 @@ export const useTest = defineStore({
     // },
 
     async projectAddedToActions(id) {
-      const action = {
-        id: this.actionsId++,
-        parentId: id,
-        type: "Project",
-        name: "Added",
-        category: "Add",
-        dateModified: new Date(),
-      };
-      this.actions.push(action);
+      // const action = {
+      //   id: this.actionsId++,
+      //   parentId: id,
+      //   type: "Project",
+      //   name: "Added",
+      //   category: "Add",
+      //   dateModified: new Date(),
+      // };
+      // this.actions.push(action);
 
       const actionUrl = {
         parentId: id,

@@ -1,12 +1,12 @@
 <!-- details task page -->
 <script setup>
 import { useTest } from "@/store/test";
-
+import { onMounted } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
 const router = useRouter(); //route object
-const param = parseInt(route.params.projectId);
-const taskParam = parseInt(route.params.detail);
+const param = route.params.projectId;
+const taskParam = route.params.detail;
 const props = defineProps(["id"]);
 const {
   tasks,
@@ -16,6 +16,8 @@ const {
   taskList,
   findLength,
   findActionsByTask,
+  fetchTasks,
+  fetchProjects,
 } = store;
 const updateLink = computed(
   () => `/projects/project-${param}/tasks/task-${taskParam}/u/update`
@@ -36,6 +38,10 @@ function removeTask(id) {
     return navigateTo(`/projects/project-${param}/tasks`);
   }
 }
+onMounted(() => {
+  fetchTasks();
+  fetchProjects();
+});
 </script>
 
 <template>
@@ -43,8 +49,8 @@ function removeTask(id) {
     <div class="task-list">
       <div
         class="project-detail"
-        v-for="project in findTaskDetail(taskParam)"
-        :key="project.id"
+        v-for="task in findTaskDetail(taskParam)"
+        :key="task.id"
       >
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
@@ -53,10 +59,10 @@ function removeTask(id) {
             <div class="header">
               <h3
                 style="color: black; font-size: size 1.5rem"
-                v-for="task in findTaskDetail(taskParam)"
-                :key="task.id"
+                v-for="taskTitle in findTaskDetail(taskParam)"
+                :key="taskTitle.id"
               >
-                {{ task.taskName }}
+                {{ taskTitle.taskName }}
               </h3>
             </div>
 
@@ -64,7 +70,7 @@ function removeTask(id) {
               <div class="detail">
                 <div class="content">
                   <div class="item">Task ID</div>
-                  <p class="item-desc">{{ project.id }}</p>
+                  <p class="item-desc">{{ task.id }}</p>
 
                   <div class="item">Parent Name</div>
                   <p
@@ -76,22 +82,24 @@ function removeTask(id) {
                   </p>
 
                   <div class="item">Description</div>
-                  <p class="item-desc">{{ project.description }}</p>
+                  <p class="item-desc">{{ task.description }}</p>
                   <div class="item">Start Date</div>
-                  <p class="item-desc">{{ project.startDate }}</p>
+                  <p class="item-desc">{{ useFormatted(task.startDate) }}</p>
                   <div class="item">End Date</div>
-                  <p class="item-desc">{{ project.endDate }}</p>
+                  <p class="item-desc">
+                    {{ task.endDate ? "" : "No end date" }}
+                  </p>
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="item">Task Duration</div>
-              <p class="item-desc">{{ project.duration }} hours</p>
+              <p class="item-desc">{{ task.duration }} hours</p>
               <div class="item">Task Age</div>
-              <p class="item-desc">{{ project.age }} days</p>
+              <p class="item-desc">{{ task.age }} days</p>
               <div class="item">Task Status</div>
-              <p v-if="project.isComplete">Complete</p>
-              <p v-if="!project.isComplete">In Progress</p>
+              <p>{{ task.isComplete ? "Complete" : "In Progress" }}</p>
+
               <div class="">
                 <button
                   @click="removeTask(taskParam)"

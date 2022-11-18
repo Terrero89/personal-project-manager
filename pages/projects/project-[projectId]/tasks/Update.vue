@@ -4,8 +4,8 @@ import { useTest } from "@/store/test";
 const store = useTest();
 const route = useRoute(); //route object
 const router = useRouter(); //route object
-const param = parseInt(route.params.projectId);
-const taskParam = parseInt(route.params.detail);
+const param = (route.params.projectId);
+const taskParam = (route.params.detail);
 const { tasks, projects, history, taskList, findLength, findActionsByTask } =
   store;
 
