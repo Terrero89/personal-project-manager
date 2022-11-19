@@ -1,15 +1,21 @@
 <script setup>
-import { onMounted,onBeforeMount} from "vue";
+import { onMounted, onBeforeMount } from "vue";
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 
-
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem, history,projectList,fetchProjects,fetchTasks } = store;
-let { projects, actions,  } = storeToRefs(store);
+const {
+  hasProjects,
+  searchItem,
+  history,
+  projectList,
+  fetchProjects,
+  fetchTasks,
+  fetchActions,
+} = store;
+const { projects, actions } = storeToRefs(store);
 const searchInput = ref("");
-
 
 const searchedProjects = computed(() => {
   return store.projects.filter((p) => {
@@ -20,13 +26,11 @@ const searchedProjects = computed(() => {
 });
 
 onMounted(() => {
-  fetchProjects()
-  console.log("Fetching projects  and tasks in project/details")
- fetchTasks()
-
-
+  fetchProjects();
+  console.log("Fetching projects  and tasks in project/details");
+  fetchTasks();
+  fetchActions();
 });
-
 </script>
 
 <template>
@@ -50,7 +54,7 @@ onMounted(() => {
         <div class="row">
           <div class="">
             <ProjectListItem
-              v-for="project in store.projects"
+              v-for="project in searchedProjects"
               :key="project.id"
               :id="project.id"
               :project="project.projectName"
@@ -59,14 +63,15 @@ onMounted(() => {
               :status="project.isComplete"
             />
           </div>
-      
-          <div v-if="store.fetchProjects().length> 0">No Projects available at this moment</div>
+
+          <div v-if="store.fetchProjects().length > 0">
+            No Projects available at this moment
+          </div>
         </div>
       </div>
     </UICard>
 
-
-    <UICard>
+    <!-- <UICard>
       <div class="row">
         <div class="mx-auto">
           <ActionsItems
@@ -81,7 +86,7 @@ onMounted(() => {
           />
         </div>
       </div>
-    </UICard>
+    </UICard> -->
   </div>
 </template>
 

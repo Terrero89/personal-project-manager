@@ -1,10 +1,10 @@
 <script setup>
 // const dataList = [...projects];
 import { useTest } from "@/store/test";
-import {onBeforeMount} from "vue";
+import { onBeforeMount, onMounted } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
-const { projectList, hasActions, fetchActions} = store;
+const { projectList, hasActions, fetchActions, fetchProjects, fetchTasks} = store;
 const toggleActions = ref(false);
 const toggle = () => (toggleActions.value = !toggleActions.value);
 const props = defineProps([
@@ -12,7 +12,6 @@ const props = defineProps([
   "parentId",
   "type",
   "name",
-
   "category",
   "dateModified",
 ]);
@@ -27,10 +26,12 @@ const action = computed(() => {
     return "text-primary";
   }
 });
-onBeforeMount(() => {
- fetchActions()
-});
+onMounted(() => {
 
+  fetchActions();
+  fetchProjects();
+  fetchTasks()
+});
 </script>
 
 <template>
@@ -40,8 +41,6 @@ onBeforeMount(() => {
       <div>
         <div class="actions-section">
           <div class="actions border-bottom">
-     
-
             <div v-if="props.type !== 'Task'" class="action-name">
               <!-- <h5> -->
               <h5>

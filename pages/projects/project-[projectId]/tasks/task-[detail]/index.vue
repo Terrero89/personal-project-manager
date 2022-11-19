@@ -1,7 +1,7 @@
 <!-- details task page -->
 <script setup>
 import { useTest } from "@/store/test";
-import { onMounted } from "vue";
+import { onMounted,onBeforeMount } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
 const router = useRouter(); //route object
@@ -38,9 +38,10 @@ function removeTask(id) {
     return navigateTo(`/projects/project-${param}/tasks`);
   }
 }
-onMounted(() => {
+onBeforeMount(() => {
   fetchTasks();
   fetchProjects();
+  console.log("printed out from tasks/details")
 });
 </script>
 
