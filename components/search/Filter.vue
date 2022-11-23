@@ -16,9 +16,9 @@ const { fetchProjects, fetchTasks } = store;
 //   });
 // });
 
-onMounted(() => {
+onBeforeMount(() => {
   fetchProjects();
-  console.log("Fetching projects  and tasks in project/details");
+  // console.log("Fetching projects  and tasks in project/details");
   fetchTasks();
 });
 </script>

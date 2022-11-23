@@ -1,25 +1,50 @@
 <script setup>
+import { storeToRefs } from "pinia";
 import { useTest } from "@/store/test";
 import { onMounted } from "vue";
+
 const store = useTest();
 const route = useRoute(); //route object
-import { storeToRefs } from "pinia";
+
 const param = route.params.projectId;
-const { fetchTasks} = store;
-const { tasks} = storeToRefs(store);
+const { fetchTasks, fetchProjects } = store;
+const { tasks } = storeToRefs(store);
 const tasksOfParents = store.tasks.filter((task) => task.parentId === param); //needs fix
 const getParent = store.projects.filter((p) => p.id === param); //needs fix
-const  parentOfChild = (parameter) => {
+const parentOfChild = (parameter) => {
   return parameter;
 }; //will make the id selectec the currect id to navigate
 const length = store.hasTasks;
 const firstFiveIdChar = (char) => char.substring(1, 5);
 
+const filter = reactive({
+  byId: true,
+  byName: false,
+});
 onMounted(() => {
-
   console.log("Fetching projects  and tasks in tasks");
   fetchTasks();
+  fetchProjects();
 });
+
+//methods to test
+
+const searchInput = ref("");
+const searchedTasks = computed(() => {
+  const item = store.tasks;
+  const input = searchInput;
+  return item.filter((p) => {
+   //left only with name filtering for now.
+    if (!filter.byName) {
+        return (
+          p.taskName.toLowerCase().indexOf(searchInput.value.toLowerCase()) !=
+          -1
+        );
+      }
+  });
+});
+
+
 </script>
 
 <template>
@@ -28,17 +53,10 @@ onMounted(() => {
       <UITitle title="Tasks" class="border-bottom" />
 
       <UICard>
-        <SearchFilter />
+        <SearchFilter v-model="searchInput" />
       </UICard>
 
       <UICard>
-        <h3
-          style="color: black; font-size: size 1.5rem"
-          v-for="parent in getParent"
-          :key="parent.id"
-        >
-          {{ parent.projectName }}
-        </h3>
         <nuxt-link to="/projects">projects</nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">
           <div class="row fw-bold header border d-inline-flex">
@@ -50,9 +68,19 @@ onMounted(() => {
 
           <div
             class="row mx-sx-2 task"
-            v-for="task in tasks"
+            v-for="task in searchedTasks"
             :key="task"
           >
+            <div class="row">
+              <h3
+                class="fs-6"
+                style="color: black; font-size: size 1.5rem"
+                v-for="parent in getParent"
+                :key="parent.id"
+              >
+                {{ parent.projectName }}
+              </h3>
+            </div>
             <div class="col fw-bold">{{ firstFiveIdChar(task.id) }}</div>
             <div class="col flex-wrap">{{ task.taskName }}</div>
             <div class="col">
@@ -60,7 +88,7 @@ onMounted(() => {
             </div>
 
             <div class="col">
-                <Nuxt-Link
+              <Nuxt-Link
                 class=""
                 :to="`/projects/project-${task.parentId}/tasks/task-${task.id}`"
               >
@@ -71,28 +99,10 @@ onMounted(() => {
                   Details
                 </button>
               </Nuxt-Link>
-
             </div>
-            <!-- <div class="col">
-              <Nuxt-Link
-                class=""
-                :to="`/projects/project-${param}/${parentOfChild(
-                  task.parentId
-                )}`"
-              >
-                <button
-                  type="button"
-                  class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
-                >
-                  Details
-                </button>
-              </Nuxt-Link>
-            </div> -->
           </div>
         </div>
       </UICard>
-
-      <div class="row"></div>
 
       <!-- <div v-if="length(param) < 1">No tasks available at this moment</div> -->
     </div>
@@ -183,5 +193,3 @@ td {
   padding: 2rem;
 }
 </style>
-
-    

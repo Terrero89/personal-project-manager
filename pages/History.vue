@@ -20,14 +20,13 @@ const searchedProjects = computed(() => {
 </script>
 
 <template>
-<div>
-    <UICard> 
-<UITitle title="history"/>
-
-    </UICard>
+  <div>
     <UICard>
+      <UITitle title="history" />
+    </UICard>
+    <!-- <UICard>
       <ProjectHistory
-        v-for="project in history"
+        v-for="project in store.history"
         :key="project.id"
         :id="project.id"
         :project="project.projectName"
@@ -36,7 +35,7 @@ const searchedProjects = computed(() => {
         :status="project.isComplete"
         :technologies="project.technologies"
       />
-    </UICard>
+    </UICard> -->
 
     <UICard>
       <ActionsItems
