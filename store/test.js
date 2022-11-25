@@ -145,7 +145,6 @@ export const useTest = defineStore({
       //   duration: 1,
       //   isComplete: true,
       // },
-
       // {
       //   id: 5,
       //   parentId: 2,
@@ -168,7 +167,6 @@ export const useTest = defineStore({
       //   duration: 1,
       //   isComplete: true,
       // },
-
       // {
       //   id: 7,
       //   parentId: 3,
@@ -180,7 +178,6 @@ export const useTest = defineStore({
       //   duration: 1,
       //   isComplete: true,
       // },
-
       // {
       //   id: 8,
       //   parentId: 1,
@@ -240,7 +237,7 @@ export const useTest = defineStore({
   }),
 
   getters: {
-    actionList: (state)=> state.actions,
+    actionList: (state) => state.actions,
     historyByProject: (state) => (id) =>
       state.history.filter((item) => item.parentId === id),
 
@@ -312,8 +309,6 @@ export const useTest = defineStore({
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
-
-
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"
@@ -461,51 +456,43 @@ export const useTest = defineStore({
       }
     },
 
-    // deleteProject(itemID) {
-    //   this.projects = this.projects.filter((object) => {
-    //     return object.id !== itemID;
-    //   });
-    // },
+ 
 
-
-   async deleteProject(itemID) {
-      // this.projects = this.projects.filter((object) => {
-      //   return object.id !== itemID;
-
-      
+    async deleteProject(itemID) {
+ 
 
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${itemID}/.json`,
         {
           method: "DELETE",
-          'Content-type': 'application/json'
-        
+          "Content-type": "application/json",
         }
-
-        
       );
+      if(!response.ok){
+        console.log("Error, request failed")
+      }
 
-      
-        // console.log(response)
+      // console.log(response)
+    },
 
-      },
+    async deleteTask(itemID) {
+    
 
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${itemID}/.json`,
+        {
+          method: "DELETE",
+          "Content-type": "application/json",
+        }
+      );
+      if(!response.ok){
+        console.log("Error, request failed")
+      }
 
-
-
-    deleteTask(itemID) {
-      this.tasks = this.tasks.filter((object) => {
-        return object.id !== itemID;
-      });
     },
 
     async addHistory(data) {
-      // this.history.push({
-      //   ...data,
-      //   parentId: data.id,
-      //   id: this.historyId++,
-      //   dateModified: new Date(),
-      // });
+   
 
       const historyUrl = {
         ...data,
