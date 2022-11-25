@@ -47,6 +47,7 @@ onBeforeMount(() => {
 
 <template>
   <div>
+    {{props.id}}
     <div
       class="project-detail"
       v-for="project in store.filterItemById(param)"
@@ -130,6 +131,8 @@ onBeforeMount(() => {
               :key="tech"
               :technologies="tech"
             />
+
+
 
             <div class="my-3">
               <button

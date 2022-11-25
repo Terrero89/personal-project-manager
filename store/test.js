@@ -420,7 +420,7 @@ export const useTest = defineStore({
         ...data,
         startDate: new Date(),
         projectAge: 1,
-        projectId: this.projectId,
+        // projectId: this.projectId,
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json`,
@@ -439,7 +439,7 @@ export const useTest = defineStore({
     async addTask(item) {
       this.tasks.push({
         ...item,
-        id: this.taskId++,
+        // id: this.taskId++,
         startDate: new Date(),
         age: 0,
       });
@@ -461,11 +461,38 @@ export const useTest = defineStore({
       }
     },
 
-    deleteProject(itemID) {
-      this.projects = this.projects.filter((object) => {
-        return object.id !== itemID;
-      });
-    },
+    // deleteProject(itemID) {
+    //   this.projects = this.projects.filter((object) => {
+    //     return object.id !== itemID;
+    //   });
+    // },
+
+
+   async deleteProject(itemID) {
+      // this.projects = this.projects.filter((object) => {
+      //   return object.id !== itemID;
+
+      
+
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${itemID}/.json`,
+        {
+          method: "DELETE",
+          'Content-type': 'application/json'
+        
+        }
+
+        
+      );
+
+      
+        // console.log(response)
+
+      },
+
+
+
+
     deleteTask(itemID) {
       this.tasks = this.tasks.filter((object) => {
         return object.id !== itemID;

@@ -23,6 +23,7 @@ const searchedProjects = computed(() => {
   <div>
     <UICard>
       <UITitle title="history" />
+   <UICategoryFilter/>
     </UICard>
     <!-- <UICard>
       <ProjectHistory

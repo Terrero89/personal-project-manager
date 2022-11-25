@@ -29,7 +29,10 @@ onMounted(() => {
 
 //methods to test
 
+
 const searchInput = ref("");
+
+
 const searchedTasks = computed(() => {
   const item = store.tasks;
   const input = searchInput;

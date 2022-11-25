@@ -11,13 +11,12 @@ const name = ref("");
 const technologies = ref([]);
 
 const age = ref(0);
-
 const description = ref("");
 const status = ref(false);
 
 const submitForm = () => {
   const projectData = {
-    id: projectId.value,
+    // id: projectId.value,
     user: user.value,
     category: category.value,
     projectName: name.value,
