@@ -6,10 +6,10 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    projectId: 5,
-    taskId: 1, //number will be zero once i start adding to firebase
-    actionsId: 1,
-    historyId: 1,
+    // projectId: 5,
+    // taskId: 1, //number will be zero once i start adding to firebase
+    // actionsId: 1,
+    // historyId: 1,
     editPro: {},
     editedTask: {},
 
@@ -327,11 +327,11 @@ export const useTest = defineStore({
       return foundTask;
     },
 
-    async updateRequest(id) {
+    async updateTaskRequest(id) {
 
      
       const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${id}.json`;
-      const payload = this.editedTask
+      const payload = this.editedTask; // payload will be equal to the new updated task
       const options =    {
         method: "PUT",
         headers: {"Content-type": "application/json",},
@@ -339,6 +339,25 @@ export const useTest = defineStore({
       }
        fetch(url,options)
        .then(response => console.log(response.status))
+  
+   
+      // if (!response.ok) {
+      //   console.log("Super error 400");
+      // }
+    },
+
+    async updateProjectRequest(id) {
+
+     
+      const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${id}.json`;
+      const payload = this.editPro; // payload will be equal to the new updated task
+      const options =    {
+        method: "PUT",
+        headers: {"Content-type": "application/json",},
+        body: JSON.stringify(payload)
+      }
+       fetch(url,options)
+       .then(response => console.log("response from pinia " + response.status))
   
       console.log(response);
       if (!response.ok) {

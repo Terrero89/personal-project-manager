@@ -24,7 +24,7 @@ const submitForm = () => {
     age: age.value,
     duration: time.value,
     taskDescription: description.value,
-    isComplete: status.value,
+    isComplete: false,
   };
 
   //will be removed once i set firebase

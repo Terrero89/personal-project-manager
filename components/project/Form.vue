@@ -22,7 +22,7 @@ const submitForm = () => {
     projectName: name.value,
     age: age.value,
     projectDescription: description.value,
-    isComplete: status.value,
+    isComplete: false,
     technologies: technologies.value,
   };
 

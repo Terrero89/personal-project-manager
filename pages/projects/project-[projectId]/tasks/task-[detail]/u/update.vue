@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted, onBeforeMount } from "vue";
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 
@@ -6,7 +7,8 @@ const store = useTest();
 const route = useRoute(); //route object
 const taskParam = route.params.detail;
 const param = route.params.projectId;
-const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask } =
+const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask,updateTaskRequest,  fetchProjects,
+  fetchTasks, } =
   store;
 const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
@@ -19,15 +21,16 @@ const subsTime = () => task.duration--;
 
 //?function that will replace editable object in pinia reactively
 
-if (task.isComplete) {
-  task.endDate = new Date();
-  task.age = useDateAge(task.startDate, new Date());
-  console.log("calculated start date with current date");
-} else {
-  task.endDate = task.startDate;
-  task.age = useDateAge(task.startDate, task.endDate);
-  console.log("start date will be end date");
-}
+// if (task.isComplete) {
+//   task.endDate = new Date();
+//   task.age = useDateAge(task.startDate, new Date());
+//   console.log("calculated start date with current date");
+// } else {
+//   task.endDate = task.startDate;
+//   task.age = useDateAge(task.startDate, task.endDate);
+//   console.log("start date will be end date");
+// }
+
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
@@ -47,12 +50,18 @@ const updateTask = () => {
     task.endDate = task.startDate;
   }
   task.age = useDateAge(task.startDate, task.endDate);
-  store.updateRequest(taskParam);
+  updateTaskRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page
 };
-console.log({ ...store.editTask(taskParam) });
+
+// onBeforeMount(() => {
+//   fetchProjects();
+//   console.log("Fetching projects  and tasks in project/details");
+//   fetchTasks();
+// });
+// console.log({ ...store.editTask(taskParam) });
 // console.log(store.updateRequest(taskParam))
-console.log(store.editedTask);
+// console.log(store.editedTask);
 </script>
 
 <template>
@@ -124,13 +133,7 @@ console.log(store.editedTask);
 </template>
 
 <style scoped>
-/* .counter{
-     border: solid red 1px;
-    display: flex;
-    margin: auto 0;
-    justify-content: center;
-    border: solid red 1px;
-} */
+
 .form-wrapper {
   background-color: white;
   max-width: 32rem;

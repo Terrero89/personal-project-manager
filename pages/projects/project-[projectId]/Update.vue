@@ -1,17 +1,26 @@
 <script setup>
+
 import { useTest } from "@/store/test";
-
 import { storeToRefs } from "pinia";
-
+import { onMounted, onBeforeMount } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
-const param = parseInt(route.params.projectId);
+const param = route.params.projectId;
 
-const { addHistory, editProject, projectUpdatedToActions, historyByProject } =
-  store;
-const { projects, history, editPro } = storeToRefs(store);
-const project = editProject(param); //will update via v-model the project reactively in component and pinia will
-const { startDate, endDate } = project; //to convert dates into correct format
+const {
+  addHistory,
+  editProject,
+  projectUpdatedToActions,
+  historyByProject,
+  updateProjectRequest,
+  fetchProjects,
+  fetchTasks,
+} = store;
+const { projects, history, editPro,} = storeToRefs(store);
+let project = editProject(param); //will update via v-model the project reactively in component and pinia will
+// const { startDate, endDate } = project; //to convert dates into correct format
+
+
 const firstDate = ref("");
 const secondDate = ref("");
 
@@ -23,6 +32,7 @@ const updateProject = () => {
   store.editPro = { ...store.projects[index] }; //will catch the old entire project information before updated, including the dates
   projectUpdatedToActions(store.editPro); //add to actions once updated
   addHistory(store.editPro); // added to history once updated
+
   if (project.isComplete) {
     project.endDate = new Date();
   } else {
@@ -31,8 +41,17 @@ const updateProject = () => {
   project.startDate = firstDate.value; //project.startDate will change to the value entered on firstDate in pinia
 
   project.projectAge = useDateAge(firstDate.value, new Date()); //composable that return the age of the project
+  updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
 };
+onBeforeMount(() => {
+  fetchProjects();
+  console.log("Fetching projects  and tasks in project/details");
+  fetchTasks();
+});
+
+
+console.log("Project alone:" + editProject(param));
 </script>
 
 <template>
@@ -71,12 +90,10 @@ const updateProject = () => {
           v-model="project.category"
           aria-label="Default select example"
         >
-       
-     
-            <option value="Frontend Development">Frontend Development</option>
-            <option value="Backend Development">Backend Development</option>
-            <option value="Backend Development">Full Stack</option>
-            <option value="Backend Development">School Assignments</option>
+          <option value="Frontend Development">Frontend Development</option>
+          <option value="Backend Development">Backend Development</option>
+          <option value="Backend Development">Full Stack</option>
+          <option value="Backend Development">School Assignments</option>
         </select>
       </div>
       <div class="col">
@@ -137,9 +154,7 @@ const updateProject = () => {
 
       <div class="row">
         <div class="col-6">
-          <label for="inputEmail4" class="form-label"
-            >Start Date</label
-          >
+          <label for="inputEmail4" class="form-label">Start Date</label>
           <input
             type="input"
             v-model="project.startDate"
@@ -149,9 +164,7 @@ const updateProject = () => {
         </div>
 
         <div class="col-6">
-          <label for="inputPassword4" class="form-label"
-            > End Date</label
-          >
+          <label for="inputPassword4" class="form-label"> End Date</label>
           <input
             type="input"
             v-model="project.endDate"
