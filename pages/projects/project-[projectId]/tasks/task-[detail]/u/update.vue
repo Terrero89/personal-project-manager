@@ -12,13 +12,8 @@ const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
 const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
 
-const addTime = () => {
-  task.duration++;
-};
-
-const subsTime = () => {
-  task.duration--;
-};
+const addTime = () => task.duration++;
+const subsTime = () => task.duration--;
 
 //converts to formatted dates, will convert the dates to a readable format.
 
@@ -51,11 +46,13 @@ const updateTask = () => {
     console.log("start date will be end date");
     task.endDate = task.startDate;
   }
-
   task.age = useDateAge(task.startDate, task.endDate);
-
+  store.updateRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page
 };
+console.log({ ...store.editTask(taskParam) });
+// console.log(store.updateRequest(taskParam))
+console.log(store.editedTask);
 </script>
 
 <template>
@@ -88,7 +85,6 @@ const updateTask = () => {
               type="input"
               class="form-control"
               id="duration"
-              placeholder="Enter Time"
               v-model.trim="task.duration"
             />
           </div>

@@ -43,197 +43,9 @@ export const useTest = defineStore({
       { id: 8, parentId: 1, type: "Project", name: "Added", category: "Add" },
     ],
 
-    projects: [
-      // {
-      //   id: 1,
-      //   user: "Sergio Terrero",
-      //   category: "Frontend Development",
-      //   projectName: "Web Development",
-      //   projectDescription: "Web application that will....",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   technologies: ["React Js", "Next Js", "Firebase", "Bootstrap", "C"],
-      //   projectAge: 14,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 2,
-      //   user: "Sergio Terrero",
-      //   category: "Backend Development",
-      //   projectName: "Python Authentication",
-      //   projectDescription: "Web application that will....",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   technologies: ["Vue Js", "Nuxt Js", "Firebase", "Tailwind"],
-      //   projectAge: 12,
-      //   isComplete: false,
-      // },
-      // {
-      //   id: 3,
-      //   user: "Jackie Terrrero",
-      //   category: "Backend Development",
-      //   projectName: "Backend Project",
-      //   projectDescription: "Web application that will...Web application that will.Web application that will...Web application that will. Web application that will....Web application that will...Web application that will....Web application that will.....",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   technologies: [
-      //     "Vue Js",
-      //     "Nuxt Js",
-      //     "Firebase",
-      //     "Tailwind",
-      //     "Pinia",
-      //   ],
-      //   projectAge: 12,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 4,
-      //   user: "Sergio Terrero",
-      //   category: "School Assignment",
-      //   projectName: "Rest Api Project",
-      //   projectDescription: "Homework about..",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   technologies: ["Vue Js","Tailwind", "HTML", "CSS", "Axios", "Tailwind", "HTML", "CSS", "Axios"],
-      //   projectAge: 1,
-      //   isComplete: true,
-      // },
-    ],
+    projects: [],
 
-    tasks: [
-      // {
-      //   id: 1,
-      //   parentId: 1,
-      //   taskName: "Navbar fix",
-      //   description: "This task was done to...",
-      //   startDate: "11/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 10,
-      //   duration: 3,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 2,
-      //   parentId: "-NH6ff6CgQVtZbOhDHlk",
-      //   taskName: "Testi Section",
-      //   description: "The purpose of this task is...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 4,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 3,
-      //   parentId: "-NH6ff6CgQVtZbOhDHlk",
-      //   taskName: "About contentt",
-      //   description: "About content was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: false,
-      // },
-      // {
-      //   id: 4,
-      //   parentId: 3,
-      //   taskName: "Hero Section",
-      //   description: "Hero Section was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 5,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 5,
-      //   parentId: 2,
-      //   taskName: "Bug fixing",
-      //   description: "Hero Section was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 6,
-      //   parentId: 3,
-      //   taskName: "Testi section",
-      //   description: "Hero Section was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 7,
-      //   parentId: 3,
-      //   taskName: "Search feature",
-      //   description: "Hero Section was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 8,
-      //   parentId: 1,
-      //   taskName: "Hero Section",
-      //   description: "Hero Section was done to...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 5,
-      //   isComplete: false,
-      // },
-      // {
-      //   id: 9,
-      //   parentId: 2,
-      //   taskName: "Footer Section",
-      //   description: "Footer Section for website..",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 10,
-      //   parentId: 2,
-      //   taskName: "Testimonial Section",
-      //   description: "Testimonial Section for website.",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 14,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 11,
-      //   parentId: 4,
-      //   taskName: "Math Assignment",
-      //   description: "MAth assignment...",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 1,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-      // {
-      //   id: 12,
-      //   parentId: 4,
-      //   taskName: "C Project",
-      //   description: "C Project For school Assignment",
-      //   startDate: "07/01/2022",
-      //   endDate: "07/15/2022",
-      //   age: 1,
-      //   duration: 1,
-      //   isComplete: true,
-      // },
-    ],
+    tasks: [],
   }),
 
   getters: {
@@ -404,13 +216,6 @@ export const useTest = defineStore({
     },
 
     async addProject(data) {
-      // this.projects.push({
-      //   ...data,
-      //   startDate: new Date(),
-      //   projectAge: 1,
-      //   id: this.projectId++,
-      // });
-
       const projectUrl = {
         ...data,
         startDate: new Date(),
@@ -456,11 +261,7 @@ export const useTest = defineStore({
       }
     },
 
- 
-
     async deleteProject(itemID) {
- 
-
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${itemID}/.json`,
         {
@@ -468,16 +269,14 @@ export const useTest = defineStore({
           "Content-type": "application/json",
         }
       );
-      if(!response.ok){
-        console.log("Error, request failed")
+      if (!response.ok) {
+        console.log("Error, request failed");
       }
 
       // console.log(response)
     },
 
     async deleteTask(itemID) {
-    
-
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${itemID}/.json`,
         {
@@ -485,15 +284,12 @@ export const useTest = defineStore({
           "Content-type": "application/json",
         }
       );
-      if(!response.ok){
-        console.log("Error, request failed")
+      if (!response.ok) {
+        console.log("Error, request failed");
       }
-
     },
 
     async addHistory(data) {
-   
-
       const historyUrl = {
         ...data,
         startDate: new Date(),
@@ -531,24 +327,26 @@ export const useTest = defineStore({
       return foundTask;
     },
 
-    //completed in projects
-    // equalizer(data) {
-    // this.projects.push(data)
-    // this.projects = data
+    async updateRequest(id) {
 
-    // },
+     
+      const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${id}.json`;
+      const payload = this.editedTask
+      const options =    {
+        method: "PUT",
+        headers: {"Content-type": "application/json",},
+        body: JSON.stringify(payload)
+      }
+       fetch(url,options)
+       .then(response => console.log(response.status))
+  
+      console.log(response);
+      if (!response.ok) {
+        console.log("Super error 400");
+      }
+    },
 
     async projectAddedToActions(id) {
-      // const action = {
-      //   id: this.actionsId++,
-      //   parentId: id,
-      //   type: "Project",
-      //   name: "Added",
-      //   category: "Add",
-      //   dateModified: new Date(),
-      // };
-      // this.actions.push(action);
-
       const actionUrl = {
         parentId: id,
         type: "Project",
