@@ -2,7 +2,7 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const store = useTest();
-const { addHistory, projectAddedToActions, addTask } = store;
+const { addHistory, taskAddedToActions, addTask } = store;
 const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
 
@@ -20,17 +20,16 @@ const submitForm = () => {
     parentId: props.paramId,
     category: category.value,
     taskName: name.value,
-  
     age: age.value,
     duration: time.value,
     taskDescription: description.value,
     isComplete: false,
   };
 
-  //will be removed once i set firebase
+
   addTask(taskData); //add project to pinia
   addHistory(taskData); //add history to pinia
-  projectAddedToActions(taskId.value); //add project to actions
+  taskAddedToActions(props.paramId); //add project to actions
   navigateTo(`/projects/project-${props.paramId}`); //after, go to projects
   console.log(taskData);
 };
@@ -59,6 +58,7 @@ const submitForm = () => {
         >
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
+          <option value="Frontend Development">School Assignments</option>
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
           <option value="Python Project">Python Project</option>

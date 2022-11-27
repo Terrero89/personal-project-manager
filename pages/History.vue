@@ -1,11 +1,12 @@
 <script setup>
+import { onMounted, onBeforeMount } from "vue";
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 const emit = defineEmits(["search"]);
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem } = store;
+const { hasProjects, searchItem,fetchHistory } = store;
 const { projects, actions, history } = storeToRefs(store);
 const searchInput = ref("");
 const searchedProjects = computed(() => {
@@ -16,18 +17,24 @@ const searchedProjects = computed(() => {
   });
 });
 
+onMounted(() => {
+fetchHistory()
+  console.log("Fetching projects  and tasks in project/details");
+
+});
+
 //SEARCH WORKING, APPLY EMIT EVENT TO DO IT V-MODEL WAY
 </script>
 
 <template>
   <div>
     <UICard>
-      <UITitle title="history" />
+      <UITitle title="History" />
    <UICategoryFilter/>
     </UICard>
-    <!-- <UICard>
-      <ProjectHistory
-        v-for="project in store.history"
+    <UICard>
+      <HistoryItem
+        v-for="project in history"
         :key="project.id"
         :id="project.id"
         :project="project.projectName"
@@ -36,7 +43,7 @@ const searchedProjects = computed(() => {
         :status="project.isComplete"
         :technologies="project.technologies"
       />
-    </UICard> -->
+    </UICard>
 
     <UICard>
       <ActionsItems

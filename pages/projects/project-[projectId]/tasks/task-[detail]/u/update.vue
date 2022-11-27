@@ -21,15 +21,15 @@ const subsTime = () => task.duration--;
 
 //?function that will replace editable object in pinia reactively
 
-// if (task.isComplete) {
-//   task.endDate = new Date();
-//   task.age = useDateAge(task.startDate, new Date());
-//   console.log("calculated start date with current date");
-// } else {
-//   task.endDate = task.startDate;
-//   task.age = useDateAge(task.startDate, task.endDate);
-//   console.log("start date will be end date");
-// }
+if (task.isComplete) {
+  task.endDate = new Date();
+  task.age = useDateAge(task.startDate, new Date());
+  console.log("calculated start date with current date");
+} else {
+  task.endDate = task.startDate;
+  task.age = useDateAge(task.startDate, task.endDate);
+  console.log("start date will be end date");
+}
 
 
 const updateTask = () => {

@@ -6,45 +6,12 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
-    // projectId: 5,
-    // taskId: 1, //number will be zero once i start adding to firebase
-    // actionsId: 1,
-    // historyId: 1,
+  
     editPro: {},
     editedTask: {},
-
     history: [],
-    actions: [
-      { id: 1, parentId: 1, type: "Task", name: "Deleted", category: "Delete" },
-      {
-        id: 2,
-        parentId: "-NH1TSCSbK2zxej1uARU",
-        type: "Task",
-        name: "Added",
-        category: "Add",
-      },
-      { id: 3, parentId: 3, type: "Task", name: "Updated", category: "Update" },
-      {
-        id: 4,
-        parentId: 4,
-        type: "Project",
-        name: "Deleted",
-        category: "Delete",
-      },
-      { id: 5, parentId: 4, type: "Task", name: "Added", category: "Add" },
-      { id: 6, parentId: 3, type: "Task", name: "Added", category: "Add" },
-      {
-        id: 7,
-        parentId: "-NH6ff6CgQVtZbOhDHlk",
-        type: "Task",
-        name: "Updated",
-        category: "Update",
-      },
-      { id: 8, parentId: 1, type: "Project", name: "Added", category: "Add" },
-    ],
-
+    actions: [],
     projects: [],
-
     tasks: [],
   }),
 
@@ -65,8 +32,7 @@ export const useTest = defineStore({
       }),
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
-    hasProjects: (state) => state.projects.length > 0,
-    hasTasks: (state) => state.projects.length > 0,
+
     hasActions: (state) => state.actions.length > 0,
     filterItemById(state) {
       const prj = state.projects.filter((p) => p.id);
@@ -215,6 +181,40 @@ export const useTest = defineStore({
       return actions;
     },
 
+    async fetchHistory() {
+      const response = await fetch(
+        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json"
+      );
+      const responseData = await response.json();
+      this.history = responseData; //array
+
+      if (!response.ok) {
+        const error = new Error(responseData.message || "Failed to fetch!");
+        throw error;
+      }
+
+      const histories = [];
+
+      for (const key in this.history) {
+        const history = {
+          id: key,
+          user: responseData[key].user,
+          parentId: responseData[key].parentId,
+          projectName: responseData[key].projectName,
+          description: responseData[key].projectDescription,
+          startDate: responseData[key].startDate,
+          endDate: responseData[key].endDate,
+          age: responseData[key].age,
+          isComplete: responseData[key].isComplete,
+          technologies: responseData[key].technologies,
+        };
+        histories.push(history);
+      }
+      this.history = histories;
+      return histories;
+    },
+
+ 
     async addProject(data) {
       const projectUrl = {
         ...data,
@@ -328,47 +328,61 @@ export const useTest = defineStore({
     },
 
     async updateTaskRequest(id) {
-
-     
       const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${id}.json`;
       const payload = this.editedTask; // payload will be equal to the new updated task
-      const options =    {
+      const options = {
         method: "PUT",
-        headers: {"Content-type": "application/json",},
+        headers: { "Content-type": "application/json" },
         body: JSON.stringify(payload)
-      }
-       fetch(url,options)
-       .then(response => console.log(response.status))
-  
-   
+      };
+      fetch(url, options).then((response) => console.log(response.status));
+
       // if (!response.ok) {
       //   console.log("Super error 400");
       // }
     },
 
     async updateProjectRequest(id) {
-
-     
       const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${id}.json`;
       const payload = this.editPro; // payload will be equal to the new updated task
-      const options =    {
+      const options = {
         method: "PUT",
-        headers: {"Content-type": "application/json",},
-        body: JSON.stringify(payload)
-      }
-       fetch(url,options)
-       .then(response => console.log("response from pinia " + response.status))
-  
-      console.log(response);
-      if (!response.ok) {
-        console.log("Super error 400");
-      }
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(payload),
+      };
+      fetch(url, options).then((response) =>
+        console.log("response from pinia " + response.status)
+      );
+
+      // if (!response.ok) {
+      //   console.log("Super error 400");
+      // }
     },
 
     async projectAddedToActions(id) {
       const actionUrl = {
         parentId: id,
         type: "Project",
+        name: "Added",
+        category: "Add",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
+    },
+
+    async taskAddedToActions(id) {
+      const actionUrl = {
+        parentId: id,
+        type: "Task",
         name: "Added",
         category: "Add",
         dateModified: new Date(),

@@ -107,7 +107,7 @@ const searchedTasks = computed(() => {
         </div>
       </UICard>
 
-      <!-- <div v-if="length(param) < 1">No tasks available at this moment</div> -->
+      <div v-if="!length(param) < 1">No tasks available at this moment</div>
     </div>
   </div>
 </template>

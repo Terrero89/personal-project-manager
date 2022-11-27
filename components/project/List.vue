@@ -64,7 +64,7 @@ onMounted(() => {
             />
           </div>
 
-          <div v-if="store.fetchProjects().length > 0">
+          <div v-if="!store.projectList.length > 0">
             No Projects available at this moment
           </div>
         </div>

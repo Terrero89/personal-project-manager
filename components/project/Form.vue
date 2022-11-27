@@ -29,7 +29,7 @@ const submitForm = () => {
   //will be removed once i set firebase
   addProject(projectData); //add project to pinia
   addHistory(projectData); //add history to pinia
-  projectAddedToActions(projectId.value); //add project to actions
+  projectAddedToActions(props.param); //add project to actions
   navigateTo("/projects"); //after, go to projects
   console.log(projectData);
 };
@@ -87,8 +87,9 @@ const submitForm = () => {
             v-model="technologies"
             aria-label="Default select example"
           >
-            <label for="inputEmail4" class="form-label">Select User</label>
-            <option value="">Technologies</option>
+
+          <label for="categories" class="form-label">Technologies</label>
+          <option value="">none</option>
             <option value="ReactJs">React Js</option>
             <option value="VueJs">Vue Js</option>
             <option value="Html">Html</option>
@@ -107,6 +108,7 @@ const submitForm = () => {
             <option value="Java">Java</option>
             <option value="C">C</option>
             <option value="C++">C++</option>
+            
           </select>
         </div>
       </div>

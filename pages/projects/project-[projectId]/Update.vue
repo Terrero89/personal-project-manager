@@ -2,10 +2,10 @@
 
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
-import { onMounted, onBeforeMount } from "vue";
+
 const store = useTest();
 const route = useRoute(); //route object
-const param = route.params.projectId;
+const param = route.params.projectId
 
 const {
   addHistory,
@@ -13,11 +13,10 @@ const {
   projectUpdatedToActions,
   historyByProject,
   updateProjectRequest,
-  fetchProjects,
-  fetchTasks,
+
 } = store;
-const { projects, history, editPro,} = storeToRefs(store);
-let project = editProject(param); //will update via v-model the project reactively in component and pinia will
+const { projects, history, editPro} = storeToRefs(store);
+const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 // const { startDate, endDate } = project; //to convert dates into correct format
 
 
@@ -29,7 +28,7 @@ const secondDate = ref("");
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
-  store.editPro = { ...store.projects[index] }; //will catch the old entire project information before updated, including the dates
+  store.editPro = { ...store.projects[index]}; //will catch the old entire project information before updated, including the dates
   projectUpdatedToActions(store.editPro); //add to actions once updated
   addHistory(store.editPro); // added to history once updated
 
@@ -44,14 +43,10 @@ const updateProject = () => {
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
 };
-onBeforeMount(() => {
-  fetchProjects();
-  console.log("Fetching projects  and tasks in project/details");
-  fetchTasks();
-});
 
 
-console.log("Project alone:" + editProject(param));
+
+console.log("Project alone:" + store.editProject(param));
 </script>
 
 <template>
