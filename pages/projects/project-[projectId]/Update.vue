@@ -1,11 +1,10 @@
 <script setup>
-
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 
 const store = useTest();
 const route = useRoute(); //route object
-const param = route.params.projectId
+const param = route.params.projectId;
 
 const {
   addHistory,
@@ -13,12 +12,10 @@ const {
   projectUpdatedToActions,
   historyByProject,
   updateProjectRequest,
-
 } = store;
-const { projects, history, editPro} = storeToRefs(store);
+const { projects, history, editPro } = storeToRefs(store);
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 // const { startDate, endDate } = project; //to convert dates into correct format
-
 
 const firstDate = ref("");
 const secondDate = ref("");
@@ -28,10 +25,9 @@ const secondDate = ref("");
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
-  store.editPro = { ...store.projects[index]}; //will catch the old entire project information before updated, including the dates
+  store.editPro = { ...store.projects[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
   projectUpdatedToActions(store.editPro); //add to actions once updated
   addHistory(store.editPro); // added to history once updated
-
   if (project.isComplete) {
     project.endDate = new Date();
   } else {
@@ -45,8 +41,6 @@ const updateProject = () => {
 };
 
 
-
-console.log("Project alone:" + store.editProject(param));
 </script>
 
 <template>
@@ -84,6 +78,7 @@ console.log("Project alone:" + store.editProject(param));
           class="form-select"
           v-model="project.category"
           aria-label="Default select example"
+          
         >
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
@@ -124,7 +119,6 @@ console.log("Project alone:" + store.editProject(param));
           <option value="Sass">Saas</option>
         </select>
       </div>
-
 
       <div class="row">
         <div class="col-6">

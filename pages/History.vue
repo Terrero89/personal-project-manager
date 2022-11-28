@@ -6,7 +6,7 @@ const emit = defineEmits(["search"]);
 
 const store = useTest();
 const route = useRoute(); //route object
-const { hasProjects, searchItem,fetchHistory } = store;
+const { hasProjects, searchItem,fetchHistory,fetchActions, taskHistoryList } = store;
 const { projects, actions, history } = storeToRefs(store);
 const searchInput = ref("");
 const searchedProjects = computed(() => {
@@ -19,6 +19,7 @@ const searchedProjects = computed(() => {
 
 onMounted(() => {
 fetchHistory()
+fetchActions()
   console.log("Fetching projects  and tasks in project/details");
 
 });
@@ -46,11 +47,16 @@ fetchHistory()
         :project="project.projectName"
         :category="project.category"
         :description="project.description"
+        :task="project.taskName"
         :status="project.isComplete"
         :technologies="project.technologies"
-        :taskName="project.taskName"
+        :taskName="project.projectName"
+        :data-modified="project.dateModified"
       />
     </UICard>
+  
+
+    
 
     <UICard>
       <ActionsItems

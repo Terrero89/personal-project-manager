@@ -15,7 +15,14 @@ export const useTest = defineStore({
     tasks: [],
   }),
 
+
+
   getters: {
+
+    // taskHistoryList:(state)=> state.history.filter(p => p.parentId),
+
+
+
     actionList: (state) => state.actions,
     historyByProject: (state) => (id) =>
       state.history.filter((item) => item.parentId === id),
@@ -201,12 +208,15 @@ export const useTest = defineStore({
           user: responseData[key].user,
           parentId: responseData[key].parentId,
           projectName: responseData[key].projectName,
-          description: responseData[key].projectDescription,
+          taskName: responseData[key].taskName,
+          description: responseData[key].description,
+          category: responseData[key].category,
           startDate: responseData[key].startDate,
           endDate: responseData[key].endDate,
           age: responseData[key].age,
           isComplete: responseData[key].isComplete,
           technologies: responseData[key].technologies,
+          dateModified: responseData[key].dateModified
         };
         histories.push(history);
       }
@@ -306,13 +316,27 @@ export const useTest = defineStore({
         console.log("ERROR HISTORY");
       }
     },
-    deletedHistory(data, id) {
-      this.history.push({
+
+
+
+    async deletedHistory(data, id) {
+       const historyUrl ={
         ...data,
         parentId: id,
         id: this.historyId++,
         dateModified: new Date(),
-      });
+      };
+
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(historyUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR HISTORY");
+      }
     },
 
     editProject(param) {
@@ -400,15 +424,15 @@ export const useTest = defineStore({
     },
 
     async projectDeletedToActions(id) {
-      const action = {
-        id: this.actionsId++,
-        parentId: id,
-        type: "Project",
-        name: "Deleted",
-        category: "Delete",
-        dateModified: new Date(),
-      };
-      this.actions.push(action);
+      // const action = {
+      //   id: this.actionsId++,
+      //   parentId: id,
+      //   type: "Project",
+      //   name: "Deleted",
+      //   category: "Delete",
+      //   dateModified: new Date(),
+      // };
+      // this.actions.push(action);
 
       const actionUrl = {
         parentId: id,
@@ -430,17 +454,17 @@ export const useTest = defineStore({
     },
 
     deletedToActions(parent, child) {
-      const action = {
-        id: child,
-        parentId: parent,
-        type: "Task",
-        parentId: parent,
-        name: "Deleted",
-        category: "Delete",
-        dateModified: new Date(),
-      };
-      this.actionsId++;
-      this.actions.push(action);
+      // const action = {
+      //   id: child,
+      //   parentId: parent,
+      //   type: "Task",
+      //   parentId: parent,
+      //   name: "Deleted",
+      //   category: "Delete",
+      //   dateModified: new Date(),
+      // };
+      // this.actionsId++;
+      // this.actions.push(action);
     },
     async projectUpdatedToActions(parent) {
       const action = {
@@ -475,15 +499,15 @@ export const useTest = defineStore({
     },
 
     async taskUpdatedToActions(parent, childId, parentId) {
-      const action = {
-        id: childId,
-        type: "Task",
-        parentId: parentId,
-        name: "Updated",
-        category: "Update",
-        dateModified: new Date(),
-      };
-      this.actionsId++, this.actions.push(action);
+      // const action = {
+      //   id: childId,
+      //   type: "Task",
+      //   parentId: parentId,
+      //   name: "Updated",
+      //   category: "Update",
+      //   dateModified: new Date(),
+      // };
+      // this.actionsId++, this.actions.push(action);
 
       const actionUrl = {
         parentId: this.projectId,

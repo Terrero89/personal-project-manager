@@ -35,10 +35,10 @@ if (task.isComplete) {
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
-  store.editedTask = { ...store.tasks[index] }; //will catch the old entire project information before updated, including the dates
+  store.editedTask = { ...store.tasks[index],  dateModified: new Date()}; //will catch the old entire project information before updated, including the dates
   taskUpdatedToActions(store.editedTask, taskParam, param);
   addHistory(store.editedTask); // added to history once updated
-
+console.log(store.editedTask)
   if (task.isComplete) {
     task.endDate = new Date();
     task.age = useDateAge(task.startDate, new Date());

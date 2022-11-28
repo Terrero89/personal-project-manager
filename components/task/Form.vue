@@ -36,6 +36,7 @@ const submitForm = () => {
 </script>
 
 <template>
+
   <div class="form-wrapper">
     
     <form class="row g-3" @submit.prevent="submitForm">
