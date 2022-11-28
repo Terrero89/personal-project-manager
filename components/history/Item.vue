@@ -11,7 +11,7 @@ const props = defineProps([
   "description",
   "technologies",
   "status",
-  "arr",
+  
   "duration",
   "taskName"
 
@@ -32,7 +32,7 @@ const detailsLink = computed(() => {
 <template>
   <div>
     <div class="project-item">
-      project-item
+    
       <div class="item row mx-2">
         <div class="project px-0">
           <div class="row">
@@ -41,6 +41,7 @@ const detailsLink = computed(() => {
               <h1>{{props.project ? "Project" : 'Task'}}</h1>
               <h1>{{ props.project }}</h1>
               <h2>{{ props.category }}</h2>
+              <h2>{{ props.taskName}}</h2>
 
               <div class="col-lg-3 d-flex flex-wrap my-2">
                 <div class="mar" v-for="tech in props.technologies" :key="tech">

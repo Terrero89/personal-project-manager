@@ -32,6 +32,12 @@ fetchHistory()
       <UITitle title="History" />
    <UICategoryFilter/>
     </UICard>
+
+    <UICard>
+      <pre>
+        {{history}}
+      </pre>
+    </UICard>
     <UICard>
       <HistoryItem
         v-for="project in history"
@@ -39,9 +45,10 @@ fetchHistory()
         :id="project.id"
         :project="project.projectName"
         :category="project.category"
-        :description="project.projectDescription"
+        :description="project.description"
         :status="project.isComplete"
         :technologies="project.technologies"
+        :taskName="project.taskName"
       />
     </UICard>
 

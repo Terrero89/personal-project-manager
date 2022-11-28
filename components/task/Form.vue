@@ -22,7 +22,7 @@ const submitForm = () => {
     taskName: name.value,
     age: age.value,
     duration: time.value,
-    taskDescription: description.value,
+    description: description.value,
     isComplete: false,
   };
 
@@ -74,25 +74,7 @@ const submitForm = () => {
 
     
 
-      <!-- <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Start Date</label>
-        <input
-          type="date"
-          v-model="start"
-          class="form-control"
-          id="inputEmail4"
-        />
-      </div>
-
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">End Date</label>
-        <input
-          type="date"
-          v-model="end"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div> -->
+   
 
       <div class="col-12">
         <label for="duration" class="form-label">Duration</label>

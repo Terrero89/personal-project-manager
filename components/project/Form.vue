@@ -21,7 +21,7 @@ const submitForm = () => {
     category: category.value,
     projectName: name.value,
     age: age.value,
-    projectDescription: description.value,
+    description: description.value,
     isComplete: false,
     technologies: technologies.value,
   };

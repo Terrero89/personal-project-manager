@@ -125,27 +125,6 @@ console.log("Project alone:" + store.editProject(param));
         </select>
       </div>
 
-      <!-- <div class="row">
-        <div class="col-6">
-          <label for="inputEmail4" class="form-label">Start Date</label>
-          <input
-            type="date"
-            v-model="firstDate"
-            class="form-control"
-            id="inputEmail4"
-          />
-        </div>
-
-        <div class="col-6">
-          <label for="inputPassword4" class="form-label">End Date</label>
-          <input
-            type="date"
-            v-model="secondDate"
-            class="form-control"
-            id="inputPassword4"
-          />
-        </div>
-      </div> -->
 
       <div class="row">
         <div class="col-6">
