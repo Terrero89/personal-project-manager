@@ -7,9 +7,15 @@ const store = useTest();
 const route = useRoute(); //route object
 const taskParam = route.params.detail;
 const param = route.params.projectId;
-const { addHistory, taskAddedToActions, taskUpdatedToActions, editTask,updateTaskRequest,  fetchProjects,
-  fetchTasks, } =
-  store;
+const {
+  addHistory,
+  taskAddedToActions,
+  taskUpdatedToActions,
+  editTask,
+  updateTaskRequest,
+  fetchProjects,
+  fetchTasks,
+} = store;
 const { tasks, taskId, history } = storeToRefs(store);
 const props = defineProps(["paramId"]);
 const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
@@ -31,14 +37,13 @@ if (task.isComplete) {
   console.log("start date will be end date");
 }
 
-
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
-  store.editedTask = { ...store.tasks[index],  dateModified: new Date()}; //will catch the old entire project information before updated, including the dates
-  taskUpdatedToActions(store.editedTask, taskParam, param);
+  store.editedTask = { ...store.tasks[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
+  taskUpdatedToActions(param);
   addHistory(store.editedTask); // added to history once updated
-console.log(store.editedTask)
+
   if (task.isComplete) {
     task.endDate = new Date();
     task.age = useDateAge(task.startDate, new Date());
@@ -133,7 +138,6 @@ console.log(store.editedTask)
 </template>
 
 <style scoped>
-
 .form-wrapper {
   background-color: white;
   max-width: 32rem;

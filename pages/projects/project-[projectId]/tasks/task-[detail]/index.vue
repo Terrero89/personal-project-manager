@@ -27,7 +27,7 @@ const findTaskDetail = computed(() => store.detailOfTask); //finds the task plac
 const length = store.hasTasks;
 //function that deletes the item and return to projects page.
 function removeTask(id) {
-  store.deletedToActions(param, taskParam); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
+  store.deletedToActions(param); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
   store.deleteTask(id); //executes the delete action in pinia
   if (length(param) - 1 < 1) {
     return navigateTo(`/projects/project-${param}`);
@@ -46,7 +46,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="tasks-wrapper">
+  <div class="tasks-wrapper ">
     <div class="task-list">
       <div
         class="project-detail"
@@ -56,9 +56,9 @@ onBeforeMount(() => {
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
 
-          <div class="row">
+          <div class="row bg-light ">
             <div class="header">
-              <h3
+              <h3 class="mx-2"
                 style="color: black; font-size: size 1.5rem"
                 v-for="taskTitle in findTaskDetail(taskParam)"
                 :key="taskTitle.id"
@@ -99,7 +99,7 @@ onBeforeMount(() => {
               <div class="item">Task Age</div>
               <p class="item-desc">{{ task.age }} days</p>
               <div class="item">Task Status</div>
-              <p>{{ task.isComplete ? "Complete" : "In Progress" }}</p>
+              <p class="item-desc" >  {{ task.isComplete ? "Complete" : "In Progress" }}</p>
 
               <div class="">
                 <button
@@ -144,7 +144,7 @@ onBeforeMount(() => {
           </div>
         </div>
         <UICard>
-          <!-- {{findActionsByTask(param)}} -->
+       
           <ActionsItems
             v-for="action in findActionsByTask(taskParam)"
             :key="action.id"
@@ -161,13 +161,14 @@ onBeforeMount(() => {
 </template>
 
 <style scoped>
+
+.remover {
+  list-style: none;
+}
 .btn {
   margin-right: 1rem;
 }
-.col {
-  background-color: rgb(255, 255, 255);
-  padding: 1rem 0;
-}
+
 .header {
   background-color: rgb(227, 239, 253);
   /* border: solid rgb(205, 205, 205) 1px ; */
@@ -179,4 +180,5 @@ onBeforeMount(() => {
   color: rgb(88, 88, 88);
   width: 90%;
 }
+
 </style>

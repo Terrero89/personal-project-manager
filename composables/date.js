@@ -1,8 +1,11 @@
 //composable for formatting dates
 //converts to formatted dates, will convert the dates to a readable format.
+
+
+
 export function useDate(date) {
       let formatDate = new Date(date);
-      let day = formatDate.getDate()+1
+      let day = formatDate.getDate()
       let month = formatDate.getMonth()+1
       let year = formatDate.getFullYear()
       return month + "/" + day + "/" + year
@@ -18,7 +21,6 @@ export function useDate(date) {
     let year = formatDate.getFullYear()
     return month + "/" + day + "/" + year
  
-
 }
 
 export function useDateAge(start, end) {

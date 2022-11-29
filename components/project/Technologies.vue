@@ -2,6 +2,14 @@
 const props = defineProps(["technologies", "type"]);
 const techTypes = computed(() => {
   if (
+    props.technologies === "Data Structures and Algorithms"||
+    props.technologies === "School" 
+  
+
+  ) {
+    return "other";
+  }
+  if (
     props.technologies === "React Js" ||
     props.technologies === "Vue Js" ||
     props.technologies === "javascript" ||
@@ -9,6 +17,7 @@ const techTypes = computed(() => {
     props.technologies === "CSS" ||
     props.technologies === "Tailwind" ||
     props.technologies === "Bootstrap" ||
+    props.technologies === "Sass" ||
     props.technologies === "Bulma"
   ) {
     return "frontend";
@@ -24,11 +33,13 @@ const techTypes = computed(() => {
     props.technologies === "Django" ||
     props.technologies === "Java" ||
     props.technologies === "Firebase"||
-    props.technologies === "Axios"
+    props.technologies === "Axios" ||
+    props.technologies === "MongoDB" 
+    
   ) {
     return "backend";
   }
-  if (props.technologies === "Next Js" || props.technologies === "Nuxt js") {
+  if (props.technologies === "Next Js" || props.technologies === "Nuxt Js") {
     return "fullStack";
   }
 });
@@ -64,5 +75,9 @@ const techTypes = computed(() => {
 
 .backend {
   color: rgb(50, 2, 126);
+}
+
+.other {
+  color: rgb(192, 45, 0);
 }
 </style>

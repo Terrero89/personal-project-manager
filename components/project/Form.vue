@@ -24,6 +24,7 @@ const submitForm = () => {
     description: description.value,
     isComplete: false,
     technologies: technologies.value,
+    dateModified: new Date()
   };
 
   //will be removed once i set firebase
@@ -90,19 +91,19 @@ const submitForm = () => {
 
           <label for="categories" class="form-label">Technologies</label>
           <option value="">none</option>
-            <option value="ReactJs">React Js</option>
-            <option value="VueJs">Vue Js</option>
-            <option value="Html">Html</option>
-            <option value="Css">Css</option>
+            <option value="React Js">React Js</option>
+            <option value="Vue Js">Vue Js</option>
+            <option value="HTML">Html</option>
+            <option value="CSS">Css</option>
             <option value="Tailwind">Tailwind</option>
             <option value="bulma">Bulma</option>
             <option value="Nuxt Js">Nuxt Js</option>
             <option value="Next Js">Next Js</option>
             <option value="Python">Python</option>
-            <option value="DSA">Data Structures and Algorithms</option>
-            <option value="sql">Mysql</option>
+            <option value="Data Structures and Algorithms">Data Structures and Algorithms</option>
+            <option value="Mysql">Mysql</option>
             <option value="MongoDB">MongoDB</option>
-            <option value="Node/ExpressJs">Node/Express Js</option>
+            <option value="Node/Express Js">Node/Express Js</option>
             <option value="Flask">Flask</option>
             <option value="Django">Django</option>
             <option value="Java">Java</option>

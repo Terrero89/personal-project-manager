@@ -47,7 +47,7 @@ onBeforeMount(() => {
 
 <template>
   <div>
-    {{props.id}}
+    {{ props.id }}
     <div
       class="project-detail"
       v-for="project in store.filterItemById(param)"
@@ -57,8 +57,7 @@ onBeforeMount(() => {
         <UITitle title="Project Details" class="border-bottom" />
         <UICard>
           <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
+           
             <div class="col">
               <Nuxt-link :to="addTaskLink">
                 <button type="submit" class="btn btn-primary">Add Task</button>
@@ -76,7 +75,7 @@ onBeforeMount(() => {
             <div class="detail">
               <div class="content">
                 <div class="item">Project Id</div>
-                <p class="item-desc">{{ useFormatId(project.id, 1, 20) }}</p>
+                <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
                 <div class="item">User</div>
                 <p class="item-desc">{{ project.user }}</p>
                 <div class="item">Parent Name</div>
@@ -131,8 +130,6 @@ onBeforeMount(() => {
               :key="tech"
               :technologies="tech"
             />
-
-
 
             <div class="my-3">
               <button

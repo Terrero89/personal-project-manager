@@ -14,7 +14,9 @@ const props = defineProps([
   "status",
   "taskDesc",
   "duration",
-  "dateModified"
+  "dateModified",
+  "startDate",
+  "parentId"
   
 
 ]);
@@ -30,9 +32,13 @@ const currStatus = computed(() => {
 const detailsLink = computed(() => {
   return `/projects/project-${props.id}`;
 });
+
+
 </script>
 <template>
   <div>
+
+   
     <div v-if="props.project" class="project-item">
     
       <div class="item row mx-2">
@@ -43,28 +49,31 @@ const detailsLink = computed(() => {
               <h1>{{props.project ? "Project" : 'Task'}}</h1>
               <h1>{{ props.project }}</h1>
            
-              <h2>{{ props.taskName}}</h2>
+              <h2 >{{ props.task}}</h2>
 
               <div class="col-lg-3 d-flex flex-wrap my-2">
-                <div class="mar" v-for="tech in props.technologies" :key="tech">
-                  <h2 class="">{{ tech }}</h2>
-                </div>
+                <ProjectTechnologies
+              v-for="tech in technologies"
+              :key="tech"
+              :technologies="tech"
+            />
               </div>
             </div>
 
-            <div class="col-sm-3">
+          
+
+            <div class="">
               {{ props.description }}
             </div>
-            
-
-            <div class="col-auto d-flex align-items-center">
+         
+            <div class="col-auto d-flex align-items-left">
               <h2 class="border border-1 rounded py-2 px-2" :class="currStatus">
                 {{ props.status ? "Complete" : "In progress" }}
               </h2>
             </div>
             <div class="col-auto my-auto mr">
               <div class="date border border-1 rounded py-2 px-2 my-auto mr">
-                <h2 class="align-items-end">05/10/2022</h2>
+                <h2 class="align-items-end">{{props.dateModified}}</h2>
               </div>
             </div>
           </div>
@@ -74,7 +83,7 @@ const detailsLink = computed(() => {
 
 
     <div v-if="!props.project" class="project-item">
-    
+    tasks
     <div class="item row mx-2">
       <div class="project px-0">
         <div class="row">
@@ -82,7 +91,6 @@ const detailsLink = computed(() => {
             <!-- <h1 class="">{{ props.id }}</h1> -->
             <h1>{{props.project ? "Project" : 'Task'}}</h1>
             <h1>{{ props.project }}</h1>
-         
             <h2>{{ props.task}}</h2>
             <h2>{{ props.category}}</h2>
 
@@ -91,21 +99,28 @@ const detailsLink = computed(() => {
                 <h2 class="">{{ tech }}</h2>
               </div>
             </div>
+
+            <ProjectTechnologies
+              v-for="tech in technologies"
+              :key="tech"
+              :technologies="tech"
+            />
           </div>
 
-          <div class="col-sm-3">
+          <div class="">
             {{ props.description }}
           </div>
           
+         
 
-          <div class="col-auto d-flex align-items-center">
+          <div class="col-auto d-flex align-items-left">
             <h2 class="border border-1 rounded py-2 px-2" :class="currStatus">
               {{ props.status ? "Complete" : "In progress" }}
             </h2>
           </div>
           <div class="col-auto my-auto mr">
             <div class="date border border-1 rounded py-2 px-2 my-auto mr">
-              <h2 class="align-items-end">{{props.dateModified}}</h2>
+              <h2 class="align-items-end">{{useDate(props.dateModified)}}</h2>
             </div>
           </div>
         </div>

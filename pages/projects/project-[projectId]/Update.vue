@@ -47,7 +47,7 @@ const updateProject = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Update Project</p>
-      <!-- {{ store.historyByProject(param) }} -->
+    
 
       <div class="input-group mb-3">
         <select
@@ -97,16 +97,18 @@ const updateProject = () => {
           <label for="inputEmail4" class="form-label">Select User</label>
 
           <option value="React js">React Js</option>
-          <option value="Nextjs">Next Js</option>
+          <option value="Next js">Next Js</option>
           <option value="Vue js">Vue Js</option>
-          <option value="Nuxtjs">Nuxt Js</option>
+          <option value="Html">Html</option>
+            <option value="CSS">Css</option>
+          <option value="Nuxt js">Nuxt Js</option>
           <option value="Python">Python</option>
           <option value="Data Structures and Algorithms">
             Data Structures and Algorithms
           </option>
           <option value="Mysql">Mysql</option>
           <option value="MongoDB">MongoDB</option>
-          <option value="Node/ExpressJs">Node/Express Js</option>
+          <option value="Node/Express Js">Node/Express Js</option>
           <option value="Flask">Flask</option>
           <option value="Django">Django</option>
           <option value="Java">Java</option>
@@ -158,7 +160,7 @@ const updateProject = () => {
       <div class="input-group">
         <textarea
           class="form-control"
-          v-model="project.projectDescription"
+          v-model="project.description"
           aria-label="With textarea"
         />
       </div>

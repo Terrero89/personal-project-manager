@@ -24,6 +24,7 @@ const submitForm = () => {
     duration: time.value,
     description: description.value,
     isComplete: false,
+    dateModified: new Date()
   };
 
 
@@ -62,14 +63,11 @@ const submitForm = () => {
           <option value="Frontend Development">School Assignments</option>
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Python Project">Python Project</option>
-          <option value="C Language">C Project</option>
+
           <option value="Data Structures and Algorithms">
             Data Structures and Algorithms
           </option>
-          <option value="MongoDB">MongoDB</option>
-          <option value="Node/Express Js">Node/Express Js</option>
-          <option value="React Js">React Js</option>
+     
         </select>
       </div>
 

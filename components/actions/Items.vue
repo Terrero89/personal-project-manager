@@ -4,7 +4,8 @@ import { useTest } from "@/store/test";
 import { onBeforeMount, onMounted } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
-const { projectList, hasActions, fetchActions, fetchProjects, fetchTasks} = store;
+const { projectList, hasActions, fetchActions, fetchProjects, fetchTasks } =
+  store;
 const toggleActions = ref(false);
 const toggle = () => (toggleActions.value = !toggleActions.value);
 const props = defineProps([
@@ -27,10 +28,10 @@ const action = computed(() => {
   }
 });
 onMounted(() => {
-
   fetchActions();
   fetchProjects();
-  fetchTasks()
+  fetchTasks();
+  
 });
 </script>
 
@@ -45,7 +46,7 @@ onMounted(() => {
               <!-- <h5> -->
               <h5>
                 Project
-                <span class="mx-1 text-primary">{{ props.parentId }}</span> has
+                <span class="mx-1 text-primary">{{ useFormatId(props.parentId, 15, 20) }}</span> has
                 been
                 <span class="fw-bold" :class="action"> {{ props.name }}</span>
               </h5>
@@ -58,9 +59,8 @@ onMounted(() => {
               <!-- <h5> -->
               <h5>
                 Project
-                <span class="mx-1 text-primary">{{ props.parentId }}</span> has
-                <span :class="action"> {{ props.name }}</span> Task
-                <span class="mx-1 text-primary"> {{ props.id }}</span>
+                <span class="mx-1 text-primary">{{useFormatId(props.parentId, 15, 20) }}</span> has
+                <span :class="action"> {{ props.name }}</span> Task <span class="mx-1 text-primary">{{useFormatId(props.id, 15, 20) }}</span>
               </h5>
 
               <div class="action-category">
@@ -68,7 +68,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="actions-date">
-              <div class="date">{{ props.dateModified }}</div>
+              <div class="date">{{ useDate(props.dateModified) }}</div>
             </div>
           </div>
 

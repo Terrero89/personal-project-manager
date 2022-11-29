@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UINavbar/>
+    <UINavbar />
     <NuxtPage />
   </div>
 </template>
