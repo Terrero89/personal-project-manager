@@ -32,10 +32,7 @@ onMounted(() => {
         :date-modified="useFormatted(action.dateModified)"
       />
     </UICard>
-    <pre>
-     {{findTaskActionsByProject(param)}}
-
-    </pre>
+    
   </div>
 </template>
 

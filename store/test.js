@@ -19,6 +19,11 @@ export const useTest = defineStore({
       const findChildren = state.actions.filter(task => task.parentId === id)
       return findChildren
     },
+
+    findTaskActions:(state) => (id)=>{
+      const findActions = state.actions.filter(task => task.id === id)
+      return findActions;
+    },
     actionList: (state) => state.actions,
     historyByProject: (state) => (id) =>
       state.history.filter((item) => item.parentId === id),
