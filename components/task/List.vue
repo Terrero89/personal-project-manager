@@ -13,7 +13,7 @@ const tasksOfParents = store.tasks.filter((task) => task.parentId === param); //
 const getParent = store.projects.filter((p) => p.id === param); //needs fix
 const parentOfChild = (parameter) => {
   return parameter;
-}; //will make the id selectec the currect id to navigate
+}; 
 const length = store.hasTasks;
 const firstFiveIdChar = (char) => char.substring(1, 5);
 

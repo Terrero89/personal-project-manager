@@ -39,15 +39,12 @@ const updateProject = () => {
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
 };
-
-
 </script>
 
 <template>
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Update Project</p>
-    
 
       <div class="input-group mb-3">
         <select
@@ -78,7 +75,6 @@ const updateProject = () => {
           class="form-select"
           v-model="project.category"
           aria-label="Default select example"
-          
         >
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
@@ -100,7 +96,7 @@ const updateProject = () => {
           <option value="Next js">Next Js</option>
           <option value="Vue js">Vue Js</option>
           <option value="Html">Html</option>
-            <option value="CSS">Css</option>
+          <option value="CSS">Css</option>
           <option value="Nuxt js">Nuxt Js</option>
           <option value="Python">Python</option>
           <option value="Data Structures and Algorithms">

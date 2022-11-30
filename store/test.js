@@ -6,6 +6,8 @@ export const useTest = defineStore({
   id: "test",
 
   state: () => ({
+    loading: false,
+    error: false,
     editPro: {},
     editedTask: {},
     history: [],
@@ -67,6 +69,11 @@ export const useTest = defineStore({
       return (id) => parent.filter((task) => task.parentId === id);
     },
 
+    taskOfParents:(state)=> (id)=> state.tasks.filter((task)=> task.parentId === id),//finds tasks specific of a project
+    getParentName:(state)=> (id)=> state.projects.filter((p)=> p.id === id),
+   
+
+
     //?finding specific project tasks total hours
     totalTaskDuration: (state) => {
       //?find all tasks by ids
@@ -95,6 +102,18 @@ export const useTest = defineStore({
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
+    // async fetchPosts() {
+    //   this.projects = []
+     
+    //   try {
+    //     this.projects = await fetch('https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json')
+    //     .then((response) => response.json()) 
+    //   } catch (error) {
+    //     this.error = error
+    //   } finally {
+    //     this.loading = false
+    //   }
+    // },
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"
@@ -125,7 +144,7 @@ export const useTest = defineStore({
         projects.push(project);
       }
       this.projects = projects;
-      return projects;
+   
     },
 
     async fetchTasks() {
@@ -224,6 +243,8 @@ export const useTest = defineStore({
       this.history = histories;
       return histories;
     },
+
+ 
 
     async addProject(data) {
       const projectUrl = {

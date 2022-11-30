@@ -9,28 +9,24 @@ const {
   hasProjects,
   searchItem,
   history,
-  projectList,
-  fetchProjects,
-  fetchTasks,
-  fetchActions,
+  fetchProjects
+
+
 } = store;
-const { projects, actions } = storeToRefs(store);
+const { projects, actions, projectList} = storeToRefs(store);
 const searchInput = ref("");
 
 const searchedProjects = computed(() => {
-  return store.projects.filter((p) => {
+  return projectList.value.filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
   });
 });
-
-onMounted(() => {
-  fetchProjects();
-  console.log("Fetching projects  and tasks in project/details");
-  fetchTasks();
-  fetchActions();
-});
+onMounted(()=> {
+  fetchProjects()
+})
+fetchProjects()
 </script>
 
 <template>
@@ -70,23 +66,6 @@ onMounted(() => {
         </div>
       </div>
     </UICard>
-
-    <!-- <UICard>
-      <div class="row">
-        <div class="mx-auto">
-          <ActionsItems
-            v-for="action in actions"
-            :key="action.id"
-            :id="action.id"
-            :parent-id="action.parentId"
-            :type="action.type"
-            :name="action.name"
-            :category="action.category"
-            :date-modified="useFormatted(action.dateModified)"
-          />
-        </div>
-      </div>
-    </UICard> -->
   </div>
 </template>
 

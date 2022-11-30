@@ -1,25 +1,35 @@
 <script setup>
 import { useTest } from "@/store/test";
-import { onMounted } from "vue";
+import { onMounted, onUpdated } from "vue";
+import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
-// const param = parseInt(route.params.projectId);
 const param = route.params.projectId;
+const {
+  taskList,
+  fetchProjects,
+  fetchTasks,
+  tasksUnderProject,
+  taskOfParents,
+  getParentName,
+} = store;
+const { tasks, projects, hasTasks, projectList } = storeToRefs(store);
 
-const { taskList, projectList, fetchTasks, fetchProjects } = store;
-const tasksOfParents = taskList.filter((task) => task.parentId === param); //needs fix
-const getParent = projectList.filter((p) => p.id == param); //needs fix
-const seeDetail = (parameter) => {
-  return parameter;
-}; //will make the id selectec the currect id to navigate
-const length = store.hasTasks;
-const firstFiveIdChar = (char) => char.substring(1, 5);
+const tasksOfParent = computed(() => taskOfParents(param));
+const getParent = computed(() => getParentName(param));
+const tasksOfp = computed(() => tasksUnderProject(param));
+const length = computed(() => hasTasks.value); //check for the length of specific id
+const seeDetail = (parameter) => parameter;
+
+const firstFiveIdChar = (char) => char.substring(15, 20);
 
 onMounted(() => {
-  fetchProjects();
-  console.log("Fetching projects  and tasks in tasks");
   fetchTasks();
+  fetchProjects();
 });
+
+fetchTasks();
+fetchProjects();
 </script>
 
 <template>
@@ -39,6 +49,7 @@ onMounted(() => {
         >
           {{ parent.projectName }}
         </h3>
+
         <nuxt-link to="/projects">projects</nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">
           <div class="row fw-bold header border d-inline-flex">
@@ -50,10 +61,10 @@ onMounted(() => {
 
           <div
             class="row mx-sx-2 task"
-            v-for="task in tasksOfParents"
+            v-for="task in tasksOfParent"
             :key="task"
           >
-            <div class="col fw-bold">{{ firstFiveIdChar(task.id) }}</div>
+            <div class="col fw-bold">{{ useFormatId(task.id, 15, 20) }}</div>
             <div class="col flex-wrap">{{ task.taskName }}</div>
             <div class="col">
               {{ task.isComplete ? "Complete" : "Progress" }}

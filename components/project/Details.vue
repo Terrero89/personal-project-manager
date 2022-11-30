@@ -2,33 +2,30 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 
-import { onMounted, onBeforeMount } from "vue";
+import { onMounted } from "vue";
 const store = useTest();
 const route = useRoute(); //route object
 // const param = parseInt(route.params.projectId);
 const param = route.params.projectId;
+const { fetchTasks, deletedHistory, deleteProject, projectDeletedToActions } =
+  store;
 const {
-  taskList,
-  fetchProjects,
-  fetchTasks,
-  deletedHistory,
-  deleteProject,
-  projectDeletedToActions,
-  lastHistoryDates,
-} = store;
-const { projects, history, tasks } = storeToRefs(store);
+  projects,
+  totalTaskDuration,
+  hasTasks,
+  filterItemById,
+  findParentChild,
+} = storeToRefs(store);
 const props = defineProps(["id"]);
 
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
 const addTaskLink = computed(() => `project-${param}/addTask`);
-const projectById = computed(() => store.filterItemById);
-const parentChild = computed(() => store.findParentChild);
+const projectById = computed(() => filterItemById.value);
+const parentChild = computed(() => findParentChild.value);
+const numberOfTasks = computed(() => hasTasks.value); //check for the length of specific id
+const totalDuration = computed(() => totalTaskDuration.value); //? calculates total tasks duration for specific project.
 
-const length = store.hasTasks; //check for the length of specific id
-const totalDuration = computed(() => store.totalTaskDuration); //? calculates total tasks duration for specific project.
-const random = store.lastHistoryDates(param);
-//FIX THE REMOVE FUNCTION THAT IS NOT DELETING BECAUSE THE PARAM ID IS NOT WORKING
 function removeItem(id) {
   //function that executes the deleted arg.
   let foundProjectId = store.projects.find((t) => t.id === id);
@@ -37,27 +34,23 @@ function removeItem(id) {
   deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
-
-onBeforeMount(() => {
-  fetchProjects();
-  console.log("Fetching projects  and tasks in project/details");
+onMounted(() => {
   fetchTasks();
 });
+fetchTasks();
 </script>
 
 <template>
   <div>
-    
     <div
       class="project-detail"
-      v-for="project in store.filterItemById(param)"
+      v-for="project in projectById(param)"
       :key="project.id"
     >
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
         <UICard>
           <div class="row">
-           
             <div class="col">
               <Nuxt-link :to="addTaskLink">
                 <button type="submit" class="btn btn-primary">Add Task</button>
@@ -116,7 +109,7 @@ onBeforeMount(() => {
               {{ project.isComplete ? "Complete" : "In Progress" }}
             </p>
             <div class="item">Number of Tasks</div>
-            <p class="item-desc text-start">{{ length(param) }} Tasks</p>
+            <p class="item-desc text-start">{{ numberOfTasks(param) }} Tasks</p>
             <div class="item">See All Tasks</div>
             <p class="item-desc">
               <Nuxt-link style="text-decoration: none" :to="tasksLink"

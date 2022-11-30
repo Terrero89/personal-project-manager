@@ -4,4 +4,4 @@ export function useFormatId(char,firstIdx,lastInx){
     return char.substring(firstIdx,lastInx);
 }
 
-// useFormatId(project.id, 16, 20) 
+// useFormatId(project.id, 15, 20) 
