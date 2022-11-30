@@ -115,7 +115,7 @@ export const useTest = defineStore({
           user: responseData[key].user,
           category: responseData[key].category,
           projectName: responseData[key].projectName,
-          projectDescription: responseData[key].projectDescription,
+          description: responseData[key].description,
           startDate: responseData[key].startDate,
           endDate: responseData[key].endDate,
           technologies: responseData[key].technologies,

@@ -24,6 +24,8 @@ const submitForm = () => {
     duration: time.value,
     description: description.value,
     isComplete: false,
+    startDate:new Date(),
+    endDate:new Date(),
     dateModified: new Date()
   };
 

@@ -24,6 +24,8 @@ const submitForm = () => {
     description: description.value,
     isComplete: false,
     technologies: technologies.value,
+    startDate:new Date(),
+    endDate:new Date(),
     dateModified: new Date()
   };
 
