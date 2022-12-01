@@ -39,7 +39,7 @@ const detailsLink = computed(() => {
         <div class="project">
           <h1>{{ props.project }}</h1>
           <h2 class="pb-2">{{ props.category }}</h2>
-          <span  :class="currStatus">{{
+          <span :class="currStatus">{{
             props.status ? "Complete" : "In Progress"
           }}</span>
         </div>

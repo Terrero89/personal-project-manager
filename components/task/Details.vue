@@ -46,7 +46,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="tasks-wrapper ">
+  <div class="tasks-wrapper">
     <div class="task-list">
       <div
         class="project-detail"
@@ -56,9 +56,10 @@ onBeforeMount(() => {
         <div class="container detail-container">
           <UITitle title="Task Details" class="border-bottom" />
 
-          <div class="row bg-light ">
+          <div class="row bg-light">
             <div class="header">
-              <h3 class="mx-2"
+              <h3
+                class="mx-2"
                 style="color: black; font-size: size 1.5rem"
                 v-for="taskTitle in findTaskDetail(taskParam)"
                 :key="taskTitle.id"
@@ -99,7 +100,9 @@ onBeforeMount(() => {
               <div class="item">Task Age</div>
               <p class="item-desc">{{ task.age }} days</p>
               <div class="item">Task Status</div>
-              <p class="item-desc" >  {{ task.isComplete ? "Complete" : "In Progress" }}</p>
+              <p class="item-desc">
+                {{ task.isComplete ? "Complete" : "In Progress" }}
+              </p>
 
               <div class="">
                 <button
@@ -143,14 +146,12 @@ onBeforeMount(() => {
             </div>
           </div>
         </div>
-     
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .remover {
   list-style: none;
 }
@@ -169,5 +170,4 @@ onBeforeMount(() => {
   color: rgb(88, 88, 88);
   width: 90%;
 }
-
 </style>

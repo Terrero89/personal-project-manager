@@ -6,25 +6,21 @@ export const useProjectStore = defineStore({
   id: "projects",
 
   state: () => ({
-  
     editPro: {},
-   
-  
     projects: [],
-
   }),
 
   getters: {
-    findTaskActionsByProject:(state) => (id)=>{
-      const findChildren = state.actions.filter(task => task.parentId === id)
-      return findChildren
+    findTaskActionsByProject: (state) => (id) => {
+      const findChildren = state.actions.filter((task) => task.parentId === id);
+      return findChildren;
     },
 
-    findTaskActions:(state) => (id)=>{
-      const findActions = state.actions.filter(task => task.id === id)
+    findTaskActions: (state) => (id) => {
+      const findActions = state.actions.filter((task) => task.id === id);
       return findActions;
     },
-    actionList: (state) => state.actions,
+
     historyByProject: (state) => (id) =>
       state.history.filter((item) => item.parentId === id),
 
@@ -41,25 +37,10 @@ export const useProjectStore = defineStore({
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
 
-    hasActions: (state) => state.actions.length > 0,
+    // hasActions: (state) => state.actions.length > 0,
     filterItemById(state) {
       const prj = state.projects.filter((p) => p.id);
       return (id) => prj.filter((p) => p.id === id);
-    },
-    hasTasks(state) {
-      const tasks = state.tasks.filter((t) => t.parentId);
-      return (id) =>
-        tasks.filter((t) => t.parentId === id).map((t) => t.length).length;
-    },
-
-    tasksUnderProject(state) {
-      const task = state.tasks.filter((t) => t.parentId);
-      return (id) => task.filter((task) => task.id === id);
-    },
-
-    detailOfTask(state) {
-      const item = state.tasks.filter((task) => task.id);
-      return (id) => item.filter((task) => task.id === id);
     },
 
     findParentChild(state) {
@@ -67,45 +48,19 @@ export const useProjectStore = defineStore({
       return (id) => parent.filter((task) => task.parentId === id);
     },
 
-    taskOfParents:(state)=> (id)=> state.tasks.filter((task)=> task.parentId === id),//finds tasks specific of a project
-    getParentName:(state)=> (id)=> state.projects.filter((p)=> p.id === id),
-   
-
-
-    //?finding specific project tasks total hours
-    totalTaskDuration: (state) => {
-      //?find all tasks by ids
-      const tasks = state.tasks.filter((p) => p.id);
-      //?Filter tasks parentID that are equal to parameter
-      //?calculates the total of the hours by id with reduce
-      return (id) =>
-        tasks
-          .filter((p) => p.parentId === id)
-          .reduce((accumulator, item) => {
-            return accumulator + item.duration;
-          }, 0);
-    },
-
-    findActionsByProject(state) {
-      const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
-
-      return (id) => action.filter((t) => t.parentId === id);
-    },
-
-    findActionsByTask(state) {
-      const action = state.actions.filter((a) => a.id); // will find all ids, of the actions.
-      return (id) => action.filter((t) => t.id === id);
-    },
+    taskOfParents: (state) => (id) =>
+      state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
+    getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
     // async fetchPosts() {
     //   this.projects = []
-     
+
     //   try {
     //     this.projects = await fetch('https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json')
-    //     .then((response) => response.json()) 
+    //     .then((response) => response.json())
     //   } catch (error) {
     //     this.error = error
     //   } finally {
@@ -142,107 +97,7 @@ export const useProjectStore = defineStore({
         projects.push(project);
       }
       this.projects = projects;
-   
     },
-
-    async fetchTasks() {
-      const response = await fetch(
-        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json"
-      );
-      const responseData = await response.json();
-      this.tasks = responseData;
-
-      if (!response.ok) {
-        const error = new Error(responseData.message || "Failed to fetch!");
-        throw error;
-      }
-
-      const tasks = [];
-
-      for (const key in this.tasks) {
-        const task = {
-          id: key,
-          parentId: responseData[key].parentId,
-          taskName: responseData[key].taskName,
-          description: responseData[key].description,
-          startDate: responseData[key].startDate,
-          endDate: responseData[key].endDate,
-          age: responseData[key].age,
-          duration: responseData[key].duration,
-          isComplete: responseData[key].isComplete,
-        };
-        tasks.push(task);
-      }
-      this.tasks = tasks;
-      return tasks;
-    },
-
-    async fetchActions() {
-      const response = await fetch(
-        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json"
-      );
-      const responseData = await response.json();
-      this.actions = responseData;
-
-      if (!response.ok) {
-        const error = new Error(responseData.message || "Failed to fetch!");
-        throw error;
-      }
-
-      const actions = [];
-
-      for (const key in this.actions) {
-        const action = {
-          id: key,
-          parentId: responseData[key].parentId,
-          type: responseData[key].type,
-          name: responseData[key].name,
-          category: responseData[key].category,
-          dateModified: responseData[key].dateModified,
-        };
-        actions.push(action);
-      }
-      this.actions = actions;
-      return actions;
-    },
-
-    async fetchHistory() {
-      const response = await fetch(
-        "https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json"
-      );
-      const responseData = await response.json();
-      this.history = responseData; //array
-
-      if (!response.ok) {
-        const error = new Error(responseData.message || "Failed to fetch!");
-        throw error;
-      }
-
-      const histories = [];
-
-      for (const key in this.history) {
-        const history = {
-          id: key,
-          user: responseData[key].user,
-          parentId: responseData[key].parentId,
-          projectName: responseData[key].projectName,
-          taskName: responseData[key].taskName,
-          description: responseData[key].description,
-          category: responseData[key].category,
-          startDate: responseData[key].startDate,
-          endDate: responseData[key].endDate,
-          age: responseData[key].age,
-          isComplete: responseData[key].isComplete,
-          technologies: responseData[key].technologies,
-          dateModified: responseData[key].dateModified,
-        };
-        histories.push(history);
-      }
-      this.history = histories;
-      return histories;
-    },
-
- 
 
     async addProject(data) {
       const projectUrl = {
@@ -265,31 +120,6 @@ export const useProjectStore = defineStore({
       }
     },
 
-    async addTask(item) {
-      this.tasks.push({
-        ...item,
-        // id: this.taskId++,
-        startDate: new Date(),
-        age: 0,
-      });
-
-      const taskUrl = {
-        ...item,
-        startDate: new Date(),
-        age: 0,
-      };
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json`,
-        {
-          method: "POST",
-          body: JSON.stringify(taskUrl),
-        }
-      );
-      if (!response.ok) {
-        console.log("ERROR TASKS");
-      }
-    },
-
     async deleteProject(itemID) {
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${itemID}/.json`,
@@ -303,19 +133,6 @@ export const useProjectStore = defineStore({
       }
 
       // console.log(response)
-    },
-
-    async deleteTask(itemID) {
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${itemID}/.json`,
-        {
-          method: "DELETE",
-          "Content-type": "application/json",
-        }
-      );
-      if (!response.ok) {
-        console.log("Error, request failed");
-      }
     },
 
     async addHistory(data) {
@@ -362,27 +179,6 @@ export const useProjectStore = defineStore({
       return foundProject;
     },
 
-    editTask(param) {
-      //trick, if project is not eqwual to edit project, then edited project will be equal to what ever is changed to
-      let foundTask = this.tasks.find((task) => task.id === param); //finds the project from the
-      return foundTask;
-    },
-
-    async updateTaskRequest(id) {
-      const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks/${id}.json`;
-      const payload = this.editedTask; // payload will be equal to the new updated task
-      const options = {
-        method: "PUT",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify(payload),
-      };
-      fetch(url, options).then((response) => console.log(response.status));
-
-      // if (!response.ok) {
-      //   console.log("Super error 400");
-      // }
-    },
-
     async updateProjectRequest(id) {
       const url = `https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects/${id}.json`;
       const payload = this.editPro; // payload will be equal to the new updated task
@@ -420,37 +216,7 @@ export const useProjectStore = defineStore({
       }
     },
 
-    async taskAddedToActions(id) {
-      const actionUrl = {
-        parentId: id,
-        type: "Task",
-        name: "Added",
-        category: "Add",
-        dateModified: new Date(),
-      };
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
-        {
-          method: "POST",
-          body: JSON.stringify(actionUrl),
-        }
-      );
-      if (!response.ok) {
-        console.log("ERROR");
-      }
-    },
-
     async projectDeletedToActions(id) {
-      // const action = {
-      //   id: this.actionsId++,
-      //   parentId: id,
-      //   type: "Project",
-      //   name: "Deleted",
-      //   category: "Delete",
-      //   dateModified: new Date(),
-      // };
-      // this.actions.push(action);
-
       const actionUrl = {
         parentId: id,
         type: "Project",
@@ -470,36 +236,6 @@ export const useProjectStore = defineStore({
       }
     },
 
-   async deletedToActions(parent, child) {
-      // const action = {
-      //   id: child,
-      //   parentId: parent,
-      //   type: "Task",
-      //   parentId: parent,
-      //   name: "Deleted",
-      //   category: "Delete",
-      //   dateModified: new Date(),
-      // };
-      // this.actionsId++;
-      // this.actions.push(action);
-
-      const actionUrl = {
-        parentId: parent,
-        type: "Task",
-        name: "Deleted",
-        category: "Delete",
-        dateModified: new Date(),
-      };
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
-        {
-          method: "POST",
-          body: JSON.stringify(actionUrl),
-        }
-      );
-      if (!response.ok) {
-       
-    }},
     async projectUpdatedToActions(parent) {
       const action = {
         id: this.actionsId++,
@@ -516,28 +252,6 @@ export const useProjectStore = defineStore({
         parentId: this.projectId,
         type: "Project",
         parentId: parent.id,
-        name: "Updated",
-        category: "Update",
-        dateModified: new Date(),
-      };
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
-        {
-          method: "POST",
-          body: JSON.stringify(actionUrl),
-        }
-      );
-      if (!response.ok) {
-        console.log("ERROR");
-      }
-    },
-
-    async taskUpdatedToActions(parent) {
-
-
-      const actionUrl = {
-        parentId: parent,
-        type: "Task",
         name: "Updated",
         category: "Update",
         dateModified: new Date(),

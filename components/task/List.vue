@@ -1,53 +1,67 @@
 <script setup>
-import { storeToRefs } from "pinia";
 import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
+import { useTaskStore } from "@/store/tasks";
+import { useActionsStore } from "@/store/actions";
+import { useHistoryStore } from "@/store/history";
+import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
-const store = useTest();
 const route = useRoute(); //route object
-
 const param = route.params.projectId;
-const { fetchTasks, fetchProjects } = store;
-const { tasks } = storeToRefs(store);
-const tasksOfParents = store.tasks.filter((task) => task.parentId === param); //needs fix
-const getParent = store.projects.filter((p) => p.id === param); //needs fix
-const parentOfChild = (parameter) => {
-  return parameter;
-}; 
-const length = store.hasTasks;
-const firstFiveIdChar = (char) => char.substring(1, 5);
 
-const filter = reactive({
-  byId: true,
-  byName: false,
-});
-onMounted(() => {
-  console.log("Fetching projects  and tasks in tasks");
-  fetchTasks();
-  fetchProjects();
-});
-
-//methods to test
-
-
+//?REFS PROPERTIES
 const searchInput = ref("");
 
+//?STORE INITIALIZATION
+const store = useTest();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const actionsStore = useActionsStore();
+const historyStore = useHistoryStore();
+//?PROPERTIES DESTRUCTURING
+const {} = historyStore;
+const {} = storeToRefs(historyStore);
+const {} = actionsStore;
+const {} = storeToRefs(actionsStore);
+const { fetchProjects } = projectStore;
+const { getParentName } = storeToRefs(projectStore);
+const { fetchTasks, tasks } = taskStore;
+const { taskOfParents, hasTasks } = storeToRefs(taskStore);
 
+//? COMPUTED PROPERTIES
+const tasksOfParent = computed(() => taskOfParents.value);
+const getParent = computed(() => getParentName.value);
+const length = computed(() => hasTasks.value);
 const searchedTasks = computed(() => {
   const item = store.tasks;
   const input = searchInput;
   return item.filter((p) => {
-   //left only with name filtering for now.
+    //left only with name filtering for now.
     if (!filter.byName) {
-        return (
-          p.taskName.toLowerCase().indexOf(searchInput.value.toLowerCase()) !=
-          -1
-        );
-      }
+      return (
+        p.taskName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
+      );
+    }
   });
 });
+//?FUNCTIONS AND HANDLERS
+const parentOfChild = (parameter) => {
+  return parameter;
+};
 
 
+
+//?HOOKS
+onMounted(() => {
+  fetchTasks();
+  fetchProjects();
+});
+fetchTasks();
+fetchProjects();
+
+//?COMPOSABLES
+//useFormatId
 </script>
 
 <template>
@@ -84,7 +98,7 @@ const searchedTasks = computed(() => {
                 {{ parent.projectName }}
               </h3>
             </div>
-            <div class="col fw-bold">{{ firstFiveIdChar(task.id) }}</div>
+            <div class="col fw-bold">{{ useFormatId(task.id) }}</div>
             <div class="col flex-wrap">{{ task.taskName }}</div>
             <div class="col">
               {{ task.isComplete ? "Complete" : "Progress" }}

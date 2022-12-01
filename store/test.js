@@ -17,13 +17,13 @@ export const useTest = defineStore({
   }),
 
   getters: {
-    findTaskActionsByProject:(state) => (id)=>{
-      const findChildren = state.actions.filter(task => task.parentId === id)
-      return findChildren
+    findTaskActionsByProject: (state) => (id) => {
+      const findChildren = state.actions.filter((task) => task.parentId === id);
+      return findChildren;
     },
 
-    findTaskActions:(state) => (id)=>{
-      const findActions = state.actions.filter(task => task.id === id)
+    findTaskActions: (state) => (id) => {
+      const findActions = state.actions.filter((task) => task.id === id);
       return findActions;
     },
     actionList: (state) => state.actions,
@@ -69,10 +69,9 @@ export const useTest = defineStore({
       return (id) => parent.filter((task) => task.parentId === id);
     },
 
-    taskOfParents:(state)=> (id)=> state.tasks.filter((task)=> task.parentId === id),//finds tasks specific of a project
-    getParentName:(state)=> (id)=> state.projects.filter((p)=> p.id === id),
-   
-
+    taskOfParents: (state) => (id) =>
+      state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
+    getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
 
     //?finding specific project tasks total hours
     totalTaskDuration: (state) => {
@@ -102,18 +101,6 @@ export const useTest = defineStore({
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
-    // async fetchPosts() {
-    //   this.projects = []
-     
-    //   try {
-    //     this.projects = await fetch('https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json')
-    //     .then((response) => response.json()) 
-    //   } catch (error) {
-    //     this.error = error
-    //   } finally {
-    //     this.loading = false
-    //   }
-    // },
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"
@@ -144,7 +131,6 @@ export const useTest = defineStore({
         projects.push(project);
       }
       this.projects = projects;
-   
     },
 
     async fetchTasks() {
@@ -243,8 +229,6 @@ export const useTest = defineStore({
       this.history = histories;
       return histories;
     },
-
- 
 
     async addProject(data) {
       const projectUrl = {
@@ -472,7 +456,7 @@ export const useTest = defineStore({
       }
     },
 
-   async deletedToActions(parent, child) {
+    async deletedToActions(parent, child) {
       // const action = {
       //   id: child,
       //   parentId: parent,
@@ -500,8 +484,8 @@ export const useTest = defineStore({
         }
       );
       if (!response.ok) {
-       
-    }},
+      }
+    },
     async projectUpdatedToActions(parent) {
       const action = {
         id: this.actionsId++,
@@ -535,8 +519,6 @@ export const useTest = defineStore({
     },
 
     async taskUpdatedToActions(parent) {
-
-
       const actionUrl = {
         parentId: parent,
         type: "Task",
@@ -557,7 +539,6 @@ export const useTest = defineStore({
     },
   },
 });
-
 
 // import { useRootStore } from "@/store/root";
 // import { useProjectStore } from "@/store/projects";

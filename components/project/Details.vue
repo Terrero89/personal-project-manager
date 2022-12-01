@@ -44,6 +44,8 @@ function removeItem(id) {
   deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
+
+//?HOOKS
 onMounted(() => {
   fetchTasks();
 });
