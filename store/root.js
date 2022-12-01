@@ -2,8 +2,8 @@
 
 import { defineStore } from "pinia";
 
-export const useTest = defineStore({
-  id: "test",
+export const useRootStore = defineStore({
+  id: "root",
 
   state: () => ({
     loading: false,
@@ -557,39 +557,3 @@ export const useTest = defineStore({
     },
   },
 });
-
-
-// import { useRootStore } from "@/store/root";
-// import { useProjectStore } from "@/store/projects";
-// import { useTaskStore } from "@/store/tasks";
-// import { useActionsStore } from "@/store/actions";
-// import { useHistoryStore } from "@/store/history";
-// import { storeToRefs } from "pinia";
-// import { onMounted } from "vue";
-
-// const route = useRoute(); //route object
-// const param = route.params.projectId;
-
-// const store = useRootStore();
-// const projectStore = useProjectStore();
-// const taskStore = useTaskStore();
-// const actionsStore = useActionsStore();
-// const historyStore = useHistoryStore();
-// //destructuring stores properties.
-// const {} = historyStore;
-// const {} = storeToRefs(historyStore);
-// const {} = actionsStore;
-// const {} = storeToRefs(actionsStore);
-// const {} = projectStore;
-// const {} = storeToRefs(projectStore);
-// const {} = taskStore;
-// const {} = storeToRefs(taskStore);
-// const { fetchTasks, deletedHistory, deleteProject, projectDeletedToActions } =
-//   store;
-// const {
-//   projects,
-//   totalTaskDuration,
-//   hasTasks,
-//   filterItemById,
-//   findParentChild,
-// } = storeToRefs(store);

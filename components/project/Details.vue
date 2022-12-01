@@ -1,31 +1,41 @@
 <script setup>
 import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
+import { useTaskStore } from "@/store/tasks";
+import { useActionsStore } from "@/store/actions";
+import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
-
 import { onMounted } from "vue";
-const store = useTest();
-const route = useRoute(); //route object
-// const param = parseInt(route.params.projectId);
-const param = route.params.projectId;
-const { fetchTasks, deletedHistory, deleteProject, projectDeletedToActions } =
-  store;
-const {
-  projects,
-  totalTaskDuration,
-  hasTasks,
-  filterItemById,
-  findParentChild,
-} = storeToRefs(store);
 const props = defineProps(["id"]);
+const route = useRoute(); //route object
+const param = route.params.projectId;
+//?STORE INITIALIZATION
+const store = useTest();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const actionsStore = useActionsStore();
+const historyStore = useHistoryStore();
+//?PROPERTIES DESTRUCTURING
+const { deletedHistory } = historyStore;
+const {} = storeToRefs(historyStore);
+const {} = actionsStore;
+const {} = storeToRefs(actionsStore);
+const { deleteProject, projectDeletedToActions } = projectStore;
+const { projects, findParentChild } = storeToRefs(projectStore);
+const { fetchTasks } = taskStore;
+const { totalTaskDuration, hasTasks } = storeToRefs(taskStore);
+const { filterItemById } = storeToRefs(store);
 
+//? COMPUTED PROPERTIES
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
 const addTaskLink = computed(() => `project-${param}/addTask`);
 const projectById = computed(() => filterItemById.value);
 const parentChild = computed(() => findParentChild.value);
 const numberOfTasks = computed(() => hasTasks.value); //check for the length of specific id
-const totalDuration = computed(() => totalTaskDuration.value); //? calculates total tasks duration for specific project.
+const totalDuration = computed(() => totalTaskDuration.value); // calculates total tasks duration for specific project.
 
+//?FUNCTIONS AND HANDLERS
 function removeItem(id) {
   //function that executes the deleted arg.
   let foundProjectId = store.projects.find((t) => t.id === id);

@@ -1,32 +1,26 @@
 <script setup>
 import { onMounted, onBeforeMount } from "vue";
-import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
-const store = useTest();
 const route = useRoute(); //route object
-const {
-  hasProjects,
-  searchItem,
-  history,
-  fetchProjects
 
-
-} = store;
-const { projects, actions, projectList} = storeToRefs(store);
+const projectStore = useProjectStore(); //projects store
+const { fetchProjects } = projectStore;
+const { projects} = storeToRefs(projectStore);
 const searchInput = ref("");
 
 const searchedProjects = computed(() => {
-  return projectList.value.filter((p) => {
+  return projectStore.projects.filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
   });
 });
-onMounted(()=> {
-  fetchProjects()
-})
-fetchProjects()
+onMounted(() => {
+  fetchProjects();
+});
+fetchProjects();
 </script>
 
 <template>
@@ -60,7 +54,7 @@ fetchProjects()
             />
           </div>
 
-          <div v-if="!store.projectList.length > 0">
+          <div v-if="!projectStore.projectList.length > 0">
             No Projects available at this moment
           </div>
         </div>
