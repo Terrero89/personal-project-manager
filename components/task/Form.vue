@@ -24,11 +24,10 @@ const submitForm = () => {
     duration: time.value,
     description: description.value,
     isComplete: false,
-    startDate:new Date(),
-    endDate:new Date(),
-    dateModified: new Date()
+    startDate: new Date(),
+    endDate: new Date(),
+    dateModified: new Date(),
   };
-
 
   addTask(taskData); //add project to pinia
   addHistory(taskData); //add history to pinia
@@ -39,9 +38,7 @@ const submitForm = () => {
 </script>
 
 <template>
-
   <div class="form-wrapper">
-    
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Task</p>
       <div class="col-md-6">
@@ -69,13 +66,8 @@ const submitForm = () => {
           <option value="Data Structures and Algorithms">
             Data Structures and Algorithms
           </option>
-     
         </select>
       </div>
-
-    
-
-   
 
       <div class="col-12">
         <label for="duration" class="form-label">Duration</label>
