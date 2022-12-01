@@ -7,9 +7,9 @@ const route = useRoute(); //route object
 
 const projectStore = useProjectStore(); //projects store
 const { fetchProjects } = projectStore;
-const { projects} = storeToRefs(projectStore);
+const { projects } = storeToRefs(projectStore);
 const searchInput = ref("");
-
+const currentPage = ref(1);
 const searchedProjects = computed(() => {
   return projectStore.projects.filter((p) => {
     return (
@@ -17,6 +17,12 @@ const searchedProjects = computed(() => {
     );
   });
 });
+
+const onPageChange = (page) => {
+  console.log(page);
+  currentPage.value = page;
+};
+
 onMounted(() => {
   fetchProjects();
 });
@@ -24,6 +30,7 @@ fetchProjects();
 </script>
 
 <template>
+  
   <div class="projects">
     <UITitle title="Projects" class="container border-bottom" />
     <!-- Filter selections soon to be in component -->
@@ -32,6 +39,7 @@ fetchProjects();
     <UICard>
       <SearchFilter v-model="searchInput" />
     </UICard>
+
     <UICard>
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
@@ -59,6 +67,16 @@ fetchProjects();
           </div>
         </div>
       </div>
+      <UIPagination
+        :total-pages="11"
+        :total="113"
+        :per-page="10"
+        :current-page="currentPage"
+        @pageChanged="onPageChange"
+      ></UIPagination>
+
+ 
+     
     </UICard>
   </div>
 </template>
