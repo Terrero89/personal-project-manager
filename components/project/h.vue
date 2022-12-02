@@ -19,6 +19,8 @@ const searchedProjects = computed(() => {
   });
 });
 
+const hero = computed(() => [...searchedProjects].splice(0, 8));
+
 const onPageChange = (page) => {
   console.log(page);
   currentPage.value = page;
@@ -26,25 +28,23 @@ const onPageChange = (page) => {
 
 const currPage = ref(1); //shows me the current page im in
 const prevPage = ref(0);
-const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
+const pagesForDisplay = ref(3); //FIXED AMOUNT - amount of pages i want the BUTTONS to display
 const itemPerPage = ref(5); // amount of items i want to display per page
-const showDisplayButtons = ref(3); //amount of buttons i want to display for click
 const currStartingItem = ref(0);
-const currentValue = ref(0);
+
 const lastPage = computed(() =>
   Math.ceil([...projectStore.projects].length / itemPerPage.value)
 );
-const arrLength = computed(() => [...projectStore.projects].length);
+// const lastPage = computed(() => [...projectStore.projects].length);
 const firstPage = computed(() => ([...projectStore.projects].length = 1));
 
 const next = () => {
   let counter = itemPerPage.value; // 5
-  const preValue = showDisplayButtons.value; // 3
+  let preValue = pagesForDisplay.value; // 3 dont change
   console.log("preValue" + preValue);
-  currPage.value++;
+  currPage.value++; // INCREASE WITH EVERY CLICK
   console.log(currPage.value + " page number");
-  // console.log(counter + " counter");
-  currStartingItem.value = currStartingItem.value + itemPerPage.value; // will increase it by 5 each click
+  currStartingItem.value = itemPerPage.value + itemPerPage.value; //
   if (currPage.value === lastPage.value) {
     console.log("LAST PAGE");
   }
@@ -52,16 +52,27 @@ const next = () => {
 
 const prev = () => {
   //currStatinItem = 3
-  let counter = itemPerPage.value; // 3
+  let counter = itemPerPage.value; // 5
   currPage.value--;
-  currStartingItem.value = currStartingItem.value - itemPerPage.value;
+  console.log(currPage.value + " page number");
+  // console.log(counter + " counter");
+  currStartingItem.value = currStartingItem.value - itemPerPage.value; // //
   if (currPage.value === firstPage.value) {
     console.log("FIRST PAGE");
   }
 };
 
+const first = () => {
+  if (currPage.value === 1) {
+  }
+};
+
 const last = () => {
-  Math.ceil([...projectStore.projects].length / itemPerPage.value);
+  currPage.value;
+  if (currPage.value === lastPage) {
+    currPage.value = lastPage;
+    Math.ceil([...projectStore.projects].length / itemPerPage.value);
+  }
 };
 
 onMounted(() => {
@@ -79,14 +90,15 @@ fetchProjects();
     </UICard>
 
     <UICard>
-      <div>{{ currPage }}</div>
+      <div>Current Page= {{ currPage }}</div>
       <div>firstPage = {{ firstPage }}</div>
-      <div>totalPages = {{ lastPage }}</div>
+
+      <div>Last Page = {{ lastPage }}</div>
       <div>items Per Page = {{ itemPerPage }}</div>
       <div>total Items = {{ searchedProjects.length }}-</div>
-      <div>current Value = {{ currentValue }}-</div>
+
       <div>currStartingPoint = {{ currStartingItem }}</div>
-      <div>showButtonCounter = {{ showDisplayButtons }}</div>
+
       <div
         class="d-flex justify-content-center"
         v-for="i in pagesForDisplay"
@@ -125,26 +137,26 @@ fetchProjects();
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <button type="button" :class="{ disabled: currPage === 1 }" @click="first">
+        <button :class="{ disabled: currPage === 1 }" @click="first">
           |--
         </button>
-        <button type="button"  :class="{ disabled: currPage === 1 }" @click="prev">
+        <button :class="{ disabled: currPage === 1 }" @click="prev">
           Prev
         </button>
-        <button type="button"  v-for="page in pagesForDisplay" :key="page">
-          <div type="button"  :class="{ active: page === currPage }">{{ page }}</div>
+        <button v-for="page in pagesForDisplay" :key="page">
+          <div :class="{ active: page === currPage }">{{ page }}</div>
         </button>
-        <button type="button"  :class="{ disabled: currPage === lastPage }" @click="next">
+        <button :class="{ disabled: currPage === lastPage }" @click="next">
           Next</button
         >{{ last() }}
-        <button type="button"  :class="{ disabled: currPage === lastPage }" @click="last">
+        <button :class="{ disabled: currPage === lastPage }" @click="last">
           --|
         </button>
       </div>
     </UICard>
 
-    <!-- <UICard>
- 
+    <UICard>
+      <!-- search bar starts here should be emitted from component-->
       <div class="container">
         <div class="page-top">
           <div class="row mb-3">
@@ -170,7 +182,7 @@ fetchProjects();
           </div>
         </div>
       </div>
-    </UICard> -->
+    </UICard>
   </div>
 </template>
 
