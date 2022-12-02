@@ -24,8 +24,11 @@ const onPageChange = (page) => {
   currentPage.value = page;
 };
 
-const page = ref(1);
-const itemPerPage = ref(3); //could be a prop later
+const currPage = ref(1); //shows me the current page im in
+const prevPage = ref(0)
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
+const itemPerPage = ref(5); // amount of items i want to display per page
+const showDisplayButtons = ref(3); //amount of buttons i want to display for click
 const currStartingItem = ref(0);
 const currentValue = ref(0);
 const totalPages = computed(() =>
@@ -34,27 +37,31 @@ const totalPages = computed(() =>
 const lastPage = computed(() => [...projectStore.projects].length);
 const firstPage = computed(() => ([...projectStore.projects].length = 1));
 
-
-
 const next = () => {
-  //currStatinItem = 0
-  let counter = itemPerPage.value; // 3
-  console.log(counter + " counter");
+  let counter = itemPerPage.value; // 5
+  const preValue = showDisplayButtons.value; // 5
+  console.log("preValue" + preValue);
+  currPage.value++;
+  console.log(currPage.value + " page number");
+  // console.log(counter + " counter");
   currStartingItem.value = currStartingItem.value + counter; //
-  console.log(currStartingItem.value + " currStartingItem");
+  pagesForDisplay.value = currStartingItem.value + showDisplayButtons.value;
+  // console.log(currStartingItem.value + " currStartingItem");
 };
 
 const prev = () => {
   //currStatinItem = 3
- let counter = itemPerPage.value; // 3
-  console.log(counter + " counter");
+  let counter = itemPerPage.value; // 3
+  currPage.value--;
+  console.log(currPage.value + " page number");
+  // console.log(counter + " counter");
   currStartingItem.value = currStartingItem.value - counter; //
-  console.log(currStartingItem.value + " currStartingItem");
+  pagesForDisplay.value = currPage.value * itemPerPage.value;
+  // console.log(currStartingItem.value + " currStartingItem");
 };
 
-
 const last = () => {
-  console.log(Math.ceil([...projectStore.projects].length / itemPerPage.value));
+  Math.ceil([...projectStore.projects].length / itemPerPage.value);
 };
 
 onMounted(() => {
@@ -66,20 +73,28 @@ fetchProjects();
 <template>
   <div class="projects">
     <UITitle title="Projects" class="container border-bottom" />
-    <!-- Filter selections soon to be in component -->
     <ProjectCategories />
-    <!-- filter selection for projects ends -->
     <UICard>
       <SearchFilter v-model="searchInput" />
     </UICard>
 
     <UICard>
+      <div>{{ currPage }}</div>
       <div>firstPage = {{ firstPage }}</div>
       <div>totalPages = {{ totalPages }}</div>
       <div>items Per Page = {{ itemPerPage }}</div>
       <div>total Items = {{ searchedProjects.length }}-</div>
       <div>current Value = {{ currentValue }}-</div>
       <div>currStartingPoint = {{ currStartingItem }}</div>
+      <div>showButtonCounter = {{ showDisplayButtons }}</div>
+      <div
+        class="d-flex justify-content-center"
+        v-for="i in pagesForDisplay"
+        :key="i"
+      >
+        <p>{{ i }}</p>
+      </div>
+
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
         <div class="page-top">
@@ -109,11 +124,15 @@ fetchProjects();
           </div>
         </div>
       </div>
-
-      <button @click="first">first Page</button>
-      <button @click="prev">Previous Page</button>
-      <button @click="next">Next Page</button>{{ last() }}
-      <button @click="last">last Page</button>
+      <div class="d-flex justify-content-center">
+        <button @click="first">|--</button>
+        <button @click="prev">Prev</button>
+        <button v-for="page in pagesForDisplay" :key="page">
+          <div>{{ page }}</div>
+        </button>
+        <button @click="next">Next</button>{{ last() }}
+        <button @click="last">--|</button>
+      </div>
     </UICard>
 
     <UICard>
