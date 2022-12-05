@@ -3,14 +3,24 @@ import { onMounted, onBeforeMount } from "vue";
 import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
+//?STORE INITIALIZATION
 const route = useRoute(); //route object
-
 const projectStore = useProjectStore(); //projects store
+//?PROPERTIES DESTRUCTURING
 const { fetchProjects } = projectStore;
 const { projects } = storeToRefs(projectStore);
-const searchInput = ref("");
-const currentPage = ref(1);
 
+//?REFS AND PROPERTIES
+const searchInput = ref("");
+
+const currPage = ref(1); //shows me the current page im in
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
+const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
+const showDisplayButtons = ref(3); //amount of buttons i want to display for click
+const currStartingItem = ref(0);
+const currentPoint = ref(0);
+
+//?COMPUTED PROPERTIES
 const searchedProjects = computed(() => {
   return projectStore.projects.filter((p) => {
     return (
@@ -21,30 +31,43 @@ const searchedProjects = computed(() => {
 
 const onPageChange = (page) => {
   console.log(page);
-  currentPage.value = page;
+  currPage.value = page;
 };
 
-const currPage = ref(1); //shows me the current page im in
-
-const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
-const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
-const showDisplayButtons = ref(3); //amount of buttons i want to display for click
-const currStartingItem = ref(0);
-const currentValue = ref(0);
+// const isInFirstPage = computed(() => currPage === 1);
+const isInLastPage = computed(() => currPage.value === last());
 const lastPage = computed(() =>
   Math.ceil([...projectStore.projects].length / itemPerPage.value)
 );
-const arrLength = computed(() => [...projectStore.projects].length);
+// const arrLength = computed(() => [...projectStore.projects].length);
 const firstPage = computed(() => ([...projectStore.projects].length = 1));
 
-// const endPage = computed(() =>
-//   Math.min(firstPage.value + showDisplayButtons.value - 1, lastPage.value)
-// );
+const startPage = computed(() => {
+  if (currPage.value === 1) {
+    return 1;
+  }
+
+  if (currPage.value === lastPage.value) {
+    // return lastPage.value - pagesForDisplay.value + 1;
+    const start = lastPage.value - pagesForDisplay.value + 1;
+    if (start === 0) {
+      return 1;
+    } else {
+      return lastPage.value;
+    }
+  }
+
+  return currPage.value - 1;
+});
+
+const endPage = computed(() =>
+  Math.min(startPage.value + showDisplayButtons.value - 1, lastPage.value)
+);
 
 const pages = computed(() => {
   const range = [];
 
-  for (let i = firstPage.value; i <= lastPage.value; i++) {
+  for (let i = startPage.value; i <= endPage.value; i += 1) {
     range.push({
       name: i,
       isActive: i === currPage.value,
@@ -54,52 +77,51 @@ const pages = computed(() => {
   return range;
 });
 
-//findRange to display
-const findRange = (start, end) => {
-  var ans = [];
-  for (let i = start; i <= end; i++) {
-    ans.push(i);
-    
-  }
-  return ans;
-};
+//?FUNCTIONS AND HANDLERS
+
 const next = () => {
-  let counter = itemPerPage.value; // 5
-  let initialCounter = 1;
-  const preValue = showDisplayButtons.value; // 3
-  console.log("preValue" + preValue);
   currPage.value++;
-  console.log(currPage.value + " page number");
-  // console.log(counter + " counter");
   currStartingItem.value = currStartingItem.value + itemPerPage.value; // will increase it by 5 each click
-  if (currPage.value === lastPage.value - 1) {
-    initialCounter++;
-    console.log("initial " + initialCounter);
+
+  if (currPage.value === lastPage.value) {
     console.log("LAST PAGE");
     let currVal = pagesForDisplay.value + 2; // 4
     console.log(currVal + " currVal + 1");
     pagesForDisplay.value = currVal;
-    console.log(pagesForDisplay.value + " currVal + 1");
-    console.log(pagesForDisplay.value);
-    pagesForDisplay.value = currVal;
-    console.log(currVal + "curr");
   }
 };
 
 const prev = () => {
-  //currStatinItem = 3
-  let counter = itemPerPage.value; // 3
+  // let counter = itemPerPage.value; // 3
   currPage.value--;
   currStartingItem.value = currStartingItem.value - itemPerPage.value;
   if (currPage.value === firstPage.value) {
-    console.log("FIRST PAGE");
   }
 };
 
-const last = () => {
-  Math.ceil([...projectStore.projects].length / itemPerPage.value);
+const first = () => {
+  let changed = (currPage.value = 1);
+  currStartingItem.value = 0;
+  return changed;
 };
 
+//FIX THIS PART RIGHT
+const last = (page) => {
+  let changed = page * itemPerPage.value - itemPerPage.value;
+  itemPerPage.value = page;
+  currPage.value = page;
+  currStartingItem.value = changed;
+  return changed;
+};
+
+const onClickPage = (page) => {
+  let changed = page * itemPerPage.value - itemPerPage.value; //multiply by the value of the amount of items i want to see.
+  currPage.value = page;
+  currStartingItem.value = changed;
+  return changed;
+};
+
+//?HOOKS
 onMounted(() => {
   fetchProjects();
 });
@@ -115,33 +137,20 @@ fetchProjects();
     </UICard>
 
     <UICard>
-      <div class="">Range {{ findRange(currPage, lastPage) }}</div>
-      <div class="">{{ pages }}</div>
-      <div>{{ currPage }}</div>
+      <!-- <div class="">{{ pages }}</div>
+
+      <div>page {{ currPage }}</div>
       <div>firstPage = {{ firstPage }}</div>
+      <div>Last page= {{ last }}</div>
       <div>totalPages = {{ lastPage }}</div>
       <div>items Per Page = {{ itemPerPage }}</div>
-      <div>total Items = {{ searchedProjects.length }}-</div>
-      <div>current Value = {{ currentValue }}-</div>
+      <div>total Items = {{ searchedProjects.length }}</div>
       <div>currStartingPoint = {{ currStartingItem }}</div>
       <div>showButtonCounter = {{ showDisplayButtons }}</div>
-      <div>pages for display {{ pagesForDisplay }}</div>
-      <div
-        class="d-flex justify-content-center"
-        v-for="i in findRange(currPage, lastPage)"
-        :key="i"
-      >
-        <p>{{ i }}</p>
-      </div>
+      <div>pages for display {{ pagesForDisplay }}</div> -->
 
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
-        <div class="page-top">
-          <div class="row mb-3">
-            <div class="col"></div>
-          </div>
-        </div>
-
         <div class="row">
           <div class="">
             <ProjectListItem
@@ -165,46 +174,56 @@ fetchProjects();
       </div>
       <div class="d-flex justify-content-center">
         <button
+          class="page-btn"
           type="button"
+          :disabled="currPage === 1"
           :class="{ disabled: currPage === 1 }"
           @click="first"
         >
           |--
         </button>
         <button
+          class="page-btn"
           type="button"
+          :disabled="currPage === 1"
           :class="{ disabled: currPage === 1 }"
           @click="prev"
         >
           Prev
         </button>
+        <li class="page-btn" type="button" v-for="page in pages" :key="page">
+          <button
+            type="button"
+            @click="onClickPage(page.name)"
+            :class="{ active: page.name === currPage }"
+          >
+            {{ page.name }}
+          </button>
+        </li>
         <button
+          class="page-btn"
           type="button"
-          v-for="page in findRange(currPage, lastPage)"
-          :key="page"
-        >
-          <div type="button" :class="{ active: page === currPage }">
-            {{ page }}
-          </div>
-        </button>
-        <button
-          type="button"
+          :disabled="currPage === lastPage"
           :class="{ disabled: currPage === lastPage }"
           @click="next"
         >
-          Next</button
-        >{{ last() }}
+          Next
+        </button>
         <button
+          class="page-btn"
           type="button"
+          :disabled="currPage === lastPage"
           :class="{ disabled: currPage === lastPage }"
-          @click="last"
+          @click="last(lastPage)"
         >
           --|
         </button>
       </div>
     </UICard>
 
- 
+    <UICard>
+      <UIPagination/>
+    </UICard>
   </div>
 </template>
 
@@ -237,7 +256,14 @@ fetchProjects();
 }
 
 .active {
-  background-color: rgb(0, 26, 255);
-  color: rgb(236, 236, 236);
+  background-color: #4aae9b;
+  color: #ffffff;
+}
+
+.page-btn {
+  border-radius: 5px;
+  margin: 0.1rem;
+  border: solid rgb(151, 151, 151) 1px;
+  padding: 0.1rem 0.3rem;
 }
 </style>
