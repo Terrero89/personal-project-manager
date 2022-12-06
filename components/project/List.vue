@@ -16,9 +16,7 @@ const searchInput = ref("");
 const currPage = ref(1); //shows me the current page im in
 const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
 const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
-const showDisplayButtons = ref(3); //amount of buttons i want to display for click
 const currStartingItem = ref(0);
-const currentPoint = ref(0);
 
 //?COMPUTED PROPERTIES
 const searchedProjects = computed(() => {
@@ -34,12 +32,11 @@ const onPageChange = (page) => {
   currPage.value = page;
 };
 
-// const isInFirstPage = computed(() => currPage === 1);
-const isInLastPage = computed(() => currPage.value === last());
+
 const lastPage = computed(() =>
   Math.ceil([...projectStore.projects].length / itemPerPage.value)
 );
-// const arrLength = computed(() => [...projectStore.projects].length);
+
 const firstPage = computed(() => ([...projectStore.projects].length = 1));
 
 const startPage = computed(() => {
@@ -48,7 +45,6 @@ const startPage = computed(() => {
   }
 
   if (currPage.value === lastPage.value) {
-    // return lastPage.value - pagesForDisplay.value + 1;
     const start = lastPage.value - pagesForDisplay.value + 1;
     if (start === 0) {
       return 1;
@@ -61,7 +57,7 @@ const startPage = computed(() => {
 });
 
 const endPage = computed(() =>
-  Math.min(startPage.value + showDisplayButtons.value - 1, lastPage.value)
+  Math.min(startPage.value + pagesForDisplay.value - 1, lastPage.value)
 );
 
 const pages = computed(() => {
@@ -221,9 +217,7 @@ fetchProjects();
       </div>
     </UICard>
 
-    <UICard>
-      <UIPagination/>
-    </UICard>
+    
   </div>
 </template>
 
