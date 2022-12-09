@@ -67,5 +67,45 @@ export const useActionsStore = defineStore({
       this.actions = actions;
       return actions;
     },
+
+    async projectAddedToActions(id) {
+      const actionUrl = {
+        parentId: id,
+        type: "Project",
+        name: "Added",
+        category: "Add",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
+    },
+
+    async taskAddedToActions(id) {
+      const actionUrl = {
+        parentId: id,
+        type: "Task",
+        name: "Added",
+        category: "Add",
+        dateModified: new Date(),
+      };
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(actionUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR");
+      }
+    },
   },
 });

@@ -103,7 +103,7 @@ const first = () => {
 
 //FIX THIS PART RIGHT
 const last = (page) => {
-  let changed = page * itemPerPage.value - itemPerPage.value;
+  let changed = (page * itemPerPage.value) - itemPerPage.value;
   itemPerPage.value = page;
   currPage.value = page;
   currStartingItem.value = changed;
@@ -111,7 +111,7 @@ const last = (page) => {
 };
 
 const onClickPage = (page) => {
-  let changed = page * itemPerPage.value - itemPerPage.value; //multiply by the value of the amount of items i want to see.
+  let changed = (page * itemPerPage.value) - itemPerPage.value; //multiply by the value of the amount of items i want to see.
   currPage.value = page;
   currStartingItem.value = changed;
   return changed;

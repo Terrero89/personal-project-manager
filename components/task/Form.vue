@@ -8,7 +8,6 @@ const props = defineProps(["paramId"]);
 
 const category = ref("");
 const name = ref("");
-
 const age = ref(0);
 const time = ref(null);
 const description = ref("");

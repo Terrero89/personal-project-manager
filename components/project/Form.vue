@@ -9,7 +9,6 @@ const user = ref("");
 const category = ref("");
 const name = ref("");
 const technologies = ref([]);
-
 const age = ref(0);
 const description = ref("");
 const status = ref(false);
