@@ -191,9 +191,9 @@ export const useProjectStore = defineStore({
         console.log("response from pinia " + response.status)
       );
 
-      // if (!response.ok) {
-      //   console.log("Super error 400");
-      // }
+      if (!response.ok) {
+        console.log("Super error 400");
+      }
     },
 
     async projectAddedToActions(id) {

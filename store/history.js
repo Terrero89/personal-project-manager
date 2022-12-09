@@ -63,6 +63,10 @@ export const useHistoryStore = defineStore({
         console.log("ERROR HISTORY");
       }
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> testing
 
     async deletedHistory(data, id) {
       const historyUrl = {

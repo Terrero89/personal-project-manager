@@ -3,22 +3,20 @@ import { onMounted, onBeforeMount } from "vue";
 import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
+//?REFS AND PROPERTIES
+
+const currPage = ref(1); //shows me the current page im in
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONS to display
+const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
+const currStartingItem = ref(0);
 //?STORE INITIALIZATION
 const route = useRoute(); //route object
 const projectStore = useProjectStore(); //projects store
 //?PROPERTIES DESTRUCTURING
 const { fetchProjects } = projectStore;
 const { projects } = storeToRefs(projectStore);
-
-//?REFS AND PROPERTIES
-const searchInput = ref("");
-
-const currPage = ref(1); //shows me the current page im in
-const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
-const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
-const currStartingItem = ref(0);
-
 //?COMPUTED PROPERTIES
+const searchInput = ref("");
 const searchedProjects = computed(() => {
   return projectStore.projects.filter((p) => {
     return (
@@ -26,12 +24,6 @@ const searchedProjects = computed(() => {
     );
   });
 });
-
-const onPageChange = (page) => {
-  console.log(page);
-  currPage.value = page;
-};
-
 
 const lastPage = computed(() =>
   Math.ceil([...projectStore.projects].length / itemPerPage.value)
@@ -74,6 +66,10 @@ const pages = computed(() => {
 });
 
 //?FUNCTIONS AND HANDLERS
+const onPageChange = (page) => {
+  console.log(page);
+  currPage.value = page;
+};
 
 const next = () => {
   currPage.value++;
@@ -127,24 +123,12 @@ fetchProjects();
 <template>
   <div class="projects">
     <UITitle title="Projects" class="container border-bottom" />
-    <ProjectCategories />
+    <!-- <ProjectCategories /> -->
     <UICard>
       <SearchFilter v-model="searchInput" />
     </UICard>
 
     <UICard>
-      <!-- <div class="">{{ pages }}</div>
-
-      <div>page {{ currPage }}</div>
-      <div>firstPage = {{ firstPage }}</div>
-      <div>Last page= {{ last }}</div>
-      <div>totalPages = {{ lastPage }}</div>
-      <div>items Per Page = {{ itemPerPage }}</div>
-      <div>total Items = {{ searchedProjects.length }}</div>
-      <div>currStartingPoint = {{ currStartingItem }}</div>
-      <div>showButtonCounter = {{ showDisplayButtons }}</div>
-      <div>pages for display {{ pagesForDisplay }}</div> -->
-
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
         <div class="row">
@@ -187,16 +171,18 @@ fetchProjects();
         >
           Prev
         </button>
-        <li class="page-btn" type="button" v-for="page in pages" :key="page">
-          <button
-            type="button"
-            @click="onClickPage(page.name)"
-            :class="{ active: page.name === currPage }"
-          >
+        <li
+          class="page-btn border-dark"
+          :class="{ active: page.name === currPage }"
+          type="button"
+          v-for="page in pages"
+          :key="page"
+        >
+          <div type="button" @click="onClickPage(page.name)">
             {{ page.name }}
-          </button>
+          </div>
         </li>
-        <button
+        <div
           class="page-btn"
           type="button"
           :disabled="currPage === lastPage"
@@ -204,7 +190,7 @@ fetchProjects();
           @click="next"
         >
           Next
-        </button>
+        </div>
         <button
           class="page-btn"
           type="button"
@@ -216,8 +202,6 @@ fetchProjects();
         </button>
       </div>
     </UICard>
-
-    
   </div>
 </template>
 
@@ -246,11 +230,11 @@ fetchProjects();
 }
 
 .disabled {
-  color: red;
+  color: rgb(187, 185, 185);
 }
 
 .active {
-  background-color: #4aae9b;
+  background-color: rgba(104, 134, 255, 0.5);
   color: #ffffff;
 }
 
