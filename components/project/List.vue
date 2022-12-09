@@ -18,7 +18,7 @@ const { projects } = storeToRefs(projectStore);
 //?COMPUTED PROPERTIES
 const searchInput = ref("");
 const searchedProjects = computed(() => {
-  return projectStore.projects.filter((p) => {
+  return projectStore.projects.value.filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
