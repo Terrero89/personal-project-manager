@@ -1,11 +1,23 @@
 <script setup>
 import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
+import { useTaskStore } from "@/store/tasks";
+import { useActionsStore } from "@/store/actions";
+import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
 
-const store = useTest();
 const route = useRoute(); //route object
 const param = route.params.projectId;
 
+//?REFS AND PROPERITIES
+
+//?STORE INITIALIZATION
+const store = useTest();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const actionsStore = useActionsStore();
+const historyStore = useHistoryStore();
+//?PROPERTIES DESTRUCTURING
 const {
   addHistory,
   editProject,
@@ -14,6 +26,12 @@ const {
   updateProjectRequest,
 } = store;
 const { projects, history, editPro } = storeToRefs(store);
+
+const { addToHistory } = historyStore;
+const {} = storeToRefs(historyStore);
+const {} = projectStore;
+const { findParentChild } = storeToRefs(projectStore);
+
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
 // const { startDate, endDate } = project; //to convert dates into correct format
 
@@ -138,6 +156,9 @@ const updateProject = () => {
             id="inputPassword4"
           />
         </div>
+        {{ project.startDate }}
+        <div></div>
+        {{ project.startDate }}
 
         <!-- will be equal to the the project.end and start date formatted -->
       </div>

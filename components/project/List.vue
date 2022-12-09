@@ -4,7 +4,7 @@ import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
 //?REFS AND PROPERTIES
-const searchInput = ref("");
+
 const currPage = ref(1); //shows me the current page im in
 const pagesForDisplay = ref(3); //amount of pages i want the BUTTONS to display
 const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
@@ -16,6 +16,7 @@ const projectStore = useProjectStore(); //projects store
 const { fetchProjects } = projectStore;
 const { projects } = storeToRefs(projectStore);
 //?COMPUTED PROPERTIES
+const searchInput = ref("");
 const searchedProjects = computed(() => {
   return projectStore.projects.filter((p) => {
     return (

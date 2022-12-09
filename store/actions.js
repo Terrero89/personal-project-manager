@@ -68,4 +68,78 @@ export const useActionsStore = defineStore({
       return actions;
     },
   },
+
+  async projectAddedToActions(id) {
+    const actionUrl = {
+      parentId: id,
+      type: "Project",
+      name: "Added",
+      category: "Add",
+      dateModified: new Date(),
+    };
+    let response = await fetch(
+      `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+      {
+        method: "POST",
+        body: JSON.stringify(actionUrl),
+      }
+    );
+    if (!response.ok) {
+      console.log("ERROR");
+    }
+  },
+
+  async projectDeletedToActions(id) {
+    const actionUrl = {
+      parentId: id,
+      type: "Project",
+      name: "Deleted",
+      category: "Delete",
+      dateModified: new Date(),
+    };
+    let response = await fetch(
+      `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+      {
+        method: "POST",
+        body: JSON.stringify(actionUrl),
+      }
+    );
+    if (!response.ok) {
+      console.log("ERROR");
+    }
+  },
+
+  async projectUpdatedToActions(parent) {
+    const action = {
+      id: this.actionsId++,
+      parentId: this.projectId,
+      type: "Project",
+      parentId: parent.id,
+      name: "Updated",
+      category: "Update",
+      dateModified: new Date(),
+    };
+    this.actions.push(action);
+
+    const actionUrl = {
+      parentId: this.projectId,
+      type: "Project",
+      parentId: parent.id,
+      name: "Updated",
+      category: "Update",
+      dateModified: new Date(),
+    };
+    let response = await fetch(
+      `https://project-manager-app-f9829-default-rtdb.firebaseio.com/actions.json`,
+      {
+        method: "POST",
+        body: JSON.stringify(actionUrl),
+      }
+    );
+    if (!response.ok) {
+      console.log("ERROR");
+    }
+  },
+
+  
 });
