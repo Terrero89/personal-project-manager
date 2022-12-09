@@ -1,5 +1,7 @@
+<script setup></script>
+
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 ">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Project Manager</a>
       <button
@@ -16,24 +18,30 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mb-2 mr mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/projects"
-              >Projects</a
+            <NuxtLink class="nav-link active" aria-current="page" to="/projects"
+              >Projects</NuxtLink
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/taskspage"
-              >Tasks</a
+            <NuxtLink
+              class="nav-link active"
+              aria-current="tasks-page"
+              to="/taskspage"
+              >Tasks</NuxtLink
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/history"
-              >History</a
+            <NuxtLink class="nav-link active" aria-current="page" to="/history"
+              >History</NuxtLink
             >
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/dashboard"
-              >Dashboard</a
+            <NuxtLink
+              class="nav-link active"
+              aria-current="dashboard-page"
+              to="/dashboard"
+              >Dashboard</NuxtLink
             >
           </li>
         </ul>
@@ -43,7 +51,7 @@
 </template>
 
 <style scoped>
-.mr{
-  margin-left:auto;
+.mr {
+  margin-left: auto;
 }
 </style>

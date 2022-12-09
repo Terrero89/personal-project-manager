@@ -1,8 +1,4 @@
 <script setup>
-import { useTest } from "@/store/test";
-import { storeToRefs } from "pinia";
-const store = useTest();
-const route = useRoute(); //route object
 const props = defineProps([
   "id",
   "project",
@@ -16,9 +12,7 @@ const props = defineProps([
   "duration",
   "dateModified",
   "startDate",
-  "parentId"
-  
-
+  "parentId",
 ]);
 
 const currStatus = computed(() => {
@@ -32,40 +26,33 @@ const currStatus = computed(() => {
 const detailsLink = computed(() => {
   return `/projects/project-${props.id}`;
 });
-
-
 </script>
 <template>
   <div>
-
-   
     <div v-if="props.project" class="project-item">
-    
       <div class="item row mx-2">
         <div class="project px-0">
           <div class="row">
             <div class="col-2-sm">
               <!-- <h1 class="">{{ props.id }}</h1> -->
-              <h1>{{props.project ? "Project" : 'Task'}}</h1>
+              <h1>{{ props.project ? "Project" : "Task" }}</h1>
               <h1>{{ props.project }}</h1>
-           
-              <h2 >{{ props.task}}</h2>
+
+              <h2>{{ props.task }}</h2>
 
               <div class="col-lg-3 d-flex flex-wrap my-2">
                 <ProjectTechnologies
-              v-for="tech in technologies"
-              :key="tech"
-              :technologies="tech"
-            />
+                  v-for="tech in technologies"
+                  :key="tech"
+                  :technologies="tech"
+                />
               </div>
             </div>
-
-          
 
             <div class="">
               {{ props.description }}
             </div>
-         
+
             <div class="col-auto d-flex align-items-left">
               <h2 class="border border-1 rounded py-2 px-2" :class="currStatus">
                 {{ props.status ? "Complete" : "In progress" }}
@@ -73,60 +60,58 @@ const detailsLink = computed(() => {
             </div>
             <div class="col-auto my-auto mr">
               <div class="date border border-1 rounded py-2 px-2 my-auto mr">
-                <h2 class="align-items-end">{{props.dateModified}}</h2>
+                <h2 class="align-items-end">{{ props.dateModified }}</h2>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
 
     <div v-if="!props.project" class="project-item">
-    tasks
-    <div class="item row mx-2">
-      <div class="project px-0">
-        <div class="row">
-          <div class="col-2-sm">
-            <!-- <h1 class="">{{ props.id }}</h1> -->
-            <h1>{{props.project ? "Project" : 'Task'}}</h1>
-            <h1>{{ props.project }}</h1>
-            <h2>{{ props.task}}</h2>
-            <h2>{{ props.category}}</h2>
+      <div class="item row mx-2">
+        <div class="project px-0">
+          <div class="row">
+            <div class="col-2-sm">
+              <!-- <h1 class="">{{ props.id }}</h1> -->
+              <h1>{{ props.project ? "Project" : "Task" }}</h1>
+              <h1>{{ props.project }}</h1>
+              <h2>{{ props.task }}</h2>
+              <h2>{{ props.category }}</h2>
 
-            <div class="col-lg-3 d-flex flex-wrap my-2">
-              <div class="mar" v-for="tech in props.technologies" :key="tech">
-                <h2 class="">{{ tech }}</h2>
+              <div class="col-lg-3 d-flex flex-wrap my-2">
+                <div class="mar" v-for="tech in props.technologies" :key="tech">
+                  <h2 class="">{{ tech }}</h2>
+                </div>
               </div>
+
+              <ProjectTechnologies
+                v-for="tech in technologies"
+                :key="tech"
+                :technologies="tech"
+              />
             </div>
 
-            <ProjectTechnologies
-              v-for="tech in technologies"
-              :key="tech"
-              :technologies="tech"
-            />
-          </div>
+            <div class="">
+              {{ props.description }}
+            </div>
 
-          <div class="">
-            {{ props.description }}
-          </div>
-          
-         
-
-          <div class="col-auto d-flex align-items-left">
-            <h2 class="border border-1 rounded py-2 px-2" :class="currStatus">
-              {{ props.status ? "Complete" : "In progress" }}
-            </h2>
-          </div>
-          <div class="col-auto my-auto mr">
-            <div class="date border border-1 rounded py-2 px-2 my-auto mr">
-              <h2 class="align-items-end">{{useDate(props.dateModified)}}</h2>
+            <div class="col-auto d-flex align-items-left">
+              <h2 class="border border-1 rounded py-2 px-2" :class="currStatus">
+                {{ props.status ? "Complete" : "In progress" }}
+              </h2>
+            </div>
+            <div class="col-auto my-auto mr">
+              <div class="date border border-1 rounded py-2 px-2 my-auto mr">
+                <h2 class="align-items-end">
+                  {{ useDate(props.dateModified) }}
+                </h2>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
