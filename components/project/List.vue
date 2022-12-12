@@ -11,21 +11,26 @@ const { fetchProjects } = projectStore;
 const { projects } = storeToRefs(projectStore);
 
 //?REFS AND PROPERTIES
+const searchInput = ref("");
 
 const currPage = ref(1); //shows me the current page im in
-const pagesForDisplay = ref(3); //amount of pages i want the BUTTONS to display
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
 const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
 const currStartingItem = ref(0);
 
 //?COMPUTED PROPERTIES
-const searchInput = ref("");
 const searchedProjects = computed(() => {
-  return projectStore.projects.value.filter((p) => {
+  return projectStore.projects.filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
   });
 });
+
+const onPageChange = (page) => {
+  console.log(page);
+  currPage.value = page;
+};
 
 const lastPage = computed(() =>
   Math.ceil([...projectStore.projects].length / itemPerPage.value)
@@ -68,10 +73,6 @@ const pages = computed(() => {
 });
 
 //?FUNCTIONS AND HANDLERS
-const onPageChange = (page) => {
-  console.log(page);
-  currPage.value = page;
-};
 
 const next = () => {
   currPage.value++;
@@ -131,6 +132,18 @@ fetchProjects();
     </UICard>
 
     <UICard>
+      <!-- <div class="">{{ pages }}</div>
+
+      <div>page {{ currPage }}</div>
+      <div>firstPage = {{ firstPage }}</div>
+      <div>Last page= {{ last }}</div>
+      <div>totalPages = {{ lastPage }}</div>
+      <div>items Per Page = {{ itemPerPage }}</div>
+      <div>total Items = {{ searchedProjects.length }}</div>
+      <div>currStartingPoint = {{ currStartingItem }}</div>
+      <div>showButtonCounter = {{ showDisplayButtons }}</div>
+      <div>pages for display {{ pagesForDisplay }}</div> -->
+
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
         <div class="row">
