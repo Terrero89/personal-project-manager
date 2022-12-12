@@ -74,8 +74,6 @@ const searchedTasks = computed(() => {
   const item = store.tasks;
   const input = searchInput;
   return store.tasks.filter((p) => {
-    //left only with name filtering for now.
-
     return (
       p.taskName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );

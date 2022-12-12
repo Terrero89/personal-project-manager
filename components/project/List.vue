@@ -3,18 +3,20 @@ import { onMounted, onBeforeMount } from "vue";
 import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
-//?REFS AND PROPERTIES
-const searchInput = ref("");
-const currPage = ref(1); //shows me the current page im in
-const pagesForDisplay = ref(3); //amount of pages i want the BUTTONS to display
-const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
-const currStartingItem = ref(0);
 //?STORE INITIALIZATION
 const route = useRoute(); //route object
 const projectStore = useProjectStore(); //projects store
 //?PROPERTIES DESTRUCTURING
 const { fetchProjects } = projectStore;
 const { projects } = storeToRefs(projectStore);
+
+//?REFS AND PROPERTIES
+const searchInput = ref("");
+const currPage = ref(1); //shows me the current page im in
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONS to display
+const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
+const currStartingItem = ref(0);
+
 //?COMPUTED PROPERTIES
 const searchedProjects = computed(() => {
   return projectStore.projects.filter((p) => {
@@ -233,7 +235,7 @@ fetchProjects();
 }
 
 .active {
-  background-color: rgba(104, 134, 255, 0.5);
+  background-color: #4aae9b;
   color: #ffffff;
 }
 
