@@ -15,7 +15,7 @@ const props = defineProps([
   "description",
   "taskNumber",
   "status",
-  "arr",
+  "modified",
 ]);
 
 const currStatus = computed(() => {
@@ -42,6 +42,8 @@ const detailsLink = computed(() => {
           <span :class="currStatus">{{
             props.status ? "Complete" : "In Progress"
           }}</span>
+
+          <!-- <span :class="currStatus">{{ props.modified }}</span> -->
         </div>
         <nuxt-link class="my-auto mr" :to="detailsLink"
           ><button type="button" class="btn-md px-3 btn btn-outline-primary mr">

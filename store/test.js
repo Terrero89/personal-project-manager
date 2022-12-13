@@ -127,6 +127,7 @@ export const useTest = defineStore({
           technologies: responseData[key].technologies,
           projectAge: responseData[key].projectAge,
           isComplete: responseData[key].isComplete,
+          dateModified: responseData[key].dateModified,
         };
         projects.push(project);
       }
@@ -537,6 +538,28 @@ export const useTest = defineStore({
         console.log("ERROR");
       }
     },
+
+
+    //NEEDS TO BE MOVED TO HISTORY STORE. WFOR NOW IT WORKS HERE/
+    async deletedHistory(data, id) {
+      const historyUrl = {
+        ...data,
+        parentId: id,
+        dateModified: new Date(),
+      };
+
+      let response = await fetch(
+        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(historyUrl),
+        }
+      );
+      if (!response.ok) {
+        console.log("ERROR HISTORY from history");
+      }
+    },
+  
   },
 });
 

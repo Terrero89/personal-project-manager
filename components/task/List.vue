@@ -1,8 +1,7 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { useProjectStore } from "@/store/projects";
-import { useTaskStore } from "@/store/tasks";
-
+import { useTaskStore } from "@/store/tasks"
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
@@ -312,9 +311,6 @@ td {
   text-align: left;
 
   /* font-size: 1.2rem;*/
-}
-
-td {
 }
 
 .table-header {

@@ -68,24 +68,23 @@ export const useHistoryStore = defineStore({
 
 
 
-    async deletedHistory(data, id) {
-      const historyUrl = {
-        ...data,
-        parentId: id,
-        id: this.historyId++,
-        dateModified: new Date(),
-      };
+    // async deletedHistory(data, id) {
+    //   const historyUrl = {
+    //     ...data,
+    //     parentId: id,
+    //     dateModified: new Date(),
+    //   };
 
-      let response = await fetch(
-        `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
-        {
-          method: "POST",
-          body: JSON.stringify(historyUrl),
-        }
-      );
-      if (!response.ok) {
-        console.log("ERROR HISTORY from history");
-      }
-    },
+    //   let response = await fetch(
+    //     `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
+    //     {
+    //       method: "POST",
+    //       body: JSON.stringify(historyUrl),
+    //     }
+    //   );
+    //   if (!response.ok) {
+    //     console.log("ERROR HISTORY from history");
+    //   }
+    // },
   },
 });

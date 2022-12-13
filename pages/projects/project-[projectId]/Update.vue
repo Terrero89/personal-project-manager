@@ -33,27 +33,26 @@ const {} = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
 
 const project = editProject(param); //will update via v-model the project reactively in component and pinia will
-// const { startDate, endDate } = project; //to convert dates into correct format
-
-const firstDate = ref("");
-const secondDate = ref("");
-
+const ageConvert = ref("");
 //converts to formatted dates, will convert the dates to a readable format.
 
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
   store.editPro = { ...store.projects[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
-  projectUpdatedToActions(store.editPro); //add to actions once updated
+  //add to actions once updated
   addHistory(store.editPro); // added to history once updated
+
   if (project.isComplete) {
     project.endDate = new Date();
+    project.age = useDateAge(project.startDate, new Date());
+    console.log("Called if it is not completed");
   } else {
-    project.endDate = secondDate.value; //project.startDate will change to the value entered on firstDate in pinia
+    project.endDate = project.dateModified;
+    project.age = useDateAge(project.startDate, project.dateModified);
+    console.log("Called if it is completed");
   }
-  project.startDate = firstDate.value; //project.startDate will change to the value entered on firstDate in pinia
-
-  project.projectAge = useDateAge(firstDate.value, new Date()); //composable that return the age of the project
+  projectUpdatedToActions(store.editPro);
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
 };
@@ -61,6 +60,10 @@ const updateProject = () => {
 
 <template>
   <div class="form-wrapper">
+    {{ project.projectAge }}-- {{ project.startDate }} ====
+    {{ project.dateModified }}
+
+    {{ useDateAge(project.startDate, project.dateModified) }}
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Update Project</p>
 
@@ -158,7 +161,7 @@ const updateProject = () => {
         </div>
         {{ project.startDate }}
         <div></div>
-        {{ project.startDate }}
+        {{ project.dateModified }}
 
         <!-- will be equal to the the project.end and start date formatted -->
       </div>

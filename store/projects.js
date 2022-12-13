@@ -93,6 +93,7 @@ export const useProjectStore = defineStore({
           technologies: responseData[key].technologies,
           projectAge: responseData[key].projectAge,
           isComplete: responseData[key].isComplete,
+          dateModified: responseData[key].dateModified
         };
         projects.push(project);
       }

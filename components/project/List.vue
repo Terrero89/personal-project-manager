@@ -12,7 +12,6 @@ const { projects } = storeToRefs(projectStore);
 
 //?REFS AND PROPERTIES
 const searchInput = ref("");
-
 const currPage = ref(1); //shows me the current page im in
 const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
 const itemPerPage = ref(5); //FIXED AMOUNT // amount of items i want to display per page
@@ -77,11 +76,9 @@ const pages = computed(() => {
 const next = () => {
   currPage.value++;
   currStartingItem.value = currStartingItem.value + itemPerPage.value; // will increase it by 5 each click
-
   if (currPage.value === lastPage.value) {
     console.log("LAST PAGE");
     let currVal = pagesForDisplay.value + 2; // 4
-    console.log(currVal + " currVal + 1");
     pagesForDisplay.value = currVal;
   }
 };
@@ -132,17 +129,7 @@ fetchProjects();
     </UICard>
 
     <UICard>
-      <!-- <div class="">{{ pages }}</div>
-
-      <div>page {{ currPage }}</div>
-      <div>firstPage = {{ firstPage }}</div>
-      <div>Last page= {{ last }}</div>
-      <div>totalPages = {{ lastPage }}</div>
-      <div>items Per Page = {{ itemPerPage }}</div>
-      <div>total Items = {{ searchedProjects.length }}</div>
-      <div>currStartingPoint = {{ currStartingItem }}</div>
-      <div>showButtonCounter = {{ showDisplayButtons }}</div>
-      <div>pages for display {{ pagesForDisplay }}</div> -->
+ 
 
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
@@ -159,6 +146,7 @@ fetchProjects();
               :category="project.category"
               :description="project.projectDescription"
               :status="project.isComplete"
+           
             />
           </div>
 
@@ -240,6 +228,10 @@ fetchProjects();
   display: flex;
   justify-content: flex-end;
 }
+.button-status {
+  display: flex;
+  justify-content: flex-end;
+}
 .button-status .button {
   margin-right: 0.4rem;
 }
@@ -249,7 +241,7 @@ fetchProjects();
 }
 
 .active {
-  background-color: #4aae9b;
+  background-color: rgba(104, 134, 255, 0.5);
   color: #ffffff;
 }
 

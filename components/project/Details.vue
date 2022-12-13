@@ -5,7 +5,7 @@ import { useTaskStore } from "@/store/tasks";
 import { useActionsStore } from "@/store/actions";
 import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted, onUpdated } from "vue";
 const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
@@ -46,9 +46,7 @@ function removeItem(id) {
 }
 
 //?HOOKS
-onMounted(() => {
-  fetchTasks();
-});
+
 fetchTasks();
 </script>
 
@@ -94,11 +92,11 @@ fetchTasks();
                 <div class="item">Category</div>
                 <p class="item-desc">{{ project.category }}</p>
                 <div class="item">Description</div>
-                <p class="item-desc">{{ project.projectDescription }}</p>
+                <p class="item-desc">{{ project.description }}</p>
                 <div class="item">Start Date</div>
                 <p class="item-desc">{{ useFormatted(project.startDate) }}</p>
                 <div class="item">End Date</div>
-                <p class="item-desc">{{ project.endDate }}</p>
+                <p class="item-desc">{{ useFormatted(project.dateModified) }}</p>
               </div>
             </div>
           </div>
@@ -107,11 +105,11 @@ fetchTasks();
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>
-            <p class="item-desc" v-if="project.projectAge === 1">
-              {{ project.projectAge }} Day old
+            <p class="item-desc" v-if="useDateAge(project.startDate, project.dateModified) === 1">
+              {{useDateAge(project.startDate, project.dateModified)}} Day old
             </p>
-            <p class="item-desc" v-if="project.projectAge > 1">
-              {{ project.projectAge }} Days old
+            <p class="item-desc" v-if="useDateAge(project.startDate, project.dateModified) > 1">
+              {{useDateAge(project.startDate, project.dateModified)}} Days old
             </p>
             <div class="item">Project Status</div>
             <p
