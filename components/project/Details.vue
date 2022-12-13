@@ -96,7 +96,8 @@ fetchTasks();
                 <div class="item">Start Date</div>
                 <p class="item-desc">{{ useFormatted(project.startDate) }}</p>
                 <div class="item">End Date</div>
-                <p class="item-desc">{{ useFormatted(project.dateModified) }}</p>
+                <p class="item-desc" v-if="project.dateModified">{{ useFormatted(project.dateModified) }}</p>
+                <p class="item-desc" v-else>No end Date yet.</p>
               </div>
             </div>
           </div>
@@ -111,6 +112,8 @@ fetchTasks();
             <p class="item-desc" v-if="useDateAge(project.startDate, project.dateModified) > 1">
               {{useDateAge(project.startDate, project.dateModified)}} Days old
             </p>
+
+            
             <div class="item">Project Status</div>
             <p
               :class="project.isComplete ? 'text-primary' : 'text-danger '"

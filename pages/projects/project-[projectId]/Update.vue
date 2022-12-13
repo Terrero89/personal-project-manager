@@ -60,8 +60,7 @@ const updateProject = () => {
 
 <template>
   <div class="form-wrapper">
-    {{ project.projectAge }}-- {{ project.startDate }} ====
-    {{ project.dateModified }}
+
 
     {{ useDateAge(project.startDate, project.dateModified) }}
     <form class="row g-3" @submit.prevent="submitForm">

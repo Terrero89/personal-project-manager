@@ -88,9 +88,8 @@ onBeforeMount(() => {
                   <div class="item">Start Date</div>
                   <p class="item-desc">{{ useFormatted(task.startDate) }}</p>
                   <div class="item">End Date</div>
-                  <p class="item-desc">
-                    {{ task.endDate ? "" : "No end date" }}
-                  </p>
+                  <p class="item-desc" v-if="task.endDate"> {{ useFormatted(task.endDate) }}</p>
+                  <p class="item-desc" v-else> No end Date yet.</p>
                 </div>
               </div>
             </div>
@@ -98,7 +97,9 @@ onBeforeMount(() => {
               <div class="item">Task Duration</div>
               <p class="item-desc">{{ task.duration }} hours</p>
               <div class="item">Task Age</div>
-              <p class="item-desc">{{ task.age }} days</p>
+              <p class="item-desc">
+                {{ useDateAge(task.startDate, task.dateModified) }} days
+              </p>
               <div class="item">Task Status</div>
               <p class="item-desc">
                 {{ task.isComplete ? "Complete" : "In Progress" }}

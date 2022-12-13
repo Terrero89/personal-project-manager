@@ -37,6 +37,16 @@ if (task.isComplete) {
   console.log("start date will be end date");
 }
 
+if (task.isComplete) {
+  task.endDate = new Date();
+  task.age = useDateAge(task.startDate, new Date());
+  console.log("Called if it is not completed");
+} else {
+  task.endDate = task.dateModified;
+  task.age = useDateAge(task.startDate, task.dateModified);
+  console.log("Called if it is completed");
+}
+
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
