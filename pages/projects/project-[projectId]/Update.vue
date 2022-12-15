@@ -43,15 +43,6 @@ const updateProject = () => {
   //add to actions once updated
   addHistory(store.editPro); // added to history once updated
 
-  if (project.isComplete) {
-    project.endDate = new Date();
-    project.age = useDateAge(project.startDate, new Date());
-    console.log("Called if it is not completed");
-  } else {
-    project.endDate = project.dateModified;
-    project.age = useDateAge(project.startDate, project.dateModified);
-    console.log("Called if it is completed");
-  }
   projectUpdatedToActions(store.editPro);
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
@@ -60,9 +51,7 @@ const updateProject = () => {
 
 <template>
   <div class="form-wrapper">
-
-
-    {{ useDateAge(project.startDate, project.dateModified) }}
+  
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Update Project</p>
 
@@ -158,11 +147,9 @@ const updateProject = () => {
             id="inputPassword4"
           />
         </div>
-        {{ project.startDate }}
-        <div></div>
-        {{ project.dateModified }}
+     
 
-        <!-- will be equal to the the project.end and start date formatted -->
+        
       </div>
       <div class="col-md-12">
         <label for="inputEmail4" class="form-label">Status</label>

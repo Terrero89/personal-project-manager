@@ -8,19 +8,17 @@ const props = defineProps(["paramId"]);
 
 const category = ref("");
 const name = ref("");
-const age = ref(0);
-const time = ref(null);
 const description = ref("");
-const status = ref(null);
+
 
 const submitForm = () => {
   const taskData = {
-    // id: taskId.value,
+    
     parentId: props.paramId,
     category: category.value,
     taskName: name.value,
-    age: age.value,
-    duration: time.value,
+    age: 1,
+    duration: 0,
     description: description.value,
     isComplete: false,
     startDate: new Date(),
@@ -40,16 +38,7 @@ const submitForm = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Task</p>
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Task Name</label>
-        <input
-          type="input"
-          v-model.trim="name"
-          class="form-control"
-          id="inputPassword4"
-        />
-      </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
@@ -67,8 +56,18 @@ const submitForm = () => {
           </option>
         </select>
       </div>
+      <div class="col-md-12">
+        <label for="inputPassword4" class="form-label">Task Name</label>
+        <input
+          type="input"
+          v-model.trim="name"
+          class="form-control"
+          id="inputPassword4"
+        />
+      </div>
+     
 
-      <div class="col-12">
+      <!-- <div class="col-12">
         <label for="duration" class="form-label">Duration</label>
         <input
           type="number"
@@ -88,7 +87,7 @@ const submitForm = () => {
           <option :value="true">Complete</option>
           <option :value="false">In Progress</option>
         </select>
-      </div>
+      </div> -->
       <div class="input-group">
         <textarea
           class="form-control"

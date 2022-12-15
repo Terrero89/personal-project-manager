@@ -256,8 +256,8 @@ export const useTest = defineStore({
       this.tasks.push({
         ...item,
         // id: this.taskId++,
-        startDate: new Date(),
-        age: 0,
+        // startDate: new Date(),
+        // age: 0,
       });
 
       const taskUrl = {

@@ -41,7 +41,6 @@ function removeTask(id) {
 onBeforeMount(() => {
   fetchTasks();
   fetchProjects();
-  console.log("printed out from tasks/details");
 });
 </script>
 
@@ -72,8 +71,7 @@ onBeforeMount(() => {
               <div class="detail">
                 <div class="content">
                   <div class="item">Task ID</div>
-                  <p class="item-desc">{{ task.id }}</p>
-
+                  <p class="item-desc">{{ useFormatId(task.id, 15, 20) }}</p>
                   <div class="item">Parent Name</div>
                   <p
                     class="item-desc"
@@ -88,8 +86,10 @@ onBeforeMount(() => {
                   <div class="item">Start Date</div>
                   <p class="item-desc">{{ useFormatted(task.startDate) }}</p>
                   <div class="item">End Date</div>
-                  <p class="item-desc" v-if="task.endDate"> {{ useFormatted(task.endDate) }}</p>
-                  <p class="item-desc" v-else> No end Date yet.</p>
+                  <p class="item-desc" v-if="task.endDate">
+                    {{ useFormatted(task.endDate) }}
+                  </p>
+                  <p class="item-desc" v-else>Task no completed</p>
                 </div>
               </div>
             </div>
@@ -97,11 +97,52 @@ onBeforeMount(() => {
               <div class="item">Task Duration</div>
               <p class="item-desc">{{ task.duration }} hours</p>
               <div class="item">Task Age</div>
-              <p class="item-desc">
-                {{ useDateAge(task.startDate, task.dateModified) }} days
+
+              <!-- <p
+                class="item-desc"
+                v-if="useDateAge(task.startDate, task.dateModified) === 0"
+              >
+                {{ useDateAge(task.startDate, task.dateModified) }} days old
+              </p> -->
+              <p
+                class="item-desc"
+                v-if="useDateAge(task.startDate, task.dateModified) === 1"
+              >
+                {{ useDateAge(task.startDate, task.dateModified) }} days old
               </p>
+
+              <p
+                class="item-desc"
+                :class="
+                  useDateAge(task.startDate, task.dateModified) > 14
+                    ? 'text-danger'
+                    : 'text-primary'
+                "
+                v-else-if="
+                  useDateAge(task.startDate, task.dateModified) > 1 &&
+                  useDateAge(task.startDate, task.dateModified) < 14
+                "
+              >
+                {{ useDateAge(task.startDate, task.dateModified) }} days 2
+              </p>
+
+              <p
+                class="item-desc"
+                :class="
+                  useDateAge(task.startDate, task.dateModified) > 14
+                    ? 'text-danger'
+                    : 'text-primary'
+                "
+                v-else-if="useDateAge(task.startDate, task.dateModified) > 14"
+              >
+                {{ useDateAge(task.startDate, task.dateModified) }} days 3
+              </p>
+
               <div class="item">Task Status</div>
-              <p class="item-desc">
+              <p
+                class="item-desc"
+                :class="task.isComplete ? 'text-primary' : 'text-danger '"
+              >
                 {{ task.isComplete ? "Complete" : "In Progress" }}
               </p>
 

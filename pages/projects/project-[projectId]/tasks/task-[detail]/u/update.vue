@@ -23,30 +23,6 @@ const task = editTask(taskParam); //will update via v-model the project reactive
 const addTime = () => task.duration++;
 const subsTime = () => task.duration--;
 
-//converts to formatted dates, will convert the dates to a readable format.
-
-//?function that will replace editable object in pinia reactively
-
-if (task.isComplete) {
-  task.endDate = new Date();
-  task.age = useDateAge(task.startDate, new Date());
-  console.log("calculated start date with current date");
-} else {
-  task.endDate = task.startDate;
-  task.age = useDateAge(task.startDate, task.endDate);
-  console.log("start date will be end date");
-}
-
-if (task.isComplete) {
-  task.endDate = new Date();
-  task.age = useDateAge(task.startDate, new Date());
-  console.log("Called if it is not completed");
-} else {
-  task.endDate = task.dateModified;
-  task.age = useDateAge(task.startDate, task.dateModified);
-  console.log("Called if it is completed");
-}
-
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
 
@@ -54,16 +30,6 @@ const updateTask = () => {
   taskUpdatedToActions(param);
   addHistory(store.editedTask); // added to history once updated
 
-  if (task.isComplete) {
-    task.endDate = new Date();
-    task.age = useDateAge(task.startDate, new Date());
-    console.log("calculated start date with current date");
-  } else {
-    task.endDate = task.startDate;
-    task.age = useDateAge(task.startDate, task.startDate);
-    console.log("start date will be end date");
-    task.endDate = task.startDate;
-  }
   task.age = useDateAge(task.startDate, task.endDate);
   updateTaskRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page

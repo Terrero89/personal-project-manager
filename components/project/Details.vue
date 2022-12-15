@@ -45,6 +45,9 @@ function removeItem(id) {
   return navigateTo("/projects"); //after, go to projects
 }
 
+//?COMPOSABLES
+// <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
+
 //?HOOKS
 
 fetchTasks();
@@ -96,8 +99,10 @@ fetchTasks();
                 <div class="item">Start Date</div>
                 <p class="item-desc">{{ useFormatted(project.startDate) }}</p>
                 <div class="item">End Date</div>
-                <p class="item-desc" v-if="project.dateModified">{{ useFormatted(project.dateModified) }}</p>
-                <p class="item-desc" v-else>No end Date yet.</p>
+                <p class="item-desc" v-if="project.isComplete">
+                  {{ useFormatted(project.dateModified) }}
+                </p>
+                <p class="item-desc" v-else>Project no completed</p>
               </div>
             </div>
           </div>
@@ -106,14 +111,40 @@ fetchTasks();
             <div class="item">Project Duration</div>
             <p class="item-desc">{{ totalDuration(param) }} hours</p>
             <div class="item">Project Age</div>
-            <p class="item-desc" v-if="useDateAge(project.startDate, project.dateModified) === 1">
-              {{useDateAge(project.startDate, project.dateModified)}} Day old
+            <p
+              class="item-desc"
+              v-if="useDateAge(project.startDate, project.dateModified) === 1"
+            >
+              {{ useDateAge(project.startDate, project.dateModified) }} Day old
             </p>
-            <p class="item-desc" v-if="useDateAge(project.startDate, project.dateModified) > 1">
-              {{useDateAge(project.startDate, project.dateModified)}} Days old
+            <p
+              :class="
+                useDateAge(project.startDate, project.dateModified) > 14
+                  ? 'text-danger'
+                  : 'text-primary'
+              "
+              class="item-desc"
+              v-else-if="
+                useDateAge(project.startDate, project.dateModified) > 1 &&
+                useDateAge(project.startDate, project.dateModified) < 15
+              "
+            >
+              {{ useDateAge(project.startDate, project.dateModified) }} Days old
+            </p>
+            <p
+              class="item-desc"
+              :class="
+                useDateAge(project.startDate, project.dateModified) > 14
+                  ? 'text-danger'
+                  : 'text-primary'
+              "
+              v-else-if="
+                useDateAge(project.startDate, project.dateModified) > 14
+              "
+            >
+              {{ useDateAge(project.startDate, project.dateModified) }} Days old
             </p>
 
-            
             <div class="item">Project Status</div>
             <p
               :class="project.isComplete ? 'text-primary' : 'text-danger '"

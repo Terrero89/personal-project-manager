@@ -9,9 +9,8 @@ const user = ref("");
 const category = ref("");
 const name = ref("");
 const technologies = ref([]);
-const age = ref(0);
 const description = ref("");
-const status = ref(false);
+
 
 const submitForm = () => {
   const projectData = {
@@ -19,13 +18,13 @@ const submitForm = () => {
     user: user.value,
     category: category.value,
     projectName: name.value,
-    age: age.value,
+    age: 1,
     description: description.value,
     isComplete: false,
     technologies: technologies.value,
-    startDate:new Date(),
-    endDate:new Date(),
-    dateModified: new Date()
+    startDate: new Date(),
+    endDate: new Date(),
+    dateModified: new Date(),
   };
 
   //will be removed once i set firebase
@@ -41,8 +40,7 @@ const submitForm = () => {
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
       <p>Add Project</p>
-     
-     
+
       <label for="inputPassword4" class="form-label">Project Name</label>
       <input
         type="input"
@@ -51,7 +49,6 @@ const submitForm = () => {
         id="inputPassword4"
       />
       <div class="input-group mb-3">
-        
         <select
           class="form-select"
           v-model="user"
@@ -89,9 +86,8 @@ const submitForm = () => {
             v-model="technologies"
             aria-label="Default select example"
           >
-
-          <label for="categories" class="form-label">Technologies</label>
-          <option value="">none</option>
+            <label for="categories" class="form-label">Technologies</label>
+            <option value="">none</option>
             <option value="React Js">React Js</option>
             <option value="Vue Js">Vue Js</option>
             <option value="HTML">Html</option>
@@ -101,7 +97,9 @@ const submitForm = () => {
             <option value="Nuxt Js">Nuxt Js</option>
             <option value="Next Js">Next Js</option>
             <option value="Python">Python</option>
-            <option value="Data Structures and Algorithms">Data Structures and Algorithms</option>
+            <option value="Data Structures and Algorithms">
+              Data Structures and Algorithms
+            </option>
             <option value="Mysql">Mysql</option>
             <option value="MongoDB">MongoDB</option>
             <option value="Node/Express Js">Node/Express Js</option>
@@ -110,12 +108,9 @@ const submitForm = () => {
             <option value="Java">Java</option>
             <option value="C">C</option>
             <option value="C++">C++</option>
-            
           </select>
         </div>
       </div>
-
-  
 
       <div class="input-group">
         <textarea
