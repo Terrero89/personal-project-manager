@@ -59,7 +59,7 @@
 }
 
 .dashboard-item {
-  border: solid rgb(7, 55, 117) 1px;
+  border: solid rgb(7, 55, 117,0.3) 1px;
   width: 30%;
   height: 20rem;
   margin: auto 0.5rem;
