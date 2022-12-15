@@ -24,7 +24,6 @@ const { fetchTasks, tasks } = taskStore;
 const { taskOfParents, hasTasks } = storeToRefs(taskStore);
 
 //? COMPUTED PROPERTIES
-
 const tasksOfParent = computed(() => taskOfParents.value);
 const getParent = computed(() => getParentName.value);
 const length = computed(() => hasTasks.value);
@@ -160,7 +159,7 @@ fetchProjects();
         <SearchFilter v-model="searchInput" />
       </UICard>
 
-      {{ pageLength }}
+     
       <UICard>
         <nuxt-link to="/projects">projects</nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">

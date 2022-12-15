@@ -98,12 +98,6 @@ onBeforeMount(() => {
               <p class="item-desc">{{ task.duration }} hours</p>
               <div class="item">Task Age</div>
 
-              <!-- <p
-                class="item-desc"
-                v-if="useDateAge(task.startDate, task.dateModified) === 0"
-              >
-                {{ useDateAge(task.startDate, task.dateModified) }} days old
-              </p> -->
               <p
                 class="item-desc"
                 v-if="useDateAge(task.startDate, task.dateModified) === 1"
@@ -120,10 +114,10 @@ onBeforeMount(() => {
                 "
                 v-else-if="
                   useDateAge(task.startDate, task.dateModified) > 1 &&
-                  useDateAge(task.startDate, task.dateModified) < 14
+                  useDateAge(task.startDate, task.dateModified) < 15
                 "
               >
-                {{ useDateAge(task.startDate, task.dateModified) }} days 2
+                {{ useDateAge(task.startDate, task.dateModified) }} days
               </p>
 
               <p
@@ -135,7 +129,7 @@ onBeforeMount(() => {
                 "
                 v-else-if="useDateAge(task.startDate, task.dateModified) > 14"
               >
-                {{ useDateAge(task.startDate, task.dateModified) }} days 3
+                {{ useDateAge(task.startDate, task.dateModified) }} days
               </p>
 
               <div class="item">Task Status</div>

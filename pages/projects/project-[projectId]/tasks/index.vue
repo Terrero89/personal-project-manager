@@ -4,7 +4,16 @@ import { onMounted, onUpdated } from "vue";
 import { storeToRefs } from "pinia";
 const store = useTest();
 const route = useRoute(); //route object
+
+//?REFS PROPERTIES
+
+const currPage = ref(1); //shows me the current page im in
+const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
+const itemPerPage = ref(1); //FIXED AMOUNT // amount of items i want to display per page
+const currStartingItem = ref(0);
 const param = route.params.projectId;
+
+
 const {
   taskList,
   fetchProjects,
@@ -23,10 +32,100 @@ const seeDetail = (parameter) => parameter;
 
 const firstFiveIdChar = (char) => char.substring(15, 20);
 
+
+const lastPage = computed(() =>
+  Math.ceil([...store.projects].length / itemPerPage.value)
+);
+
+const firstPage = computed(() => ([...store.projects].length = 1));
+
+const startPage = computed(() => {
+  if (currPage.value === 1) {
+    return 1;
+  }
+
+  if (currPage.value === lastPage.value) {
+    const start = lastPage.value - pagesForDisplay.value + 1;
+    if (start === 0) {
+      return 1;
+    } else {
+      return lastPage.value;
+    }
+  }
+
+  return currPage.value - 1;
+});
+
+const endPage = computed(() =>
+  Math.min(startPage.value + pagesForDisplay.value - 1, lastPage.value)
+);
+
+const pages = computed(() => {
+  const range = [];
+
+  for (let i = startPage.value; i <= endPage.value; i += 1) {
+    range.push({
+      name: i,
+      isActive: i === currPage.value,
+    });
+  }
+
+  return range;
+});
 onMounted(() => {
   fetchTasks();
   fetchProjects();
 });
+
+
+//?FUNCTIONS AND HANDLERS
+
+const onPageChange = (page) => {
+  
+  currPage.value = page;
+};
+
+const next = () => {
+  currPage.value++;
+  currStartingItem.value = currStartingItem.value + itemPerPage.value; // will increase it by 5 each click
+
+  if (currPage.value === lastPage.value) {
+   
+    let currVal = pagesForDisplay.value + 2; // 4
+   
+    pagesForDisplay.value = currVal;
+  }
+};
+
+const prev = () => {
+  // let counter = itemPerPage.value; // 3
+  currPage.value--;
+  currStartingItem.value = currStartingItem.value - itemPerPage.value;
+  if (currPage.value === firstPage.value) {
+  }
+};
+
+const first = () => {
+  let changed = (currPage.value = 1);
+  currStartingItem.value = 0;
+  return changed;
+};
+
+//FIX THIS PART RIGHT
+const last = (page) => {
+  let changed = page * itemPerPage.value - itemPerPage.value;
+  itemPerPage.value = page;
+  currPage.value = page;
+  currStartingItem.value = changed;
+  return changed;
+};
+
+const onClickPage = (page) => {
+  let changed = page * itemPerPage.value - itemPerPage.value; //multiply by the value of the amount of items i want to see.
+  currPage.value = page;
+  currStartingItem.value = changed;
+  return changed;
+};
 
 fetchTasks();
 fetchProjects();
@@ -37,9 +136,9 @@ fetchProjects();
     <div class="task-list">
       <UITitle title="Tasks" class="border-bottom" />
 
-      <UICard>
+      <!-- <UICard>
         <SearchFilter />
-      </UICard>
+      </UICard> -->
 
       <UICard>
         <h3
@@ -61,7 +160,10 @@ fetchProjects();
 
           <div
             class="row mx-sx-2 task"
-            v-for="task in tasksOfParent"
+            v-for="task in [...tasksOfParent].splice(
+              currStartingItem,
+              itemPerPage
+            )"
             :key="task"
           >
             <div class="col fw-bold">{{ useFormatId(task.id, 15, 20) }}</div>
@@ -86,6 +188,55 @@ fetchProjects();
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-center">
+        <button
+          class="page-btn"
+          type="button"
+          :disabled="currPage === 1"
+          :class="{ disabled: currPage === 1 }"
+          @click="first"
+        >
+          |--
+        </button>
+        <button
+          class="page-btn"
+          type="button"
+          :disabled="currPage === 1"
+          :class="{ disabled: currPage === 1 }"
+          @click="prev"
+        >
+          Prev
+        </button>
+        <li
+          class="page-btn border-dark"
+          :class="{ active: page.name === currPage }"
+          type="button"
+          v-for="page in pages"
+          :key="page"
+        >
+          <div type="button" @click="onClickPage(page.name)">
+            {{ page.name }}
+          </div>
+        </li>
+        <div
+          class="page-btn"
+          type="button"
+          :disabled="currPage === lastPage"
+          :class="{ disabled: currPage === lastPage }"
+          @click="next"
+        >
+          Next
+        </div>
+        <button
+          class="page-btn"
+          type="button"
+          :disabled="currPage === lastPage"
+          :class="{ disabled: currPage === lastPage }"
+          @click="last(lastPage)"
+        >
+          --|
+        </button>
+      </div>
       </UICard>
 
       <div class="row"></div>
@@ -177,5 +328,29 @@ td {
   max-width: 1650px;
 
   padding: 2rem;
+}
+
+.button-status {
+  display: flex;
+  justify-content: flex-end;
+}
+.button-status .button {
+  margin-right: 0.4rem;
+}
+
+.disabled {
+  color: rgb(187, 185, 185);
+}
+
+.active {
+  background-color: rgba(104, 134, 255, 0.5);
+  color: #ffffff;
+}
+
+.page-btn {
+  border-radius: 5px;
+  margin: 0.1rem;
+  border: solid rgb(151, 151, 151) 1px;
+  padding: 0.1rem 0.3rem;
 }
 </style>

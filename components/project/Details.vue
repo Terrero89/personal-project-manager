@@ -60,7 +60,7 @@ fetchTasks();
       v-for="project in projectById(param)"
       :key="project.id"
     >
-      <div class="container detail-container">
+      <div class="container detail-container ">
         <UITitle title="Project Details" class="border-bottom" />
         <UICard>
           <div class="row">
@@ -71,7 +71,7 @@ fetchTasks();
             </div>
           </div>
         </UICard>
-        <div class="row bg-light">
+        <div class="row bg-light ">
           <div class="header">
             <h3 class="mx-2">
               {{ project.projectName }}
@@ -215,6 +215,7 @@ fetchTasks();
 </template>
 
 <style scoped>
+
 .remover {
   list-style: none;
 }
