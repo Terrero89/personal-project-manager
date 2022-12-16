@@ -25,30 +25,25 @@ const subsTime = () => task.duration--;
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
-
   store.editedTask = { ...store.tasks[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
   taskUpdatedToActions(param);
   addHistory(store.editedTask); // added to history once updated
-
   task.age = useDateAge(task.startDate, task.endDate);
   updateTaskRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page
 };
 
-// onBeforeMount(() => {
-//   fetchProjects();
-//   console.log("Fetching projects  and tasks in project/details");
-//   fetchTasks();
-// });
-// console.log({ ...store.editTask(taskParam) });
-// console.log(store.updateRequest(taskParam))
-// console.log(store.editedTask);
+onBeforeMount(() => {
+  fetchProjects();
+  console.log("Fetching projects  and tasks in project/details");
+  fetchTasks();
+});
 </script>
 
 <template>
   <div class="form-wrapper">
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Update Task</p>
+      <h3 class="mb-4">Update Task</h3>
 
       <div class="col-12">
         <label for="inputPassword4" class="form-label">Task Name</label>
@@ -61,16 +56,17 @@ const updateTask = () => {
       </div>
 
       <div class="wrap row">
-        <label for="inputEmail4" class="form-label mt-2">Time</label>
+        <label for="inputEmail4" class="form-label">Time</label>
 
-        <div
-          class="d-flex justify-content-center counter col-6 col-lg-11 col-md-4 col-sm-4 my-0 mx-auto"
-        >
-          <button type="button" class="btn btn-danger" @click="subsTime">
+        <div class="d-flex justify-content-center">
+          <button
+            type="button"
+            class="btn btn-danger col-lg-5 mx-2"
+            @click="subsTime"
+          >
             -
           </button>
-          <div class="col-12 col-lg-8 col-md-6 col-sm-8 mx-5">
-            <!-- <label for="duration" class="form-label">Duration</label> -->
+          <div class="col-lg-3 col">
             <input
               type="input"
               class="form-control"
@@ -79,7 +75,11 @@ const updateTask = () => {
             />
           </div>
 
-          <button type="button" class="btn btn-primary" @click="addTime">
+          <button
+            type="button"
+            class="btn btn-primary col-lg-5 mx-2"
+            @click="addTime"
+          >
             +
           </button>
         </div>
@@ -96,7 +96,8 @@ const updateTask = () => {
           <option :value="false">In Progress</option>
         </select>
       </div>
-      <div class="input-group">
+      <div class="">
+        <label for="inputEmail4" class="form-label">Description</label>
         <textarea
           class="form-control"
           v-model="task.description"
@@ -105,7 +106,11 @@ const updateTask = () => {
       </div>
 
       <div class="col-12">
-        <button @click="updateTask" type="submit" class="btn btn-primary">
+        <button
+          @click="updateTask"
+          type="submit"
+          class="btn btn-primary py-2 px-4"
+        >
           Update
         </button>
       </div>
@@ -121,5 +126,12 @@ const updateTask = () => {
   border: solid rgb(143, 143, 143, 0.2) 1px;
   margin: 1rem auto;
   padding: 2.7rem 1.5rem;
+}
+
+label {
+  color: rgb(77, 73, 73);
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0.5rem 0;
 }
 </style>

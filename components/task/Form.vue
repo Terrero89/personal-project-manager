@@ -10,10 +10,8 @@ const category = ref("");
 const name = ref("");
 const description = ref("");
 
-
 const submitForm = () => {
   const taskData = {
-    
     parentId: props.paramId,
     category: category.value,
     taskName: name.value,
@@ -35,10 +33,11 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div class="form-wrapper">
+  <div class="form-wrapper ">
+   
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Add Task</p>
-      <div class="col-md-12">
+      <h3 class="mb-4">Add Task</h3>
+      <div>
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
@@ -56,7 +55,8 @@ const submitForm = () => {
           </option>
         </select>
       </div>
-      <div class="col-md-12">
+
+      <div>
         <label for="inputPassword4" class="form-label">Task Name</label>
         <input
           type="input"
@@ -65,30 +65,8 @@ const submitForm = () => {
           id="inputPassword4"
         />
       </div>
-     
-
-      <!-- <div class="col-12">
-        <label for="duration" class="form-label">Duration</label>
-        <input
-          type="number"
-          class="form-control"
-          id="duration"
-          placeholder="Enter Time"
-          v-model.trim="time"
-        />
-      </div>
-      <div class="col-md-12">
-        <label for="inputEmail4" class="form-label">Status</label>
-        <select
-          class="form-select"
-          v-model="status"
-          aria-label="Default select example"
-        >
-          <option :value="true">Complete</option>
-          <option :value="false">In Progress</option>
-        </select>
-      </div> -->
-      <div class="input-group">
+      <div>
+        <label for="inputPassword4" class="form-label">Description</label>
         <textarea
           class="form-control"
           v-model="description"
@@ -96,8 +74,8 @@ const submitForm = () => {
         />
       </div>
 
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div>
+        <button type="submit" class="btn btn-primary py-2 px-4">Submit</button>
       </div>
     </form>
   </div>
@@ -111,5 +89,12 @@ const submitForm = () => {
   border: solid rgb(143, 143, 143, 0.2) 1px;
   margin: 1rem auto;
   padding: 2.7rem 1.5rem;
+}
+
+label {
+color: rgb(77, 73, 73);
+font-weight: 400;
+font-size: 1rem;
+  margin: 0.5rem 0;
 }
 </style>

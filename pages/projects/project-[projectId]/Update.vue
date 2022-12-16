@@ -51,11 +51,11 @@ const updateProject = () => {
 
 <template>
   <div class="form-wrapper">
-  
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Update Project</p>
+      <h3 class="mb-4">Update Project</h3>
 
-      <div class="input-group mb-3">
+      <div class="">
+        <label for="inputPassword4" class="form-label">Project Name</label>
         <select
           class="form-select"
           v-model="project.user"
@@ -69,7 +69,7 @@ const updateProject = () => {
         </select>
       </div>
 
-      <div class="col-md-6">
+      <div class="">
         <label for="inputPassword4" class="form-label">Project Name</label>
         <input
           type="input"
@@ -78,7 +78,7 @@ const updateProject = () => {
           id="inputPassword4"
         />
       </div>
-      <div class="col-md-6">
+      <div class="">
         <label for="inputEmail4" class="form-label">Category</label>
         <select
           class="form-select"
@@ -91,7 +91,7 @@ const updateProject = () => {
           <option value="Backend Development">School Assignments</option>
         </select>
       </div>
-      <div class="col">
+      <div class="">
         <label for="inputEmail4" class="form-label">Technologies</label>
         <select
           class="form-select"
@@ -127,31 +127,7 @@ const updateProject = () => {
         </select>
       </div>
 
-      <div class="row">
-        <div class="col-6">
-          <label for="inputEmail4" class="form-label">Start Date</label>
-          <input
-            type="input"
-            v-model="project.startDate"
-            class="form-control"
-            id="inputEmail4"
-          />
-        </div>
-
-        <div class="col-6">
-          <label for="inputPassword4" class="form-label"> End Date</label>
-          <input
-            type="input"
-            v-model="project.endDate"
-            class="form-control"
-            id="inputPassword4"
-          />
-        </div>
-     
-
-        
-      </div>
-      <div class="col-md-12">
+      <div class="">
         <label for="inputEmail4" class="form-label">Status</label>
         <select
           class="form-select"
@@ -171,10 +147,10 @@ const updateProject = () => {
         />
       </div>
 
-      <div class="col-12">
-        <button @click="updateProject" type="submit" class="btn btn-primary">
-          Update
-        </button>
+      <div >
+          <button @click="updateProject"  type="submit" class="btn btn-primary py-2 px-4">Update</button>
+      
+      
       </div>
     </form>
   </div>
@@ -188,5 +164,12 @@ const updateProject = () => {
   border: solid rgb(143, 143, 143, 0.2) 1px;
   margin: 1rem auto;
   padding: 2.7rem 1.5rem;
+}
+
+label {
+  color: rgb(77, 73, 73);
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0.5rem 0;
 }
 </style>

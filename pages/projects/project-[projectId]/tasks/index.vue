@@ -9,7 +9,7 @@ const route = useRoute(); //route object
 
 const currPage = ref(1); //shows me the current page im in
 const pagesForDisplay = ref(3); //amount of pages i want the BUTTONSto display
-const itemPerPage = ref(1); //FIXED AMOUNT // amount of items i want to display per page
+const itemPerPage = ref(4); //FIXED AMOUNT // amount of items i want to display per page
 const currStartingItem = ref(0);
 const param = route.params.projectId;
 
@@ -30,7 +30,7 @@ const tasksOfp = computed(() => tasksUnderProject(param));
 const length = computed(() => hasTasks.value); //check for the length of specific id
 const seeDetail = (parameter) => parameter;
 
-const firstFiveIdChar = (char) => char.substring(15, 20);
+
 
 
 const lastPage = computed(() =>
@@ -136,9 +136,7 @@ fetchProjects();
     <div class="task-list">
       <UITitle title="Tasks" class="border-bottom" />
 
-      <!-- <UICard>
-        <SearchFilter />
-      </UICard> -->
+    
 
       <UICard>
         <h3

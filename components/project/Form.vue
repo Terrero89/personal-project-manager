@@ -11,7 +11,6 @@ const name = ref("");
 const technologies = ref([]);
 const description = ref("");
 
-
 const submitForm = () => {
   const projectData = {
     // id: projectId.value,
@@ -38,17 +37,12 @@ const submitForm = () => {
 
 <template>
   <div class="form-wrapper">
+   
     <form class="row g-3" @submit.prevent="submitForm">
-      <p>Add Project</p>
+      <h3 class="mb-4">Update Project</h3>
+      <div>
+        <label for="categories" class="form-label">Category</label>
 
-      <label for="inputPassword4" class="form-label">Project Name</label>
-      <input
-        type="input"
-        v-model.trim="name"
-        class="form-control"
-        id="inputPassword4"
-      />
-      <div class="input-group mb-3">
         <select
           class="form-select"
           v-model="user"
@@ -62,57 +56,65 @@ const submitForm = () => {
         </select>
       </div>
 
-      <label for="categories" class="form-label">Category</label>
-
-      <div class="row">
-        <div class="col">
-          <select
-            class="form-select"
-            v-model="category"
-            aria-label="Default select example"
-          >
-            <option disabled value="">Project Category</option>
-            <option value="Frontend Development">Frontend Development</option>
-            <option value="Backend Development">Backend Development</option>
-            <option value="Backend Development">Full Stack</option>
-            <option value="Backend Development">School Assignments</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <select
-            multiple
-            class="form-select"
-            v-model="technologies"
-            aria-label="Default select example"
-          >
-            <label for="categories" class="form-label">Technologies</label>
-            <option value="">none</option>
-            <option value="React Js">React Js</option>
-            <option value="Vue Js">Vue Js</option>
-            <option value="HTML">Html</option>
-            <option value="CSS">Css</option>
-            <option value="Tailwind">Tailwind</option>
-            <option value="bulma">Bulma</option>
-            <option value="Nuxt Js">Nuxt Js</option>
-            <option value="Next Js">Next Js</option>
-            <option value="Python">Python</option>
-            <option value="Data Structures and Algorithms">
-              Data Structures and Algorithms
-            </option>
-            <option value="Mysql">Mysql</option>
-            <option value="MongoDB">MongoDB</option>
-            <option value="Node/Express Js">Node/Express Js</option>
-            <option value="Flask">Flask</option>
-            <option value="Django">Django</option>
-            <option value="Java">Java</option>
-            <option value="C">C</option>
-            <option value="C++">C++</option>
-          </select>
-        </div>
+      <div>
+        <label for="inputPassword4" class="form-label">Project Name</label>
+        <input
+          type="input"
+          v-model.trim="name"
+          class="form-control"
+          id="name-input"
+        />
       </div>
 
-      <div class="input-group">
+      <div>
+        <label for="categories" class="form-label">Category</label>
+
+        <select
+          class="form-select"
+          v-model="category"
+          aria-label="Default select example"
+        >
+          <option disabled value="">Project Category</option>
+          <option value="Frontend Development">Frontend Development</option>
+          <option value="Backend Development">Backend Development</option>
+          <option value="Backend Development">Full Stack</option>
+          <option value="Backend Development">School Assignments</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="categories" class="form-label">Technologies</label>
+
+        <select
+          multiple
+          class="form-select"
+          v-model="technologies"
+          aria-label="Default select example"
+        >
+          <option value="React Js">React Js</option>
+          <option value="Vue Js">Vue Js</option>
+          <option value="HTML">Html</option>
+          <option value="CSS">Css</option>
+          <option value="Tailwind">Tailwind</option>
+          <option value="bulma">Bulma</option>
+          <option value="Nuxt Js">Nuxt Js</option>
+          <option value="Next Js">Next Js</option>
+          <option value="Python">Python</option>
+          <option value="Data Structures and Algorithms">
+            Data Structures and Algorithms
+          </option>
+          <option value="Mysql">Mysql</option>
+          <option value="MongoDB">MongoDB</option>
+          <option value="Node/Express Js">Node/Express Js</option>
+          <option value="Flask">Flask</option>
+          <option value="Django">Django</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+          <option value="C++">C++</option>
+        </select>
+      </div>
+
+      <div>
         <textarea
           class="form-control"
           v-model="description"
@@ -120,8 +122,8 @@ const submitForm = () => {
         />
       </div>
 
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <div>
+        <button type="submit" class="btn btn-primary py-2 px-4">Submit</button>
       </div>
     </form>
   </div>
@@ -135,5 +137,12 @@ const submitForm = () => {
   border: solid rgb(143, 143, 143, 0.2) 1px;
   margin: 1rem auto;
   padding: 2.7rem 1.5rem;
+}
+
+label {
+color: rgb(77, 73, 73);
+font-weight: 400;
+font-size: 1rem;
+  margin: 0.5rem 0;
 }
 </style>

@@ -50,6 +50,10 @@ export const useTaskStore = defineStore({
             return accumulator + item.duration;
           }, 0);
     },
+
+    projectComplete: (state) => {},
+    projectInProgressPercent: (state) => {},
+    projectDue: (state) => {},
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
