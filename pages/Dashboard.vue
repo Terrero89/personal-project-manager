@@ -1,6 +1,6 @@
 <script setup>
 import { useProjectStore } from "@/store/projects";
-
+import { onUpdated } from "vue";
 import { storeToRefs } from "pinia";
 
 //?STORE INITIALIZATION
@@ -9,13 +9,22 @@ const projectStore = useProjectStore();
 
 //?PROPERTIES DESTRUCTURING
 
-const { fetchProjects, projectActive, projectCompletionAvg } = projectStore;
-const { projectInProgressPercent,projectTotals } = storeToRefs(projectStore);
-const active = computed(() => projectActive.length);
+const { fetchProjects, projectActive } = projectStore;
+const {
+  projectInProgressPercent,
+  projectCompletionAvg,
+  projectsOverdue,
+  projectTotals,
+} = storeToRefs(projectStore);
+
 const successAverage = computed(() => projectCompletionAvg);
 const inProgressAvg = computed(() => projectInProgressPercent);
-const total = computed(() => projectTotals)
+const overdue = computed(() => projectsOverdue);
+const total = computed(() => projectTotals);
 fetchProjects();
+onUpdated(() => {
+  fetchProjects();
+});
 </script>
 
 <template>
@@ -27,15 +36,19 @@ fetchProjects();
           <div class="project-info">
             <h5>Projects</h5>
             <p>
-              project completed
-              <span> {{ projectCompletionAvg}}%</span>
+            completed
+              <span> {{ successAverage }}%</span>
             </p>
             <p>
-              project in progress<span> {{ inProgressAvg }} %</span>
+             in progress <span> {{ inProgressAvg }} %</span>
             </p>
-            <p>project due<span> 5%</span></p>
+            <p>
+            completion success <span> {{ overdue }} % </span>
+            </p>
             <p>Completion average<span> 16 Days</span></p>
-            <p>Total Projects: <span> {{total}}  </span></p>
+            <p>
+              Total Projects: <span> {{ total }} </span>
+            </p>
           </div>
         </div>
         <div class="dashboard-item">
@@ -44,7 +57,9 @@ fetchProjects();
           <p>Tasks in progress<span> 28%</span></p>
           <p>Tasks due<span> 5%</span></p>
           <p>Completion average<span> 2 Days</span></p>
-          <p>Total Tasks<span> {{total}} </span></p>
+          <p>
+            Total Tasks<span> {{ total }} </span>
+          </p>
         </div>
         <div class="dashboard-item">
           <h5>Actions</h5>
