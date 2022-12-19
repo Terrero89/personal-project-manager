@@ -13,13 +13,15 @@ const { fetchProjects, projectActive } = projectStore;
 const {
   projectInProgressPercent,
   projectCompletionAvg,
-  projectsOverdue,
+  projectsSuccess,
   projectTotals,
+  completeAverageDays,
 } = storeToRefs(projectStore);
 
 const successAverage = computed(() => projectCompletionAvg);
 const inProgressAvg = computed(() => projectInProgressPercent);
-const overdue = computed(() => projectsOverdue);
+const projectCompletionSuccess = computed(() => projectsSuccess);
+const averageDays = computed(() => completeAverageDays)
 const total = computed(() => projectTotals);
 fetchProjects();
 onUpdated(() => {
@@ -28,59 +30,9 @@ onUpdated(() => {
 </script>
 
 <template>
-  <div>
-    <h3>DASHBOARD PAGE</h3>
-    <div class="dashboard">
-      <div class="dash-border">
-        <div class="dashboard-item">
-          <div class="project-info">
-            <h5>Projects</h5>
-            <p>
-            completed
-              <span> {{ successAverage }}%</span>
-            </p>
-            <p>
-             in progress <span> {{ inProgressAvg }} %</span>
-            </p>
-            <p>
-            completion success <span> {{ overdue }} % </span>
-            </p>
-            <p>Completion average<span> 16 Days</span></p>
-            <p>
-              Total Projects: <span> {{ total }} </span>
-            </p>
-          </div>
-        </div>
-        <div class="dashboard-item">
-          <h5>Tasks</h5>
-          <p>Tasks completed <span> 25%</span></p>
-          <p>Tasks in progress<span> 28%</span></p>
-          <p>Tasks due<span> 5%</span></p>
-          <p>Completion average<span> 2 Days</span></p>
-          <p>
-            Total Tasks<span> {{ total }} </span>
-          </p>
-        </div>
-        <div class="dashboard-item">
-          <h5>Actions</h5>
-          <p>Total Actions<span> 25%</span></p>
-          <p>Delete Actions<span> 28%</span></p>
-          <p>Update Actions<span> 5%</span></p>
-          <p>Add Actions<span> 25</span></p>
-          <p>Total Actions<span> 45 </span></p>
-        </div>
-        <div class="dashboard-item">
-          <h5>History</h5>
-          <p>Total Actions<span> 25%</span></p>
-          <p>Delete Actions<span> 28%</span></p>
-          <p>Update Actions<span> 5%</span></p>
-          <p>Add Actions<span> 25</span></p>
-          <p>Total Actions<span> 45 </span></p>
-        </div>
-        <div class="dashboard-item">5</div>
-      </div>
-    </div>
-  </div>
+<div>
+  <DashboardItem/>
+</div>
 </template>
 
 <style scoped>
@@ -100,7 +52,7 @@ onUpdated(() => {
 .dashboard-item {
   border: solid rgb(7, 55, 117, 0.3) 1px;
   width: 30%;
-  height: 20rem;
+
   margin: auto 0.5rem;
   border-radius: 10px;
   padding: 2rem 1rem;

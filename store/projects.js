@@ -65,27 +65,35 @@ export const useProjectStore = defineStore({
       const active = this.projectActive.length;
       const notActive = this.projectInProgress.length;
       const calculation = active + notActive;
+     
       return calculation;
     },
     projectInProgressPercent() {
       return 100 - this.projectCompletionAvg;
     },
     //?calculates the percentage of projects not completed that are under 15 days old
-    projectsOverdue: (state) => {
+    projectsSuccess: (state) => {
       const allInProgressProjects = state.projects.filter((project) => !project.isComplete) //all projects in progress
       const overdueProjects = allInProgressProjects.filter((p) => p.projectAge > 15).length; // all projects over age 15
       const notOverdueProjects = allInProgressProjects.filter((p) => p.projectAge < 15).length; // all projects under age 15
       const calculation = (notOverdueProjects/ (overdueProjects + notOverdueProjects)) * 100 //calculation for percentage calculation
-      return calculation
+     
+      return parseFloat(calculation);
     },
+  //?average days completed is the total days of all completed proeject between completed projects
+    completeAverageDays() {
+      //reducer that will calculate the number of days in completed projects
+      const sum = this.projectActive.reduce((acc, obj) => {
+        return acc + obj.projectAge
+      }, 0)
+      return Math.ceil(sum / this.projectActive.length)
+    }
   
 
  
   },
 
-  // projectComplete:(state)=> {},
-
-  // projectDue:(state) => {},
+  
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
     // async fetchPosts() {
