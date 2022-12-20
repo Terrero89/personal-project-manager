@@ -58,18 +58,20 @@ export const useProjectStore = defineStore({
       const active = this.projectActive.length;
       const notActive = this.projectInProgress.length;
       const calculation = (notActive / (active + notActive)) * 100;
-      return calculation;
+      return parseFloat(calculation.toFixed(2));
     },
 
     projectTotals() {
       const active = this.projectActive.length;
       const notActive = this.projectInProgress.length;
       const calculation = active + notActive;
-     
-      return calculation;
+    return parseFloat(calculation.toFixed(2));
     },
     projectInProgressPercent() {
-      return 100 - this.projectCompletionAvg;
+      const calculation = 100 - this.projectCompletionAvg;
+
+      return parseFloat(calculation.toFixed(2));
+  
     },
     //?calculates the percentage of projects not completed that are under 15 days old
     projectsSuccess: (state) => {
@@ -78,7 +80,7 @@ export const useProjectStore = defineStore({
       const notOverdueProjects = allInProgressProjects.filter((p) => p.projectAge < 15).length; // all projects under age 15
       const calculation = (notOverdueProjects/ (overdueProjects + notOverdueProjects)) * 100 //calculation for percentage calculation
      
-      return parseFloat(calculation);
+      return parseFloat(calculation.toFixed(2));
     },
   //?average days completed is the total days of all completed proeject between completed projects
     completeAverageDays() {

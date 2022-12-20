@@ -33,65 +33,103 @@ onUpdated(() => {
   <h3>DASHBOARD PAGE</h3>
   <div class="dashboard">
     <div class="dash-border">
-      <div class="dashboard-item">
-        <div class="project-info">
-          <h5>Projects</h5>
-          <p>
-            completed
-            <span> {{ successAverage }}%</span>
-          </p>
-          <p>
-            in progress <span> {{ inProgressAvg }} %</span>
-          </p>
-          <p>
-            completion success <span> {{ projectCompletionSuccess }} % </span>
-          </p>
-          <p>
-            Completion average<span>-{{ averageDays }}-Days</span>
-          </p>
-          <p>
-            Total Projects: <span> {{ total }} </span>
-          </p>
+      <div class="dashboard-item my-">
+        <div class="dashboard-info m-3">
+          <h5 class="my-3">Projects</h5>
+          <div class="item d-flex justify-content-between">
+            <div class="title">Total</div>
+            <span class="fs-2 fw-bolder"> {{ total }} </span>
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completed</div>
+            <span class="digit text-primary fw-bold">
+              {{ successAverage }}%</span
+            >
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">In Progress</div>
+            <span class="digit text-danger fw-bold"> {{ inProgressAvg }}%</span>
+          </div>
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completion success</div>
+            <span class="digit text-success fw-bold">
+              {{ projectCompletionSuccess }}%</span
+            >
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completion average</div>
+            <span
+              class="digit fw-bold badge rounded-pill bg-info text-dark px-2"
+              >{{ averageDays }} Days
+            </span>
+          </div>
         </div>
       </div>
-      <div class="dashboard-item">
-        <h5>Tasks</h5>
-        <p>Tasks completed <span> 25%</span></p>
-        <p>Tasks in progress<span> 28%</span></p>
-        <p>Tasks due<span> 5%</span></p>
-        <p>Completion average<span> 2 Days</span></p>
-        <p>
-          Total Tasks<span> {{ total }} </span>
-        </p>
+
+         <div class="dashboard-item my-5">
+        <div class="dashboard-info m-3">
+          <h5 class="my-3">Projects</h5>
+          <div class="item d-flex justify-content-between">
+            <div class="title">Total</div>
+            <span class="fs-2 fw-bolder"> {{ total }} </span>
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completed</div>
+            <span class="digit text-primary fw-bold">
+              {{ successAverage }}%</span
+            >
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">In Progress</div>
+            <span class="digit text-danger fw-bold"> {{ inProgressAvg }}%</span>
+          </div>
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completion success</div>
+            <span class="digit text-success fw-bold">
+              {{ projectCompletionSuccess }}%</span
+            >
+          </div>
+
+          <div class="item d-flex justify-content-between">
+            <div class="title">Completion average</div>
+            <span
+              class="digit fw-bold badge rounded-pill bg-info text-dark px-2"
+              >{{ averageDays }} Days
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="dashboard-item">
-        <h5>Actions</h5>
-        <p>Total Actions<span> 25%</span></p>
-        <p>Delete Actions<span> 28%</span></p>
-        <p>Update Actions<span> 5%</span></p>
-        <p>Add Actions<span> 25</span></p>
-        <p>Total Actions<span> 45 </span></p>
-      </div>
-      <div class="dashboard-item">
-        <h5>History</h5>
-        <p>Total Actions<span> 25%</span></p>
-        <p>Delete Actions<span> 28%</span></p>
-        <p>Update Actions<span> 5%</span></p>
-        <p>Add Actions<span> 25</span></p>
-        <p>Total Actions<span> 45 </span></p>
-      </div>
-      <div class="dashboard-item">5</div>
+
     </div>
+    
   </div>
 </template>
 
 <style scoped>
+.digit {
+  font-size: 1.05rem;
+  /* border: solid black 0.5px;
+  border-radius: 50%; */
+  padding: 0.2rem 0;
+}
+.title {
+  color: rgb(78, 78, 78);
+  margin: auto 0;
+}
+.item {
+  margin: 0.5rem 0;
+}
 .dashboard {
   min-height: 40vh;
 }
 
 .dash-border {
-  border: solid red 1px;
+  /* border: solid red 1px; */
   min-height: 90vh;
   display: flex;
   flex-wrap: wrap;
@@ -100,13 +138,14 @@ onUpdated(() => {
 }
 
 .dashboard-item {
-  border: solid rgb(7, 55, 117, 0.3) 1px;
+  /* border: solid rgb(7, 55, 117, 0.1) 1px; */
   width: 30%;
-  height: 20rem;
+
   margin: auto 0.5rem;
   border-radius: 10px;
   padding: 2rem 1rem;
   align-items: center;
+  box-shadow: 5px 5px 34px -7px rgba(0, 0, 0, 0.55);
 }
 
 @media screen and (max-width: 768px) {
