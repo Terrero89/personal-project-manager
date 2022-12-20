@@ -47,55 +47,63 @@ export const useProjectStore = defineStore({
       return (id) => parent.filter((task) => task.parentId === id);
     },
 
-    taskOfParents: (state) => (id) => state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
+    taskOfParents: (state) => (id) =>
+      state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
 
     getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
     projectActive: (state) =>
       state.projects.filter((project) => project.isComplete),
-    projectInProgress: (state) => state.projects.filter((project) => !project.isComplete),
+    projectInProgress: (state) =>
+      state.projects.filter((project) => !project.isComplete),
 
     projectCompletionAvg() {
       const active = this.projectActive.length;
       const notActive = this.projectInProgress.length;
       const calculation = (notActive / (active + notActive)) * 100;
-      return parseFloat(calculation.toFixed(2));
+     
+
+      return parseFloat(calculation);
     },
 
     projectTotals() {
       const active = this.projectActive.length;
       const notActive = this.projectInProgress.length;
       const calculation = active + notActive;
-    return parseFloat(calculation.toFixed(2));
+      return parseFloat(calculation.toFixed(2));
     },
     projectInProgressPercent() {
       const calculation = 100 - this.projectCompletionAvg;
 
       return parseFloat(calculation.toFixed(2));
-  
     },
     //?calculates the percentage of projects not completed that are under 15 days old
     projectsSuccess: (state) => {
-      const allInProgressProjects = state.projects.filter((project) => !project.isComplete) //all projects in progress
-      const overdueProjects = allInProgressProjects.filter((p) => p.projectAge > 15).length; // all projects over age 15
-      const notOverdueProjects = allInProgressProjects.filter((p) => p.projectAge < 15).length; // all projects under age 15
-      const calculation = (notOverdueProjects/ (overdueProjects + notOverdueProjects)) * 100 //calculation for percentage calculation
-     
+      const allInProgressProjects = state.projects.filter(
+        (project) => !project.isComplete
+      ); //all projects in progress
+      const overdueProjects = allInProgressProjects.filter(
+        (p) => p.projectAge > 15
+      ).length; // all projects over age 15
+      const notOverdueProjects = allInProgressProjects.filter(
+        (p) => p.projectAge < 15
+      ).length; // all projects under age 15
+      const calculation =
+        (notOverdueProjects / (overdueProjects + notOverdueProjects)) * 100; //calculation for percentage calculation
+
       return parseFloat(calculation.toFixed(2));
+
+      // return parseFloat(calculation);
     },
-  //?average days completed is the total days of all completed proeject between completed projects
+    //?average days completed is the total days of all completed proeject between completed projects
     completeAverageDays() {
       //reducer that will calculate the number of days in completed projects
       const sum = this.projectActive.reduce((acc, obj) => {
-        return acc + obj.projectAge
-      }, 0)
-      return Math.ceil(sum / this.projectActive.length)
-    }
-  
-
- 
+        return acc + obj.projectAge;
+      }, 0);
+      return Math.ceil(sum / this.projectActive.length);
+    },
   },
 
-  
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
     // async fetchPosts() {

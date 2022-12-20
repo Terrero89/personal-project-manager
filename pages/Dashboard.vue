@@ -37,9 +37,10 @@ onUpdated(() => {
 </script>
 
 <template>
-  <DashboardItem
-
-  />
+ <div>
+   <DashboardItem />
+ </div>
+  
 </template>
 
 <style scoped></style>
