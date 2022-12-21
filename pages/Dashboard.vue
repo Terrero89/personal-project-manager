@@ -33,14 +33,14 @@ const total = computed(() => projectTotals);
 fetchProjects();
 onUpdated(() => {
   fetchProjects();
-})
+});
 </script>
 
 <template>
- <div>
-   <DashboardItem />
- </div>
+  <div>
+    <DashboardItem />
   
+  </div>
 </template>
 
 <style scoped></style>
