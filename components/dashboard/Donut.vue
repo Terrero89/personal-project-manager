@@ -7,22 +7,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
 import { DoughnutChart, useDoughnutChart } from "vue-chart-3";
 import { Chart, ChartData, ChartOptions, registerables } from "chart.js";
 
 Chart.register(...registerables);
 export default defineComponent({
-  name: "App",
   components: { DoughnutChart },
-  setup() {
-    const dataValues = ref([32, 68, 82.35, 9]);
-    const dataLabels = ref([
-      "Complete",
-      "In Progress",
-      "Success Rate",
-      "Average days",
-    ]);
+
+  setup(props) {
+    const dataValues = ref([32, 68]);
+
+    const dataLabels = ref(["Complete", "In Progress"]);
+
+    const name = ref("Sergio");
     const toggleLegend = ref(true);
 
     const testData = computed<ChartData<"doughnut">>(() => ({
@@ -30,7 +27,7 @@ export default defineComponent({
       datasets: [
         {
           data: dataValues.value,
-          backgroundColor: ["#0079AF", "#FF8C00", "#008000", "#B22222"],
+          backgroundColor: ["#0079AF", "#FF8C00"],
         },
       ],
       hoverOffset: 20,
@@ -49,7 +46,7 @@ export default defineComponent({
         },
         title: {
           display: true,
-          text: "Projects Chart",
+          text: "Projects Charts",
         },
       },
     }));
@@ -86,13 +83,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
