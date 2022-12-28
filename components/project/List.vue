@@ -115,9 +115,10 @@ const onClickPage = (page) => {
 
 //?HOOKS
 onMounted(() => {
+fetchProjects();
   fetchProjects();
 });
-fetchProjects();
+
 </script>
 
 <template>

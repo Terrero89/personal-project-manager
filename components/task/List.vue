@@ -1,7 +1,7 @@
 <script setup>
 import { useTest } from "@/store/test";
 import { useProjectStore } from "@/store/projects";
-import { useTaskStore } from "@/store/tasks"
+import { useTaskStore } from "@/store/tasks";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
@@ -159,7 +159,6 @@ fetchProjects();
         <SearchFilter v-model="searchInput" />
       </UICard>
 
-     
       <UICard>
         <nuxt-link to="/projects">projects</nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">
@@ -201,7 +200,13 @@ fetchProjects();
               >
                 <button
                   type="button"
-                  class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
+                  class="
+                    btn btn-outline-primary
+                    border-primary
+                    px-1 px-md-3 px-lg-3
+                    rounded
+                    border-none
+                  "
                 >
                   Details
                 </button>

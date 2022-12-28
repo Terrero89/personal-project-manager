@@ -1,11 +1,12 @@
 <script setup></script>
 
 <template>
+  <div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid">
-       <NuxtLink class="nav-link active" aria-current="page" to="/"
-              >Project Manager</NuxtLink
-            >
+      <!-- <NuxtLink class="nav-link active" aria-current="page" to="/"
+        >Project Manager</NuxtLink
+      > -->
       <button
         class="navbar-toggler"
         type="button"
@@ -50,6 +51,7 @@
       </div>
     </div>
   </nav>
+  </div>
 </template>
 
 <style scoped>

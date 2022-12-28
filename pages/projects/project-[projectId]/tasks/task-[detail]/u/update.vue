@@ -12,27 +12,29 @@ const {
   taskAddedToActions,
   taskUpdatedToActions,
   editTask,
-  editedTask ,
+
   updateTaskRequest,
   fetchProjects,
   fetchTasks,
 } = store;
-const { tasks, taskId, history, } = storeToRefs(store);
+const { tasks, history, editedTask } = storeToRefs(store);
 const props = defineProps(["paramId"]);
-const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
+const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
 
-const addTime = () => task.duration++;
-const subsTime = () => task.duration--;
+const addTime = () => task.value.duration++;
+const subsTime = () => task.value.duration--;
+
+
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
   store.editedTask = { ...store.tasks[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
   //once updated
-  addHistory(store.editedTask); // added to history 
-  taskUpdatedToActions(param);  // added to actions
+  addHistory(store.editedTask); // added to history
+  task.value.age = useDateAge(task.value.startDate, task.value.endDate);
+  taskUpdatedToActions(param); // added to actions
   updateTaskRequest(taskParam);
-  task.age = useDateAge(task.startDate, task.endDate);
-  // navigateTo("/projects"); //redirect to projects page
+  navigateTo("/projects"); //redirect to projects page
 };
 
 // onBeforeMount(() => {
@@ -40,8 +42,6 @@ const updateTask = () => {
 
 //   fetchTasks();
 // });
-fetchProjects();
-fetchTasks();
 </script>
 
 <template>

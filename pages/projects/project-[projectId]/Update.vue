@@ -22,7 +22,7 @@ const {
   addHistory,
   editProject,
   projectUpdatedToActions,
-  historyByProject,
+
   updateProjectRequest,
 } = store;
 const { projects, history, editPro } = storeToRefs(store);
