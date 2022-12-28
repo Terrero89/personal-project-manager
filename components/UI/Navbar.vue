@@ -3,7 +3,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Project Manager</a>
+       <NuxtLink class="nav-link active" aria-current="page" to="/"
+              >Project Manager</NuxtLink
+            >
       <button
         class="navbar-toggler"
         type="button"

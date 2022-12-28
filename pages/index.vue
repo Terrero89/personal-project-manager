@@ -39,8 +39,17 @@ onUpdated(() => {
 <template>
   <div>
     <DashboardItem />
-  
   </div>
+
+  <section class="test mx-5">
+    <div>Testing sect</div>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.test {
+  min-height: 80vh;
+  border: solid red 1px;
+  background-color: red;
+}
+</style>

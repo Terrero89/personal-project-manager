@@ -9,21 +9,23 @@ import { onMounted, onUpdated } from "vue";
 const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
+const error = ref(null)
 //?STORE INITIALIZATION
 const store = useTest();
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const actionsStore = useActionsStore();
 const historyStore = useHistoryStore();
+
 //?PROPERTIES DESTRUCTURING
 const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
 const {} = actionsStore;
 const {} = storeToRefs(actionsStore);
 const { deleteProject, projectDeletedToActions } = projectStore;
-const { findParentChild } = storeToRefs(projectStore);
+const { findParentChild,isAllTaskCompleted} = storeToRefs(projectStore);
 const { fetchTasks } = taskStore;
-const { totalTaskDuration, hasTasks } = storeToRefs(taskStore);
+const { totalTaskDuration, hasTasks,testing } = storeToRefs(taskStore);
 const { filterItemById } = storeToRefs(store);
 
 //? COMPUTED PROPERTIES
@@ -35,6 +37,10 @@ const parentChild = computed(() => findParentChild.value);
 const numberOfTasks = computed(() => hasTasks.value); //check for the length of specific id
 const totalDuration = computed(() => totalTaskDuration.value); // calculates total tasks duration for specific project.
 
+
+function validateAndShowModal() {
+  
+}
 //?FUNCTIONS AND HANDLERS
 function removeItem(id) {
   //function that executes the deleted arg.
@@ -55,6 +61,8 @@ fetchTasks();
 
 <template>
   <div>
+
+    {{testing(param) ? 'is trueeeeee' : 'is falseeeee' }}
     <div
       class="project-detail"
       v-for="project in projectById(param)"

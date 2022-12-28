@@ -32,8 +32,8 @@ const {} = storeToRefs(historyStore);
 const {} = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
 
-const project = editProject(param); //will update via v-model the project reactively in component and pinia will
-const ageConvert = ref("");
+const project = computed(() => editProject(param)); //will update via v-model the project reactively in component and pinia will
+
 //converts to formatted dates, will convert the dates to a readable format.
 
 //?function that will replace editable object in pinia reactively
@@ -42,7 +42,6 @@ const updateProject = () => {
   store.editPro = { ...store.projects[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
   //add to actions once updated
   addHistory(store.editPro); // added to history once updated
-
   projectUpdatedToActions(store.editPro);
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
@@ -147,10 +146,14 @@ const updateProject = () => {
         />
       </div>
 
-      <div >
-          <button @click="updateProject"  type="submit" class="btn btn-primary py-2 px-4">Update</button>
-      
-      
+      <div>
+        <button
+          @click="updateProject"
+          type="submit"
+          class="btn btn-primary py-2 px-4"
+        >
+          Update
+        </button>
       </div>
     </form>
   </div>

@@ -98,22 +98,25 @@ export const useProjectStore = defineStore({
       }, 0);
       return Math.ceil(sum / this.projectActive.length);
     },
+
+    isAllTaskCompleted: (state) => {
+      //?first find the parent of children, \
+      //?then check for children that have completed
+      //? then check if all children under that id are completed
+      //exaMPLE BELOW
+      const id = 25
+      const findChildren = [false, true, false, true]
+      const findChildren2 = [true, true];
+      let checker = arr => arr.every(v => v === true)
+      console.log(checker(findChildren2))
+      
+      
+    },
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
-    // async fetchPosts() {
-    //   this.projects = []
-
-    //   try {
-    //     this.projects = await fetch('https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json')
-    //     .then((response) => response.json())
-    //   } catch (error) {
-    //     this.error = error
-    //   } finally {
-    //     this.loading = false
-    //   }
-    // },
+  
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"

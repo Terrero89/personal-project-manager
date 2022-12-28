@@ -51,9 +51,15 @@ export const useTaskStore = defineStore({
           }, 0);
     },
 
-    projectComplete: (state) => {},
-    projectInProgressPercent: (state) => {},
-    projectDue: (state) => {},
+    //?WILL CHECK IF ALL TASKS UNDER SPECIFIC PROJECT ARE COMPLETED OR NOT.
+    testing(state, id) {
+      const tasks = state.tasks.filter((t) => t.id); //get all the tasks
+      const checkTasks = (id) => tasks.filter((t) => t.parentId === id).every(v => v.isComplete === true ) //get the tasks that parent id === id array with all tasks =
+      return checkTasks
+    },
+    // projectComplete: (state) => {},
+    // projectInProgressPercent: (state) => {},
+    // projectDue: (state) => {},
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
@@ -182,9 +188,9 @@ export const useTaskStore = defineStore({
       };
       fetch(url, options).then((response) => console.log(response.status));
 
-      // if (!response.ok) {
-      //   console.log("Super error 400");
-      // }
+      if (!response.ok) {
+        console.log("Super error 400");
+      }
     },
 
     async taskAddedToActions(id) {

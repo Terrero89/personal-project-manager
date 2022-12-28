@@ -363,7 +363,7 @@ export const useTest = defineStore({
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(payload),
       };
-      fetch(url, options).then((response) => console.log(response.status));
+      fetch(url, options).then((response) => console.log(response.status + " Good"));
 
       // if (!response.ok) {
       //   console.log("Super error 400");
