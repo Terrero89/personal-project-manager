@@ -89,10 +89,10 @@ onUpdated(() => {
 
       <div class="row chart-items my-3">
         <div class="col chart-box">
-          <LazyDashboardTest2 />
+          <DashboardTest2 />
         </div>
         <div class="col-lg-6 px-3 chart-box">
-          <LazyDashboardDonut />
+          <DashboardDonut />
         </div>
       </div>
     </div>
