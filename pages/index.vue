@@ -3,13 +3,13 @@ import { useProjectStore } from "@/store/projects";
 import { onUpdated } from "vue";
 import { storeToRefs } from "pinia";
 
-const props = defineProps([
-  "title",
-  "totalProjects",
-  "completed",
-  "progress",
-  "completionAverage",
-]);
+// const props = defineProps([
+//   "title",
+//   "totalProjects",
+//   "completed",
+//   "progress",
+//   "completionAverage",
+// ]);
 //?STORE INITIALIZATION
 
 const projectStore = useProjectStore();
@@ -38,12 +38,9 @@ onUpdated(() => {
 
 <template>
   <div>
-    <DashboardItem />
+    <!-- <DashboardItem /> -->
   </div>
 
-  <section class="test mx-5">
-    <div>Testing sect</div>
-  </section>
 </template>
 
 <style scoped>
