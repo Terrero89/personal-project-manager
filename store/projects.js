@@ -35,6 +35,7 @@ export const useProjectStore = defineStore({
         return p.projectName.toLowerCase().includes(item);
       }),
     projectList: (state) => state.projects,
+    taskList: (state) => state.tasks,
 
     // hasActions: (state) => state.actions.length > 0,
     filterItemById(state) {
@@ -49,6 +50,7 @@ export const useProjectStore = defineStore({
 
     taskOfParents: (state) => (id) =>
       state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
+<<<<<<< HEAD
 
     getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
     projectActive: (state) =>
@@ -112,6 +114,9 @@ export const useProjectStore = defineStore({
       
       
     },
+=======
+    getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
+>>>>>>> correctPoint
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
@@ -143,7 +148,6 @@ export const useProjectStore = defineStore({
           technologies: responseData[key].technologies,
           projectAge: responseData[key].projectAge,
           isComplete: responseData[key].isComplete,
-          dateModified: responseData[key].dateModified,
         };
         projects.push(project);
       }
@@ -242,9 +246,9 @@ export const useProjectStore = defineStore({
         console.log("response from pinia " + response.status)
       );
 
-      if (!response.ok) {
-        console.log("Super error 400");
-      }
+      // if (!response.ok) {
+      //   console.log("Super error 400");
+      // }
     },
 
     async projectAddedToActions(id) {

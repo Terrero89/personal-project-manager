@@ -100,7 +100,7 @@ onBeforeMount(() => {
 
               <p
                 class="item-desc"
-                v-if="useDateAge(task.startDate, task.dateModified) === 1"
+                v-if="useDateAge(task.startDate, task.dateModified) === 0"
               >
                 {{ useDateAge(task.startDate, task.dateModified) }} days old
               </p>

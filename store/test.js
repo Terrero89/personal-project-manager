@@ -263,7 +263,7 @@ export const useTest = defineStore({
       const taskUrl = {
         ...item,
         startDate: new Date(),
-        age: 0,
+        age: 1,
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json`,

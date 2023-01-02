@@ -11,7 +11,11 @@ const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
 const error = ref(null);
+
 //?STORE INITIALIZATION
+
+
+
 const store = useTest();
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
@@ -23,7 +27,11 @@ const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
 const {} = actionsStore;
 const {} = storeToRefs(actionsStore);
-const { deleteProject, projectDeletedToActions,fetchProjects } = projectStore;
+
+
+
+const { deleteProject, projectDeletedToActions, fetchProjects } = projectStore;
+
 const { findParentChild } = storeToRefs(projectStore);
 const { fetchTasks } = taskStore;
 const { totalTaskDuration, hasTasks, testing } = storeToRefs(taskStore);
@@ -55,7 +63,11 @@ console.log(typeof(testing.value(param)))
 //?HOOKS
 onBeforeMount(() => {
   fetchTasks();
-  fetchProjects();
+
+
+
+  fetchProjects()
+
 });
 
 fetchTasks();
@@ -63,7 +75,15 @@ fetchTasks();
 
 <template>
   <div>
-    {{ testing(param) ? "is trueeeeee" : "is falseeeee" }}
+
+
+
+    <!-- {{
+      testing(param)
+        ? "is trueeeeee all task are completed"
+        : "is falseeeee they are not"
+    }} -->
+
     <div
       class="project-detail"
       v-for="project in projectById(param)"

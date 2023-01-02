@@ -26,12 +26,11 @@ const submitForm = () => {
     dateModified: new Date(),
   };
 
-  //will be removed once i set firebase
   addProject(projectData); //add project to pinia
   addHistory(projectData); //add history to pinia
   projectAddedToActions(props.param); //add project to actions
   navigateTo("/projects"); //after, go to projects
-  console.log(projectData);
+  // console.log(projectData);
 };
 </script>
 

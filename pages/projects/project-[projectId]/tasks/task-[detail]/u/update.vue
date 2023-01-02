@@ -1,12 +1,35 @@
 <script setup>
 import { onMounted, onBeforeMount } from "vue";
 import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
+import { useTaskStore } from "@/store/tasks";
+import { useActionsStore } from "@/store/actions";
+import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
 
-const store = useTest();
 const route = useRoute(); //route object
 const taskParam = route.params.detail;
+const props = defineProps(["paramId"]);
 const param = route.params.projectId;
+//?STORE INITIALIZATION
+const store = useTest();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const actionsStore = useActionsStore();
+const historyStore = useHistoryStore();
+
+//?PROPERTIES DESTRUCTURING
+// const { } = historyStore;
+// const {} = storeToRefs(historyStore);
+// const {} = actionsStore;
+// const {} = storeToRefs(actionsStore);
+// const { } = projectStore;
+// const { } = storeToRefs(projectStore);
+// const {  } = taskStore;
+// const {} = storeToRefs(taskStore);
+// const { } = storeToRefs(store);
+
+
 const {
   addHistory,
   taskAddedToActions,
@@ -18,6 +41,7 @@ const {
   fetchTasks,
 } = store;
 const { tasks, history, editedTask } = storeToRefs(store);
+<<<<<<< HEAD
 const props = defineProps(["paramId"]);
 const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
 
@@ -25,6 +49,15 @@ const addTime = () => task.value.duration++;
 const subsTime = () => task.value.duration--;
 
 
+=======
+
+//? COMPUTED PROPERTIES
+const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
+
+//?FUNCTIONS AND HANDLERS
+const addTime = () => task.value.duration++;
+const subsTime = () => task.value.duration--;
+>>>>>>> correctPoint
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced

@@ -50,7 +50,7 @@ export const useHistoryStore = defineStore({
       const historyUrl = {
         ...data,
         startDate: new Date(),
-        age: 0,
+        
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/history.json`,
@@ -63,10 +63,6 @@ export const useHistoryStore = defineStore({
         console.log("ERROR HISTORY");
       }
     },
-
-
-
-
 
     // async deletedHistory(data, id) {
     //   const historyUrl = {

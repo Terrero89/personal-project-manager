@@ -1,5 +1,6 @@
 <script setup>
 import { useTest } from "@/store/test";
+import { useTaskStore } from "@/store/tasks";
 import { storeToRefs } from "pinia";
 const store = useTest();
 const { addHistory, taskAddedToActions, addTask } = store;
@@ -9,6 +10,7 @@ const props = defineProps(["paramId"]);
 const category = ref("");
 const name = ref("");
 const description = ref("");
+
 
 const submitForm = () => {
   const taskData = {
