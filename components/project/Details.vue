@@ -78,11 +78,11 @@ fetchTasks();
 
 
 
-    <!-- {{
+    {{
       testing(param)
         ? "is trueeeeee all task are completed"
         : "is falseeeee they are not"
-    }} -->
+    }}
 
     <div
       class="project-detail"

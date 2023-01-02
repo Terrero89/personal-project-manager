@@ -37,12 +37,10 @@ export const useTaskStore = defineStore({
     taskOfParents: (state) => (id) =>
       state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
 
-    //?finding specific project tasks total hours
+
+    //?FINDS PROJECT SPECIFIC TASKS TOTAL HOURS
     totalTaskDuration: (state) => {
-      //?find all tasks by ids
       const tasks = state.tasks.filter((p) => p.id);
-      //?Filter tasks parentID that are equal to parameter
-      //?calculates the total of the hours by id with reduce
       return (id) =>
         tasks
           .filter((p) => p.parentId === id)
@@ -54,7 +52,6 @@ export const useTaskStore = defineStore({
     //?WILL CHECK IF ALL TASKS UNDER SPECIFIC PROJECT ARE COMPLETED OR NOT.
     testing(state, id) {
       const tasks = state.tasks.filter((t) => t.id); //get all the tasks
-
       const checkTasks = (id) => tasks.filter((t) => t.parentId === id).every(v => v.isComplete === true ) //get the tasks that parent id === id array with all tasks =
       return checkTasks
 
