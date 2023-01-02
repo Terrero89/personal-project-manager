@@ -2,6 +2,7 @@
   <div>
     <UINavbar />
     <NuxtPage />
+    <UINavBottom />
   </div>
 </template>
 

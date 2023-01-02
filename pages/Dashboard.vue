@@ -38,8 +38,8 @@ onUpdated(() => {
 
 <template>
   <div>
+
     <DashboardItem />
-  
   </div>
 </template>
 

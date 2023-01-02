@@ -5,6 +5,8 @@ import { useTaskStore } from "@/store/tasks";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
+
+
 //?REFS PROPERTIES
 const searchInput = ref("");
 const currPage = ref(1); //shows me the current page im in

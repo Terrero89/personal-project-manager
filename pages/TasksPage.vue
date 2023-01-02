@@ -5,13 +5,11 @@ const store = useTest();
 const route = useRoute(); //route object
 
 const param = route.params.projectId;
-
 </script>
 
 <template>
-  <div >
-    <TaskList/>
-    
+  <div>
+
+    <TaskList />
   </div>
 </template>
-

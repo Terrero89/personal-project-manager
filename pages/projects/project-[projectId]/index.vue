@@ -15,6 +15,7 @@ fetchActions();
 
 <template>
   <div>
+
     <ProjectDetails :id="param" />
 
     <UICard>

@@ -124,12 +124,13 @@ onMounted(() => {
 
 <template>
   <div>
+
     <UICard>
       <UITitle
         title="History"
         class="d-flex justify-content-start mx-3 border-bottom"
       />
-  
+
       <HistoryItem
         v-for="item in [...history].splice(currStartingItem, itemPerPage)"
         :key="item.id"
@@ -212,7 +213,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
 .button-status .button {
   margin-right: 0.4rem;
 }

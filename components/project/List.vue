@@ -99,7 +99,7 @@ const first = () => {
 
 //FIX THIS PART RIGHT
 const last = (page) => {
-  let changed = (page * itemPerPage.value) - itemPerPage.value;
+  let changed = page * itemPerPage.value - itemPerPage.value;
   itemPerPage.value = page;
   currPage.value = page;
   currStartingItem.value = changed;
@@ -107,7 +107,7 @@ const last = (page) => {
 };
 
 const onClickPage = (page) => {
-  let changed = (page * itemPerPage.value) - itemPerPage.value; //multiply by the value of the amount of items i want to see.
+  let changed = page * itemPerPage.value - itemPerPage.value; //multiply by the value of the amount of items i want to see.
   currPage.value = page;
   currStartingItem.value = changed;
   return changed;
@@ -115,13 +115,13 @@ const onClickPage = (page) => {
 
 //?HOOKS
 onMounted(() => {
-fetchProjects();
+  fetchProjects();
   fetchProjects();
 });
-
 </script>
 
 <template>
+
   <div class="projects">
     <UITitle title="Projects" class="container border-bottom" />
     <!-- <ProjectCategories /> -->
@@ -130,8 +130,6 @@ fetchProjects();
     </UICard>
 
     <UICard>
- 
-
       <!-- search bar starts here should be emitted from component-->
       <div class="container">
         <div class="row">
@@ -147,7 +145,6 @@ fetchProjects();
               :category="project.category"
               :description="project.projectDescription"
               :status="project.isComplete"
-           
             />
           </div>
 

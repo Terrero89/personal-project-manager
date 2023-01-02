@@ -13,7 +13,6 @@ const itemPerPage = ref(4); //FIXED AMOUNT // amount of items i want to display 
 const currStartingItem = ref(0);
 const param = route.params.projectId;
 
-
 const {
   taskList,
   fetchProjects,
@@ -29,9 +28,6 @@ const getParent = computed(() => getParentName(param));
 const tasksOfp = computed(() => tasksUnderProject(param));
 const length = computed(() => hasTasks.value); //check for the length of specific id
 const seeDetail = (parameter) => parameter;
-
-
-
 
 const lastPage = computed(() =>
   Math.ceil([...store.projects].length / itemPerPage.value)
@@ -77,11 +73,9 @@ onMounted(() => {
   fetchProjects();
 });
 
-
 //?FUNCTIONS AND HANDLERS
 
 const onPageChange = (page) => {
-  
   currPage.value = page;
 };
 
@@ -90,9 +84,8 @@ const next = () => {
   currStartingItem.value = currStartingItem.value + itemPerPage.value; // will increase it by 5 each click
 
   if (currPage.value === lastPage.value) {
-   
     let currVal = pagesForDisplay.value + 2; // 4
-   
+
     pagesForDisplay.value = currVal;
   }
 };
@@ -132,113 +125,113 @@ fetchProjects();
 </script>
 
 <template>
-  <div class="tasks-wrapper d-flex">
-    <div class="task-list">
-      <UITitle title="Tasks" class="border-bottom" />
+  <div>
+    <UINavbar />
+    <div class="tasks-wrapper d-flex">
+      <div class="task-list">
+        <UITitle title="Tasks" class="border-bottom" />
 
-    
-
-      <UICard>
-        <h3
-          style="color: black; font-size: size 1.5rem"
-          v-for="parent in getParent"
-          :key="parent.id"
-        >
-          {{ parent.projectName }}
-        </h3>
-
-        <nuxt-link to="/projects">projects</nuxt-link>
-        <div class="row mx-lg-5 mx-sx-2 border-1">
-          <div class="row fw-bold header border d-inline-flex">
-            <div class="col">ID</div>
-            <div class="col">Task Name</div>
-            <div class="col">Status</div>
-            <div class="col">Details</div>
-          </div>
-
-          <div
-            class="row mx-sx-2 task"
-            v-for="task in [...tasksOfParent].splice(
-              currStartingItem,
-              itemPerPage
-            )"
-            :key="task"
+        <UICard>
+          <h3
+            style="color: black; font-size: size 1.5rem"
+            v-for="parent in getParent"
+            :key="parent.id"
           >
-            <div class="col fw-bold">{{ useFormatId(task.id, 15, 20) }}</div>
-            <div class="col flex-wrap">{{ task.taskName }}</div>
-            <div class="col">
-              {{ task.isComplete ? "Complete" : "Progress" }}
+            {{ parent.projectName }}
+          </h3>
+
+          <nuxt-link to="/projects">projects</nuxt-link>
+          <div class="row mx-lg-5 mx-sx-2 border-1">
+            <div class="row fw-bold header border d-inline-flex">
+              <div class="col">ID</div>
+              <div class="col">Task Name</div>
+              <div class="col">Status</div>
+              <div class="col">Details</div>
             </div>
-            <div class="col">
-              <Nuxt-Link
-                class=""
-                :to="`/projects/project-${param}/tasks/task-${seeDetail(
-                  task.id
-                )}`"
-              >
-                <button
-                  type="button"
-                  class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
+
+            <div
+              class="row mx-sx-2 task"
+              v-for="task in [...tasksOfParent].splice(
+                currStartingItem,
+                itemPerPage
+              )"
+              :key="task"
+            >
+              <div class="col fw-bold">{{ useFormatId(task.id, 15, 20) }}</div>
+              <div class="col flex-wrap">{{ task.taskName }}</div>
+              <div class="col">
+                {{ task.isComplete ? "Complete" : "Progress" }}
+              </div>
+              <div class="col">
+                <Nuxt-Link
+                  class=""
+                  :to="`/projects/project-${param}/tasks/task-${seeDetail(
+                    task.id
+                  )}`"
                 >
-                  Details
-                </button>
-              </Nuxt-Link>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
+                  >
+                    Details
+                  </button>
+                </Nuxt-Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="d-flex justify-content-center">
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === 1"
-          :class="{ disabled: currPage === 1 }"
-          @click="first"
-        >
-          |--
-        </button>
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === 1"
-          :class="{ disabled: currPage === 1 }"
-          @click="prev"
-        >
-          Prev
-        </button>
-        <li
-          class="page-btn border-dark"
-          :class="{ active: page.name === currPage }"
-          type="button"
-          v-for="page in pages"
-          :key="page"
-        >
-          <div type="button" @click="onClickPage(page.name)">
-            {{ page.name }}
+          <div class="d-flex justify-content-center">
+            <button
+              class="page-btn"
+              type="button"
+              :disabled="currPage === 1"
+              :class="{ disabled: currPage === 1 }"
+              @click="first"
+            >
+              |--
+            </button>
+            <button
+              class="page-btn"
+              type="button"
+              :disabled="currPage === 1"
+              :class="{ disabled: currPage === 1 }"
+              @click="prev"
+            >
+              Prev
+            </button>
+            <li
+              class="page-btn border-dark"
+              :class="{ active: page.name === currPage }"
+              type="button"
+              v-for="page in pages"
+              :key="page"
+            >
+              <div type="button" @click="onClickPage(page.name)">
+                {{ page.name }}
+              </div>
+            </li>
+            <div
+              class="page-btn"
+              type="button"
+              :disabled="currPage === lastPage"
+              :class="{ disabled: currPage === lastPage }"
+              @click="next"
+            >
+              Next
+            </div>
+            <button
+              class="page-btn"
+              type="button"
+              :disabled="currPage === lastPage"
+              :class="{ disabled: currPage === lastPage }"
+              @click="last(lastPage)"
+            >
+              --|
+            </button>
           </div>
-        </li>
-        <div
-          class="page-btn"
-          type="button"
-          :disabled="currPage === lastPage"
-          :class="{ disabled: currPage === lastPage }"
-          @click="next"
-        >
-          Next
-        </div>
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === lastPage"
-          :class="{ disabled: currPage === lastPage }"
-          @click="last(lastPage)"
-        >
-          --|
-        </button>
+        </UICard>
+
+        <div class="row"></div>
       </div>
-      </UICard>
-
-      <div class="row"></div>
-
       <div v-if="length(param) < 1">No tasks available at this moment</div>
     </div>
   </div>

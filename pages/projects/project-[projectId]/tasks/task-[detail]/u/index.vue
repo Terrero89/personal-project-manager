@@ -29,71 +29,74 @@ function deleteTask(id, parent) {
 </script>
 
 <template>
-  <div class="tasks-wrapper">
-    <div class="task-list">
-      <div
-        class="project-detail"
-        v-for="project in findTaskDetail(taskParam)"
-        :key="project.id"
-      >
-     
-        <div class="container detail-container">
-          <UITitle title="Task Details" class="border-bottom" />
+  <div>
+   
+    <div class="tasks-wrapper">
+      
+      <div class="task-list">
+        <div
+          class="project-detail"
+          v-for="project in findTaskDetail(taskParam)"
+          :key="project.id"
+        >
+          <div class="container detail-container">
+            <UITitle title="Task Details" class="border-bottom" />
 
-          <div class="row">
-            <div class="header">
-              <h3
-                style="color: black; font-size: size 1.5rem"
-                v-for="task in findTaskDetail(taskParam)"
-                :key="task.id"
-              >
-                {{ task.taskName }}
-              </h3>
-            </div>
+            <div class="row">
+              <div class="header">
+                <h3
+                  style="color: black; font-size: size 1.5rem"
+                  v-for="task in findTaskDetail(taskParam)"
+                  :key="task.id"
+                >
+                  {{ task.taskName }}
+                </h3>
+              </div>
 
-            <div class="col">
-              <div class="detail">
-                <div class="content">
-                  <div class="item">Task ID</div>
-                  <p class="item-desc">{{ project.id }}</p>
+              <div class="col">
+                <div class="detail">
+                  <div class="content">
+                    <div class="item">Task ID</div>
+                    <p class="item-desc">{{ project.id }}</p>
 
-                  <div class="item">Parent Name</div>
-                  <p
-                    class="item-desc"
-                    v-for="parent in projectParent(param)"
-                    :key="parent.id"
-                  >
-                    {{ parent.projectName }}
-                  </p>
+                    <div class="item">Parent Name</div>
+                    <p
+                      class="item-desc"
+                      v-for="parent in projectParent(param)"
+                      :key="parent.id"
+                    >
+                      {{ parent.projectName }}
+                    </p>
 
-                  <div class="item">Description</div>
-                  <p class="item-desc">{{ project.description }}</p>
-                  <div class="item">Start Date</div>
-                  <p class="item-desc">{{ project.startDate }}</p>
-                  <div class="item">End Date</div>
-                  <p class="item-desc">{{ project.endDate }}</p>
+                    <div class="item">Description</div>
+                    <p class="item-desc">{{ project.description }}</p>
+                    <div class="item">Start Date</div>
+                    <p class="item-desc">{{ project.startDate }}</p>
+                    <div class="item">End Date</div>
+                    <p class="item-desc">{{ project.endDate }}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col">
-              <div class="item">Task Duration</div>
-              <p class="item-desc">{{ project.duration }} hours</p>
-              <div class="item">Task Age</div>
-              <p class="item-desc">{{ project.age }} days</p>
-              <div class="item">Task Status</div>
-              <p v-if="project.isComplete">Complete</p>
-              <p v-if="!project.isComplete">In Progress</p>
-              <div class="">
-                <button
-                  type="button"
-                  @click="deleteTask(taskParam, project.parentId)"
-                  class="btn btn-danger"
-                >
-                  Delete
-                </button>
-                <button type="button" class="btn btn-outline-primary">
-                  Update
-                </button>
+              <div class="col">
+                <div class="item">Task Duration</div>
+                <p class="item-desc">{{ project.duration }} hours</p>
+                <div class="item">Task Age</div>
+                <p class="item-desc">{{ project.age }} days</p>
+                <div class="item">Task Status</div>
+                <p v-if="project.isComplete">Complete</p>
+                <p v-if="!project.isComplete">In Progress</p>
+                <div class="">
+                  <button
+                    type="button"
+                    @click="deleteTask(taskParam, project.parentId)"
+                    class="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                  <button type="button" class="btn btn-outline-primary">
+                    Update
+                  </button>
+                </div>
               </div>
             </div>
           </div>

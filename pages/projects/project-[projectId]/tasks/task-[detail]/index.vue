@@ -48,6 +48,7 @@ onBeforeMount(() => {
 
 <template>
   <div>
+   
     <TaskDetails :id="taskParam" />
     <!-- <UICard>
        <h5>task related actions</h5>
@@ -61,7 +62,7 @@ onBeforeMount(() => {
          :date-modified="useFormatted(action.dateModified)"
        /> 
      </UICard> -->
-    
+  
   </div>
 </template>
 
