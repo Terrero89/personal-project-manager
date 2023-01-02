@@ -35,6 +35,7 @@ export const useProjectStore = defineStore({
         return p.projectName.toLowerCase().includes(item);
       }),
     projectList: (state) => state.projects,
+    taskList: (state) => state.tasks,
 
     // hasActions: (state) => state.actions.length > 0,
     filterItemById(state) {
@@ -47,45 +48,11 @@ export const useProjectStore = defineStore({
       return (id) => parent.filter((task) => task.parentId === id);
     },
 
-    taskOfParents: (state) => (id) => state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
-
+    taskOfParents: (state) => (id) =>
+      state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
     getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
-    projectActive: (state) =>
-      state.projects.filter((project) => project.isComplete),
-    projectInProgress: (state) => state.projects.filter((project) => !project.isComplete),
-
-    projectCompletionAvg() {
-      const active = this.projectActive.length;
-      const notActive = this.projectInProgress.length;
-      const calculation = (notActive / (active + notActive)) * 100;
-      return calculation;
-    },
-
-    projectTotals() {
-      const active = this.projectActive.length;
-      const notActive = this.projectInProgress.length;
-      const calculation = active + notActive;
-      return calculation;
-    },
-    projectInProgressPercent() {
-      return 100 - this.projectCompletionAvg;
-    },
-    //?calculates the percentage of projects not completed that are under 15 days old
-    projectsOverdue: (state) => {
-      const allInProgressProjects = state.projects.filter((project) => !project.isComplete) //all projects in progress
-      const overdueProjects = allInProgressProjects.filter((p) => p.projectAge > 15).length; // all projects over age 15
-      const notOverdueProjects = allInProgressProjects.filter((p) => p.projectAge < 15).length; // all projects under age 15
-      const calculation = (notOverdueProjects/ (overdueProjects + notOverdueProjects)) * 100 //calculation for percentage calculation
-      return calculation
-    },
-  
-
- 
   },
 
-  // projectComplete:(state)=> {},
-
-  // projectDue:(state) => {},
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
     // async fetchPosts() {
@@ -126,7 +93,6 @@ export const useProjectStore = defineStore({
           technologies: responseData[key].technologies,
           projectAge: responseData[key].projectAge,
           isComplete: responseData[key].isComplete,
-          dateModified: responseData[key].dateModified,
         };
         projects.push(project);
       }
@@ -225,9 +191,9 @@ export const useProjectStore = defineStore({
         console.log("response from pinia " + response.status)
       );
 
-      if (!response.ok) {
-        console.log("Super error 400");
-      }
+      // if (!response.ok) {
+      //   console.log("Super error 400");
+      // }
     },
 
     async projectAddedToActions(id) {

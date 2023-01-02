@@ -1,4 +1,5 @@
 <script setup>
+//helloe world
 import { useTest } from "@/store/test";
 import { useProjectStore } from "@/store/projects";
 import { useTaskStore } from "@/store/tasks";
@@ -9,21 +10,23 @@ import { onMounted, onUpdated } from "vue";
 const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
+const error = ref(null);
 //?STORE INITIALIZATION
 const store = useTest();
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const actionsStore = useActionsStore();
 const historyStore = useHistoryStore();
+
 //?PROPERTIES DESTRUCTURING
 const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
 const {} = actionsStore;
 const {} = storeToRefs(actionsStore);
-const { deleteProject, projectDeletedToActions } = projectStore;
+const { deleteProject, projectDeletedToActions,fetchProjects } = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
 const { fetchTasks } = taskStore;
-const { totalTaskDuration, hasTasks } = storeToRefs(taskStore);
+const { totalTaskDuration, hasTasks, testing } = storeToRefs(taskStore);
 const { filterItemById } = storeToRefs(store);
 
 //? COMPUTED PROPERTIES
@@ -37,24 +40,30 @@ const totalDuration = computed(() => totalTaskDuration.value); // calculates tot
 
 //?FUNCTIONS AND HANDLERS
 function removeItem(id) {
+
   //function that executes the deleted arg.
   let foundProjectId = store.projects.find((t) => t.id === id);
-  deleteProject(id); //executes the delete project in pinia
-  projectDeletedToActions(id); //action that push the action to actions state
-  deletedHistory(foundProjectId, id); //action that stores deleted items
+  projectStore.deleteProject(id); //executes the delete project in pinia
+  projectStore.projectDeletedToActions(id); //action that push the action to actions state
+  projectStore.deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
-
+console.log(typeof(testing.value(param)))
 //?COMPOSABLES
 // <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
 
 //?HOOKS
+onBeforeMount(() => {
+  fetchTasks();
+  fetchProjects();
+});
 
 fetchTasks();
 </script>
 
 <template>
   <div>
+    {{ testing(param) ? "is trueeeeee" : "is falseeeee" }}
     <div
       class="project-detail"
       v-for="project in projectById(param)"
