@@ -1,43 +1,70 @@
 <script setup>
 import { onMounted, onBeforeMount } from "vue";
 import { useTest } from "@/store/test";
+import { useProjectStore } from "@/store/projects";
+import { useTaskStore } from "@/store/tasks";
+import { useActionsStore } from "@/store/actions";
+import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
 
-const store = useTest();
 const route = useRoute(); //route object
 const taskParam = route.params.detail;
+const props = defineProps(["paramId"]);
 const param = route.params.projectId;
+//?STORE INITIALIZATION
+const store = useTest();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const actionsStore = useActionsStore();
+const historyStore = useHistoryStore();
+
+//?PROPERTIES DESTRUCTURING
+// const { } = historyStore;
+// const {} = storeToRefs(historyStore);
+// const {} = actionsStore;
+// const {} = storeToRefs(actionsStore);
+// const { } = projectStore;
+// const { } = storeToRefs(projectStore);
+// const {  } = taskStore;
+// const {} = storeToRefs(taskStore);
+// const { } = storeToRefs(store);
+
+
 const {
   addHistory,
   taskAddedToActions,
   taskUpdatedToActions,
   editTask,
+
   updateTaskRequest,
   fetchProjects,
   fetchTasks,
 } = store;
-const { tasks, taskId, history } = storeToRefs(store);
-const props = defineProps(["paramId"]);
-const task = editTask(taskParam); //will update via v-model the project reactively in component and pinia will
+const { tasks, history, editedTask } = storeToRefs(store);
 
-const addTime = () => task.duration++;
-const subsTime = () => task.duration--;
+//? COMPUTED PROPERTIES
+const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
+
+//?FUNCTIONS AND HANDLERS
+const addTime = () => task.value.duration++;
+const subsTime = () => task.value.duration--;
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
   store.editedTask = { ...store.tasks[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
-  taskUpdatedToActions(param);
-  addHistory(store.editedTask); // added to history once updated
-  task.age = useDateAge(task.startDate, task.endDate);
+  //once updated
+  addHistory(store.editedTask); // added to history
+  task.value.age = useDateAge(task.value.startDate, task.value.endDate);
+  taskUpdatedToActions(param); // added to actions
   updateTaskRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page
 };
 
-onBeforeMount(() => {
-  fetchProjects();
-  console.log("Fetching projects  and tasks in project/details");
-  fetchTasks();
-});
+// onBeforeMount(() => {
+//   fetchProjects();
+
+//   fetchTasks();
+// });
 </script>
 
 <template>

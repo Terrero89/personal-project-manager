@@ -102,15 +102,14 @@ export const useTaskStore = defineStore({
     async addTask(item) {
       this.tasks.push({
         ...item,
-        // id: this.taskId++,
+       
         startDate: new Date(),
-        age: 0,
       });
 
       const taskUrl = {
         ...item,
         startDate: new Date(),
-        age: 0,
+        age: 1,
       };
       let response = await fetch(
         `https://project-manager-app-f9829-default-rtdb.firebaseio.com/tasks.json`,
