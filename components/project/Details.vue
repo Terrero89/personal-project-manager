@@ -54,7 +54,7 @@ function removeItem(id) {
 //?HOOKS
 onBeforeMount(() => {
   fetchTasks();
-  fetchProjects();
+  fetchProjects()
 });
 
 fetchTasks();
