@@ -41,15 +41,8 @@ const {
   fetchTasks,
 } = store;
 const { tasks, history, editedTask } = storeToRefs(store);
-<<<<<<< HEAD
-const props = defineProps(["paramId"]);
-const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
-
-const addTime = () => task.value.duration++;
-const subsTime = () => task.value.duration--;
 
 
-=======
 
 //? COMPUTED PROPERTIES
 const task = computed(() => editTask(taskParam)); //will update via v-model the project reactively in component and pinia will
@@ -57,7 +50,7 @@ const task = computed(() => editTask(taskParam)); //will update via v-model the 
 //?FUNCTIONS AND HANDLERS
 const addTime = () => task.value.duration++;
 const subsTime = () => task.value.duration--;
->>>>>>> correctPoint
+
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced

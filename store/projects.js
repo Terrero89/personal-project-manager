@@ -50,7 +50,7 @@ export const useProjectStore = defineStore({
 
     taskOfParents: (state) => (id) =>
       state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
-<<<<<<< HEAD
+
 
     getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
     projectActive: (state) =>
@@ -114,9 +114,9 @@ export const useProjectStore = defineStore({
       
       
     },
-=======
+
     getParentName: (state) => (id) => state.projects.filter((p) => p.id === id),
->>>>>>> correctPoint
+
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/

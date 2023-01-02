@@ -54,16 +54,12 @@ export const useTaskStore = defineStore({
     //?WILL CHECK IF ALL TASKS UNDER SPECIFIC PROJECT ARE COMPLETED OR NOT.
     testing(state, id) {
       const tasks = state.tasks.filter((t) => t.id); //get all the tasks
-<<<<<<< HEAD
+
       const checkTasks = (id) => tasks.filter((t) => t.parentId === id).every(v => v.isComplete === true ) //get the tasks that parent id === id array with all tasks =
       return checkTasks
-=======
-      const checkTasks = (id) =>
-        tasks
-          .filter((t) => t.parentId === id)
-          .every((v) => v.isComplete === true); //get the tasks that parent id === id array with all tasks =
-      return checkTasks;
->>>>>>> correctPoint
+
+
+
     },
     // projectComplete: (state) => {},
     // projectInProgressPercent: (state) => {},
