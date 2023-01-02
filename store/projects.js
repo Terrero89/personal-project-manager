@@ -75,7 +75,7 @@ export const useProjectStore = defineStore({
     projectProgressAvg() {
       const calculation = 100 - this.projectCompleteAvg;
 
-      return parseFloat(calculation.toFixed(2));
+      return parseFloat(calculation).toFixed(2);
     },
     //?calculates the percentage of projects not completed that are under 15 days old
     projectsSuccess: (state) => {
@@ -90,7 +90,7 @@ export const useProjectStore = defineStore({
       ).length; // all projects under age 15
       const calculation =
         (notOverdueProjects / (overdueProjects + notOverdueProjects)) * 100; //calculation for percentage calculation
-      return parseFloat(calculation.toFixed(1));
+      return parseFloat(calculation).toFixed(2);
     },
     //?average days completed is the total days of all completed proeject between completed projects
     completeAverageDays() {
