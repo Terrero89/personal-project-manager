@@ -11,6 +11,7 @@ const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
 const error = ref(null);
+
 //?STORE INITIALIZATION
 const store = useTest();
 const projectStore = useProjectStore();
@@ -23,10 +24,10 @@ const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
 const {} = actionsStore;
 const {} = storeToRefs(actionsStore);
-const { deleteProject, projectDeletedToActions,fetchProjects } = projectStore;
+const { deleteProject, projectDeletedToActions, fetchProjects } = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
-const { fetchTasks } = taskStore;
-const { totalTaskDuration, hasTasks, testing } = storeToRefs(taskStore);
+const { fetchTasks,testing  } = taskStore;
+const { totalTaskDuration, hasTasks, } = storeToRefs(taskStore);
 const { filterItemById } = storeToRefs(store);
 
 //? COMPUTED PROPERTIES
@@ -37,18 +38,28 @@ const projectById = computed(() => filterItemById.value);
 const parentChild = computed(() => findParentChild.value);
 const numberOfTasks = computed(() => hasTasks.value); //check for the length of specific id
 const totalDuration = computed(() => totalTaskDuration.value); // calculates total tasks duration for specific project.
-
+const allTaskCompleted = computed(() => testing);
 //?FUNCTIONS AND HANDLERS
 function removeItem(id) {
-
+  showModal.value = !showModal.value;
   //function that executes the deleted arg.
   let foundProjectId = store.projects.find((t) => t.id === id);
-  projectStore.deleteProject(id); //executes the delete project in pinia
-  projectStore.projectDeletedToActions(id); //action that push the action to actions state
-  projectStore.deletedHistory(foundProjectId, id); //action that stores deleted items
+  if (allTaskCompleted(param)) {
+    projectStore.deleteProject(id); //executes the delete project in pinia
+    projectStore.projectDeletedToActions(id); //action that push the action to actions state
+    projectStore.deletedHistory(foundProjectId, id); //action that stores deleted items
+  } else {
+
+    showModal.value = false
+  }
+
   return navigateTo("/projects"); //after, go to projects
 }
-console.log(typeof(testing.value(param)))
+
+//!CHECK HANDLERS FOR WILLDELETE AND CLOSE MODAL
+const showModal = ref(false);
+const willDelete = ref(false);
+
 //?COMPOSABLES
 // <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
 
@@ -59,19 +70,30 @@ onBeforeMount(() => {
 });
 
 fetchTasks();
+
+
 </script>
 
 <template>
   <div>
+    <UIWarningModal
+      v-show="showModal"
+      @close-modal="showModal = false"
+      @delete-handler="willDelete = true"
+    />
+    <button @click="showModal = !showModal">Show modal</button>
     {{ testing(param) ? "is trueeeeee" : "is falseeeee" }}
     <div
       class="project-detail"
       v-for="project in projectById(param)"
       :key="project.id"
     >
+      <p>MODAL SHOW {{ showModal }}</p>
+      <p>DELETE {{ willDelete }}</p>
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
-        <UICard>
+
+        <div class="container d-flex justify-content-end my-3">
           <div class="row">
             <div class="col-lg-12">
               <Nuxt-link :to="addTaskLink">
@@ -79,7 +101,7 @@ fetchTasks();
               </Nuxt-link>
             </div>
           </div>
-        </UICard>
+        </div>
         <div class="row bg-light">
           <div class="header">
             <h3 class="mx-2">
@@ -122,7 +144,7 @@ fetchTasks();
             <div class="item">Project Age</div>
             <p
               class="item-desc"
-              v-if="useDateAge(project.startDate, project.dateModified) === 1"
+              v-if="useDateAge(project.startDate, project.dateModified) === 0"
             >
               {{ useDateAge(project.startDate, project.dateModified) }} Day old
             </p>

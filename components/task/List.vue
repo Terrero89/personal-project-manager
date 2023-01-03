@@ -5,8 +5,6 @@ import { useTaskStore } from "@/store/tasks";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
-
-
 //?REFS PROPERTIES
 const searchInput = ref("");
 const currPage = ref(1); //shows me the current page im in
@@ -157,10 +155,7 @@ fetchProjects();
     <div class="task-list">
       <UITitle title="Tasks" class="border-bottom" />
 
-      <UICard>
-        <SearchFilter v-model="searchInput" />
-      </UICard>
-
+      <div class="container"><SearchFilter v-model="searchInput" /></div>
       <UICard>
         <nuxt-link to="/projects">projects</nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">
@@ -202,13 +197,7 @@ fetchProjects();
               >
                 <button
                   type="button"
-                  class="
-                    btn btn-outline-primary
-                    border-primary
-                    px-1 px-md-3 px-lg-3
-                    rounded
-                    border-none
-                  "
+                  class="btn btn-outline-primary border-primary px-1 px-md-3 px-lg-3 rounded border-none"
                 >
                   Details
                 </button>
@@ -216,58 +205,58 @@ fetchProjects();
             </div>
           </div>
         </div>
+        <div class="d-flex justify-content-center">
+          <button
+            class="page-btn"
+            type="button"
+            :disabled="currPage === 1"
+            :class="{ disabled: currPage === 1 }"
+            @click="first"
+          >
+            |--
+          </button>
+          <button
+            class="page-btn"
+            type="button"
+            :disabled="currPage === 1"
+            :class="{ disabled: currPage === 1 }"
+            @click="prev"
+          >
+            Prev
+          </button>
+          <li
+            class="page-btn border-dark"
+            :class="{ active: page.name === currPage }"
+            type="button"
+            v-for="page in pages"
+            :key="page"
+          >
+            <div type="button" @click="onClickPage(page.name)">
+              {{ page.name }}
+            </div>
+          </li>
+          <div
+            class="page-btn"
+            type="button"
+            :disabled="currPage === lastPage"
+            :class="{ disabled: currPage === lastPage }"
+            @click="next"
+          >
+            Next
+          </div>
+          <button
+            class="page-btn"
+            type="button"
+            :disabled="currPage === lastPage"
+            :class="{ disabled: currPage === lastPage }"
+            @click="last(lastPage)"
+          >
+            --|
+          </button>
+        </div>
       </UICard>
 
       <div v-if="!length(param) < 1">No tasks available at this moment</div>
-      <div class="d-flex justify-content-center">
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === 1"
-          :class="{ disabled: currPage === 1 }"
-          @click="first"
-        >
-          |--
-        </button>
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === 1"
-          :class="{ disabled: currPage === 1 }"
-          @click="prev"
-        >
-          Prev
-        </button>
-        <li
-          class="page-btn border-dark"
-          :class="{ active: page.name === currPage }"
-          type="button"
-          v-for="page in pages"
-          :key="page"
-        >
-          <div type="button" @click="onClickPage(page.name)">
-            {{ page.name }}
-          </div>
-        </li>
-        <div
-          class="page-btn"
-          type="button"
-          :disabled="currPage === lastPage"
-          :class="{ disabled: currPage === lastPage }"
-          @click="next"
-        >
-          Next
-        </div>
-        <button
-          class="page-btn"
-          type="button"
-          :disabled="currPage === lastPage"
-          :class="{ disabled: currPage === lastPage }"
-          @click="last(lastPage)"
-        >
-          --|
-        </button>
-      </div>
     </div>
   </div>
 </template>

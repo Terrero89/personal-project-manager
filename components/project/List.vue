@@ -121,13 +121,17 @@ onMounted(() => {
 </script>
 
 <template>
-
   <div class="projects">
     <UITitle title="Projects" class="container border-bottom" />
     <!-- <ProjectCategories /> -->
-    <UICard>
-      <SearchFilter v-model="searchInput" />
-    </UICard>
+    <!-- <UICard>
+
+    </UICard> -->
+
+    <div class="container">
+  <SearchFilter v-model="searchInput" />
+    </div>
+        
 
     <UICard>
       <!-- search bar starts here should be emitted from component-->
@@ -153,7 +157,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center pagination">
         <button
           class="page-btn"
           type="button"
@@ -207,6 +211,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
+
+
 .add-button {
   margin: 0 auto;
 }

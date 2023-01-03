@@ -27,7 +27,7 @@ onBeforeMount(() => {
   <!-- search bar starts here -->
   <div>
     <div>
-      <div class="row">
+      <div class="row ">
         <div class="col-lg-8 col-md-8 col-sm-8 col-7">
           <!-- search button here, emit event soon to be set up -->
           <div class="input-group">
@@ -60,7 +60,7 @@ onBeforeMount(() => {
         <div class="col-lg-4 col-md-4 col-sm-4 col-5">
           <nuxt-link
             type="button"
-            class="d-flex justify-content-end mx-3"
+            class="d-flex justify-content-end "
             to="/projects/addproject"
           >
             <button class="btn btn-md btn-primary">+ Project</button>

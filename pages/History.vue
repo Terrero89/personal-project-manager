@@ -125,12 +125,16 @@ onMounted(() => {
 <template>
   <div>
 
-    <UICard>
-      <UITitle
+    <div class="container">
+        <UITitle
         title="History"
-        class="d-flex justify-content-start mx-3 border-bottom"
+        class="border-bottom"
       />
+    </div>
+ 
 
+    <UICard>
+   
       <HistoryItem
         v-for="item in [...history].splice(currStartingItem, itemPerPage)"
         :key="item.id"

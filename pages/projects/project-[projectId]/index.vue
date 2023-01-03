@@ -2,6 +2,7 @@
 import { useTest } from "@/store/test";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, onMounted } from "vue";
+const props = defineProps(["deletedId"])
 const store = useTest();
 const route = useRoute(); //route object
 const { fetchActions, fetchHistory, fetchProjects, fetchTasks } = store;
@@ -10,12 +11,14 @@ const param = route.params.projectId;
 const { findActionsByProject, findTaskActionsByProject } = store;
 const projectActionChildren = computed(() => store.findActionsByProject(param));
 
+const showModal = ref(false)
+
 fetchActions();
 </script>
 
 <template>
   <div>
-
+  <!-- <UIWarningModal v-show="showModal"   @close-modal="showModal = false" :deleted-id="param" /> -->
     <ProjectDetails :id="param" />
 
     <UICard>
