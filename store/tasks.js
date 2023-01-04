@@ -50,7 +50,7 @@ export const useTaskStore = defineStore({
     },
 
     //?WILL CHECK IF ALL TASKS UNDER SPECIFIC PROJECT ARE COMPLETED OR NOT.
-    testing(state, id) {
+    allCompleted(state) {
       const tasks = state.tasks.filter((t) => t.id); //get all the tasks
       const checkTasks = (id) => tasks.filter((t) => t.parentId === id).every(v => v.isComplete === true ) //get the tasks that parent id === id array with all tasks =
       return checkTasks

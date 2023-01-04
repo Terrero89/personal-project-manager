@@ -126,7 +126,6 @@ fetchProjects();
 
 <template>
   <div>
-    <UINavbar />
     <div class="tasks-wrapper d-flex">
       <div class="task-list">
         <UITitle title="Tasks" class="border-bottom" />
@@ -228,11 +227,9 @@ fetchProjects();
               --|
             </button>
           </div>
+          <div v-if="length(param) < 1">No tasks available at this moment</div>
         </UICard>
-
-        <div class="row"></div>
       </div>
-      <div v-if="length(param) < 1">No tasks available at this moment</div>
     </div>
   </div>
 </template>

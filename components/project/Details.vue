@@ -11,7 +11,6 @@ const props = defineProps(["id"]);
 const route = useRoute(); //route object
 const param = route.params.projectId;
 const error = ref(null);
-
 //?STORE INITIALIZATION
 const store = useTest();
 const projectStore = useProjectStore();
@@ -24,13 +23,15 @@ const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
 const {} = actionsStore;
 const {} = storeToRefs(actionsStore);
-const { deleteProject, projectDeletedToActions, fetchProjects } = projectStore;
+const { deleteProject, projectDeletedToActions, fetchProjects, modalView } =
+  projectStore;
 const { findParentChild } = storeToRefs(projectStore);
-const { fetchTasks,testing  } = taskStore;
-const { totalTaskDuration, hasTasks, } = storeToRefs(taskStore);
+const { fetchTasks } = taskStore;
+const { totalTaskDuration, hasTasks, allCompleted } = storeToRefs(taskStore);
 const { filterItemById } = storeToRefs(store);
 
 //? COMPUTED PROPERTIES
+const modal = computed(() => projectStore.modalView);
 const updateLink = computed(() => `project-${param}/update`); //link to route to {params}/tasks to update project.
 const tasksLink = computed(() => `project-${param}/tasks`);
 const addTaskLink = computed(() => `project-${param}/addTask`);
@@ -38,27 +39,20 @@ const projectById = computed(() => filterItemById.value);
 const parentChild = computed(() => findParentChild.value);
 const numberOfTasks = computed(() => hasTasks.value); //check for the length of specific id
 const totalDuration = computed(() => totalTaskDuration.value); // calculates total tasks duration for specific project.
-const allTaskCompleted = computed(() => testing);
+const modalState = computed(() => projectStore.modalView);
 //?FUNCTIONS AND HANDLERS
+const modalHandler = () => {
+  projectStore.modalView = !projectStore.modalView;
+};
+
 function removeItem(id) {
-  showModal.value = !showModal.value;
   //function that executes the deleted arg.
   let foundProjectId = store.projects.find((t) => t.id === id);
-  if (allTaskCompleted(param)) {
-    projectStore.deleteProject(id); //executes the delete project in pinia
-    projectStore.projectDeletedToActions(id); //action that push the action to actions state
-    projectStore.deletedHistory(foundProjectId, id); //action that stores deleted items
-  } else {
-
-    showModal.value = false
-  }
-
+  projectStore.deleteProject(id); //executes the delete project in pinia
+  projectStore.projectDeletedToActions(id); //action that push the action to actions state
+  projectStore.deletedHistory(foundProjectId, id); //action that stores deleted items
   return navigateTo("/projects"); //after, go to projects
 }
-
-//!CHECK HANDLERS FOR WILLDELETE AND CLOSE MODAL
-const showModal = ref(false);
-const willDelete = ref(false);
 
 //?COMPOSABLES
 // <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
@@ -70,30 +64,26 @@ onBeforeMount(() => {
 });
 
 fetchTasks();
-
-
 </script>
 
 <template>
   <div>
-    <UIWarningModal
-      v-show="showModal"
-      @close-modal="showModal = false"
-      @delete-handler="willDelete = true"
-    />
-    <button @click="showModal = !showModal">Show modal</button>
-    {{ testing(param) ? "is trueeeeee" : "is falseeeee" }}
+    <button @click="modalHandler" class="btn btn-primary">click</button>
+
+    <p>modal view: {{ modal }}</p>
+    {{ allCompleted(param) ? "is trueeeeee" : "is falseeeee" }}
+    <div>
+      <button>check</button>
+      <p>{{ props.status }}</p>
+    </div>
     <div
       class="project-detail"
       v-for="project in projectById(param)"
       :key="project.id"
     >
-      <p>MODAL SHOW {{ showModal }}</p>
-      <p>DELETE {{ willDelete }}</p>
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
-
-        <div class="container d-flex justify-content-end my-3">
+        <UICard>
           <div class="row">
             <div class="col-lg-12">
               <Nuxt-link :to="addTaskLink">
@@ -101,7 +91,7 @@ fetchTasks();
               </Nuxt-link>
             </div>
           </div>
-        </div>
+        </UICard>
         <div class="row bg-light">
           <div class="header">
             <h3 class="mx-2">
@@ -144,7 +134,7 @@ fetchTasks();
             <div class="item">Project Age</div>
             <p
               class="item-desc"
-              v-if="useDateAge(project.startDate, project.dateModified) === 0"
+              v-if="useDateAge(project.startDate, project.dateModified) === 1"
             >
               {{ useDateAge(project.startDate, project.dateModified) }} Day old
             </p>
@@ -201,6 +191,7 @@ fetchTasks();
 
             <div class="my-3">
               <button
+                v-show="allCompleted(param) "
                 @click="removeItem(props.id)"
                 type="button"
                 class="btn btn-danger mar"
@@ -218,8 +209,28 @@ fetchTasks();
                   />
                 </svg>
               </button>
+<!-- if all task are completed then you show this button -->
+              <button
+                v-show="!allCompleted(param)"
+                @click="modalHandler"
+                type="button"
+                class="btn btn-warning mar"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-trash-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                  />
+                </svg>
+              </button>
               <Nuxt-Link :to="updateLink">
-                <button type="button" class="btn btn-outline-primary">
+                <button type="button" class="btn btn-outline-primary mx-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -246,6 +257,9 @@ fetchTasks();
 </template>
 
 <style scoped>
+.disabled {
+  color: rgb(187, 185, 185);
+}
 .remover {
   list-style: none;
 }

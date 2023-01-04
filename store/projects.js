@@ -8,6 +8,8 @@ export const useProjectStore = defineStore({
   state: () => ({
     editPro: {},
     projects: [],
+    modalView: false, //to manipulate modal in component projects
+    closeModal: false,
   }),
 
   getters: {

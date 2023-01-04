@@ -1,34 +1,39 @@
 <script setup>
+import { useProjectStore } from "@/store/projects";
+import { storeToRefs } from "pinia";
 //   <UIWarningModal v-show="showModal" @close-modal="showModal = false"/>
-const emit = defineEmits(["close-modal", "deleteHandler"]);
-const props = defineProps(["deletedId"]);
 
-const modalHandler = (() => { 
-    emit("close-modal");
-    emit('deleteHandler = false')
+
+
+const projectStore = useProjectStore();
+
+const {  } = projectStore;
+const { modalView, closeModal} = storeToRefs(projectStore);
+const modalHandler = (() => {
+    projectStore.modalView = !projectStore.modalView;
 })
 </script>
 
 <template>
   <div class="modal-overlay">
-    <div class="item mx-0 my-auto mx-3">
-      <div class="px-5">
+    <div class="item mx-0 my-auto mx-5">
+      <div class="px-2">
         <h6>WARNING!</h6>
         <p>
           All Tasks under this project must be deleted or completed to delete
-          project. Would you like to proceed?
+          project. 
         </p>
         <button
           type="button"
           class="btn btn-danger"
-          @click="$emit('deleteHandler')"
+       
         >
           Delete
         </button>
         <button
           type="button"
           class="btn btn-outline-danger text-dark mx-2"
-          @click="$emit('close-modal')"
+          @click="modalHandler"
         >
           Close
         </button>
