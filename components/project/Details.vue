@@ -68,14 +68,8 @@ fetchTasks();
 
 <template>
   <div>
-    <button @click="modalHandler" class="btn btn-primary">click</button>
+    <!-- {{ allCompleted(param) ? "is trueeeeee" : "is falseeeee" }} -->
 
-    <p>modal view: {{ modal }}</p>
-    {{ allCompleted(param) ? "is trueeeeee" : "is falseeeee" }}
-    <div>
-      <button>check</button>
-      <p>{{ props.status }}</p>
-    </div>
     <div
       class="project-detail"
       v-for="project in projectById(param)"
@@ -83,15 +77,15 @@ fetchTasks();
     >
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
-        <UICard>
+       
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 d-flex justify-content-end mb-3">
               <Nuxt-link :to="addTaskLink">
                 <button type="submit" class="btn btn-primary">Add Task</button>
               </Nuxt-link>
             </div>
           </div>
-        </UICard>
+      
         <div class="row bg-light">
           <div class="header">
             <h3 class="mx-2">
@@ -190,11 +184,12 @@ fetchTasks();
             />
 
             <div class="my-3">
+              <!-- if all task are not completed then you show this button that show modal -->
               <button
-                v-show="allCompleted(param) "
+                v-show="allCompleted(param)"
                 @click="removeItem(props.id)"
                 type="button"
-                class="btn btn-danger mar"
+                class="btn btn-danger "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -209,12 +204,12 @@ fetchTasks();
                   />
                 </svg>
               </button>
-<!-- if all task are completed then you show this button -->
+              <!-- if all task are completed then you show this button -->
               <button
                 v-show="!allCompleted(param)"
                 @click="modalHandler"
                 type="button"
-                class="btn btn-warning mar"
+                class="btn btn-danger"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

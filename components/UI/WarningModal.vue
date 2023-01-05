@@ -16,23 +16,17 @@ const modalHandler = (() => {
 
 <template>
   <div class="modal-overlay">
-    <div class="item mx-0 my-auto mx-5">
-      <div class="px-2">
+    <div class="item  my-auto mx-4">
+      <div class="px-1">
         <h6>WARNING!</h6>
         <p>
-          All Tasks under this project must be deleted or completed to delete
+          All Tasks under this project must be deleted or completed to delete this
           project. 
         </p>
+  
         <button
           type="button"
-          class="btn btn-danger"
-       
-        >
-          Delete
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger text-dark mx-2"
+          class="btn btn-danger  fs-6 px-4 py-2"
           @click="modalHandler"
         >
           Close
