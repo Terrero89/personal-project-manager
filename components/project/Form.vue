@@ -13,11 +13,9 @@ const description = ref("");
 
 const submitForm = () => {
   const projectData = {
-    // id: projectId.value,
     user: user.value,
     category: category.value,
     projectName: name.value,
-    age: 1,
     description: description.value,
     isComplete: false,
     technologies: technologies.value,

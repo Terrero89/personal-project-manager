@@ -128,7 +128,7 @@ fetchTasks();
             <div class="item">Project Age</div>
             <p
               class="item-desc"
-              v-if="useDateAge(project.startDate, project.dateModified) === 1"
+              v-if="useDateAge(project.startDate, project.dateModified) === 0"
             >
               {{ useDateAge(project.startDate, project.dateModified) }} Day old
             </p>

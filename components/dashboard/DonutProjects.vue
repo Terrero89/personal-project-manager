@@ -12,12 +12,17 @@ import { Chart, ChartData, ChartOptions, registerables } from "chart.js";
 
 Chart.register(...registerables);
 export default defineComponent({
+  props: {
+    values: Array,
+    valueNames: Array,
+  },
+
   components: { DoughnutChart },
 
   setup(props) {
-    const dataValues = ref([32, 68]);
-
-    const dataLabels = ref(["Complete", "In Progress"]);
+    //props values
+    const dataValues = ref(props.values);
+    const dataLabels = ref(props.valueNames);
 
     const name = ref("Sergio");
     const toggleLegend = ref(true);

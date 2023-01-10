@@ -18,10 +18,14 @@ const {
   completeAverageDays,
 } = storeToRefs(projectStore);
 const total = computed(() => projectTotals); //totals
-const completed = computed(() => projectCompleteAvg); //complete ones percent
-const successAverage = computed(() => projectProgressAvg); //inprogress percentage
+const inProgress = computed(() => projectCompleteAvg); //complete ones percent
+const successAverage = computed(() => projectProgressAvg); //completed percentage
 const completionSuccess = computed(() => projectsSuccess);
 const averageDays = computed(() => completeAverageDays);
+
+//?example for props for donut chart
+const val = ref([28, 78])
+const valName = ref(["Complete","In Progress"])
 
 fetchProjects();
 onUpdated(() => {
@@ -68,14 +72,14 @@ onUpdated(() => {
         </div>
         <div class="col item-box">
           <h6 class="header">Projects Completed</h6>
-          <h1 class="item-value fw-bold">{{  completed }}<span class="fs-1">%</span></h1>
+          <h1 class="item-value fw-bold">{{  successAverage }}<span class="fs-1">%</span></h1>
           <h6 class="status">completed</h6>
           <h6 class="description">5 completed in last 30 days</h6>
         </div>
 
         <div class="col item-box">
           <h6 class="header">Projects In Progress</h6>
-          <h1 class="item-value fw-bold">{{ successAverage }}<span class="fs-1">%</span></h1>
+          <h1 class="item-value fw-bold">{{inProgress}}<span class="fs-1">%</span></h1>
           <h6 class="status">in progress</h6>
           <h6 class="description">15 added in last 30 days</h6>
         </div>
@@ -83,13 +87,14 @@ onUpdated(() => {
           <h6 class="header">Completion Success</h6>
           <h1 class="item-value fw-bold">{{ completionSuccess }}<span class="fs-1">%</span></h1>
           <h6 class="status">5% <span>Overdue</span></h6>
-          <h6 class="description">completed in {{averageDays}} days average</h6>
+          <h6 class="description">completed in <span class="text-success fw-bold ">{{ averageDays }}</span> days average</h6>
         </div>
       </div>
 
       <div class="row chart-items my-3">
         <div class="col chart-box">
-          <DashboardTest2 />
+          <!-- <DashboardTest2 /> -->
+          <DashboardDonutProjects :value-names="valName" :values="val"/>
         </div>
         <div class="col-lg-6 px-3 chart-box">
           <DashboardDonut />
@@ -109,9 +114,7 @@ onUpdated(() => {
 .btn {
   max-width: 8rem;
 }
-.selection-box {
-  /* border: solid blue 0.5px; */
-}
+
 
 .header {
   font-size: 0.8rem;
@@ -137,9 +140,7 @@ onUpdated(() => {
   font-size: 2.8rem;
   color: rgb(7, 7, 7);
 }
-.items {
-  /* width: 90%; */
-}
+
 .item-box {
   padding: 2rem 3rem;
   text-align: center;
@@ -163,9 +164,4 @@ onUpdated(() => {
   padding: 1rem 1.2rem;
 }
 
-@media screen and (max-width: 460px) {
-  .item-box {
-    /* min-width: 12rem; */
-  }
-}
 </style>

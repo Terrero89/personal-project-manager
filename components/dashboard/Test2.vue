@@ -35,6 +35,10 @@ const wordwrap = (text = "", maxLength) => {
 };
 
 export default defineComponent({
+  props: {
+    values: Array,
+  },
+
   name: "App",
   components: {
     BarChart,

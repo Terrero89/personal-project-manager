@@ -54,10 +54,10 @@ const subsTime = () => task.value.duration--;
 
 const updateTask = () => {
   let index = store.tasks.findIndex((task) => task.id === taskParam); //find index to be replaced
-  store.editedTask = { ...store.tasks[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
+  store.editedTask = { ...store.tasks[index], dateModified: new Date(), age:useDateAge(task.value.startDate, task.value.dateModified)  }; //will catch the old entire project information before updated, including the dates
   //once updated
   addHistory(store.editedTask); // added to history
-  task.value.age = useDateAge(task.value.startDate, task.value.endDate);
+  task.value.age = useDateAge(task.value.startDate, task.value.dateModified);
   taskUpdatedToActions(param); // added to actions
   updateTaskRequest(taskParam);
   navigateTo("/projects"); //redirect to projects page

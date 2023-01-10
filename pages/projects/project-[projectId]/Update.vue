@@ -22,7 +22,6 @@ const {
   addHistory,
   editProject,
   projectUpdatedToActions,
-
   updateProjectRequest,
 } = store;
 const { projects, history, editPro } = storeToRefs(store);
@@ -32,16 +31,17 @@ const {} = storeToRefs(historyStore);
 const {} = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
 
-const project = computed(() => editProject(param)); //will update via v-model the project reactively in component and pinia will
+const project = computed(() => editProject(param)); //project edit from pinia to firebase
 
-//converts to formatted dates, will convert the dates to a readable format.
 
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
   let index = store.projects.findIndex((project) => project.id === param); //find index to be replaced
-  store.editPro = { ...store.projects[index], dateModified: new Date() }; //will catch the old entire project information before updated, including the dates
-  //add to actions once updated
+
+  store.editPro = { ...store.projects[index], dateModified: new Date(), projectAge: useDateAge(project.value.startDate, project.value.dateModified) }; //will catch the old entire project information before updated, including the dates
+
   addHistory(store.editPro); // added to history once updated
+ 
   projectUpdatedToActions(store.editPro);
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page

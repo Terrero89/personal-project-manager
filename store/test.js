@@ -235,7 +235,7 @@ export const useTest = defineStore({
       const projectUrl = {
         ...data,
         startDate: new Date(),
-        projectAge: 1,
+        // projectAge: 15,
         // projectId: this.projectId,
       };
       let response = await fetch(
