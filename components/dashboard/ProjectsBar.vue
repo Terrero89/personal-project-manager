@@ -35,13 +35,18 @@ const wordwrap = (text = "", maxLength) => {
 };
 
 export default defineComponent({
+  props: {
+    values: Array,
+    valueNames: Array,
+  },
+
   name: "App",
   components: {
     BarChart,
   },
-  setup() {
-    const data = ref([]);
-    const labels = ref([]);
+  setup(props) {
+    const data = ref(props.values);
+    const labels = ref(props.valueNames);
     const UNIT_REM = 50;
     const MIN_LABELS_ASSUMPTION_FOR_HEIGHT = 20;
     const barThicknessAndSpacing = UNIT_REM * 2;
@@ -55,6 +60,9 @@ export default defineComponent({
 
       return MIN_LABELS_ASSUMPTION_FOR_HEIGHT * barThicknessAndSpacing;
     });
+
+    const dataValues = ref(props.values);
+    const dataLabels = ref(props.valueNames);
 
     const options = computed(() => ({
       indexAxis: "y",
@@ -108,13 +116,8 @@ export default defineComponent({
 
     onMounted(() => {
       setTimeout(() => {
-        data.value = [5, 95, 9, 82.35];
-        labels.value = [
-          "Over 15 days",
-          "On track",
-          "Average Days",
-          "Success Rate",
-        ];
+        data.value = dataValues.value;
+        labels.value = dataLabels.value;
       }, 100);
     });
 

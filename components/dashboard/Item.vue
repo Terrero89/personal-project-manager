@@ -9,8 +9,9 @@ const projectStore = useProjectStore();
 
 //?PROPERTIES DESTRUCTURING
 
-const { fetchProjects} = projectStore;
+const { fetchProjects } = projectStore;
 const {
+   countingMonthCompleted,
   projectTotals,
   projectCompleteAvg,
   projectProgressAvg,
@@ -20,12 +21,42 @@ const {
 const total = computed(() => projectTotals); //totals
 const inProgress = computed(() => projectCompleteAvg); //complete ones percent
 const successAverage = computed(() => projectProgressAvg); //completed percentage
-const completionSuccess = computed(() => projectsSuccess);
-const averageDays = computed(() => completeAverageDays);
+const completionSuccess = computed(() => projectsSuccess); //success for those not completed that are under 15 days
+const averageDays = computed(() => completeAverageDays); //average of days for each project to be completed
 
+const allCombined = ref([
+  projectStore.projectTotals,
+  projectStore.projectProgressAvg,
+  projectStore.completeAverageDays,
+  projectStore.projectsSuccess,
+]);
 //?example for props for donut chart
-const val = ref([28, 78])
-const valName = ref(["Complete","In Progress"])
+const val = ref([28, 8]);
+
+const valName = ref(["Complete", "In Progress"]);
+const barName = ref([
+  "Over 15 days",
+  "On track",
+  "Average Days",
+  "Success Rate",
+]);
+
+//determine current month
+//if determined, we can say that we can extract all tasks that match the current month and count them
+const example = new Date("2023-01-01T21:56:26.685Z")
+const exactMonth = example.getMonth()+1
+const currDate = new Date();
+const currMonth = currDate.getMonth()+1;
+const test = (first, last) => {
+  if (first=== last) {
+    console.log("They match");
+  } else {
+    console.log("They succcccckkkkkk!!!");
+    
+  }
+};
+console.log(exactMonth+  " + " + currMonth) 
+test(exactMonth,currMonth)
 
 fetchProjects();
 onUpdated(() => {
@@ -35,11 +66,14 @@ onUpdated(() => {
 
 <template>
   <div class="dashboard">
+
+    {{  countingMonthCompleted }}
+    <h3>Dashboard</h3>
     <div class="wrapper border rounded-5 mx-2 my-5 px-4 bg-light">
       <div class="row selection d-flex justify-content-center my-4">
         <button
           type="button"
-          class="col-lg-2 col selection-box btn btn btn-outline-primary px-1"
+          class="col-lg-2 col selection-box btn btn-outline-primary px-1"
         >
           Projects
         </button>
@@ -64,40 +98,52 @@ onUpdated(() => {
       </div>
 
       <div class="row items">
+      
+     
         <div class="col item-box">
-          <h6 class="header">total projects</h6>
+          <h6 class="header">Total Projects</h6>
           <h1 class="item-value fw-bold">{{ total }}</h1>
-          <h6 class="status">total</h6>
-          <h6 class="description">10 added in last 30 days</h6>
+          <h6 class="status">Total</h6>
+          <h6 class="description">10 added in this month</h6>
         </div>
         <div class="col item-box">
           <h6 class="header">Projects Completed</h6>
-          <h1 class="item-value fw-bold">{{  successAverage }}<span class="fs-1">%</span></h1>
-          <h6 class="status">completed</h6>
-          <h6 class="description">5 completed in last 30 days</h6>
+          <h1 class="item-value fw-bold">
+            {{ successAverage }}<span class="fs-1">%</span>
+          </h1>
+          <h6 class="status">Completed</h6>
+          <h6 class="description">5 completed this month</h6>
         </div>
 
         <div class="col item-box">
           <h6 class="header">Projects In Progress</h6>
-          <h1 class="item-value fw-bold">{{inProgress}}<span class="fs-1">%</span></h1>
+          <h1 class="item-value fw-bold">
+            {{ inProgress }}<span class="fs-1">%</span>
+          </h1>
           <h6 class="status">in progress</h6>
-          <h6 class="description">15 added in last 30 days</h6>
+        <h6 class="description">5 in progress this month</h6>
         </div>
         <div class="col item-box">
           <h6 class="header">Completion Success</h6>
-          <h1 class="item-value fw-bold">{{ completionSuccess }}<span class="fs-1">%</span></h1>
+          <h1 class="item-value fw-bold">
+            {{ completionSuccess }}<span class="fs-1">%</span>
+          </h1>
           <h6 class="status">5% <span>Overdue</span></h6>
-          <h6 class="description">completed in <span class="text-success fw-bold ">{{ averageDays }}</span> days average</h6>
+          <h6 class="description">
+            completed in
+            <span class="text-success fw-bold">{{ averageDays }}</span> days
+            average
+          </h6>
         </div>
       </div>
 
       <div class="row chart-items my-3">
         <div class="col chart-box">
           <!-- <DashboardTest2 /> -->
-          <DashboardDonutProjects :value-names="valName" :values="val"/>
+          <DashboardDonutProjects :value-names="valName" :values="val" />
         </div>
         <div class="col-lg-6 px-3 chart-box">
-          <DashboardDonut />
+          <DashboardProjectsBar :value-names="barName" :values="allCombined" />
         </div>
       </div>
     </div>
@@ -114,7 +160,6 @@ onUpdated(() => {
 .btn {
   max-width: 8rem;
 }
-
 
 .header {
   font-size: 0.8rem;
@@ -163,5 +208,4 @@ onUpdated(() => {
   box-shadow: 5px 5px 34px -7px rgba(0, 0, 0, 0.1);
   padding: 1rem 1.2rem;
 }
-
 </style>
