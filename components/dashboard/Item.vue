@@ -9,14 +9,15 @@ const projectStore = useProjectStore();
 
 //?PROPERTIES DESTRUCTURING
 
-const { fetchProjects } = projectStore;
+const { fetchProjects,cool,kool} = projectStore;
 const {
-   countingMonthCompleted,
+  currentMonthProjects,
   projectTotals,
   projectCompleteAvg,
   projectProgressAvg,
   projectsSuccess,
   completeAverageDays,
+  projectsByMonth, 
 } = storeToRefs(projectStore);
 const total = computed(() => projectTotals); //totals
 const inProgress = computed(() => projectCompleteAvg); //complete ones percent
@@ -41,36 +42,38 @@ const barName = ref([
   "Success Rate",
 ]);
 
-//determine current month
-//if determined, we can say that we can extract all tasks that match the current month and count them
-const example = new Date("2023-01-01T21:56:26.685Z")
-const exactMonth = example.getMonth()+1
-const currDate = new Date();
-const currMonth = currDate.getMonth()+1;
-const test = (first, last) => {
-  if (first=== last) {
-    console.log("They match");
-  } else {
-    console.log("They succcccckkkkkk!!!");
-    
-  }
-};
-console.log(exactMonth+  " + " + currMonth) 
-test(exactMonth,currMonth)
+
 
 fetchProjects();
-onUpdated(() => {
-  fetchProjects();
-});
+
 </script>
 
 <template>
   <div class="dashboard">
 
-    {{  countingMonthCompleted }}
+ {{  currentMonthProjects }}
+    {{  projectsByMonth }}
+    {{ kool() }}
     <h3>Dashboard</h3>
+    <!-- for loop to determine if result worked -->
+   <div v-for="k in kool()" :key=" k">
+          <p>{{ k + " klk"}}</p>
+      </div>
+    
     <div class="wrapper border rounded-5 mx-2 my-5 px-4 bg-light">
-      <div class="row selection d-flex justify-content-center my-4">
+
+   
+
+         <div class="row chart-items my-3">
+        <div class="col chart-box">
+          <!-- <DashboardTest2 /> -->
+          <DashboardDonutProjects :value-names="valName" :values="val" />
+        </div>
+        <div class="col-lg-6 px-3 chart-box">
+          <DashboardProjectsBar :value-names="barName" :values="allCombined" />
+        </div>
+      </div>
+      <!-- <div class="row selection d-flex justify-content-center my-4">
         <button
           type="button"
           class="col-lg-2 col selection-box btn btn-outline-primary px-1"
@@ -80,7 +83,7 @@ onUpdated(() => {
         <button
           type="button"
           class="col-lg-2 col selection-box btn btn-outline-info"
-        >
+        >projectsBymonth
           Tasks
         </button>
         <button
@@ -95,7 +98,7 @@ onUpdated(() => {
         >
           Actions
         </button>
-      </div>
+      </div> -->
 
       <div class="row items">
       
@@ -104,7 +107,7 @@ onUpdated(() => {
           <h6 class="header">Total Projects</h6>
           <h1 class="item-value fw-bold">{{ total }}</h1>
           <h6 class="status">Total</h6>
-          <h6 class="description">10 added in this month</h6>
+          <h6 class="description"> <span class="text-success fw-bold fs-6"> {{  currentMonthProjects }}</span> added in this month</h6>
         </div>
         <div class="col item-box">
           <h6 class="header">Projects Completed</h6>
@@ -137,15 +140,7 @@ onUpdated(() => {
         </div>
       </div>
 
-      <div class="row chart-items my-3">
-        <div class="col chart-box">
-          <!-- <DashboardTest2 /> -->
-          <DashboardDonutProjects :value-names="valName" :values="val" />
-        </div>
-        <div class="col-lg-6 px-3 chart-box">
-          <DashboardProjectsBar :value-names="barName" :values="allCombined" />
-        </div>
-      </div>
+    
     </div>
   </div>
 </template>

@@ -10,6 +10,7 @@ export const useProjectStore = defineStore({
     projects: [],
     modalView: false, //to manipulate modal in component projects
     closeModal: false,
+    projectsByMonth:null
   }),
 
   getters: {
@@ -32,10 +33,7 @@ export const useProjectStore = defineStore({
       return state.history[index.length - 1];
     },
 
-    searchItem: (state) => (item) =>
-      state.projects.filter((p) => {
-        return p.projectName.toLowerCase().includes(item);
-      }),
+  
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
 
@@ -103,16 +101,51 @@ export const useProjectStore = defineStore({
       return Math.ceil(sum / this.projectActive.length);
     },
 
-    countingMonthCompleted() {
-      let date = new Date()
-      let month = date.getMonth() + 1
-    
-      return month
+    currentMonthProjects(state) {
+      const date = new Date();
+      const month = date.getMonth() + 1;
+      const projectsCompleted = state.projects;
+      const ageList = projectsCompleted.map(
+        (project) => new Date(project.startDate)
+      );
+      const monthList = ageList.map((date) => date.getMonth() + 1);
+      const filterList = monthList.filter((item) => item === month);
+
+      return filterList.length;
     },
+
+    projectsCompletedThisMonth() {},
   },
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
+
+    //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES 
+    kool() {
+      const result = this.projects.reduce((r, { dateModified }) => {
+        let key = dateModified.slice(0, 7);
+        r[key] = (r[key] || 0) + 1;
+
+        return r;
+      }, {});
+      return result
+      // console.log(result);
+   
+    },
+
+    // cool() {
+    //   const date = new Date();
+    //   const month = date.getMonth() + 1;
+    //   const projectsCompleted = this.projects;
+    //   const ageList = projectsCompleted.map((project) => new Date(project.startDate) );
+    //   const monthList = ageList.map((date) => date.getMonth() + 1);
+    //   const filterList = monthList.filter((item) => item === month);
+    //   const meme = filterList.length
+    //   const quick = []
+    //   quick.push(meme);
+    //   this.projectsByMonth = quick
+    //   // return filterList
+    // },
     // async fetchPosts() {
     //   this.projects = []
 
@@ -151,6 +184,7 @@ export const useProjectStore = defineStore({
           technologies: responseData[key].technologies,
           projectAge: responseData[key].projectAge,
           isComplete: responseData[key].isComplete,
+          dateModified: responseData[key].dateModified,
         };
         projects.push(project);
       }
