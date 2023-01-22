@@ -36,7 +36,7 @@ export default defineComponent({
         },
       ],
       hoverOffset: 20,
-    }));
+    }))
 
     const options = computed<ChartOptions<"doughnut">>(() => ({
       scales: {
