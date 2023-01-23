@@ -12,7 +12,7 @@ const props = defineProps([
   "type",
   "name",
   "category",
-  "dateModified",
+  "dateModified"
 ]);
 const { projectList, hasActions, fetchActions, fetchProjects, fetchTasks } =
   store;
