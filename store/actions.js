@@ -180,6 +180,4 @@ export const useActionsStore = defineStore({
       console.log("ERROR");
     }
   },
-
-  
 });

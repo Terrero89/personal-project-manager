@@ -10,7 +10,7 @@ export const useProjectStore = defineStore({
     projects: [],
     modalView: false, //to manipulate modal in component projects
     closeModal: false,
-    projectsByMonth:null
+    projectsByMonth: null,
   }),
 
   getters: {
@@ -33,7 +33,6 @@ export const useProjectStore = defineStore({
       return state.history[index.length - 1];
     },
 
-  
     projectList: (state) => state.projects,
     taskList: (state) => state.tasks,
 
@@ -119,8 +118,7 @@ export const useProjectStore = defineStore({
 
   // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
   actions: {
-
-    //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES 
+    //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES
     kool() {
       const result = this.projects.reduce((r, { dateModified }) => {
         let key = dateModified.slice(0, 7);
@@ -128,9 +126,8 @@ export const useProjectStore = defineStore({
 
         return r;
       }, {});
-      return result
+      return result;
       // console.log(result);
-   
     },
 
     // cool() {
@@ -362,15 +359,14 @@ export const useProjectStore = defineStore({
   },
 });
 
-
 // program to extract value as an array from an array of objects
 
 // var data = [{ createdAt: "2019-12-30T04:36:05.001Z" },
-//             { createdAt: "2019-12-06T08:58:23.030Z" }, 
+//             { createdAt: "2019-12-06T08:58:23.030Z" },
 //             { createdAt: "2020-01-08T19:00:21.873Z" },
-//             { createdAt: "2020-01-10T14:55:50.781Z" }, 
-//             { createdAt: "2019-12-21T13:05:09.983Z" }, 
-//             { createdAt: "2020-01-15T12:10:20.316Z" }, 
+//             { createdAt: "2020-01-10T14:55:50.781Z" },
+//             { createdAt: "2019-12-21T13:05:09.983Z" },
+//             { createdAt: "2020-01-15T12:10:20.316Z" },
 //             { createdAt: "2020-01-14T06:47:36.078Z" },
 //             { createdAt: "2020-02-15-T06:47:36.078Z" },
 //             { createdAt: "2020-02-15-T06:47:36.078Z" },

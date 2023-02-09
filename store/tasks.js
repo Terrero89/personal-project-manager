@@ -37,7 +37,6 @@ export const useTaskStore = defineStore({
     taskOfParents: (state) => (id) =>
       state.tasks.filter((task) => task.parentId === id), //finds tasks specific of a project
 
-
     //?FINDS PROJECT SPECIFIC TASKS TOTAL HOURS
     totalTaskDuration: (state) => {
       const tasks = state.tasks.filter((p) => p.id);
@@ -52,11 +51,11 @@ export const useTaskStore = defineStore({
     //?WILL CHECK IF ALL TASKS UNDER SPECIFIC PROJECT ARE COMPLETED OR NOT.
     allCompleted(state) {
       const tasks = state.tasks.filter((t) => t.id); //get all the tasks
-      const checkTasks = (id) => tasks.filter((t) => t.parentId === id).every(v => v.isComplete === true ) //get the tasks that parent id === id array with all tasks =
-      return checkTasks
-
-
-
+      const checkTasks = (id) =>
+        tasks
+          .filter((t) => t.parentId === id)
+          .every((v) => v.isComplete === true); //get the tasks that parent id === id array with all tasks =
+      return checkTasks;
     },
     // projectComplete: (state) => {},
     // projectInProgressPercent: (state) => {},
@@ -100,7 +99,7 @@ export const useTaskStore = defineStore({
     async addTask(item) {
       this.tasks.push({
         ...item,
-       
+
         startDate: new Date(),
       });
 

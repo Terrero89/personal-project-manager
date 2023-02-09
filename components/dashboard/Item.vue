@@ -9,7 +9,7 @@ const projectStore = useProjectStore();
 
 //?PROPERTIES DESTRUCTURING
 
-const { fetchProjects,cool,kool} = projectStore;
+const { fetchProjects, cool, kool } = projectStore;
 const {
   currentMonthProjects,
   projectTotals,
@@ -17,7 +17,7 @@ const {
   projectProgressAvg,
   projectsSuccess,
   completeAverageDays,
-  projectsByMonth, 
+  projectsByMonth,
 } = storeToRefs(projectStore);
 const total = computed(() => projectTotals); //totals
 const inProgress = computed(() => projectCompleteAvg); //complete ones percent
@@ -42,29 +42,15 @@ const barName = ref([
   "Success Rate",
 ]);
 
-
-
 fetchProjects();
-
 </script>
 
 <template>
   <div class="dashboard">
-
- {{  currentMonthProjects }}
-    {{  projectsByMonth }}
-    {{ kool() }}
     <h3>Dashboard</h3>
-    <!-- for loop to determine if result worked -->
-   <div v-for="k in kool()" :key=" k">
-          <p>{{ k + " klk"}}</p>
-      </div>
-    
+
     <div class="wrapper border rounded-5 mx-2 my-5 px-4 bg-light">
-
-   
-
-         <div class="row chart-items my-3">
+      <div class="row chart-items my-3">
         <div class="col chart-box">
           <!-- <DashboardTest2 /> -->
           <DashboardDonutProjects :value-names="valName" :values="val" />
@@ -73,41 +59,19 @@ fetchProjects();
           <DashboardProjectsBar :value-names="barName" :values="allCombined" />
         </div>
       </div>
-      <!-- <div class="row selection d-flex justify-content-center my-4">
-        <button
-          type="button"
-          class="col-lg-2 col selection-box btn btn-outline-primary px-1"
-        >
-          Projects
-        </button>
-        <button
-          type="button"
-          class="col-lg-2 col selection-box btn btn-outline-info"
-        >projectsBymonth
-          Tasks
-        </button>
-        <button
-          type="button"
-          class="col-lg-2 col selection-box btn btn-outline-secondary"
-        >
-          History
-        </button>
-        <button
-          type="button"
-          class="col-lg-2 col selection-box btn btn-outline-success"
-        >
-          Actions
-        </button>
-      </div> -->
+   
 
       <div class="row items">
-      
-     
         <div class="col item-box">
           <h6 class="header">Total Projects</h6>
           <h1 class="item-value fw-bold">{{ total }}</h1>
           <h6 class="status">Total</h6>
-          <h6 class="description"> <span class="text-success fw-bold fs-6"> {{  currentMonthProjects }}</span> added in this month</h6>
+          <h6 class="description">
+            <span class="text-success fw-bold fs-6">
+              {{ currentMonthProjects }}</span
+            >
+            added in this month
+          </h6>
         </div>
         <div class="col item-box">
           <h6 class="header">Projects Completed</h6>
@@ -124,7 +88,7 @@ fetchProjects();
             {{ inProgress }}<span class="fs-1">%</span>
           </h1>
           <h6 class="status">in progress</h6>
-        <h6 class="description">5 in progress this month</h6>
+          <h6 class="description">5 in progress this month</h6>
         </div>
         <div class="col item-box">
           <h6 class="header">Completion Success</h6>
@@ -139,8 +103,6 @@ fetchProjects();
           </h6>
         </div>
       </div>
-
-    
     </div>
   </div>
 </template>

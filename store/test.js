@@ -363,7 +363,9 @@ export const useTest = defineStore({
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(payload),
       };
-      fetch(url, options).then((response) => console.log(response.status + " Good"));
+      fetch(url, options).then((response) =>
+        console.log(response.status + " Good")
+      );
 
       // if (!response.ok) {
       //   console.log("Super error 400");
@@ -539,7 +541,6 @@ export const useTest = defineStore({
       }
     },
 
-
     //NEEDS TO BE MOVED TO HISTORY STORE. WFOR NOW IT WORKS HERE/
     async deletedHistory(data, id) {
       const historyUrl = {
@@ -559,7 +560,6 @@ export const useTest = defineStore({
         console.log("ERROR HISTORY from history");
       }
     },
-  
   },
 });
 
