@@ -16,5 +16,9 @@
     "latest-version": "^7.0.0",
     "pinia": "^2.0.30",
     "vue-chart-3": "^3.1.8"
-  }
+  },
+  "overrides": { 
+  "vue": "latest"
+}
+  
 }
