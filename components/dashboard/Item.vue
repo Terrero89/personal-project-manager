@@ -53,10 +53,10 @@ fetchProjects();
       <div class="row chart-items my-3">
         <div class="col chart-box">
           <!-- <DashboardTest2 /> -->
-          <DashboardDonutProjects :value-names="valName" :values="val" />
+   
         </div>
         <div class="col-lg-6 px-3 chart-box">
-          <DashboardProjectsBar :value-names="barName" :values="allCombined" />
+
         </div>
       </div>
    

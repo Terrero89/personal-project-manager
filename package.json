@@ -11,10 +11,8 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.6",
-    "chart.js": "^4.1.1",
     "latest-version": "^7.0.0",
-    "pinia": "^2.0.30",
-    "vue-chart-3": "^3.1.8"
+    "pinia": "^2.0.30"
   },
   "overrides": {
     "vue": "latest"

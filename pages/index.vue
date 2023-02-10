@@ -38,7 +38,7 @@ onUpdated(() => {
 
 <template>
   <div>
-    <DashboardItem />
+ <!-- was a chart here -->
   </div>
 
 </template>
