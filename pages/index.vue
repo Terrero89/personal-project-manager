@@ -46,6 +46,7 @@ onUpdated(() => {
  {{ typeof(currentDate) }}:
   {{ currentDate}}
 
+<DashboardItem/>
   </div>
 
 

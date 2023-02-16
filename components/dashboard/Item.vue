@@ -9,8 +9,7 @@ const projectStore = useProjectStore();
 
 //?PROPERTIES DESTRUCTURING
 
-const { fetchProjects,
- } = projectStore;
+const { fetchProjects } = projectStore;
 const {
   projectsInProgressThisMonth,
   currentMonthProjects,
@@ -21,25 +20,21 @@ const {
   completeAverageDays,
   projectsByMonth,
   projectsCompletedThisMonth,
-    percentageOverdue } = storeToRefs(projectStore);
+  percentageOverdue,
+} = storeToRefs(projectStore);
 const total = computed(() => projectTotals); //totals
 const inProgress = computed(() => projectCompleteAvg); //complete ones percent
 const successAverage = computed(() => projectProgressAvg); //completed percentage
 const completionSuccess = computed(() => projectsSuccess); //success for those not completed that are under 15 days
 const averageDays = computed(() => completeAverageDays); //average of days for each project to be completed
 const completedThisMonth = computed(() => projectsCompletedThisMonth); //average of days for each project to be completed
-const inProgressThisMonth = computed(() => projectsInProgressThisMonth)
-const filterOverdue = computed(()=> percentageOverdue.value )
-// const allCombined = ref([
-//   projectStore.projectTotals,
-//   projectStore.projectProgressAvg,
-//   projectStore.completeAverageDays,
-//   projectStore.projectsSuccess,
-// ]);
+const inProgressThisMonth = computed(() => projectsInProgressThisMonth);
+const filterOverdue = computed(() => percentageOverdue.value);
 
-console.log()
 
-const val = ref([28, 8]);
+
+
+
 
 const valName = ref(["Complete", "In Progress"]);
 const barName = ref([
@@ -55,11 +50,17 @@ fetchProjects();
 <template>
   <div class="dashboard">
     <h3>Dashboard</h3>
-    {{ }}
+
     <div class="wrapper border rounded-5 mx-2 my-5 px-4 bg-light">
       <div class="row chart-items my-3">
-        <div class="col chart-box"></div>
-        <div class="col-lg-6 px-3 chart-box"></div>
+        <div class="col chart-box">
+            <div>Tasks Chart</div>
+     
+        </div>
+        <div class="col-lg-6 px-3 chart-box">
+          <div>Projects Chart</div>
+          <DashboardTest />
+        </div>
       </div>
 
       <div class="row items">
@@ -106,7 +107,12 @@ fetchProjects();
           <h1 class="item-value fw-bold">
             {{ completionSuccess }}<span class="fs-1">%</span>
           </h1>
-          <h6 class="status">  <span class="text-success fw-bold fs-5">{{ percentageOverdue }}</span>% <span>Overdue</span></h6>
+          <h6 class="status">
+            <span class="text-success fw-bold fs-5">{{
+              percentageOverdue
+            }}</span
+            >% <span>Overdue</span>
+          </h6>
           <h6 class="description">
             Completed in
             <span class="text-success fw-bold fs-5">{{ averageDays }}</span>
