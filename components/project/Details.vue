@@ -67,17 +67,13 @@ const update = () => {
 };
 
 //?HOOKS
-onUpdated(() => {
+onMounted(() => {
   update();
   setInterval(update, 1000);
 });
 
 
-onMounted(() => {
-  update();
-  fetchTasks();
-fetchProjects();
-});
+
 
 </script>
 
