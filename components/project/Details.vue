@@ -69,7 +69,7 @@ const update = () => {
 //?HOOKS
 onMounted(() => {
   update();
-  setInterval(update, 1000);
+  setInterval(update, 5000);
 });
 
 
