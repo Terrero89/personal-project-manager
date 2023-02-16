@@ -148,6 +148,9 @@ export const useProjectStore = defineStore({
 
 
   actions: {
+ 
+
+
     //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES
     kool() {
       const result = this.projects.reduce((r, { dateModified }) => {

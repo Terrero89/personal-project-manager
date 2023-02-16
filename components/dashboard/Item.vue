@@ -31,20 +31,11 @@ const completedThisMonth = computed(() => projectsCompletedThisMonth); //average
 const inProgressThisMonth = computed(() => projectsInProgressThisMonth);
 const filterOverdue = computed(() => percentageOverdue.value);
 
+onMounted(() => {
+  fetchProjects();
 
+});
 
-
-
-
-const valName = ref(["Complete", "In Progress"]);
-const barName = ref([
-  "Over 15 days",
-  "On track",
-  "Average Days",
-  "Success Rate",
-]);
-
-fetchProjects();
 </script>
 
 <template>
@@ -53,11 +44,10 @@ fetchProjects();
 
     <div class="wrapper border rounded-5 mx-2 my-5 px-4 bg-light">
       <div class="row chart-items my-3">
-        <div class="col chart-box">
-            <div>Tasks Chart</div>
-     
-        </div>
-        <div class="col-lg-6 px-3 chart-box">
+        <!-- <div class="col chart-box">
+          <div>Tasks Chart</div>
+        </div> -->
+        <div class="col-lg-12 px-3 chart-box">
           <div>Projects Chart</div>
           <DashboardTest />
         </div>

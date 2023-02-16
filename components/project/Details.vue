@@ -20,7 +20,6 @@ const historyStore = useHistoryStore();
 //?------------------------------------
 
 
-console.log(new Date())
 //?PROPERTIES DESTRUCTURING
 const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);
@@ -60,19 +59,30 @@ function removeItem(id) {
 //?COMPOSABLES
 // <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
 
-//?HOOKS
-onBeforeMount(() => {
-  fetchTasks();
+const currentDate = ref("");
+
+const update = () => {
   fetchProjects();
+  fetchTasks();
+};
+
+//?HOOKS
+onUpdated(() => {
+  update();
+  setInterval(update, 1000);
 });
 
-fetchTasks();
+
+onMounted(() => {
+  update();
+  fetchTasks();
+fetchProjects();
+});
+
 </script>
 
 <template>
   <div>
-    <!-- {{ allCompleted(param) ? "is trueeeeee" : "is falseeeee" }} -->
-
     <div
       class="project-detail"
       v-for="project in projectById(param)"
@@ -80,15 +90,15 @@ fetchTasks();
     >
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
-       
-          <div class="row">
-            <div class="col-lg-12 d-flex justify-content-end mb-3">
-              <Nuxt-link :to="addTaskLink">
-                <button type="submit" class="btn btn-primary">Add Task</button>
-              </Nuxt-link>
-            </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-end mb-3">
+            <Nuxt-link :to="addTaskLink">
+              <button type="submit" class="btn btn-primary">Add Task</button>
+            </Nuxt-link>
           </div>
-      
+        </div>
+
         <div class="row bg-light">
           <div class="header">
             <h3 class="mx-2">
@@ -192,7 +202,7 @@ fetchTasks();
                 v-show="allCompleted(param)"
                 @click="removeItem(props.id)"
                 type="button"
-                class="btn btn-danger "
+                class="btn btn-danger"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -4,16 +4,16 @@ import { onUpdated, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 
-const currentDate = ref('')
+// const currentDate = ref('')
 
-const updateDate = () => {
-  currentDate.value = new Date().toLocaleString()
-}
+// const updateDate = () => {
+//   currentDate.value = new Date().toLocaleString()
+// }
 
-onMounted(() => {
-  updateDate()
-  setInterval(updateDate,1000)
-})
+// onMounted(() => {
+//   updateDate()
+//   setInterval(updateDate,1000)
+// })
 //?STORE INITIALIZATION
 
 const projectStore = useProjectStore();
@@ -42,9 +42,6 @@ onUpdated(() => {
 
 <template>
   <div>
-
- {{ typeof(currentDate) }}:
-  {{ currentDate}}
 
 <DashboardItem/>
   </div>

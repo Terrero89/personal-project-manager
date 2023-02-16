@@ -113,9 +113,12 @@ const onClickPage = (page) => {
   return changed;
 };
 
+
+
+
+
 //?HOOKS
-onMounted(() => {
-  fetchProjects();
+onBeforeMount(() => {
   fetchProjects();
 });
 </script>
@@ -129,9 +132,9 @@ onMounted(() => {
     </UICard> -->
 
     <div class="container">
-  <SearchFilter v-model="searchInput" />
+     
+      <SearchFilter v-model="searchInput" />
     </div>
-        
 
     <UICard>
       <!-- search bar starts here should be emitted from component-->
@@ -211,8 +214,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
-
 .add-button {
   margin: 0 auto;
 }

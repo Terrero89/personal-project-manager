@@ -27,7 +27,7 @@ fetchActions();
   <div>
   <UIWarningModal v-show="projectStore.modalView"   />
     <ProjectDetails :id="param" />
--
+
     <UICard>
       <h5>Project related Actions</h5>
       <ActionsItems
