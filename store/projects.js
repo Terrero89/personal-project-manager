@@ -101,9 +101,9 @@ export const useProjectStore = defineStore({
     },
 
     currentMonthProjects(state) {
-      const date = new Date();
-      const month = date.getMonth() + 1;
-      const projectsCompleted = state.projects;
+      const date = new Date(); //stablish date
+      const month = date.getMonth() + 1; //stablish current month
+      const projectsCompleted = state.projects; // retrieve all projects in a project completed
       const ageList = projectsCompleted.map(
         (project) => new Date(project.startDate)
       );
@@ -113,10 +113,40 @@ export const useProjectStore = defineStore({
       return filterList.length;
     },
 
-    projectsCompletedThisMonth() {},
+    //?projects that are completed and date modified
+    projectsCompletedThisMonth(state) {
+      const date = new Date();
+      const month = date.getMonth() + 1;
+      const projects = this.projectActive;
+      const ageList = projects.map((project) => new Date(project.dateModified));
+      const monthList = ageList.map((date) => date.getMonth() + 1);
+      const filterList = monthList.filter((item) => item === month);
+
+      return filterList.length;
+    },
+    //?projects that are completed and date modified
+    projectsInProgressThisMonth(state) {
+      const date = new Date();
+      const month = date.getMonth() + 1;
+      const projects = this.projectInProgress;
+      const ageList = projects.map((project) => new Date(project.dateModified));
+      const monthList = ageList.map((date) => date.getMonth() + 1);
+      const filterList = monthList.filter((item) => item === month);
+
+      return filterList.length;
+    },
+
+    percentageOverdue(){
+         const notActive = this.projectInProgress;
+         const notActiveLen = notActive.length
+         const filterOverdue =  notActive.filter(prj => prj.projectAge > 15 )
+         const calculation = (filterOverdue.length /notActiveLen) * 100
+         return calculation.toFixed(2)
+         
+    }
   },
 
-  // https://project-manager-app-f9829-default-rtdb.firebaseio.com/
+
   actions: {
     //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES
     kool() {
@@ -130,31 +160,6 @@ export const useProjectStore = defineStore({
       // console.log(result);
     },
 
-    // cool() {
-    //   const date = new Date();
-    //   const month = date.getMonth() + 1;
-    //   const projectsCompleted = this.projects;
-    //   const ageList = projectsCompleted.map((project) => new Date(project.startDate) );
-    //   const monthList = ageList.map((date) => date.getMonth() + 1);
-    //   const filterList = monthList.filter((item) => item === month);
-    //   const meme = filterList.length
-    //   const quick = []
-    //   quick.push(meme);
-    //   this.projectsByMonth = quick
-    //   // return filterList
-    // },
-    // async fetchPosts() {
-    //   this.projects = []
-
-    //   try {
-    //     this.projects = await fetch('https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json')
-    //     .then((response) => response.json())
-    //   } catch (error) {
-    //     this.error = error
-    //   } finally {
-    //     this.loading = false
-    //   }
-    // },
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"

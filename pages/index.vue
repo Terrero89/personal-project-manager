@@ -1,15 +1,19 @@
 <script setup>
 import { useProjectStore } from "@/store/projects";
-import { onUpdated } from "vue";
+import { onUpdated, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-// const props = defineProps([
-//   "title",
-//   "totalProjects",
-//   "completed",
-//   "progress",
-//   "completionAverage",
-// ]);
+
+const currentDate = ref('')
+
+const updateDate = () => {
+  currentDate.value = new Date().toLocaleString()
+}
+
+onMounted(() => {
+  updateDate()
+  setInterval(updateDate,1000)
+})
 //?STORE INITIALIZATION
 
 const projectStore = useProjectStore();
@@ -38,8 +42,13 @@ onUpdated(() => {
 
 <template>
   <div>
- <!-- was a chart here -->
+
+ {{ typeof(currentDate) }}:
+  {{ currentDate}}
+
   </div>
+
+
 
 </template>
 
@@ -49,4 +58,6 @@ onUpdated(() => {
   border: solid red 1px;
   background-color: red;
 }
+
+
 </style>

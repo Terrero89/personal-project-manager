@@ -17,7 +17,10 @@ const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const actionsStore = useActionsStore();
 const historyStore = useHistoryStore();
+//?------------------------------------
 
+
+console.log(new Date())
 //?PROPERTIES DESTRUCTURING
 const { deletedHistory } = historyStore;
 const {} = storeToRefs(historyStore);

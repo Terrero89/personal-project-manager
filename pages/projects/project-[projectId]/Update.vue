@@ -41,7 +41,6 @@ const updateProject = () => {
   store.editPro = { ...store.projects[index], dateModified: new Date(), projectAge: useDateAge(project.value.startDate, project.value.dateModified) }; //will catch the old entire project information before updated, including the dates
 
   addHistory(store.editPro); // added to history once updated
- 
   projectUpdatedToActions(store.editPro);
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
@@ -120,7 +119,7 @@ const updateProject = () => {
           <option value="C++">C++</option>
           <option value="Go">Go</option>
           <option value="Firebase">Firebase</option>
-          <option value="Bootstrap">Boostrap</option>
+          <option value="Bootstrap">Bootstrap</option>
           <option value="Tailwind">Tailwind</option>
           <option value="Sass">Saas</option>
         </select>
