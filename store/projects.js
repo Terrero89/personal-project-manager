@@ -136,21 +136,16 @@ export const useProjectStore = defineStore({
       return filterList.length;
     },
 
-    percentageOverdue(){
-         const notActive = this.projectInProgress;
-         const notActiveLen = notActive.length
-         const filterOverdue =  notActive.filter(prj => prj.projectAge > 15 )
-         const calculation = (filterOverdue.length /notActiveLen) * 100
-         return calculation.toFixed(2)
-         
-    }
+    percentageOverdue() {
+      const notActive = this.projectInProgress;
+      const notActiveLen = notActive.length;
+      const filterOverdue = notActive.filter((prj) => prj.projectAge > 15);
+      const calculation = (filterOverdue.length / notActiveLen) * 100;
+      return calculation.toFixed(2);
+    },
   },
 
-
   actions: {
- 
-
-
     //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES
     kool() {
       const result = this.projects.reduce((r, { dateModified }) => {
@@ -291,7 +286,9 @@ export const useProjectStore = defineStore({
       // if (!response.ok) {
       //   console.log("Super error 400");
       // }
+      
     },
+
 
     async projectAddedToActions(id) {
       const actionUrl = {
