@@ -30,14 +30,30 @@ const submitForm = () => {
   navigateTo("/projects"); //after, go to projects
   // console.log(projectData);
 };
+
+const currentDate = ref('')
+
+const updateDate = () => {
+  currentDate.value = new Date().toLocaleString()
+}
+
+onMounted(() => {
+  updateDate()
+  setInterval(updateDate,1000)
+})
+
+
+
 </script>
 
 <template>
   <div class="form-wrapper">
    
     <form class="row g-3" @submit.prevent="submitForm">
+
       <h3 class="mb-4">Update Project</h3>
       <div>
+
         <label for="categories" class="form-label">Category</label>
 
         <select
