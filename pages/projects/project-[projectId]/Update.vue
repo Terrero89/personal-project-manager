@@ -113,9 +113,9 @@ onMounted(() => {
           v-model="project.category"
           aria-label="Default select example"
         >
-          <option value="Frontend Development">Frontend Development</option>
+          <!-- <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Full Stack">Full Stack</option>
+          <option value="Full Stack">Full Stack</option> -->
           <option value="School Assignments">School Assignments</option>
         </select>
       </div>

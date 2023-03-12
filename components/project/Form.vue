@@ -90,9 +90,9 @@ onMounted(() => {
           aria-label="Default select example"
         >
           <option disabled >Project Category</option>
-          <option value="Frontend Development">Frontend Development</option>
+          <!-- <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Full Stack">Full Stack</option>
+          <option value="Full Stack">Full Stack</option> -->
           <option value="School Assignments">School Assignments</option>
         </select>
       </div>
