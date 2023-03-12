@@ -1,0 +1,6 @@
+{
+  "appId": "personal.project.manager",
+  "appName": "personal-project-manager",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

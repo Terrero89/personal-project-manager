@@ -5,6 +5,7 @@ import { useTaskStore } from "@/store/tasks";
 import { useActionsStore } from "@/store/actions";
 import { useHistoryStore } from "@/store/history";
 import { storeToRefs } from "pinia";
+import { Console } from "console";
 
 const route = useRoute(); //route object
 const param = route.params.projectId;
@@ -20,6 +21,7 @@ const historyStore = useHistoryStore();
 //?PROPERTIES DESTRUCTURING
 
 const {
+    fetchProjects,
   addHistory,
   editProject,
   projectUpdatedToActions,
@@ -33,7 +35,7 @@ const {} = projectStore;
 const { findParentChild } = storeToRefs(projectStore);
 
 const project = computed(() => editProject(param)); //project edit from pinia to firebase
-console.log(store.projects.findIndex((project) => project.id === param))
+// console.log(store.projects.findIndex((project) => project.id === param))
 
 //?function that will replace editable object in pinia reactively
 const updateProject = () => {
@@ -43,35 +45,33 @@ const updateProject = () => {
     dateModified: new Date(),
     projectAge: useDateAge(project.value.startDate, project.value.dateModified),
   }; //will catch the old entire project information before updated, including the dates
-  addHistory(store.editPro); // added to history once updated
-  projectUpdatedToActions(store.editPro);
+  // addHistory(store.editPro); // added to history once updated
+  // projectUpdatedToActions(store.editPro);
+console.log(project.category + 'PROJECT CATEGORY PRINTED OUT')
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
 };
-const currentDate = ref("");
-console.log(useDateAge(project.value.startDate, project.value.dateModified))
-console.log(typeof (project.value.startDate))
-console.log(typeof( project.value.dateModified))
-console.log(project.value.startDate, project.value.dateModified)
+// const currentDate = ref("");
+// console.log(useDateAge(project.value.startDate, project.value.dateModified))
+// console.log(typeof (project.value.startDate))
+// console.log(typeof( project.value.dateModified))
+// console.log(project.value.startDate, project.value.dateModified)
 
 
 
 
 
 
-const updateDate = () => {
-  currentDate.value = new Date();
-};
+// const updateDate = () => {
+//   currentDate.value = new Date();
+// };
 
 onMounted(() => {
-  updateDate();
-  setInterval(updateDate, 1000);
+    fetchProjects()
+  // updateDate();
+  // setInterval(updateDate, 1000);
 });
 
-
-
-
-//-----------------------------------------------------------
 
 
 </script>
@@ -107,7 +107,7 @@ onMounted(() => {
         />
       </div>
       <div class="">
-        <label for="inputEmail4" class="form-label">Category</label>
+        <label for="category" class="form-label">Category</label>
         <select
           class="form-select"
           v-model="project.category"
@@ -115,12 +115,12 @@ onMounted(() => {
         >
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Backend Development">Full Stack</option>
-          <option value="Backend Development">School Assignments</option>
+          <option value="Full Stack">Full Stack</option>
+          <option value="School Assignments">School Assignments</option>
         </select>
       </div>
       <div class="">
-        <label for="inputEmail4" class="form-label">Technologies</label>
+        <label for="technologies" class="form-label">Technologies</label>
         <select
           class="form-select"
           v-model="project.technologies"
@@ -132,6 +132,7 @@ onMounted(() => {
           <option value="React js">React Js</option>
           <option value="Next js">Next Js</option>
           <option value="Vue js">Vue Js</option>
+          <option value="Typescript">Typescript</option>
           <option value="Html">Html</option>
           <option value="CSS">Css</option>
           <option value="Nuxt js">Nuxt Js</option>

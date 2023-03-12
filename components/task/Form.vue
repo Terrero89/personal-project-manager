@@ -48,7 +48,7 @@ const submitForm = () => {
         >
           <label for="inputEmail4" class="form-label">Select User</label>
           <option disabled value="">Project Category</option>
-          <option value="Frontend Development">School Assignments</option>
+          <option value="School assignments">School Assignments</option>
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
 

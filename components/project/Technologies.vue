@@ -3,7 +3,7 @@ const props = defineProps(["technologies", "type"]);
 const techTypes = computed(() => {
   if (
     props.technologies === "Data Structures and Algorithms"||
-    props.technologies === "School" 
+    props.technologies === "School Assignments" 
   
 
   ) {
@@ -13,6 +13,7 @@ const techTypes = computed(() => {
     props.technologies === "React Js" ||
     props.technologies === "Vue Js" ||
     props.technologies === "javascript" ||
+    props.technologies === "typescript" ||
     props.technologies === "HTML" ||
     props.technologies === "CSS" ||
     props.technologies === "Tailwind" ||

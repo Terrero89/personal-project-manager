@@ -31,6 +31,8 @@ const submitForm = () => {
   // console.log(projectData);
 };
 
+
+
 const currentDate = ref('')
 
 const updateDate = () => {
@@ -90,8 +92,8 @@ onMounted(() => {
           <option disabled value="">Project Category</option>
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Backend Development">Full Stack</option>
-          <option value="Backend Development">School Assignments</option>
+          <option value="Full Stack">Full Stack</option>
+          <option value="School Assignments">School Assignments</option>
         </select>
       </div>
 
@@ -104,12 +106,14 @@ onMounted(() => {
           v-model="technologies"
           aria-label="Default select example"
         >
-          <option value="React Js">React Js</option>
-          <option value="Vue Js">Vue Js</option>
+      
           <option value="HTML">Html</option>
           <option value="CSS">Css</option>
+            <option value="React Js">React Js</option>
+          <option value="Vue Js">Vue Js</option>
+           <option value="Typescript">Typescript</option>
           <option value="Tailwind">Tailwind</option>
-          <option value="bulma">Bulma</option>
+          <option value="Bulma">Bulma</option>
           <option value="Nuxt Js">Nuxt Js</option>
           <option value="Next Js">Next Js</option>
           <option value="Python">Python</option>
