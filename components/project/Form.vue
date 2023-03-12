@@ -28,7 +28,7 @@ const submitForm = () => {
   addHistory(projectData); //add history to pinia
   projectAddedToActions(props.param); //add project to actions
   navigateTo("/projects"); //after, go to projects
-  // console.log(projectData);
+  console.log(projectData);
 };
 
 
@@ -53,7 +53,7 @@ onMounted(() => {
    
     <form class="row g-3" @submit.prevent="submitForm">
 
-      <h3 class="mb-4">Update Project</h3>
+      <h3 class="mb-4">Add Project</h3>
       <div>
 
         <label for="categories" class="form-label">Category</label>
@@ -63,11 +63,11 @@ onMounted(() => {
           v-model="user"
           aria-label="Default select example"
         >
-          <option disabled value="">Select User</option>
+          <option disabled >Select User</option>
           <option>Sergio Terrero</option>
-          <option>Jackie Terrero</option>
+          <!-- <option>Jackie Terrero</option>
           <option>Ezra Terrero</option>
-          <option>Camila Terrero</option>
+          <option>Camila Terrero</option> -->
         </select>
       </div>
 
