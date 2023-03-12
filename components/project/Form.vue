@@ -89,7 +89,7 @@ onMounted(() => {
           v-model="category"
           aria-label="Default select example"
         >
-          <option disabled value="">Project Category</option>
+          <option disabled >Project Category</option>
           <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
           <option value="Full Stack">Full Stack</option>

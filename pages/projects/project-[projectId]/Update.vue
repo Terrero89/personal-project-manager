@@ -45,8 +45,8 @@ const updateProject = () => {
     dateModified: new Date(),
     projectAge: useDateAge(project.value.startDate, project.value.dateModified),
   }; //will catch the old entire project information before updated, including the dates
-  // addHistory(store.editPro); // added to history once updated
-  // projectUpdatedToActions(store.editPro);
+  addHistory(store.editPro); // added to history once updated
+  projectUpdatedToActions(store.editPro);
 console.log(project.category + 'PROJECT CATEGORY PRINTED OUT')
   updateProjectRequest(param);
   navigateTo("/projects"); //redirect to projects page
