@@ -24,8 +24,7 @@ const updateLink = computed(() => `/projects/project-${param}/tasks/task-${taskP
 const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 const findActionsForTask = computed(() => store.findTaskActions(taskParam));
-const length = store.hasTasks;
-
+const length = store.hasTasks
 //function that deletes the item and return to projects page.
 function removeTask(id) {
   store.deletedToActions(param); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
@@ -42,7 +41,7 @@ function removeTask(id) {
 onBeforeMount(() => {
   fetchTasks();
   fetchProjects();
-  console.log("printed out from tasks/details")
+
 });
 </script>
 
