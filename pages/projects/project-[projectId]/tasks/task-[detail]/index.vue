@@ -42,7 +42,7 @@ function removeTask(id) {
 onBeforeMount(() => {
   fetchTasks();
   fetchProjects();
-  console.log("printed out from tasks/details");
+  console.log("printed out from tasks/details")
 });
 </script>
 
