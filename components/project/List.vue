@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onBeforeMount } from "vue";
+import { onMounted} from "vue";
 import { useProjectStore } from "@/store/projects";
 import { storeToRefs } from "pinia";
 
@@ -118,7 +118,7 @@ const onClickPage = (page) => {
 
 
 //?HOOKS
-onBeforeMount(() => {
+onMounted(() => {
   fetchProjects();
 });
 </script>
