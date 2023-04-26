@@ -49,7 +49,7 @@ onBeforeMount(() => {
   <div>
    
     <TaskDetails :id="taskParam" />
-    <!-- <UICard>
+    <UICard>
        <h5>task related actions</h5>
        <ActionsItems 
          v-for="action in findActionsForTask"
@@ -60,7 +60,7 @@ onBeforeMount(() => {
          :category="action.category"
          :date-modified="useFormatted(action.dateModified)"
        /> 
-     </UICard> -->
+     </UICard>
   
   </div>
 </template>
