@@ -36,7 +36,7 @@ function removeTask(id) {
     //will push to history those that match
     history.push(tasks.find((t) => t.id === id)); //needs to e fixed
     //after action is pushed to actions, navigate to project's tasks page
-    return navigateTo(`/projects/project-${param}/tasks`);
+    return navigateTo(`/projects/project-${param}/tasks`)
   }
 }
 onBeforeMount(() => {
