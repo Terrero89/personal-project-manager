@@ -28,34 +28,16 @@ const submitForm = () => {
   addHistory(projectData); //add history to pinia
   projectAddedToActions(props.param); //add project to actions
   navigateTo("/projects"); //after, go to projects
-  console.log(projectData);
+  // console.log(projectData);
 };
-
-
-
-const currentDate = ref('')
-
-const updateDate = () => {
-  currentDate.value = new Date().toLocaleString()
-}
-
-onMounted(() => {
-  updateDate()
-  setInterval(updateDate,1000)
-})
-
-
-
 </script>
 
 <template>
   <div class="form-wrapper">
    
     <form class="row g-3" @submit.prevent="submitForm">
-
-      <h3 class="mb-4">Add Project</h3>
+      <h3 class="mb-4">Update Project</h3>
       <div>
-
         <label for="categories" class="form-label">Category</label>
 
         <select
@@ -63,11 +45,11 @@ onMounted(() => {
           v-model="user"
           aria-label="Default select example"
         >
-          <option disabled >Select User</option>
+          <option disabled value="">Select User</option>
           <option>Sergio Terrero</option>
-          <!-- <option>Jackie Terrero</option>
+          <option>Jackie Terrero</option>
           <option>Ezra Terrero</option>
-          <option>Camila Terrero</option> -->
+          <option>Camila Terrero</option>
         </select>
       </div>
 
@@ -89,11 +71,11 @@ onMounted(() => {
           v-model="category"
           aria-label="Default select example"
         >
-          <option disabled >Project Category</option>
-          <!-- <option value="Frontend Development">Frontend Development</option>
+          <option disabled value="">Project Category</option>
+          <option value="Frontend Development">Frontend Development</option>
           <option value="Backend Development">Backend Development</option>
-          <option value="Full Stack">Full Stack</option> -->
-          <option value="School Assignments">School Assignments</option>
+          <option value="Backend Development">Full Stack</option>
+          <option value="Backend Development">School Assignments</option>
         </select>
       </div>
 
@@ -106,14 +88,12 @@ onMounted(() => {
           v-model="technologies"
           aria-label="Default select example"
         >
-      
+          <option value="React Js">React Js</option>
+          <option value="Vue Js">Vue Js</option>
           <option value="HTML">Html</option>
           <option value="CSS">Css</option>
-            <option value="React Js">React Js</option>
-          <option value="Vue Js">Vue Js</option>
-           <option value="Typescript">Typescript</option>
           <option value="Tailwind">Tailwind</option>
-          <option value="Bulma">Bulma</option>
+          <option value="bulma">Bulma</option>
           <option value="Nuxt Js">Nuxt Js</option>
           <option value="Next Js">Next Js</option>
           <option value="Python">Python</option>

@@ -56,12 +56,22 @@ function removeItem(id) {
   return navigateTo("/projects"); //after, go to projects
 }
 
-function updateProjects(){
-
-}
-
 //?COMPOSABLES
 // <p class="item-desc">{{ useFormatId(project.id, 15, 20) }}</p>
+
+const currentDate = ref("");
+
+const update = () => {
+  fetchProjects();
+  fetchTasks();
+};
+
+//?HOOKS
+onMounted(() => {
+  update();
+  setInterval(update, 1000);
+});
+
 
 
 
@@ -74,7 +84,6 @@ function updateProjects(){
       v-for="project in projectById(param)"
       :key="project.id"
     >
-
       <div class="container detail-container">
         <UITitle title="Project Details" class="border-bottom" />
 

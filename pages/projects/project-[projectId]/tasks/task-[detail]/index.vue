@@ -24,7 +24,8 @@ const updateLink = computed(() => `/projects/project-${param}/tasks/task-${taskP
 const projectParent = computed(() => store.filterItemById);
 const findTaskDetail = computed(() => store.detailOfTask); //finds the task place for details
 const findActionsForTask = computed(() => store.findTaskActions(taskParam));
-const length = store.hasTasks
+const length = store.hasTasks;
+
 //function that deletes the item and return to projects page.
 function removeTask(id) {
   store.deletedToActions(param); //will redirect to tasks, or projects tasks depending on tasks length of the tasks
@@ -35,13 +36,13 @@ function removeTask(id) {
     //will push to history those that match
     history.push(tasks.find((t) => t.id === id)); //needs to e fixed
     //after action is pushed to actions, navigate to project's tasks page
-    return navigateTo(`/projects/project-${param}/tasks`)
+    return navigateTo(`/projects/project-${param}/tasks`);
   }
 }
 onBeforeMount(() => {
   fetchTasks();
   fetchProjects();
-
+  console.log("printed out from tasks/details");
 });
 </script>
 
@@ -49,7 +50,7 @@ onBeforeMount(() => {
   <div>
    
     <TaskDetails :id="taskParam" />
-    <UICard>
+    <!-- <UICard>
        <h5>task related actions</h5>
        <ActionsItems 
          v-for="action in findActionsForTask"
@@ -60,7 +61,7 @@ onBeforeMount(() => {
          :category="action.category"
          :date-modified="useFormatted(action.dateModified)"
        /> 
-     </UICard>
+     </UICard> -->
   
   </div>
 </template>

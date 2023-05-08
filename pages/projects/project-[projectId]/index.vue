@@ -31,7 +31,7 @@ fetchActions();
     <UICard>
       <h5>Project related Actions</h5>
       <ActionsItems
-        v-for="action in projectActionChildren.reverse()"
+        v-for="action in projectActionChildren"
         :key="action.id"
         :id="action.id"
         :parent-id="param"

@@ -364,4 +364,32 @@ export const useProjectStore = defineStore({
   },
 });
 
+// program to extract value as an array from an array of objects
 
+// var data = [{ createdAt: "2019-12-30T04:36:05.001Z" },
+//             { createdAt: "2019-12-06T08:58:23.030Z" },
+//             { createdAt: "2020-01-08T19:00:21.873Z" },
+//             { createdAt: "2020-01-10T14:55:50.781Z" },
+//             { createdAt: "2019-12-21T13:05:09.983Z" },
+//             { createdAt: "2020-01-15T12:10:20.316Z" },
+//             { createdAt: "2020-01-14T06:47:36.078Z" },
+//             { createdAt: "2020-02-15-T06:47:36.078Z" },
+//             { createdAt: "2020-02-15-T06:47:36.078Z" },
+//             { createdAt: "2020-05-15-T06:47:36.078Z" }]
+// function extractValue(arr, prop) {
+
+//     // extract value from property
+//   let extractedValue = arr.map(item => item[prop]);
+//   let len = extractedValue.length
+//   for(let i = 1; i < len; i++){
+//        let date = new Date(extractedValue[i])
+//        let month = parseInt(date.getMonth()+1)
+//        console.log(month)
+//   }
+
+//     return extractedValue;
+
+// }
+// // passing an array of objects and property 'a' to extract
+// const result = extractValue(data, 'createdAt');
+// console.log(result);
