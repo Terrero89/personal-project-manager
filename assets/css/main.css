@@ -1,0 +1,11 @@
+body{
+    background-color:rgb(238, 242, 246);
+    min-height: 100vh;
+  
+}
+
+html{
+    margin: 0;
+    padding: 0;
+    /* font-size: 62.5%; */
+}
