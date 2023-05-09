@@ -71,7 +71,7 @@ const pages = computed(() => {
 const searchedTasks = computed(() => {
   const item = store.tasks;
   const input = searchInput;
-  return store.tasks.filter((p) => {
+  return store.tasks.reverse().filter((p) => {
     return (
       p.taskName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
@@ -157,7 +157,7 @@ fetchProjects();
 
       <div class="container"><SearchFilter v-model="searchInput" /></div>
       <UICard>
-        <nuxt-link to="/projects">projects</nuxt-link>
+        <nuxt-link class="mx-5 mb-5" to="/projects"> <button class="btn btn-outline-primary btn-md ">to Projects</button></nuxt-link>
         <div class="row mx-lg-5 mx-sx-2 border-1">
           <div class="row fw-bold header border d-inline-flex">
             <div class="col">ID</div>

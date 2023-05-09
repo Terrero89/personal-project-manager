@@ -1,11 +1,41 @@
 <script setup>
+import { onMounted} from "vue";
+import { useProjectStore } from "@/store/projects";
+import { storeToRefs } from "pinia";
+
+const projectStore = useProjectStore(); //projects store
+const { fetchProjects } = projectStore;
+const { projects } = storeToRefs(projectStore);
+
+
+
+function dale(){
+  for(const key in projectStore.generic()){
+    console.log(key)
+  console.log(projectStore.generic()[key])
+}
+
+
+}
+
+
+dale()
+
+
+
+onMounted(() => {
+  fetchProjects();
+});
+
+
+
 const chartData = ref([
-  { month: "Jan", value: 100 },
-  { month: "Feb", value: 15 },
-  { month: "Mar", value: 20 },
-  { month: "Apr", value: 25 },
-  { month: "May", value: 30 },
-  { month: "Jun", value: 35 },
+  { month: "Jan", number:1,  value: 100 },
+  { month: "Feb", number:2,  value: 15 },
+  { month: "Mar",number:3,  value: 20 },
+  { month: "Apr",number:4,  value: 25 },
+  { month: "May",number:5,  value: 30 },
+  { month: "Jun",number:6,  value: 35 },
   { month: "Jul", value: 40 },
   { month: "Aug", value: 45 },
   { month: "Sep", value: 66 },
@@ -14,18 +44,25 @@ const chartData = ref([
   { month: "Dec", value: 65 },
 ]);
 
+
+
+
 </script>
 
 <template>
+ <!-- <p>{{ projectStore.kool() }}</p>
+ <p>{{ projectStore.generic() }}</p> -->
   <div class="bar-chart">
-    
-    <div v-for="item in chartData" :key="item.month">
-      <div class="label number-label">{{ item.value }}</div>
-      <div class="bar" :style="{ height: item.value + 'px' }">
-        <!-- <div class="number-label"> {item.value}</div> -->
+   
+    <div v-for="(item, i ) in projectStore.generic()" :key="item.month">
+   
+
+       <div class="label number-label">{{ item }}</div>
+      <div class="bar" :style="{ height: (item*25) + 'px' }">
+       
       </div>
 
-      <div class="label">{{ item.month }}</div>
+      <div class="label">{{ i }}</div>
     </div>
   </div>
 </template>
@@ -41,12 +78,19 @@ const chartData = ref([
   flex-wrap: wrap;
   align-items: flex-end;
   height: 300px;
+  padding: 0 1rem;
+  width: 35rem;
+  border:solid rgb(192, 192, 192) 1px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 1px 2px 34px -3px rgba(0,0,0,0.32)
 }
 
 .bar {
-  width: 50px;
+  width: 10px;
   background-color: rgb(0, 140, 255);
   margin-right: 10px;
+  border-radius: 3px;
 }
 
 .label {
@@ -60,7 +104,7 @@ const chartData = ref([
   }
 
   .bar {
-    width: 20px;
+    width: 15px;
     margin-right: 5px;
   }
 
@@ -77,7 +121,7 @@ const chartData = ref([
   }
 
   .bar {
-    width: 40px;
+    width: 35px;
     margin-right: 5px;
   }
 
@@ -93,7 +137,7 @@ const chartData = ref([
   }
 
   .bar {
-    width: 50px;
+    width: 35px;
     margin-right: 10px;
   }
 
@@ -109,7 +153,7 @@ const chartData = ref([
   }
 
   .bar {
-    width: 50px;
+    width: 35px;
     margin-right: 10px;
   }
 

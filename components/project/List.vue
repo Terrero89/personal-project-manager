@@ -19,7 +19,7 @@ const currStartingItem = ref(0);
 
 //?COMPUTED PROPERTIES
 const searchedProjects = computed(() => {
-  return projectStore.projects.filter((p) => {
+  return projectStore.projects.reverse().filter((p) => {
     return (
       p.projectName.toLowerCase().indexOf(searchInput.value.toLowerCase()) != -1
     );
@@ -132,6 +132,7 @@ onMounted(() => {
     </UICard> -->
 
     <div class="container">
+
      
       <SearchFilter v-model="searchInput" />
     </div>

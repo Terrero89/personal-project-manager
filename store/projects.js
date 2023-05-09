@@ -148,16 +148,55 @@ export const useProjectStore = defineStore({
   actions: {
     //?FUNTION THAT RETURN THE PRODUCT OF ALL ENTRIES
     kool() {
-      const result = this.projects.reduce((r, { dateModified }) => {
-        let key = dateModified.slice(0, 7);
+      const result = this.projects.reduce((r, { startDate }) => {
+        let key = startDate.slice(6, 7);
         r[key] = (r[key] || 0) + 1;
 
         return r;
       }, {});
+
+      
       return result;
       // console.log(result);
     },
 
+     generic() {
+      const result = this.projects.reduce((r, { startDate}) => {
+        let key = startDate.slice(0, 7);
+        r[key] = (r[key] || 0) + 1;
+    
+        return r;
+      }, {});
+    
+      const monthNames = {
+        '01': 'Jan',
+        '02': 'Feb',
+        '03': 'Mar',
+        '04': 'Apr',
+        '05': 'May',
+        '06': 'Jun',
+        '07': 'Jul',
+        '08': 'Aug',
+        '09': 'Sep',
+        '10': 'Oct',
+        '11': 'Nov',
+        '12': 'Dec'
+      };
+    
+      const finalResult = {};
+    
+      for (const key in result) {
+        const monthNumber = key.slice(5);
+        const monthName = monthNames[monthNumber];
+        if (monthName) {
+          finalResult[monthName] = result[key];
+        }
+      }
+    
+      return finalResult;
+    },
+
+   
     async fetchProjects() {
       const response = await fetch(
         "https://project-manager-app-f9829-default-rtdb.firebaseio.com/projects.json"

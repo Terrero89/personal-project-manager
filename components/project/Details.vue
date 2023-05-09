@@ -268,9 +268,11 @@ onMounted(() => {
   list-style: none;
 }
 .header {
-  background-color: rgb(227, 239, 253);
+  background-color: rgba(104, 134, 255, 0.5);
+  padding: 0.8rem 0;
+  margin-bottom: 1.5rem;
   /* border: solid rgb(205, 205, 205) 1px ; */
-  padding: 0.5rem 0rem;
+  /* padding: 0.5rem 0rem; */
 }
 .item-desc {
   padding: 0 rem;
